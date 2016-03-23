@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/txt_preference_name"
+    android:layout_width="@dimen/preference_round_size"
+    android:layout_height="@dimen/preference_round_size"
+    android:layout_centerInParent="true"
+    android:textColor="@android:color/white"
+    android:layout_margin="5dp"
+    android:background="@drawable/preference_rounded_rect_view"
+    android:gravity="center"
+    android:padding="5dp"
+    android:text="Music is"
+    />

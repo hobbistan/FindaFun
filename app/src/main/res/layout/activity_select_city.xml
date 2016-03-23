@@ -1,0 +1,74 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#000000"
+    android:weightSum="10"
+    tools:context="com.findafun.activity.SelectCityActivity">
+
+    <ImageView
+        android:id="@+id/img_logo"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:src="@drawable/img_logo"
+        android:layout_weight="9"
+        android:background="#000000"
+        android:padding="80dp"
+        android:layout_gravity="center"
+        android:layout_centerInParent="true" />
+
+    <EditText
+        android:id="@+id/btn_city_drop_down"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/txt_swipe_up"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="40dp"
+
+        android:background="@drawable/button_rounded_white_orange_border"
+        android:clickable="false"
+        android:inputType="textNoSuggestions"
+        android:cursorVisible="false"
+        android:drawablePadding="10dp"
+        android:drawableRight="@drawable/down_arrow"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="10dp"
+        android:text="@string/select_city"
+        android:textColor="@color/city_text_color"
+        android:textSize="22sp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="Auto-detect my location"
+        android:textColor="@color/city_text_color"
+        android:drawableRight="@drawable/ic_location"
+        android:drawablePadding="10dp"
+        android:id="@+id/auto_select_location"
+        android:padding="3dp"
+        android:clickable="true"
+        android:textStyle="italic"
+        android:textSize="20dp"
+        android:layout_gravity="center_horizontal"/>
+
+    <TextView
+        android:id="@id/txt_swipe_up"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        android:text="@string/swipe_up_to_continue"
+        android:textColor="@color/text_gray"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:drawableBottom="@drawable/up_arrow"
+        android:drawablePadding="20dp"
+        android:padding="10dp"
+        android:layout_alignParentBottom="true"/>
+
+</LinearLayout>

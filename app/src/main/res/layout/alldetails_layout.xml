@@ -1,0 +1,568 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gamification_background">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:id="@+id/cst_action_bar_layout"
+        android:background="@color/actionbar_color">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:padding="4dp"
+            android:layout_marginLeft="20dp"
+            android:layout_centerVertical="true"
+            android:id="@+id/bookings_back_btn"
+            android:src="@drawable/backarrow"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textColor="@color/city_text_color"
+            android:id="@+id/bookings_action_title"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@+id/bookings_back_btn"
+            android:text="STATISTICS"
+            android:textSize="20dp"/>
+    </RelativeLayout>
+
+<ScrollView
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gamification_background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/rewards_bg_color">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginBottom="3dp"
+            android:padding="3dp"
+            android:background="@color/White">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/points_label"
+                android:text="Total Points"
+                android:textSize="20dp"
+                android:textColor="@color/title_red"
+                android:padding="5dp"
+                android:layout_centerHorizontal="true"/>
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="15dp"
+                android:src="@drawable/star"
+                android:id="@+id/leaderboard_image"
+                android:layout_below="@+id/points_label"
+                android:layout_alignStart="@+id/points_label"
+                android:layout_alignLeft="@+id/points_label"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5"
+                android:id="@+id/points_value"
+                android:layout_below="@+id/points_label"
+                android:layout_toRightOf="@+id/leaderboard_image"
+                android:layout_marginTop="2dp"
+                android:textSize="50dp"
+                android:layout_marginLeft="5dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                android:layout_below="@+id/points_value">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.25"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:padding="3dp"
+                    android:background="@color/White"
+                    android:id="@+id/rewards_photos_layout"
+                    >
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:id="@+id/rewards_photos_image"
+                        android:layout_marginTop="30dp"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:layout_marginLeft="15dp"
+                        android:src="@drawable/photo"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:layout_toRightOf="@+id/rewards_photos_image"
+                        android:layout_marginTop="25dp"
+                        android:layout_marginLeft="4dp"
+                        android:text="0"
+                        android:textSize="18dp"
+                        android:singleLine="true"
+
+                        android:id="@+id/rewards_photos_total_count"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/White"
+                        android:layout_below="@+id/rewards_photos_image"></View>
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.25"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+
+                    android:background="@color/White"
+                    android:id="@+id/rewards_engagements_layout"
+                    >
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:id="@+id/rewards_engagements_image"
+                        android:layout_marginTop="35dp"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:layout_marginLeft="15dp"
+                        android:src="@drawable/engagements"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:layout_toRightOf="@+id/rewards_engagements_image"
+                        android:layout_marginTop="28dp"
+                        android:layout_marginLeft="4dp"
+                        android:text="0"
+                        android:textSize="18dp"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:singleLine="true"
+                        android:layout_marginRight="1dp"
+                        android:id="@+id/rewards_engagements_total_count"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/White"
+                        android:layout_below="@+id/rewards_engagements_image"></View>
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.25"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:padding="3dp"
+                    android:background="@color/White"
+                    android:id="@+id/rewards_checkins_layout"
+                    >
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:id="@+id/rewards_checkins_image"
+                        android:layout_marginTop="30dp"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:layout_marginLeft="15dp"
+                        android:src="@drawable/checkin"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:layout_toRightOf="@+id/rewards_checkins_image"
+                        android:layout_marginTop="25dp"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:layout_marginLeft="4dp"
+                        android:text="0"
+                        android:textSize="18dp"
+                        android:singleLine="true"
+                        android:layout_marginRight="1dp"
+                        android:id="@+id/rewards_checkins_total_count"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/White"
+                        android:layout_below="@+id/rewards_checkins_image"></View>
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.25"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:padding="3dp"
+                    android:background="@color/White"
+                    android:id="@+id/rewards_bookings_layout"
+                    >
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:id="@+id/rewards_bookings_image"
+                        android:layout_marginTop="30dp"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:layout_marginLeft="15dp"
+                        android:src="@drawable/bookings"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:padding="5dp"
+                        android:layout_toRightOf="@+id/rewards_bookings_image"
+                        android:layout_marginTop="25dp"
+                        android:layout_marginLeft="4dp"
+                        android:text="0"
+                        android:textSize="18dp"
+                        android:singleLine="true"
+                        android:layout_marginRight="1dp"
+                        android:id="@+id/rewards_bookings_total_count"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/White"
+                        android:layout_below="@+id/rewards_bookings_image"></View>
+
+
+                </RelativeLayout>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/White"
+            android:layout_marginTop="5dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:id="@+id/photos_board"
+                android:background="@color/White">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/photo"
+                    android:id="@+id/phot_img"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:layout_toRightOf="@+id/phot_img"
+                    android:textColor="@color/title_red"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="18dp"
+                    android:text="Photos shared"/>
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/star"
+
+
+                    android:layout_toLeftOf="@+id/photos_star_count"
+                    android:layout_centerVertical="true"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text="0"
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/photos_star_count"
+                    android:layout_marginRight="10dp"/>
+
+            </RelativeLayout>
+
+            <com.findafun.customview.CustomGridView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/photos_grid"
+                android:layout_below="@+id/photos_board"
+                android:columnWidth="60dp"
+                android:numColumns="auto_fit"
+                android:horizontalSpacing="2dp"
+                android:verticalSpacing="2dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="10dp"></com.findafun.customview.CustomGridView>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/White"
+            android:layout_marginTop="8dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:id="@+id/engagements_board"
+                android:background="@color/White">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/engagements"
+                    android:id="@+id/engagement_img"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:id="@+id/eng_lbel"
+                    android:layout_toRightOf="@+id/engagement_img"
+                    android:textColor="@color/title_red"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="18dp"
+                    android:text="Engagements"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:layout_toRightOf="@+id/eng_lbel"
+                    android:textColor="@color/title_red"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="2dp"
+                    android:id="@+id/engagements_total_count"
+                    android:textSize="18dp"
+                    android:text="(0)"/>
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/star"
+
+
+                    android:layout_toLeftOf="@+id/engagements_star_count"
+                    android:layout_centerVertical="true"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text="0"
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/engagements_star_count"
+                    android:layout_marginRight="10dp"/>
+
+            </RelativeLayout>
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/engagements_list"
+                android:layout_below="@+id/engagements_board"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"></ListView>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/White"
+            android:layout_marginTop="8dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:id="@+id/checkins_board"
+                android:background="@color/White">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/checkin"
+                    android:id="@+id/checkin_img"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:id="@+id/checkins_label"
+                    android:layout_toRightOf="@+id/checkin_img"
+                    android:textColor="@color/title_red"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="18dp"
+                    android:text="Checkins"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:layout_toRightOf="@+id/checkins_label"
+                    android:textColor="@color/title_red"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="2dp"
+                    android:id="@+id/checkins_total_count"
+                    android:textSize="18dp"
+                    android:text="(0)"/>
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/star"
+                    android:layout_toLeftOf="@+id/checkins_star_count"
+                    android:layout_centerVertical="true"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text="0"
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/checkins_star_count"
+                    android:layout_marginRight="10dp"/>
+
+            </RelativeLayout>
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/checkins_list"
+                android:layout_below="@+id/checkins_board"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"></ListView>
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/White"
+            android:layout_marginTop="8dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:id="@+id/bookings_board"
+                android:background="@color/White">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/bookings"
+                    android:id="@+id/bookings_img"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:id="@+id/bookings_label"
+                    android:layout_toRightOf="@+id/bookings_img"
+                    android:textColor="@color/title_red"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="18dp"
+                    android:text="Bookings"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:layout_toRightOf="@+id/bookings_label"
+                    android:textColor="@color/title_red"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="2dp"
+                    android:id="@+id/bookings_total_count"
+                    android:textSize="18dp"
+                    android:text="(0)"/>
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/star"
+                    android:layout_toLeftOf="@+id/bookings_star_count"
+                    android:layout_centerVertical="true"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text="0"
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/bookings_star_count"
+                    android:layout_marginRight="10dp"/>
+
+            </RelativeLayout>
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/bookings_list"
+                android:layout_below="@+id/bookings_board"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"></ListView>
+
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/White"></View>
+
+
+    </LinearLayout>
+
+</ScrollView>
+
+</LinearLayout>

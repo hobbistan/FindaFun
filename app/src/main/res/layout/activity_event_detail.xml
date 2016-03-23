@@ -1,0 +1,469 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/White"
+    tools:context="com.findafun.activity.EventDetailActivity">
+
+
+    <include layout="@layout/tool_bar"
+        android:id="@+id/activity_toolbar"
+        ></include>
+
+
+
+    <ScrollView
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/White"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="250dp">
+
+            <ImageView
+                android:id="@+id/img_banner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:background="@color/bg_gray"/>
+
+            <TextView
+                android:id="@+id/txt_event_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="@color/title_red_semi_trans"
+                android:paddingLeft="20dp"
+                android:paddingBottom="8dp"
+                android:paddingRight="10dp"
+                android:paddingTop="8dp"
+                android:textSize="21dp"
+                android:textColor="@android:color/white"
+
+                android:textStyle="bold" />
+
+           <!-- <TextView
+                android:id="@+id/txt_event_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/txt_event_name"
+                android:background="@color/black_semi_trans"
+                android:padding="5dp"
+                android:textColor="@android:color/white" />
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="@dimen/fab_margin"
+                android:src="@android:drawable/ic_menu_edit" />-->
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@color/light_line_color"
+            android:padding="10dp"
+            android:weightSum="1">
+
+            <Button
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="0.33"
+                android:paddingLeft="5dp"
+            android:background="@drawable/whishlist_selector"
+            android:id="@+id/whishlist_btn"
+            android:text="Wishlist"
+                android:textSize="12dp"
+            android:drawableLeft="@drawable/ic_wishlist"
+            android:drawablePadding="10dp"/>
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="0.33"
+                android:paddingLeft="5dp"
+                android:background="@drawable/share_btn_selector"
+                android:id="@+id/share_btn"
+                android:text="Share"
+                android:textSize="12dp"
+                android:drawableLeft="@drawable/ic_share"
+                android:drawablePadding="10dp"/>
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:paddingLeft="5dp"
+                android:layout_weight="0.33"
+                android:background="@drawable/contact_btn_selector"
+                android:id="@+id/contact_btn"
+                android:text="Contact"
+                android:textSize="12dp"
+                android:drawableLeft="@drawable/ic_contact"
+                android:drawablePadding="10dp"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/White"
+            android:orientation="vertical"
+            android:layout_marginLeft="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                android:background="@color/event_detail_bg_color">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:layout_marginRight="1dp"
+                    android:background="@color/White">
+
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/ic_calendar"
+                        android:layout_centerHorizontal="true"
+                        android:id="@+id/calend_img"/>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:id="@+id/from_date_layout"
+
+                        android:layout_marginLeft="15dp"
+                        android:layout_below="@+id/calend_img"
+                        android:layout_centerHorizontal="true">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="From"
+                            android:textColor="@color/text_gray"
+
+                            android:layout_marginTop="5dp"
+
+                            android:id="@+id/cal_from_label"/>
+                        <TextView
+                            android:id="@+id/txt_calander"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:layout_marginTop="5dp"
+                            android:layout_marginLeft="10dp"
+                            android:textColor="@color/black_semi_trans"
+                            android:textSize="16dp"
+
+                            android:text="" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:id="@+id/date_to_layout"
+
+                        android:layout_below="@+id/from_date_layout"
+                        android:layout_centerHorizontal="true">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="To  "
+                            android:textColor="@color/text_gray"
+                            android:layout_below="@+id/cal_from_label"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginLeft="10dp"
+                            android:id="@+id/cal_to_label"
+                            />
+                        <TextView
+                            android:id="@+id/cal_to_val"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/cal_from_label"
+                            android:layout_toRightOf="@+id/cal_to_label"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginLeft="10dp"
+                            android:textColor="@color/black_semi_trans"
+                            android:textSize="16dp"
+                            android:layout_alignStart="@+id/txt_calander"
+                            android:layout_alignLeft="@+id/txt_calander"
+                            android:text="" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:layout_marginLeft="1dp"
+                    android:background="@color/White">
+
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginTop="5dp"
+                        android:src="@drawable/ic_time"
+                        android:layout_centerHorizontal="true"
+                        android:id="@+id/clock_img"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:id="@+id/from_clock_layout"
+
+
+                        android:layout_below="@+id/clock_img"
+                        android:layout_centerHorizontal="true">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="From"
+                        android:textColor="@color/text_gray"
+
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:id="@+id/clock_from_label"/>
+                    <TextView
+                        android:id="@+id/txt_clock_from_val"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="16dp"
+                        android:textColor="@color/black_semi_trans"
+
+                        android:text="00" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:id="@+id/to_clock_layout"
+
+                        android:layout_marginLeft="15dp"
+                        android:layout_below="@+id/from_clock_layout"
+                        android:layout_centerHorizontal="true">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="To  "
+                        android:textColor="@color/text_gray"
+                        android:layout_below="@+id/clock_from_label"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginLeft="10dp"
+                        android:id="@+id/clock_to_label"
+                        />
+                    <TextView
+                        android:id="@+id/clock_to_val"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginTop="3dp"
+                        android:textColor="@color/black_semi_trans"
+                        android:textSize="16dp"
+                        android:layout_marginLeft="15dp"
+
+                        android:text="00" />
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/event_detail_bg_color"></View>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="15dp"
+                    android:src="@drawable/ic_location"/>
+
+                <TextView
+                    android:id="@+id/txt_event_venue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:padding="3dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@android:color/white"
+                    android:clickable="true"
+
+                    android:textSize="16dp"
+
+                    android:text="Location" />
+
+            </LinearLayout>
+
+
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/event_detail_bg_color"></View>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/txt_event_category"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@android:color/white"
+                    android:drawableLeft="@drawable/ic_event_detail"
+                    android:drawablePadding="15dp"
+                    android:textSize="16dp"
+                    android:paddingLeft="20dp"
+                    android:paddingBottom="2dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:text="Expo" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/event_detail_bg_color"></View>
+
+
+            <TextView
+                android:id="@+id/txt_event_entry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@android:color/white"
+                android:drawableLeft="@drawable/ic_entry"
+                android:drawablePadding="10dp"
+                android:textSize="16dp"
+                android:paddingLeft="20dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="10dp"
+                android:paddingRight="10dp"
+                android:text="Invite" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/event_detail_bg_color"></View>
+
+
+            <TextView
+                android:id="@+id/txt_contact_mail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:drawableLeft="@drawable/ic_mail"
+                android:drawablePadding="10dp"
+                android:textSize="16dp"
+                android:paddingLeft="20dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="10dp"
+                android:paddingRight="10dp"
+                android:text="N/A" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="8dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:background="#f7f7f7"
+                android:orientation="horizontal"
+                android:visibility="gone">
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/book_mark_image"
+                    android:background="@drawable/bookmark"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="BOOKMARK"
+                    android:layout_marginLeft="10dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/book_mark_image"
+                    android:id="@+id/bookmark_text"
+                    android:clickable="true"
+                    android:textColor="@color/text_color"
+                    />
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/facebook"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/bookmark_text"
+                    android:padding="5dp"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/facebook_btn"
+                    android:background="@drawable/social_network_statlist"/>
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/twitter_btn"
+                    android:layout_toRightOf="@+id/facebook_btn"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/twitter"
+                    android:padding="5dp"
+                    android:background="@drawable/twitter_share_bg"/>
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/whatsapp"
+                    android:id="@+id/whatsapp_btn"
+                    android:padding="5dp"
+                    android:layout_toRightOf="@+id/twitter_btn"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/whatsapp_selector"/>
+            </RelativeLayout>
+        </LinearLayout>
+
+
+    </LinearLayout>
+</ScrollView>
+
+</LinearLayout>
