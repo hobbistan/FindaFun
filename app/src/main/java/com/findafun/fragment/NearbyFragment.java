@@ -26,6 +26,7 @@ import com.findafun.activity.EventDetailActivity;
 import com.findafun.bean.events.Event;
 import com.findafun.bean.events.EventList;
 import com.findafun.helper.AlertDialogHelper;
+import com.findafun.helper.LocationHelper;
 import com.findafun.helper.ProgressDialogHelper;
 import com.findafun.servicehelpers.EventServiceHelper;
 import com.findafun.utils.CommonUtils;
@@ -38,11 +39,13 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -90,6 +93,14 @@ public class NearbyFragment extends LandingPagerFragment implements OnMapReadyCa
     private boolean mNearbySelected = false;
     private int mTotalReceivedEvents =0;
 
+    public static final CameraPosition COIMBATORE =
+            new CameraPosition.Builder().target(new LatLng(11.00, 77.00))
+                    .zoom(15.5f)
+                    .bearing(0)
+                    .tilt(25)
+                    .build();
+
+
     HashMap<Integer,String> latitude = new HashMap<Integer, String>();
     HashMap<Integer, String> longitude = new HashMap<Integer, String>();
 
@@ -109,9 +120,9 @@ public class NearbyFragment extends LandingPagerFragment implements OnMapReadyCa
         view = inflater.inflate(R.layout.nearby_layout, container, false);
 
 
-
         initializeViews();
         initializeEventHelpers();
+
         mAddddLocations = true;
         mMapView = (MapView) view.findViewById(R.id.mapview);
         mMapView.onCreate(savedInstanceState);
@@ -133,6 +144,8 @@ public class NearbyFragment extends LandingPagerFragment implements OnMapReadyCa
             @Override
             public void onClick(View v) {
                 //loadMoreListView.setVisibility(View.GONE);
+                LocationHelper.FindLocationManager(getContext());
+
                 mMapView.setVisibility(View.VISIBLE);
                 performSlideLeftAnimation();
                 mLocationBtn.setBackgroundDrawable(mLocationSelected);
@@ -743,6 +756,5 @@ public class NearbyFragment extends LandingPagerFragment implements OnMapReadyCa
 
             }
         });
-
     }
 }

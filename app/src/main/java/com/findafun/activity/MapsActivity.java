@@ -1,16 +1,26 @@
 package com.findafun.activity;
 
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.findafun.R;
 import com.findafun.bean.events.Event;
+import com.findafun.helper.LocationHelper;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -28,6 +38,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private GoogleMap mMap;
     private Event mEvent = null;
     private BitmapDescriptor mMapIcon = null;
+    Location location; // location
+    double latitude; // latitude
+    double longitude; // longitude
+    private CompoundButton mAnimateToggle;
+
+    private CompoundButton mCustomDurationToggle;
+
+    private SeekBar mCustomDurationBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +67,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .build();
 
 
+        //mMap.moveCamera( CameraUpdateFactory.newLatLngZoom(new LatLng(10.9934,76.94325) , 14.0f) );
+
+        LocationHelper.FindLocationManager(this);
         mapFragment.getMapAsync(this);
     }
 
@@ -65,6 +86,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        //mMap.moveCamera( CameraUpdateFactory.newLatLngZoom(new LatLng(10.9934,76.94325) , 14.0f) );
+
+        //mMap = map;
+
+        // We will provide our own zoom controls.
+        mMap.getUiSettings().setZoomControlsEnabled(false);
 
         googleMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
             @Override
@@ -86,8 +113,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if(id == android.R.id.home) {
-            Log.d(TAG,"home up button selected");
+        if (id == android.R.id.home) {
+            Log.d(TAG, "home up button selected");
             finish();
         }
 
@@ -95,8 +122,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
 
-
-    private void showEventLocation(){
+    private void showEventLocation() {
         double lat = Double.parseDouble(mEvent.getEventLatitude());
         double longitude = Double.parseDouble(mEvent.getEventLongitude());
         if ((lat > 0) | (longitude > 0)) {
@@ -106,9 +132,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(pos, 15));
 
                 // Zoom in, animating the camera.
-              //  mMap.animateCamera(CameraUpdateFactory.zoomIn());
+                //  mMap.animateCamera(CameraUpdateFactory.zoomIn());
                 // Zoom out to zoom level 10, animating with a duration of 2 seconds.
-               // mMap.animateCamera(CameraUpdateFactory.zoomTo(15), 500, null);
+                // mMap.animateCamera(CameraUpdateFactory.zoomTo(15), 500, null);
                 Marker marker = null;
                 if (mMapIcon != null) {
                     Log.d(TAG, "Valid bitmap icon");
@@ -121,25 +147,25 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
                     @Override
                     public View getInfoWindow(Marker marker) {
-                        Log.d(TAG,"Getting the info view contents");
+                        Log.d(TAG, "Getting the info view contents");
 
                         View infowindow = getLayoutInflater().inflate(R.layout.map_info_window_layout, null);
                         LatLng pos = marker.getPosition();
-                        if(pos != null) {
+                        if (pos != null) {
                             Event event = mEvent;
 
-                            if(event != null) {
+                            if (event != null) {
                                 TextView title = (TextView) infowindow.findViewById(R.id.info_window_Title);
                                 TextView subTitle = (TextView) infowindow.findViewById(R.id.info_window_subtext);
                                 String eventname = event.getEventName();
-                                if((eventname != null) && !eventname.isEmpty()){
-                                    if(eventname.length() > 15){
-                                        Log.d(TAG,"length more that 15");
-                                        String substr = eventname.substring(0,14);
-                                        Log.d(TAG,"title is"+ substr);
+                                if ((eventname != null) && !eventname.isEmpty()) {
+                                    if (eventname.length() > 15) {
+                                        Log.d(TAG, "length more that 15");
+                                        String substr = eventname.substring(0, 14);
+                                        Log.d(TAG, "title is" + substr);
                                         title.setText(substr + "..");
-                                    }else{
-                                        Log.d(TAG,"title less that 15 is"+ eventname);
+                                    } else {
+                                        Log.d(TAG, "title less that 15 is" + eventname);
                                         title.setText(eventname);
                                     }
                                 }
@@ -157,13 +183,21 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 });
 
 
-               // mAddedMarkers.add(marker);
+                // mAddedMarkers.add(marker);
                 //mDisplayedEvents.put(pos, event);
                 marker.showInfoWindow();
             } else {
                 Log.d(TAG, "Google maps was not created properly");
             }
         }
+    }
 
+    /**
+     * Update the enabled state of the custom duration controls.
+     */
+    private void updateEnabledState() {
+        mCustomDurationToggle.setEnabled(mAnimateToggle.isChecked());
+        mCustomDurationBar
+                .setEnabled(mAnimateToggle.isChecked() && mCustomDurationToggle.isChecked());
     }
 }

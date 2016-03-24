@@ -10,6 +10,10 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.VIBRATE" />
 
+    <uses-permission android:name="com.findafun.permission.MAPS_RECEIVE" />
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
@@ -17,11 +21,13 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-    <permission android:protectionLevel="signature"
-        android:name="com.findafun.permission.C2D_MESSAGE" />
+
+    <permission
+        android:name="com.findafun.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
     <uses-permission android:name="com.findafun.permission.C2D_MESSAGE" />
 
     <uses-feature
@@ -43,8 +49,9 @@
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_title"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <provider android:authorities="com.facebook.app.FacebookContentProvider1685181585055797"
+        <provider
             android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider1685181585055797"
             android:exported="true" />
 
         <activity
@@ -62,7 +69,7 @@
             android:name=".activity.SplashScreenActivity"
             android:label="@string/app_title"
             android:screenOrientation="portrait"
-            android:theme="@style/AppFullScreenTheme" >
+            android:theme="@style/AppFullScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -79,17 +86,17 @@
             android:label="@string/title_activity_landing"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemeNoActionBarGrey"/>
+            android:theme="@style/AppThemeNoActionBarGrey" />
         <activity
             android:name=".activity.EventDetailActivity"
             android:label="@string/title_activity_event_detail"
 
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemeNoActionBarEventDetails"
-            >
+            android:theme="@style/AppThemeNoActionBarEventDetails">
 
         </activity>
-        <activity android:name=".activity.BookmarksActivity"
+        <activity
+            android:name=".activity.BookmarksActivity"
             android:label="@string/title_book_mark"
 
             android:screenOrientation="portrait"
@@ -102,44 +109,55 @@
         <activity
             android:name=".activity.ProfileActivity"
             android:label="@string/title_activity_profile"
-            android:theme="@style/AppFullScreenTheme"
-            />
-        <activity android:name=".activity.LeaderBoardActivity"
+            android:theme="@style/AppFullScreenTheme" />
+        <activity
+            android:name=".activity.LeaderBoardActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppFullScreenTheme" ></activity>
-        <activity android:name=".activity.PhotosActivity"
+            android:theme="@style/AppFullScreenTheme"></activity>
+        <activity
+            android:name=".activity.PhotosActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppFullScreenTheme"></activity>
 
-        <activity android:name=".activity.EngagementActivity"
+        <activity
+            android:name=".activity.EngagementActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppFullScreenTheme"></activity>
 
-        <activity android:name=".activity.BookingsActivity"
+        <activity
+            android:name=".activity.BookingsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppFullScreenTheme"></activity>
 
-        <activity android:name=".activity.CheckinsActivity"
+        <activity
+            android:name=".activity.CheckinsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppFullScreenTheme"></activity>
 
-        <activity android:name=".activity.AllDetailsActivity"
+        <activity
+            android:name=".activity.AllDetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppFullScreenTheme"></activity>
 
-        <activity android:name=".activity.TermsAndConditionsActivity"
+        <activity
+            android:name=".activity.TermsAndConditionsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppFullScreenTheme"></activity>
 
-        <activity android:name=".twitter.TwitterActivity"
-            android:screenOrientation="portrait"
+        <activity
+            android:name=".twitter.TwitterActivity"
             android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
             android:theme="@style/AppFullScreenTheme">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
-                <data android:scheme="oauth" android:host="com.findafun"  />
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="com.findafun"
+                    android:scheme="oauth" />
             </intent-filter>
         </activity>
         <!--
@@ -161,12 +179,13 @@
             android:name=".activity.MapsActivity"
             android:label="@string/title_activity_maps"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemeNoActionBarEventDetails">
-        </activity>
-	<activity android:name=".activity.AdvanceSearchAct"
-	android:screenOrientation="portrait"></activity>
-	<activity android:name=".activity.AdvaSearchResAct"
-	android:screenOrientation="portrait"></activity>
+            android:theme="@style/AppThemeNoActionBarEventDetails"></activity>
+        <activity
+            android:name=".activity.AdvanceSearchAct"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activity.AdvaSearchResAct"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
