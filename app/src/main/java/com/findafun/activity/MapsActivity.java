@@ -182,7 +182,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     }
                 });
 
-
                 // mAddedMarkers.add(marker);
                 //mDisplayedEvents.put(pos, event);
                 marker.showInfoWindow();

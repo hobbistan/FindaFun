@@ -120,7 +120,6 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
     private void fetchBookmarks(){
         if (CommonUtils.isNetworkAvailable(this)) {
 
-
             eventServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.GET_EVENTS_BOOKMARK, Integer.parseInt(PreferenceStorage.getUserId(this))));
 
         }
@@ -145,7 +144,6 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
             if (landingPagerFragment != null) {
                 landingPagerFragment.callGetFilterService();
             }
-
 
             //Toast.makeText(this,"filter service called",Toast.LENGTH_SHORT).show();
         }
@@ -185,14 +183,12 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
             if((loginMode == 1) || (loginMode == 3)){
                 url = PreferenceStorage.getSocialNetworkProfileUrl(this);
             }
-
         }
         mCurrentUserProfileUrl = url;
         Log.d(TAG,"Login Mode is"+ loginMode);
         /*if((loginMode == FindAFunConstants.FACEBOOK) || (loginMode == FindAFunConstants.GOOGLE_PLUS)){
 
             Log.d(TAG,"fetching the image url"+ url);
-
 
         }*/
         if( ( (url != null) && !(url.isEmpty()))){
@@ -223,8 +219,6 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
         Log.d(TAG, "Set the selected page to 0");//default page
        // makeGetEventListServiceCall(0);
 
-
-
     }
 
     private boolean shouldUploadSocialNetworkPic(){
@@ -246,9 +240,7 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
                 }else{
                     Log.e(TAG,"No image present for social network sites");
                 }
-
             }
-
         }
 
         return upload;
@@ -315,7 +307,6 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 onNavigationMenuSelected(position);
                 mDrawerLayout.closeDrawer(Gravity.LEFT);
-
             }
         });
         //populateNavDrawerHeaderView();
@@ -425,7 +416,6 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
                     landingPagerFragment.searchForEvent(s);
                 }
 
-
                 return false;
             }
 
@@ -445,7 +435,6 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
                         Log.d(TAG,"call exit search");
                         landingPagerFragment.exitSearch();
                     }
-
                 }
 
                 return false;
@@ -470,7 +459,6 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
             }
         });
 
-
         mSearchView.setQueryHint("Search Event name");
         return true;
     }
@@ -492,7 +480,6 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
             default:
                 return super.onOptionsItemSelected(item);
         }
-
 
         // return super.onOptionsItemSelected(item);
     }
@@ -550,7 +537,6 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
             if(landingPagerFragment != null){
                 landingPagerFragment.onWindowFoucusChanged();
             }
-
         }
     }
 
