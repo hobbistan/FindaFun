@@ -722,7 +722,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
     @Override
     protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d(TAG, "Received FacebookActivity share result");
+        Log.d(TAG, "Received FacebookActivity share result...");
         callbackManager.onActivityResult(requestCode, resultCode, data);
 
         //LinkedIN call
