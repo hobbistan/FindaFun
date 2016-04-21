@@ -75,6 +75,7 @@
             android:padding="3dp"
             android:enabled="false"
             android:text=""
+            android:hint="Enter name"
             android:layout_marginLeft="38dp"
             android:layout_marginRight="5dp"
             android:textColor="@color/text_gray"
@@ -113,6 +114,7 @@
             android:layout_height="match_parent"
             android:textSize="17sp"
             android:text=""
+            android:hint=""
             android:enabled="false"
             android:focusable="false"
             android:clickable="true"
@@ -155,10 +157,9 @@
 
             android:layout_height="match_parent"
             android:typeface="serif"
-
+            android:hint=""
             android:padding="5dp"
             android:textSize="17sp"
-            android:text=""
             android:enabled="false"
             android:layout_marginLeft="35dp"
             android:layout_marginRight="5dp"
@@ -201,7 +202,7 @@
                 android:layout_width="match_parent"
                 android:typeface="serif"
                 android:layout_height="match_parent"
-
+                android:hint="Enter your birthday"
                 android:padding="3dp"
                 android:textSize="17sp"
                 android:gravity="center_vertical"
@@ -244,7 +245,7 @@
             android:layout_width="match_parent"
             android:typeface="serif"
             android:layout_height="match_parent"
-
+            android:hint="Select gender"
             android:padding="3dp"
             android:textSize="17sp"
             android:focusable="false"
@@ -287,7 +288,7 @@
             android:typeface="serif"
             android:textSize="17sp"
             android:text=""
-
+            android:hint="Enter phone number "
             android:inputType="phone"
             android:layout_marginLeft="35dp"
             android:layout_marginRight="5dp"
@@ -327,7 +328,7 @@
 
             android:layout_height="match_parent"
             android:typeface="serif"
-
+            android:hint="Select Occupation"
             android:padding="3dp"
             android:textSize="17sp"
             android:clickable="true"
@@ -383,6 +384,7 @@
             android:background="@color/transparent"
             android:textSize="17sp"
             android:textColor="@color/detail_color"
+            android:hint="Enter password"
             />
     </LinearLayout>
     <View

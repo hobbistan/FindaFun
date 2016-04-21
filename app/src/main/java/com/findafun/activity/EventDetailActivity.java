@@ -1,28 +1,28 @@
 package com.findafun.activity;
 
+import com.findafun.AppRate.AppRate;
 import android.Manifest;
-import android.annotation.SuppressLint;
-import android.content.ContentResolver;
-import android.content.ContentValues;
-import android.content.Context;
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Point;
+import android.graphics.Rect;
 import android.location.Location;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.provider.CalendarContract;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
@@ -31,6 +31,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -43,11 +44,11 @@ import com.facebook.FacebookException;
 import com.facebook.share.Sharer;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
+
 import com.findafun.R;
 import com.findafun.app.AppController;
 import com.findafun.bean.events.Event;
 import com.findafun.bean.gamification.GamificationDataHolder;
-import com.findafun.helper.AlertDialogHelper;
 import com.findafun.helper.FindAFunHelper;
 import com.findafun.servicehelpers.EventServiceHelper;
 import com.findafun.servicehelpers.ShareServiceHelper;
@@ -68,7 +69,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import twitter4j.TwitterException;
@@ -76,10 +76,12 @@ import twitter4j.auth.AccessToken;
 
 public class EventDetailActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
         LocationListener, IGamificationServiceListener, IEventServiceListener {
+    private Animator mCurrentAnimator;
     private static final String TAG = EventDetailActivity.class.getName();
     private Event event;
     private TextView txtEventName, txtEventCategory, txtEventDesc, txtEventVenue, txtEventStartDate, txtEventEndDate, txtEventStartTime, txtEventEndTime;
     private TextView txtEventTime, txtEventDate, txtEventEntry, txtEventContact, txtEventEmail, txtWebSite;
+    private TextView txtViewMore,txtViewLess;
     private ImageView imgEventBanner;
     ImageLoader uImageLoader = AppController.getInstance().getUniversalImageLoader();
     private GoogleApiClient mGoogleApiClient;
@@ -95,7 +97,8 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
     private List<String> mShareLIst = new ArrayList<String>();
     private List<Integer> mShareResources = new ArrayList<Integer>();
     private List<Integer> mShareBagroundResources = new ArrayList<Integer>();
-
+    int curRate;
+    private int mShortAnimationDuration;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,18 +110,76 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("EVENT");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        curRate = getPreferCount();
+
+
+
+       /*   new AppRate(this)
+                    .setMinDaysUntilPrompt(2)
+                    .setMinLaunchesUntilPrompt(3)
+                    .init();*/
 
         initializeViews();
         event = (Event) getIntent().getSerializableExtra("eventObj");
         populateData();
 
+        if(curRate==3) {
+           fetchAppRate();
+        }
+
+
     }
+
+    private void fetchAppRate() {
+
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this)
+                .setTitle("Rate " +getApplicationInfo().loadLabel(getPackageManager()).toString())
+
+                .setMessage("If You Enjoy Using Hobbistan, please take a moment to rate it. Thanks for Your Support!")
+                .setPositiveButton("Rate it! ", null)
+                .setNegativeButton("No Thanks", null)
+                .setNeutralButton("Remind Me Later", null);
+
+        new AppRate(this)
+                .setCustomDialog(builder)
+                .init();
+
+
+
+
+    }
+
+
+    private int getPreferCount() {
+        int test = 0;
+
+        final SharedPreferences saving = getSharedPreferences("AppRatePref", Activity.MODE_PRIVATE);
+        final SharedPreferences.Editor editor = saving.edit();
+
+        test = saving.getInt("rate", 0);
+
+        if(test>3){
+            test = 0;
+            editor.putInt("rate",test);
+            editor.commit();
+        } else {
+            test++;
+         //   Toast.makeText(this, "Hello There " + test, Toast.LENGTH_SHORT).show();
+            editor.putInt("rate", test);
+            editor.commit();
+        }
+        return test;
+    }
+
 
     @Override
     protected void onStart() {
         super.onStart();
         /*if (mGoogleApiClient != null)
             mGoogleApiClient.connect();*/
+
+
     }
 
     @Override
@@ -151,7 +212,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
                 shareIntent.setAction(Intent.ACTION_SEND);
                 shareIntent.setPackage("com.facebook.katana");
 
-                shareIntent.putExtra(android.content.Intent.EXTRA_TITLE, event.getEventName());
+                shareIntent.putExtra(Intent.EXTRA_TITLE, event.getEventName());
                 shareIntent.putExtra(Intent.EXTRA_TEXT, event.getDescription());
                 // Start the specific social application
                 startActivity(shareIntent);
@@ -177,7 +238,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
 
                 String text = event.getEventName();
 
-                shareIntent.putExtra(android.content.Intent.EXTRA_TITLE, "www.Hobbistan.com");
+                shareIntent.putExtra(Intent.EXTRA_TITLE, "www.Hobbistan.com");
                 shareIntent.putExtra(Intent.EXTRA_TEXT, text);
                 // Start the specific social application
                 startActivity(shareIntent);
@@ -226,7 +287,33 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
         // txtEventDesc.setText(event.getDescription());
         if(event.getDescription() != null) {
             txtEventCategory.setText(event.getDescription());
-        }
+
+
+            txtViewMore.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+
+                    txtViewMore.setVisibility(View.GONE);
+                    txtViewLess.setVisibility(View.VISIBLE);
+
+                    txtEventCategory.setMaxLines(Integer.MAX_VALUE);
+
+                }
+            });
+
+            txtViewLess.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+
+                    txtViewLess.setVisibility(View.GONE);
+                    txtViewMore.setVisibility(View.VISIBLE);
+                    txtEventCategory.setMaxLines(2);
+
+                }
+            });
+
+        } else {
+            txtViewMore.setVisibility(View.GONE);
+
+            }
         txtEventVenue.setText(event.getEventVenue());
         txtEventVenue.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -266,11 +353,11 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
             txtEventEndTime.setText(end);
         }
 
-       if((event.getEventEmail() != null) && !(event.getEventEmail().isEmpty())){
-           txtEventEmail.setText(event.getEventEmail());
-       }else{
-           txtEventEmail.setText("N/A");
-       }
+        if((event.getEventEmail() != null) && !(event.getEventEmail().isEmpty())){
+            txtEventEmail.setText(event.getEventEmail());
+        }else{
+            txtEventEmail.setText("N/A");
+        }
         Log.d(TAG, "Image uri is" + event.getEventBanner());
         uImageLoader.displayImage((event.getEventLogo()), imgEventBanner);
     }
@@ -306,6 +393,10 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
 
 
     private void initializeViews() {
+
+        txtViewMore = (TextView) findViewById(R.id.seemore);
+
+        txtViewLess = (TextView) findViewById(R.id.seeless);
         txtEventName = (TextView) findViewById(R.id.txt_event_name);
         // txtEventDesc = (TextView) findViewById(R.id.txt_event_desc);
         txtEventVenue = (TextView) findViewById(R.id.txt_event_venue);
@@ -316,6 +407,9 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
 
         txtEventEmail = (TextView) findViewById(R.id.txt_contact_mail);
         //txtWebSite = (TextView) findViewById(R.id.txt_website);
+
+        mShortAnimationDuration = getResources().getInteger(
+                android.R.integer.config_shortAnimTime);
 
         Button whishListBtn = (Button) findViewById(R.id.whishlist_btn);
         Button shareBtn = (Button) findViewById(R.id.share_btn);
@@ -368,6 +462,17 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
         txtEventStartTime = (TextView) findViewById(R.id.txt_clock_from_val);
         txtEventEndTime = (TextView) findViewById(R.id.clock_to_val);
         imgEventBanner = (ImageView) findViewById(R.id.img_banner);
+        final View bannerClick = findViewById(R.id.img_banner);
+      /*  imgEventBanner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                int eventBannerImage = Integer.parseInt(event.getEventBanner());
+            //    zoomImageFromThumb(bannerClick, eventBannerImage);
+            }
+        });
+*/
+
 
         callbackManager = CallbackManager.Factory.create();
 
@@ -525,8 +630,8 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
             Log.d(TAG, "Already Logged In to twitter");
             String text = event.getEventName();
 
-          //  shareIntent.putExtra(android.content.Intent.EXTRA_TITLE, "www.Hobbistan.com");
-           // shareIntent.putExtra(Intent.EXTRA_TEXT, text);
+            //  shareIntent.putExtra(android.content.Intent.EXTRA_TITLE, "www.Hobbistan.com");
+            // shareIntent.putExtra(Intent.EXTRA_TEXT, text);
             String message = "http://www.Hobbistan.com "+event.getEventName()+ "\n"+ event.getDescription();
             String shortText = "";
             if(message.length() >= 140){
@@ -627,7 +732,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-       // getMenuInflater().inflate(R.menu.menu_event_detail, menu);
+        // getMenuInflater().inflate(R.menu.menu_event_detail, menu);
         return true;
     }
 
@@ -640,7 +745,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_directions) {
-            Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+            Intent intent = new Intent(Intent.ACTION_VIEW,
                     Uri.parse("http://maps.google.com/maps?saddr=" + currentLatitude + "," + currentLongitude + "&daddr=" + event.getEventLatitude() + "," + event.getEventLongitude()));
             startActivity(intent);
             return true;
@@ -697,26 +802,26 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
     }
 
     private void checkPermissions() {
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+        // Should we show an explanation?
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)) {
 
-                // Show an expanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
+            // Show an expanation to the user *asynchronously* -- don't block
+            // this thread waiting for the user's response! After the user
+            // sees the explanation, try again to request the permission.
 
-            } else {
+        } else {
 
-                // No explanation needed, we can request the permission.
+            // No explanation needed, we can request the permission.
 
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        MY_PERMISSIONS_REQUEST_FINE_LOCATION);
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    MY_PERMISSIONS_REQUEST_FINE_LOCATION);
 
-                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                // app-defined int constant. The callback method gets the
-                // result of the request.
-            }
+            // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+            // app-defined int constant. The callback method gets the
+            // result of the request.
+        }
     }
 
     @Override
@@ -745,4 +850,149 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
             // permissions this app might request
         }
     }
+
+
+    private void zoomImageFromThumb(final View thumbView, int imageResId) {
+        // If there's an animation in progress, cancel it
+        // immediately and proceed with this one.
+        if (mCurrentAnimator != null) {
+            mCurrentAnimator.cancel();
+        }
+
+        // Load the high-resolution "zoomed-in" image.
+        final ImageView expandedImageView = (ImageView) findViewById(
+                R.id.expanded_image);
+        /*expandedImageView.setImageBitmap(imageResId);*/
+
+        // Calculate the starting and ending bounds for the zoomed-in image.
+        // This step involves lots of math. Yay, math.
+        final Rect startBounds = new Rect();
+        final Rect finalBounds = new Rect();
+        final Point globalOffset = new Point();
+
+        // The start bounds are the global visible rectangle of the thumbnail,
+        // and the final bounds are the global visible rectangle of the container
+        // view. Also set the container view's offset as the origin for the
+        // bounds, since that's the origin for the positioning animation
+        // properties (X, Y).
+        thumbView.getGlobalVisibleRect(startBounds);
+        findViewById(R.id.event_detail_container)
+                .getGlobalVisibleRect(finalBounds, globalOffset);
+        startBounds.offset(-globalOffset.x, -globalOffset.y);
+        finalBounds.offset(-globalOffset.x, -globalOffset.y);
+
+        // Adjust the start bounds to be the same aspect ratio as the final
+        // bounds using the "center crop" technique. This prevents undesirable
+        // stretching during the animation. Also calculate the start scaling
+        // factor (the end scaling factor is always 1.0).
+        float startScale;
+        if ((float) finalBounds.width() / finalBounds.height()
+                > (float) startBounds.width() / startBounds.height()) {
+            // Extend start bounds horizontally
+            startScale = (float) startBounds.height() / finalBounds.height();
+            float startWidth = startScale * finalBounds.width();
+            float deltaWidth = (startWidth - startBounds.width()) / 2;
+            startBounds.left -= deltaWidth;
+            startBounds.right += deltaWidth;
+        } else {
+            // Extend start bounds vertically
+            startScale = (float) startBounds.width() / finalBounds.width();
+            float startHeight = startScale * finalBounds.height();
+            float deltaHeight = (startHeight - startBounds.height()) / 2;
+            startBounds.top -= deltaHeight;
+            startBounds.bottom += deltaHeight;
+        }
+
+        // Hide the thumbnail and show the zoomed-in view. When the animation
+        // begins, it will position the zoomed-in view in the place of the
+        // thumbnail.
+        thumbView.setAlpha(0f);
+        expandedImageView.setVisibility(View.VISIBLE);
+
+        // Set the pivot point for SCALE_X and SCALE_Y transformations
+        // to the top-left corner of the zoomed-in view (the default
+        // is the center of the view).
+        expandedImageView.setPivotX(0f);
+        expandedImageView.setPivotY(0f);
+
+        // Construct and run the parallel animation of the four translation and
+        // scale properties (X, Y, SCALE_X, and SCALE_Y).
+        AnimatorSet set = new AnimatorSet();
+        set
+                .play(ObjectAnimator.ofFloat(expandedImageView, View.X,
+                        startBounds.left, finalBounds.left))
+                .with(ObjectAnimator.ofFloat(expandedImageView, View.Y,
+                        startBounds.top, finalBounds.top))
+                .with(ObjectAnimator.ofFloat(expandedImageView, View.SCALE_X,
+                        startScale, 1f)).with(ObjectAnimator.ofFloat(expandedImageView,
+                View.SCALE_Y, startScale, 1f));
+        set.setDuration(mShortAnimationDuration);
+        set.setInterpolator(new DecelerateInterpolator());
+        set.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mCurrentAnimator = null;
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+                mCurrentAnimator = null;
+            }
+        });
+        set.start();
+        mCurrentAnimator = set;
+
+        // Upon clicking the zoomed-in image, it should zoom back down
+        // to the original bounds and show the thumbnail instead of
+        // the expanded image.
+        final float startScaleFinal = startScale;
+        expandedImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mCurrentAnimator != null) {
+                    mCurrentAnimator.cancel();
+                }
+
+                // Animate the four positioning/sizing properties in parallel,
+                // back to their original values.
+                AnimatorSet set = new AnimatorSet();
+                set.play(ObjectAnimator
+                        .ofFloat(expandedImageView, View.X, startBounds.left))
+                        .with(ObjectAnimator
+                                .ofFloat(expandedImageView,
+                                        View.Y,startBounds.top))
+                        .with(ObjectAnimator
+                                .ofFloat(expandedImageView,
+                                        View.SCALE_X, startScaleFinal))
+                        .with(ObjectAnimator
+                                .ofFloat(expandedImageView,
+                                        View.SCALE_Y, startScaleFinal));
+                set.setDuration(mShortAnimationDuration);
+                set.setInterpolator(new DecelerateInterpolator());
+                set.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        thumbView.setAlpha(1f);
+                        expandedImageView.setVisibility(View.GONE);
+                        mCurrentAnimator = null;
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+                        thumbView.setAlpha(1f);
+                        expandedImageView.setVisibility(View.GONE);
+                        mCurrentAnimator = null;
+                    }
+                });
+                set.start();
+                mCurrentAnimator = set;
+            }
+        });
+    }
+
+
+
+
+
+
 }

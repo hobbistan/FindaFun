@@ -38,7 +38,7 @@
         android:name=".app.AppController"
         android:allowBackup="true"
         android:icon="@mipmap/appicon_logo"
-        android:label="@string/app_title"
+        android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -47,7 +47,7 @@
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/app_title"
+            android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <provider
             android:name="com.facebook.FacebookContentProvider"
@@ -56,7 +56,7 @@
 
         <activity
             android:name=".activity.LoginActivity"
-            android:label="@string/app_title"
+            android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarWhite"
             android:windowSoftInputMode="adjustPan" />
@@ -67,7 +67,7 @@
             android:theme="@style/AppFullScreenTheme" />
         <activity
             android:name=".activity.SplashScreenActivity"
-            android:label="@string/app_title"
+            android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppFullScreenTheme">
             <intent-filter>
@@ -186,6 +186,12 @@
         <activity
             android:name=".activity.AdvaSearchResAct"
             android:screenOrientation="portrait"></activity>
+
+        <activity android:name="za.co.riggaroo.materialhelptutorial.tutorial.MaterialTutorialActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+
+        <activity android:name="com.findafun.Apprate.AppRate"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
     </application>
 
 </manifest>

@@ -1,12 +1,12 @@
 <resources>
-    <string name="app_title">Hobbistan</string>
+    <string name="app_name">Hobbistan</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_login">LoginActivity</string>
 
     <!--<string name="facebook_app_id">497425313771373</string>-->
-    <string name="facebook_app_id">1685181585055797</string>
+    <string name="facebook_app_id">210139769354530</string>
 
     <!-- Login Screen -->
     <string name="hint_email">Enter Email</string>
@@ -64,7 +64,7 @@
     <string name="get_started">Get Started</string>
     <string name="title_activity_profile">Profile</string>
     <string name="title_activity_maps">Map</string>
-    <string name="google_maps_key">AIzaSyAzH0XCvT3Ae7XqFymrdCdiza80Y5HBsdE</string>
+    <string name="google_maps_key">AIzaSyAw8BodwUeiF0YNud7Kfm_D8QZexZf9Nh8</string>
     <string name="gps_network_not_enabled">Enable GPS</string>
     <string name="open_location_settings">Open location manager</string>
     <string name="Cancel">Cancel</string>
@@ -78,6 +78,15 @@
                                     Our Services are very diverse, so sometimes additional terms or product requirements (including age requirements) may apply. Additional terms will be available with the relevant Services and those additional terms become part of your agreement with us if you use those Services.</string>
     <string name="selectcat">Select Category</string>
     <string name="selectcity">Select City</string>
+    <string name="home">Home</string>
+    <string name="nearby">Nearby</string>
+    <string name="explore">Explore</string>
+
+    <string name="navigate_user">Navigate User Option</string>
+    <string name="gami_board">Gamification Board</string>
+    <string name="gami_points">Gamification Points</string>
+    <string name="detail_events">Detailed Events</string>
+    <string name="abt_event"></string>
 
 
     <string-array name="india_top_places">
@@ -89,5 +98,11 @@
         <item>Delhi</item>
         <item>Bangalore</item>
     </string-array>
+
+    <string name="viewless"><u>View Less</u></string>
+    <string name="viewmore"><u>View More</u></string>
+
+    <string name="permision_available_All">All Permissions have been granted.</string>
+    <string name="permissions_not_granted">Few Permissions were not granted.</string>
 
 </resources>

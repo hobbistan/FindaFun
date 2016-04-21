@@ -9,10 +9,12 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityCompat.OnRequestPermissionsResultCallback;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.util.Base64;
@@ -41,6 +43,7 @@ import com.findafun.serviceinterfaces.ISignUpServiceListener;
 import com.findafun.utils.CommonUtils;
 import com.findafun.utils.FindAFunConstants;
 import com.findafun.utils.FindAFunValidator;
+import com.findafun.utils.PermissionUtil;
 import com.findafun.utils.PreferenceStorage;
 import com.google.android.gms.auth.GoogleAuthException;
 import com.google.android.gms.auth.GoogleAuthUtil;
@@ -63,12 +66,21 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener, ISignUpServiceListener, DialogClickListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener, ISignUpServiceListener, DialogClickListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,OnRequestPermissionsResultCallback {
     private  static final String TAG = LoginActivity.class.getName();
 
     private static final int RC_SIGN_IN = 0;
     private static final int REQUEST_CODE_TOKEN_AUTH = 1;
     private static final int MY_PERMISSIONS_REQUEST_GET_ACCOUNTS = 100;
+    private static final int REQUEST_PERMISSION_All = 111;
+    private static String[] PERMISSIONS_ALL = {Manifest.permission.READ_CONTACTS,
+            Manifest.permission.WRITE_CONTACTS,Manifest.permission.READ_CALENDAR,
+            Manifest.permission.WRITE_CALENDAR,Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.CALL_PHONE,
+            Manifest.permission.READ_PHONE_STATE,Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.CAMERA};
+
+    private View mLayout;
     private CallbackManager callbackManager;
     private Button btnFacebook, btnGPlus;
     private Button btnSignIn;
@@ -90,6 +102,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        requestAllPermissions();
         mDecorView = getWindow().getDecorView();
         mDecorView.setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -128,7 +141,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 //We get a connection to the Google Play Service API
                 // Initializing google plus api client
                 Log.d(TAG,"Initiating google plus connection");
-                mGoogleApiClient = new GoogleApiClient.Builder(this)
+              mGoogleApiClient = new GoogleApiClient.Builder(this)
                         .addConnectionCallbacks(this)
                         .addOnConnectionFailedListener(this)
                         .addApi(Plus.API)
@@ -151,6 +164,41 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
+
+    private void requestAllPermissions() {
+        boolean requestPermission = PermissionUtil.requestAllPermissions(this);
+
+        if (requestPermission == true){
+
+            Log.i(TAG,
+                    "Displaying contacts permission rationale to provide additional context.");
+
+            // Display a SnackBar with an explanation and a button to trigger the request.
+/*            Snackbar.make(mLayout, R.string.permission_contacts_rationale,
+                    Snackbar.LENGTH_INDEFINITE)
+                    .setAction(R.string.ok, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {*/
+            ActivityCompat
+                    .requestPermissions(LoginActivity.this, PERMISSIONS_ALL,
+                            REQUEST_PERMISSION_All);
+                    /*    }
+                    })
+                    .show();*/
+
+        }
+
+        else {
+
+            ActivityCompat.requestPermissions(this, PERMISSIONS_ALL, REQUEST_PERMISSION_All);
+
+        }
+
+    }
+
+
+
+
     private void generateFacebookKeys(){
         Log.d(TAG, "Generating facebook has keys");
         try {
@@ -172,6 +220,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     // Initialize Views
     private void initializeViews() {
+        mLayout = findViewById(R.id.activity_login);
         btnFacebook = (Button) findViewById(R.id.btnFacebook);
         btnFacebook.setOnClickListener(this);
         btnGPlus = (Button) findViewById(R.id.btnGplus);
@@ -383,6 +432,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 // If we've got an error we can't resolve, we're no
                 // longer in the midst of signing in, so we can stop
                 // the progress spinner.
+
                 progressDialogHelper.hideProgressDialog();
             }
 
@@ -805,9 +855,41 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 return;
             }
 
+            case REQUEST_PERMISSION_All:{
+
+                if (requestCode == REQUEST_PERMISSION_All) {
+                    Log.i(TAG, "Received response for contact permissions request.");
+
+                    // We have requested multiple permissions for contacts, so all of them need to be
+                    // checked.
+                    if (PermissionUtil.verifyPermissions(grantResults)) {
+                        // All required permissions have been granted, display contacts fragment.
+                        Snackbar.make(mLayout, R.string.permision_available_All,
+                                Snackbar.LENGTH_LONG)
+                                .show();
+                    } else {
+                        Log.i(TAG, "all permissions were NOT granted.");
+                        Snackbar.make(mLayout, R.string.permissions_not_granted,
+                                Snackbar.LENGTH_LONG)
+                                .show();
+                    }
+
+                } else {
+                    super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+                }
+
+
+            }
+
             // other 'case' lines to check for other
             // permissions this app might request
         }
+
+
+
+
+
+
     }
 
 }
