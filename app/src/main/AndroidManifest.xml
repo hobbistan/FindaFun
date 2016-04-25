@@ -81,6 +81,13 @@
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait"
             android:theme="@style/AppFullScreenTheme" />
+
+        <activity
+            android:name=".activity.ForgotPasswordActivity"
+            android:label="@string/title_activity_forgot_password"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppFullScreenTheme" />
+
         <activity
             android:name=".activity.LandingActivity"
             android:label="@string/title_activity_landing"

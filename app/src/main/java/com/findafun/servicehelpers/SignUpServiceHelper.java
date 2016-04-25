@@ -20,6 +20,7 @@ import com.findafun.activity.LoginActivity;
 import com.findafun.app.AppController;
 import com.findafun.bean.gamification.Rewards;
 import com.findafun.serviceinterfaces.IEventServiceListener;
+import com.findafun.serviceinterfaces.IForgotPasswordServiceListener;
 import com.findafun.serviceinterfaces.IServiceListener;
 import com.findafun.serviceinterfaces.ISignUpServiceListener;
 import com.findafun.utils.FindAFunConstants;
@@ -40,6 +41,7 @@ public class SignUpServiceHelper {
     private String TAG = LoginActivity.class.getSimpleName();
     private Context context;
     ISignUpServiceListener signUpServiceListener;
+    IForgotPasswordServiceListener forgotPasswordServiceListener;
 
     public SignUpServiceHelper(Context context) {
         this.context = context;
@@ -187,6 +189,51 @@ public class SignUpServiceHelper {
 
         //Creating a Request Queue
         AppController.getInstance().addToRequestQueue(stringRequest);
+    }
+
+    public void makeForgotPasswordServiceCall(String params) {
+        Log.d(TAG,"making forgot password request"+ params);
+        final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
+                FindAFunConstants.GET_SIGN_UP_URL, params,
+                new com.android.volley.Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d(TAG, response.toString());
+                        forgotPasswordServiceListener.onForgotPassword(response);
+                    }
+                }, new com.android.volley.Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (error.networkResponse != null && error.networkResponse.data != null) {
+                    Log.d(TAG,"error during sign up"+ error.getLocalizedMessage());
+
+                    try {
+                        String responseBody = new String(error.networkResponse.data, "utf-8");
+                        JSONObject jsonObject = new JSONObject(responseBody);
+                        forgotPasswordServiceListener.onForgotPasswordError(jsonObject.getString(FindAFunConstants.PARAM_MESSAGE));
+                        String status = jsonObject.getString("status");
+                        Log.d(TAG, "forgot password status is" + status);
+                    } catch (UnsupportedEncodingException e) {
+                        forgotPasswordServiceListener.onForgotPasswordError(context.getResources().getString(R.string.error_occured));
+                        e.printStackTrace();
+                    } catch (JSONException e) {
+                        forgotPasswordServiceListener.onForgotPasswordError(context.getResources().getString(R.string.error_occured));
+                        e.printStackTrace();
+                    }
+
+                } else {
+                    forgotPasswordServiceListener.onForgotPasswordError(context.getResources().getString(R.string.error_occured));
+                }
+            }
+        });
+
+        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(jsonObjectRequest);
+
     }
 
 }
