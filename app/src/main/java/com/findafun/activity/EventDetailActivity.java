@@ -136,7 +136,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
         event = (Event) getIntent().getSerializableExtra("eventObj");
         populateData();
 
-        if(curRate==3) {
+        if(curRate==20) {
            fetchAppRate();
         }
 
@@ -172,7 +172,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
 
         test = saving.getInt("rate", 0);
 
-        if(test>3){
+        if(test>20){
             test = 0;
             editor.putInt("rate",test);
             editor.commit();
@@ -465,7 +465,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
                 if ((phoneNumber != null) && !(phoneNumber.isEmpty())) {
                     Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber));
 
-                    startActivity(intent);
+                    //startActivity(intent);
                 }
 
             }

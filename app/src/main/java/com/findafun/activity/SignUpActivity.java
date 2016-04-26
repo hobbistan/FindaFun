@@ -457,7 +457,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     public void onSignUpError(String error) {
         progressDialogHelper.hideProgressDialog();
         AlertDialogHelper.showSimpleAlertDialog(this, error);
-
     }
 
     @Override

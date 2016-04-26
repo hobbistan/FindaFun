@@ -254,6 +254,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         });
 
+        TextView forgotPassword = (TextView) findViewById(R.id.txt_forgot_password);
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
        // txtSignUp = (TextView) findViewById(R.id.txt_sign_up);
         //txtSignUp.setOnClickListener(this);
     }
