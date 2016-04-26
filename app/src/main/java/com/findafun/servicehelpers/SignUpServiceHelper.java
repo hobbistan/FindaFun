@@ -51,6 +51,10 @@ public class SignUpServiceHelper {
         this.signUpServiceListener = signUpServiceListener;
     }
 
+    public void setForgotPasswordServiceListener(IForgotPasswordServiceListener forgotPasswordServiceListener) {
+        this.forgotPasswordServiceListener = forgotPasswordServiceListener;
+    }
+
     public void makeSignUpServiceCall(String params) {
         Log.d(TAG,"making sign in request"+ params);
         final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,

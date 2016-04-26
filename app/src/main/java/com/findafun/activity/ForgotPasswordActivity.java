@@ -44,7 +44,7 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
         initializeViews();
 
         signUpServiceHelper = new SignUpServiceHelper(this);
-        //signUpServiceHelper.setSignUpServiceListener(this);
+        signUpServiceHelper.setForgotPasswordServiceListener(this);
         progressDialogHelper = new ProgressDialogHelper(this);
     }
 
