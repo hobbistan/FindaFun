@@ -102,8 +102,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        requestAllPermissions();
-        mDecorView = getWindow().getDecorView();
+        if (android.os.Build.VERSION.SDK_INT  > Build.VERSION_CODES.LOLLIPOP) {
+            requestAllPermissions();
+        }
+            mDecorView = getWindow().getDecorView();
         mDecorView.setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
@@ -166,6 +168,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
     private void requestAllPermissions() {
+
+
         boolean requestPermission = PermissionUtil.requestAllPermissions(this);
 
         if (requestPermission == true){

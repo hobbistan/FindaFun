@@ -70,7 +70,6 @@ import com.google.android.gms.location.LocationServices;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.imageaware.ImageAware;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
@@ -372,7 +371,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
             txtEventEmail.setText("N/A");
         }
         Log.d(TAG, "Image uri is" + event.getEventBanner());
-        uImageLoader.displayImage((event.getEventLogo()), (ImageAware) imgEventBanner);
+      //  uImageLoader.displayImage((event.getEventLogo()), imgEventBanner);
         imgList.add(0, event.getEventLogo());
     }
 
