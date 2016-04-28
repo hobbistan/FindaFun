@@ -102,9 +102,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        if (android.os.Build.VERSION.SDK_INT  > Build.VERSION_CODES.LOLLIPOP) {
-            requestAllPermissions();
+
+        FirstTimePreference prefFirstTime = new FirstTimePreference(getApplicationContext());
+
+        if (prefFirstTime.runTheFirstTime("FirstTimePermit")) {
+            if (android.os.Build.VERSION.SDK_INT  > Build.VERSION_CODES.LOLLIPOP) {
+                requestAllPermissions();
+            }
         }
+
+
+
+
             mDecorView = getWindow().getDecorView();
         mDecorView.setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
