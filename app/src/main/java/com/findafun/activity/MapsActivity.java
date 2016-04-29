@@ -1,14 +1,8 @@
 package com.findafun.activity;
 
 
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -129,8 +123,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             LatLng pos = new LatLng(lat, longitude);
             if ((pos != null) && (mMap != null)) {
                 Log.d(TAG, "has lat lon" + "lat:" + mEvent.getEventLatitude() + "long:" + mEvent.getEventLongitude());
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(pos, 15));
-
+              //  mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(pos, 15));
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(pos, 14), 1000, null);
                 // Zoom in, animating the camera.
                 //  mMap.animateCamera(CameraUpdateFactory.zoomIn());
                 // Zoom out to zoom level 10, animating with a duration of 2 seconds.

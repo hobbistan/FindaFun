@@ -411,8 +411,8 @@ public class NearbyFragment extends LandingPagerFragment implements OnMapReadyCa
             //zoom the camera to current location
             if (mLastLocation != null) {
                 LatLng pos = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
-                mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(pos, 15));
-               // mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(pos, 14), 1000, null);
+               /* mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(pos,10));*/
+                mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(pos, 14), 1000, null);
             }
 
             mAddddLocations = false;
