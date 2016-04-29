@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
 
     tools:context="com.findafun.fragment.NearbyFragment">
 
@@ -71,7 +72,10 @@
         <com.google.android.gms.maps.MapView android:id="@+id/mapview"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            map:cameraTargetLat="16.29905101"
+            map:cameraTargetLng="78.3984375"
+            />
 
     </RelativeLayout>
 
