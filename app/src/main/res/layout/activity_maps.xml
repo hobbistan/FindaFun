@@ -1,8 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:map="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <include
@@ -14,8 +14,8 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.findafun.activity.MapsActivity"
         map:cameraTargetLat="16.29905101"
         map:cameraTargetLng="78.3984375"
+        tools:context="com.findafun.activity.MapsActivity"
         tools:ignore="MissingPrefix" />
 </LinearLayout>

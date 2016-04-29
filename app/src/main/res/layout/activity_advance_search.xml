@@ -10,7 +10,6 @@
         android:background="@color/black"
         android:minHeight="?attr/actionBarSize"></android.support.v7.widget.Toolbar>
 
-
     <TextView
         android:id="@+id/tvtitletext"
         android:layout_width="wrap_content"
@@ -47,7 +46,6 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
 
             <TextView
                 android:id="@+id/tvsortbydate"
@@ -127,10 +125,10 @@
                 android:gravity="left|center_vertical"
                 android:paddingRight="8dp"
                 android:singleLine="true"
-                android:textSize="15sp"
                 android:text="Select Category"
                 android:textAllCaps="false"
-                android:textColor="@color/white"></Button>
+                android:textColor="@color/white"
+                android:textSize="15sp"></Button>
 
 
             <TextView
@@ -152,9 +150,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tvsortbycity"
-                android:layout_marginBottom="@dimen/mainmargin"
-                ></Spinner>
- <TextView
+                android:layout_marginBottom="@dimen/mainmargin"></Spinner>
+
+            <TextView
                 android:id="@+id/tvdaterange"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -174,8 +172,8 @@
                 android:layout_alignParentLeft="true"
                 android:layout_below="@id/tvdaterange"
                 android:layout_marginBottom="4dp"
-                android:gravity="center"
                 android:layout_marginTop="10dp"
+                android:gravity="center"
                 android:text="From"
                 android:textColor="@color/orange" />
 
@@ -187,7 +185,7 @@
                 android:layout_marginBottom="@dimen/mainmargin"
                 android:background="@drawable/gradient_spinner"
                 android:textColor="@color/white"
-                android:textSize="15sp"/>
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/tvto"
@@ -208,8 +206,7 @@
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/gradient_spinner"
                 android:textColor="@color/white"
-                android:textSize="15sp"/>
-
+                android:textSize="15sp" />
 
             <LinearLayout
                 android:id="@+id/twobtn"
@@ -240,15 +237,11 @@
                     android:textAllCaps="false"
                     android:textColor="@color/white" />
 
-
             </LinearLayout>
-
 
         </RelativeLayout>
 
-
     </ScrollView>
-
 
 </RelativeLayout>
 

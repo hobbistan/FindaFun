@@ -4,12 +4,11 @@
     android:layout_height="match_parent">
 
     <View
+        android:id="@+id/mask"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/mask"
-        android:visibility="visible"
         android:background="@android:color/black"
-        />
+        android:visibility="visible" />
 
     <com.findafun.photowidget.ReboundViewPager
         android:id="@+id/viewpager"
@@ -17,13 +16,12 @@
         android:layout_height="match_parent" />
 
     <TextView
+        android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
+        android:layout_marginBottom="20dp"
         android:text="1/9"
         android:textColor="@android:color/white"
-        android:textSize="20sp"
-        android:id="@+id/text"
-        android:layout_marginBottom="20dp"
-        />
+        android:textSize="20sp" />
 </FrameLayout>
