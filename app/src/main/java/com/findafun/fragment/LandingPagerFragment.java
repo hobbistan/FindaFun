@@ -135,10 +135,8 @@ public class LandingPagerFragment extends Fragment implements LoadMoreListView.O
         @Override
         protected Void doInBackground(String... urls) {
             eventServiceHelper.makeRawRequest(FindAFunConstants.GET_ADVANCE_SINGLE_SEARCH);
-
             return null;
         }
-
         // onPostExecute displays the results of the AsyncTask.
         @Override
         protected void onPostExecute(Void result) {
@@ -166,7 +164,6 @@ public class LandingPagerFragment extends Fragment implements LoadMoreListView.O
             eventsListAdapter.notifyDataSetChanged();
             //loadMoreListView.invalidateViews();
         }
-
     }
 
     public void exitSearch() {
@@ -175,7 +172,6 @@ public class LandingPagerFragment extends Fragment implements LoadMoreListView.O
             eventsListAdapter.exitSearch();
             eventsListAdapter.notifyDataSetChanged();
         }
-
     }
 
 
@@ -190,7 +186,6 @@ public class LandingPagerFragment extends Fragment implements LoadMoreListView.O
         }
         Log.d(TAG, "Page number" + pageNumber);
         makeEventListServiceCall(pageNumber);
-
     }
 
     public void makeEventListServiceCall(int pageNumber) {
@@ -198,7 +193,7 @@ public class LandingPagerFragment extends Fragment implements LoadMoreListView.O
             switch (getArguments().getInt("position")) {
                 case 0:
                     Log.d(TAG, "fetch favourites");
-                    eventServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.GET_EVENTS_FAVOURITES, Integer.parseInt(PreferenceStorage.getUserId(getActivity())), pageNumber, PreferenceStorage.getUserCity(getActivity())));
+                    eventServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.GET_EVENTS_FAVOURITES_1, Integer.parseInt(PreferenceStorage.getUserId(getActivity())), pageNumber, PreferenceStorage.getUserCity(getActivity())));
                     break;
                 case 1:
                     Log.d(TAG, "fetch Nearby events");

@@ -167,9 +167,8 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
         String userName = PreferenceStorage.getUserName(getApplicationContext());
         String userCity = PreferenceStorage.getUserCity(getApplicationContext());
         Log.d(TAG, "user name value" + userName);
-        if( (userName != null) && !userName.isEmpty()){
+        if((userName != null) && !userName.isEmpty()){
             navUserName.setText(userName);
-
         }
 
         if((userCity != null) && !userCity.isEmpty()){

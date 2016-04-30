@@ -7,9 +7,11 @@ public class FindAFunConstants {
 
     // URLS
     public static final String BASE_URL = "http://hobbistan.com/app/hobbistan/";
+    public static final String BASE_URL_1 = "http://hobbistan.com/";
     public static final String GET_SIGN_UP_URL = "http://hobbistan.com/app/hobbistan/api.php";
     public static final String SET_CATEGORY_URL = BASE_URL + "api.php";
     public static final String GET_ADVANCE_SINGLE_SEARCH = BASE_URL + "api.php";
+    public static final String GET_EVENTS_FAVOURITES_1 = BASE_URL_1 + "uitouxcall.php?func_name=event_management&event_type=bars&city=chennai";
     public static final String GET_EVENTS_FAVOURITES = BASE_URL + "api.php?func_name=event_management&event_type=preference&user_id=%d&page_id=%d&city=%s";
     public static final String GET_ADVANCE_SEARCH = BASE_URL + "api.php?func_name=advanced_event_management&from_date04-03-2015=preference&user_id=%d&page_id=%d&city=%s";
     public static final String GET_EVENTS_FEATURED = BASE_URL + "api.php?func_name=event_management&event_type=popularity&page_id=%d";
