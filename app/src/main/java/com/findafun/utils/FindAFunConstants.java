@@ -18,6 +18,7 @@ public class FindAFunConstants {
     public static final String GET_EVENTS_NEARBY_URL = BASE_URL + "api.php?func_name=event_management&event_type=all&page_id=%d";
     public static final String GET_EVENTS_ALL_URL = BASE_URL + "api.php?func_name=event_management&event_type=all&page_id=%d&city=%s";
     public static final String GET_EVENTS_ALL_TEST_URL = BASE_URL + "api.php?func_name=event_management&event_type=all&user_id=%d&page_id=%d";
+    public static final String GET_STATIC_EVENTS = BASE_URL + "api.php?func_name=event_management_static&event_type=static&user_id=%d&page_id=%d&city=%s";
     public static final String GET_CATEGORY_URL = BASE_URL + "api.php?";
     public static final String GET_CITY_URL = BASE_URL + "api.php?func_name=getCity";
     public static final String UPDATE_PROFILE_URL = "http://hobbistan.com/app/hobbistan/api.php?func_name=updateProfile&user_email=%s&user_name=%s&user_id=%d&user_password=%s&user_city=%s&user_gender=%s&user_birthday=%s&user_occupation=%s&user_phone=%s";

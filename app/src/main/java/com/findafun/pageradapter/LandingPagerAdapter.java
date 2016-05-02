@@ -15,6 +15,7 @@ import com.findafun.customview.PagerSlidingTabStrip;
 import com.findafun.fragment.LandingPagerFragment;
 import com.findafun.fragment.NearbyFragment;
 import com.findafun.fragment.RewardsFragment;
+import com.findafun.fragment.StaticEventFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +60,7 @@ public class LandingPagerAdapter extends FragmentPagerAdapter implements PagerSl
                 return  LandingPagerFragment.newInstance(position);
             case 1:
                 Log.d(TAG,"returning Nearby fragment");
-                return NearbyFragment.newInstance(position);
+                return StaticEventFragment.newInstance(position);
             case 2:
                 return LandingPagerFragment.newInstance(position);
             case 3:
