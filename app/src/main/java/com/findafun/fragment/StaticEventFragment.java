@@ -40,7 +40,7 @@ import java.util.logging.LogRecord;
  * A simple {@link Fragment} subclass.
  */
 public class StaticEventFragment extends Fragment implements LoadMoreListView.OnLoadMoreListener, IEventServiceListener, AdapterView.OnItemClickListener {
-    private static final String TAG = LandingPagerFragment.class.getName();
+    private static final String TAG = StaticEventFragment.class.getName();
 
     protected LoadMoreListView loadMoreListView;
     protected View view;
@@ -54,8 +54,8 @@ public class StaticEventFragment extends Fragment implements LoadMoreListView.On
     private TextView mNoEventsFound = null;
 
 
-    public static LandingPagerFragment newInstance(int position) {
-        LandingPagerFragment frag = new LandingPagerFragment();
+    public static StaticEventFragment newInstance(int position) {
+        StaticEventFragment frag = new StaticEventFragment();
         Bundle b = new Bundle();
         b.putInt("position", position);
         frag.setArguments(b);
@@ -129,7 +129,6 @@ public class StaticEventFragment extends Fragment implements LoadMoreListView.On
         } else {
             AlertDialogHelper.showSimpleAlertDialog(getActivity(), getString(R.string.no_connectivity));
         }
-
     }
 
     private class HttpAsyncTask extends AsyncTask<String, Void, Void> {
@@ -174,7 +173,6 @@ public class StaticEventFragment extends Fragment implements LoadMoreListView.On
             staticEventsListAdapter.notifyDataSetChanged();
         }
     }
-
 
     @Override
     public void onLoadMore() {
