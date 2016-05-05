@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.findafun">
 
+    <permission
+        android:name="your.package.name.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.findafun.permission.MAPS_RECEIVE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -9,25 +14,21 @@
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.VIBRATE" />
-
     <uses-permission android:name="com.findafun.permission.MAPS_RECEIVE" />
-
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
     <permission
         android:name="com.findafun.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
+
     <uses-permission android:name="com.findafun.permission.C2D_MESSAGE" />
 
     <uses-feature
@@ -49,6 +50,7 @@
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
         <provider
             android:name="com.facebook.FacebookContentProvider"
             android:authorities="com.facebook.app.FacebookContentProvider1685181585055797"
@@ -81,13 +83,11 @@
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait"
             android:theme="@style/AppFullScreenTheme" />
-
         <activity
             android:name=".activity.ForgotPasswordActivity"
             android:label="@string/title_activity_forgot_password"
             android:screenOrientation="portrait"
             android:theme="@style/AppFullScreenTheme" />
-
         <activity
             android:name=".activity.LandingActivity"
             android:label="@string/title_activity_landing"
@@ -97,17 +97,13 @@
         <activity
             android:name=".activity.EventDetailActivity"
             android:label="@string/title_activity_event_detail"
-
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemeNoActionBarEventDetails">
-
-        </activity>
+            android:theme="@style/AppThemeNoActionBarEventDetails" />
         <activity
             android:name=".activity.BookmarksActivity"
             android:label="@string/title_book_mark"
-
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemeNoActionBarEventDetails"></activity>
+            android:theme="@style/AppThemeNoActionBarEventDetails" />
         <activity
             android:name=".activity.SelectCityActivity"
             android:label="@string/title_activity_select_city"
@@ -120,37 +116,31 @@
         <activity
             android:name=".activity.LeaderBoardActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppFullScreenTheme"></activity>
+            android:theme="@style/AppFullScreenTheme" />
         <activity
             android:name=".activity.PhotosActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppFullScreenTheme"></activity>
-
+            android:theme="@style/AppFullScreenTheme" />
         <activity
             android:name=".activity.EngagementActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppFullScreenTheme"></activity>
-
+            android:theme="@style/AppFullScreenTheme" />
         <activity
             android:name=".activity.BookingsActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppFullScreenTheme"></activity>
-
+            android:theme="@style/AppFullScreenTheme" />
         <activity
             android:name=".activity.CheckinsActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppFullScreenTheme"></activity>
-
+            android:theme="@style/AppFullScreenTheme" />
         <activity
             android:name=".activity.AllDetailsActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppFullScreenTheme"></activity>
-
+            android:theme="@style/AppFullScreenTheme" />
         <activity
             android:name=".activity.TermsAndConditionsActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppFullScreenTheme"></activity>
-
+            android:theme="@style/AppFullScreenTheme" />
         <activity
             android:name=".twitter.TwitterActivity"
             android:launchMode="singleInstance"
@@ -186,19 +176,21 @@
             android:name=".activity.MapsActivity"
             android:label="@string/title_activity_maps"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemeNoActionBarEventDetails"></activity>
+            android:theme="@style/AppThemeNoActionBarEventDetails" />
         <activity
             android:name=".activity.AdvanceSearchAct"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.AdvaSearchResAct"
-            android:screenOrientation="portrait"></activity>
-
-        <activity android:name="za.co.riggaroo.materialhelptutorial.tutorial.MaterialTutorialActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-
-        <activity android:name="com.findafun.Apprate.AppRate"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="za.co.riggaroo.materialhelptutorial.tutorial.MaterialTutorialActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".AppRate.AppRate"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".activity.PictureDetailsActivity" />
+        <activity android:name=".activity.BannerList"></activity>
     </application>
 
 </manifest>

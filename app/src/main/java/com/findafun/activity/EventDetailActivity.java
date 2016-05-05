@@ -8,7 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.location.Location;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -27,14 +27,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,13 +44,12 @@ import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 import com.findafun.AppRate.AppRate;
 import com.findafun.R;
+import com.findafun.adapter.BannerAdapter;
 import com.findafun.app.AppController;
 import com.findafun.bean.events.Event;
 import com.findafun.bean.gamification.GamificationDataHolder;
-import com.findafun.fragment.ViewPagerFragment;
 import com.findafun.helper.FindAFunHelper;
 import com.findafun.photowidget.ImageInfo;
-import com.findafun.photowidget.PhotoView;
 import com.findafun.servicehelpers.EventServiceHelper;
 import com.findafun.servicehelpers.ShareServiceHelper;
 import com.findafun.serviceinterfaces.IEventServiceListener;
@@ -67,11 +64,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import org.json.JSONObject;
 
@@ -83,13 +77,20 @@ import twitter4j.auth.AccessToken;
 
 public class EventDetailActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
         LocationListener, IGamificationServiceListener, IEventServiceListener {
+
+
     private Animator mCurrentAnimator;
     private static final String TAG = EventDetailActivity.class.getName();
     private Event event;
     private TextView txtEventName, txtEventCategory, txtEventDesc, txtEventVenue, txtEventStartDate, txtEventEndDate, txtEventStartTime, txtEventEndTime;
     private TextView txtEventTime, txtEventDate, txtEventEntry, txtEventContact, txtEventEmail, txtWebSite;
     private TextView txtViewMore,txtViewLess;
-    private GridView imgEventBanner;
+    private ListView imgEventBanner;
+    LinearLayout count_layout;
+    int count = 0;
+    static TextView page_text[];
+
+
     ImageLoader uImageLoader = AppController.getInstance().getUniversalImageLoader();
     private GoogleApiClient mGoogleApiClient;
     private Location mLastLocation;
@@ -113,6 +114,8 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
         super.onCreate(savedInstanceState);
         overridePendingTransition(R.anim.slide_right, 0);
         setContentView(R.layout.activity_event_detail);
+
+
         if (Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
@@ -373,6 +376,11 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
         Log.d(TAG, "Image uri is" + event.getEventBanner());
       //  uImageLoader.displayImage((event.getEventLogo()), imgEventBanner);
         imgList.add(0, event.getEventLogo());
+        imgList.add(1,"http://placehold.it/120x120&text=image2");
+        imgList.add(2,"http://placehold.it/120x120&text=image3");
+        initializeViews();
+
+
     }
 
     private void showShareList() {
@@ -406,7 +414,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
 
 
     private void initializeViews() {
-
+        count_layout = (LinearLayout) findViewById(R.id.image_count);
         txtViewMore = (TextView) findViewById(R.id.seemore);
 
         txtViewLess = (TextView) findViewById(R.id.seeless);
@@ -436,10 +444,10 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
                     mServiceHelper.setEventServiceListener(EventDetailActivity.this);
 
                 }
-                if(GamificationDataHolder.getInstance().isEventBookmarked(event.getId())){
-                    Toast.makeText(EventDetailActivity.this,"Event already bookmarked", Toast.LENGTH_SHORT).show();
+                if (GamificationDataHolder.getInstance().isEventBookmarked(event.getId())) {
+                    Toast.makeText(EventDetailActivity.this, "Event already bookmarked", Toast.LENGTH_SHORT).show();
 
-                }else {
+                } else {
                     try {
                         mServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.ADD_EVENT_BOOKMARK,
                                 Integer.parseInt(PreferenceStorage.getUserId(EventDetailActivity.this)), Integer.parseInt((event.getId()))));
@@ -474,165 +482,126 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
         txtEventEndDate = (TextView) findViewById(R.id.cal_to_val);
         txtEventStartTime = (TextView) findViewById(R.id.txt_clock_from_val);
         txtEventEndTime = (TextView) findViewById(R.id.clock_to_val);
-        imgEventBanner = (GridView) findViewById(R.id.img_banner);
+        imgEventBanner = (ListView) findViewById(R.id.banner_one);
 
 
-
-      //  imgList.add(0, event.getEventLogo());
+        //  imgList.add(0, event.getEventLogo());
         ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(EventDetailActivity.this));
-        ImageAdapter adapter = new ImageAdapter();
+
+        BannerAdapter adapter = new BannerAdapter(this, imgList);
+
         imgEventBanner.setAdapter(adapter);
 
-        imgEventBanner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (view.isEnabled()) {
-                    Bundle bundle = new Bundle();
-                    bundle.putStringArrayList("imgs", imgList);
-                    bundle.putParcelable("info", ((PhotoView) view).getInfo());
-                    bundle.putInt("position", position);
-                    imgImageInfos.clear();
-                    //NOTE:if imgList.size >= the visible count in single screen,i will cause NullPointException
-                    //because item out of screen have been replaced/reused
-                    for (int i = 0; i < imgList.size(); i++) {
-                        imgImageInfos.add(((PhotoView) parent.getChildAt(i)).getInfo());
+
+        count = imgEventBanner.getAdapter().getCount();
+        page_text = new TextView[count];
+        for (int i = 0; i < count; i++) {
+            page_text[i] = new TextView(this);
+            page_text[i].setText(".");
+            page_text[i].setTextSize(45);
+            page_text[i].setTypeface(null, Typeface.BOLD);
+            page_text[i].setTextColor(android.graphics.Color.GRAY);
+            count_layout.addView(page_text[i]);
+
+
+            imgEventBanner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+                public void onItemSelected(AdapterView<?> arg0, View arg1,
+                                           int position, long arg3) {
+                    // TODO Auto-generated method stub
+
+                    Toast.makeText(getApplicationContext(), "galleryDot " + position, Toast.LENGTH_LONG).show();
+
+
+                    for (int i = 0; i < count; i++) {
+                        EventDetailActivity.page_text[i].setTextColor(android.graphics.Color.GRAY);
                     }
-                    parent.getChildAt(position);
-                    bundle.putParcelableArrayList("infos", imgImageInfos);
-                    getSupportFragmentManager().beginTransaction().replace(Window.ID_ANDROID_CONTENT, ViewPagerFragment.getInstance(bundle), "ViewPagerFragment")
-                            .addToBackStack(null).commit();
+                    EventDetailActivity.page_text[position].setTextColor(android.graphics.Color.WHITE);
+
                 }
 
-            }
-        });
+                public void onNothingSelected(AdapterView<?> arg0) {
+                    // TODO Auto-generated method stub
 
-
-
-
-
-
-
-
-
-
-
-        callbackManager = CallbackManager.Factory.create();
-
-        mShareLIst.add("Facebook");
-        mShareLIst.add("Twitter");
-        mShareLIst.add("WhatsApp");
-        mShareResources.add(R.drawable.facebook);
-        mShareResources.add(R.drawable.twitter);
-        mShareResources.add(R.drawable.whatsapp);
-        mShareBagroundResources.add(R.drawable.social_network_statlist);
-        mShareBagroundResources.add(R.drawable.twitter_share_bg);
-        mShareBagroundResources.add(R.drawable.whatsapp_selector);
-        mShareAdapter = new ArrayAdapter<String>(this, R.layout.share_dialog_layout, R.id.share_dialog_text, mShareLIst) { // The third parameter works around ugly Android legacy. http://stackoverflow.com/a/18529511/145173
-            @Override public View getView(int position, View convertView, ViewGroup parent) {
-                Log.d(TAG,"getview called"+ position);
-                View view = getLayoutInflater().inflate(R.layout.share_dialog_layout, parent, false);
-                ImageView img = (ImageView) view.findViewById(R.id.share_image_src);
-                TextView sharename = (TextView) view.findViewById(R.id.share_dialog_text);
-                sharename.setText(mShareLIst.get(position));
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    img.setBackground(getResources().getDrawable(mShareBagroundResources.get(position), getApplicationContext().getTheme()));
-                    img.setImageDrawable(getResources().getDrawable(mShareResources.get(position),getApplicationContext().getTheme()));
-                } else {
-                    img.setBackgroundDrawable(getResources().getDrawable(mShareBagroundResources.get(position)));
-                    img.setImageDrawable(getResources().getDrawable(mShareResources.get(position)));
                 }
+            });
 
 
+            imgEventBanner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                // ... Fill in other views ...
-                return view;
-            }
-        };
 
-        mFacebookBtn = (ImageView) findViewById(R.id.facebook_btn);
-        mFacebookBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                shareWithfacebook();
-            }
-        });
-        mTwitterBtn = (ImageView) findViewById(R.id.twitter_btn);
-        mTwitterBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                postUsingTwitter();
+                    Intent intent = new Intent(EventDetailActivity.this, BannerList.class);
+                    intent.putExtra("eventObj", event);
+                    startActivity(intent);
 
-            }
-        });
-        mWhatsAppBtn = (ImageView) findViewById(R.id.whatsapp_btn);
-        mWhatsAppBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                whatsapp(v);
-            }
-        });
+
+                }
+            });
+
+
+            callbackManager = CallbackManager.Factory.create();
+
+            mShareLIst.add("Facebook");
+            mShareLIst.add("Twitter");
+            mShareLIst.add("WhatsApp");
+            mShareResources.add(R.drawable.facebook);
+            mShareResources.add(R.drawable.twitter);
+            mShareResources.add(R.drawable.whatsapp);
+            mShareBagroundResources.add(R.drawable.social_network_statlist);
+            mShareBagroundResources.add(R.drawable.twitter_share_bg);
+            mShareBagroundResources.add(R.drawable.whatsapp_selector);
+            mShareAdapter = new ArrayAdapter<String>(this, R.layout.share_dialog_layout, R.id.share_dialog_text, mShareLIst) { // The third parameter works around ugly Android legacy. http://stackoverflow.com/a/18529511/145173
+                @Override
+                public View getView(int position, View convertView, ViewGroup parent) {
+                    Log.d(TAG, "getview called" + position);
+                    View view = getLayoutInflater().inflate(R.layout.share_dialog_layout, parent, false);
+                    ImageView img = (ImageView) view.findViewById(R.id.share_image_src);
+                    TextView sharename = (TextView) view.findViewById(R.id.share_dialog_text);
+                    sharename.setText(mShareLIst.get(position));
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        img.setBackground(getResources().getDrawable(mShareBagroundResources.get(position), getApplicationContext().getTheme()));
+                        img.setImageDrawable(getResources().getDrawable(mShareResources.get(position), getApplicationContext().getTheme()));
+                    } else {
+                        img.setBackgroundDrawable(getResources().getDrawable(mShareBagroundResources.get(position)));
+                        img.setImageDrawable(getResources().getDrawable(mShareResources.get(position)));
+                    }
+
+
+                    // ... Fill in other views ...
+                    return view;
+                }
+            };
+
+            mFacebookBtn = (ImageView) findViewById(R.id.facebook_btn);
+            mFacebookBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    shareWithfacebook();
+                }
+            });
+            mTwitterBtn = (ImageView) findViewById(R.id.twitter_btn);
+            mTwitterBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    postUsingTwitter();
+
+                }
+            });
+            mWhatsAppBtn = (ImageView) findViewById(R.id.whatsapp_btn);
+            mWhatsAppBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    whatsapp(v);
+                }
+            });
+
+
+        }
+
+
     }
-
-
-    class ImageAdapter extends BaseAdapter {
-
-        @Override
-        public int getCount() {
-            return imgList.size();
-        }
-
-        @Override
-        public Object getItem(int i) {
-            return i;
-        }
-
-        @Override
-        public long getItemId(int i) {
-            return i;
-        }
-
-        @Override
-        public View getView(int i, View view, ViewGroup viewGroup) {
-
-
-
-
-
-            PhotoView p = new PhotoView(EventDetailActivity.this);
-
-           p.setLayoutParams(new AbsListView.LayoutParams((int) (getResources().getDisplayMetrics().density * 400), (int) (getResources().getDisplayMetrics().density * 400)));
-           p.setScaleType(ImageView.ScaleType.FIT_XY);
-            p.setEnabled(false);
-try {
-    //get thumbnailurl to save user data...like WeChat does
-    String thumbnailUrl = getThumbnailImageUrl(imgList.get(i), 0, 0);
-
-    uImageLoader.displayImage(thumbnailUrl, p,
-            new DisplayImageOptions.Builder()
-                    .showImageOnLoading(android.R.color.darker_gray)
-                    .cacheInMemory(true).cacheOnDisk(true).build(), loadingListener);
-
-   /* ImageLoader.getInstance().displayImage(thumbnailUrl, p,
-            new DisplayImageOptions.Builder()
-                    .showImageOnLoading(android.R.color.darker_gray)
-                    .cacheInMemory(true).cacheOnDisk(true).build(), loadingListener);*/
-   p.setAdjustViewBounds(true);
-    p.touchEnable(false);//disable touch
-} catch (Exception e){
-    e.printStackTrace();
-}
-            return p;
-        }
-    }
-
-    private ImageLoadingListener loadingListener = new SimpleImageLoadingListener() {
-        @Override
-        public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-            view.setEnabled(true);//only loadedImage is available we can click item
-        }
-    };
-
-
     public String getThumbnailImageUrl(String imgUrl,int width,int height){
         String url="http://imgsize.ph.126.net/?imgurl=data1_data2xdata3x0x85.jpg&enlarge=true";
         width = (int) (getResources().getDisplayMetrics().density * 100);
