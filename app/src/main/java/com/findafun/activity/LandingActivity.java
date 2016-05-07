@@ -8,14 +8,12 @@ import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.view.MenuCompat;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -29,7 +27,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.findafun.R;
 import com.findafun.adapter.NavDrawerAdapter;
@@ -38,7 +35,6 @@ import com.findafun.bean.events.EventList;
 import com.findafun.bean.gamification.GamificationDataHolder;
 import com.findafun.customview.PagerSlidingTabStrip;
 import com.findafun.fragment.LandingPagerFragment;
-import com.findafun.helper.AlertDialogHelper;
 import com.findafun.interfaces.DialogClickListener;
 import com.findafun.pageradapter.LandingPagerAdapter;
 import com.findafun.servicehelpers.EventServiceHelper;
@@ -58,7 +54,6 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.mime.content.ByteArrayBody;
-import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
@@ -66,7 +61,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 
 
@@ -330,6 +324,11 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
             startActivity(navigationIntent);
         }
         else if(position == 4){
+            Intent addEventIntent = new Intent(this, AddEventActivity.class);
+            //navigationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(addEventIntent);
+        }
+        else if(position == 5){
             Log.d(TAG,"Perform Logout");
             doLogout();
         }
@@ -534,7 +533,7 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
             LandingPagerFragment landingPagerFragment = (LandingPagerFragment)
                     landingPagerAdapter.getRegisteredFragment(viewPager.getCurrentItem());
             if(landingPagerFragment != null){
-                landingPagerFragment.onWindowFoucusChanged();
+                landingPagerFragment.onWindowFocusChanged();
             }
         }
     }

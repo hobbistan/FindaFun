@@ -108,4 +108,51 @@
     <string name="permision_available_All">All Permissions have been granted.</string>
     <string name="permissions_not_granted">Few Permissions were not granted.</string>
 
+
+
+    //AddEvent Page
+    <string name="evntName">Name</string>
+    <string name="evntNameVal"></string>
+    <string name="evntCateName">Category</string>
+    <string name="evntCateVal"></string>
+    <string name="evntTypeName">Type</string>
+    <string name="evntCityName">City</string>
+    <string name="evntVenueName">Venue</string>
+    <string name="evntDescName">Description</string>
+    <string name="evntStartDate">Start Date</string>
+    <string name="evntEndDate">End Date</string>
+    <string name="eventContact">Contact</string>
+    <string name="eventLat">Event Latitude</string>
+    <string name="eventLng">Event Longitude</string>
+    <string name="eventBanner">Banner</string>
+    <string name="eventAddPhoto">Add Photos</string>
+    <string name="eventSave">Save Event</string>
+    <string name="eventDiscard">Discard</string>
+    <string name="eventTime">Time</string>
+
+    <string-array name="event_type">
+        <item>Select Type</item>
+        <item>Regular</item>
+        <item>Special</item>
+        </string-array>
+
+
+    <string-array name="event_category">
+        <item>Select Category</item>
+        <item>Sports and Fitness</item>
+        <item>Travel and Adventures</item>
+        <item>Entertainment</item>
+        <item>Training / Workshop</item>
+        <item>Exhibitions / Fairs</item>
+        <item>Theatre /Stage Shows</item>
+        <item>Entertainment</item>
+        <item>Training / Workshop</item>
+        <item>Exhibition / Fairs</item>
+        <item>Theatre / Stage Shows</item>
+        <item>Meetouts / Business</item>
+        <item>Fest / Carnivals</item>
+        <item>Food / Dineout</item>
+        <item>Shopping</item>
+        <item>Bars / Pubs</item>
+    </string-array>
 </resources>
