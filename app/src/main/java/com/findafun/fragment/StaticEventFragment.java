@@ -54,8 +54,8 @@ public class StaticEventFragment extends Fragment implements LoadMoreListView.On
     private TextView mNoEventsFound = null;
 
 
-    public static StaticEventFragment newInstance(int position) {
-        StaticEventFragment frag = new StaticEventFragment();
+    public static LandingPagerFragment newInstance(int position) {
+        LandingPagerFragment frag = new LandingPagerFragment();
         Bundle b = new Bundle();
         b.putInt("position", position);
         frag.setArguments(b);

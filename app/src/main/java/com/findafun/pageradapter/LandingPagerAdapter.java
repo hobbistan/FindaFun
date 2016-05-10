@@ -60,7 +60,7 @@ public class LandingPagerAdapter extends FragmentPagerAdapter implements PagerSl
                 return  LandingPagerFragment.newInstance(position);
             case 1:
                 Log.d(TAG,"returning Nearby fragment");
-                return StaticEventFragment.newInstance(position);
+                return NearbyFragment.newInstance(position);
             case 2:
                 return LandingPagerFragment.newInstance(position);
             case 3:
