@@ -533,7 +533,7 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
             LandingPagerFragment landingPagerFragment = (LandingPagerFragment)
                     landingPagerAdapter.getRegisteredFragment(viewPager.getCurrentItem());
             if(landingPagerFragment != null){
-                landingPagerFragment.onWindowFocusChanged();
+                landingPagerFragment.onWindowFoucusChanged();
             }
         }
     }

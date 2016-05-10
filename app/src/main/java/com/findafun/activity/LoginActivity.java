@@ -400,7 +400,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Log.d(TAG, "initiate google plus Sign in");
                     initiateGplusSignIn();
                 }
-
             }
         }else{
             AlertDialogHelper.showSimpleAlertDialog(this, "No Network connection");
