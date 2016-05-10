@@ -155,4 +155,18 @@
         <item>Shopping</item>
         <item>Bars / Pubs</item>
     </string-array>
+
+    <string name="event_name">event name cannot be empty</string>
+    <string name="event_category">Select any category</string>
+    <string name="event_type">Select any type</string>
+    <string name="event_city">Select any City</string>
+    <string name="event_venue">Select venue</string>
+    <string name="event_desc">Select Description</string>
+    <string name="event_start_date">Select start date</string>
+    <string name="event_end_date">Select end date</string>
+    <string name="event_time">Select time</string>
+    <string name="event_contact">Select phone number</string>
+    <string name="event_lat">Select latitude</string>
+    <string name="event_lng">Select longitude</string>
+
 </resources>

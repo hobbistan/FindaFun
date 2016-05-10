@@ -64,4 +64,31 @@ public class FindAFunValidator {
             return false;
         }
     }
+
+    public static boolean checkValidContact(String value){
+        String MobilePattern = "[0-9]{10}";
+        if(value.matches(MobilePattern)){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+    public static boolean checkStartWith(String value){
+        Boolean result;
+        String val = new String(value);
+       // val =value.toLowerCase();
+
+        if(val.toLowerCase().startsWith("select")){
+            System.out.print("True" );
+            result = false;
+        } else {
+            System.out.print("False");
+            result = true;
+        }
+
+     return result;
+    }
+
 }

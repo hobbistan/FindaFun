@@ -19,8 +19,11 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:text="@string/evntName"
-            android:textColor="@color/black"
-            android:textSize="20dp" />
+            android:textStyle="bold"
+            android:textSize="20dp"
+
+
+            />
 
         <EditText
             android:id="@+id/addEvtNameVal"
@@ -31,7 +34,10 @@
             android:layout_marginRight="20dp"
             android:layout_marginTop="2dp"
             android:background="@color/white"
-            android:paddingRight="10dp" />
+            android:paddingRight="10dp"
+            android:textColorHint="@color/text_gray"
+            android:inputType=""
+            />
 
         <TextView
             android:id="@+id/addEvtCatgryName"
@@ -42,7 +48,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="4dp"
             android:text="@string/evntCateName"
-            android:textColor="@color/black"
+            android:textStyle="bold"
             android:textSize="20dp" />
 
         <Spinner
@@ -52,7 +58,10 @@
             android:layout_below="@+id/addEvtCatgryName"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:background="@color/white" />
+            android:drawableRight="@drawable/event_down_arrow"
+            style="@style/add_spinner_style"
+
+            />
 
         <TextView
             android:id="@+id/addEvtTypeName"
@@ -63,7 +72,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="4dp"
             android:text="@string/evntTypeName"
-            android:textColor="@color/black"
+            android:textStyle="bold"
             android:textSize="20dp" />
 
         <Spinner
@@ -74,7 +83,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:drawableRight="@drawable/event_down_arrow"
-            android:background="@color/white" />
+            style="@style/add_spinner_style" />
 
 
         <TextView
@@ -86,24 +95,19 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="4dp"
             android:text="@string/evntCityName"
-            android:textColor="@color/black"
+            android:textStyle="bold"
             android:textSize="20dp" />
 
         <Spinner
             android:id="@+id/addEvtCityVal"
             android:layout_width="match_parent"
-            android:background="@color/white"
             android:layout_height="30dp"
             android:layout_below="@+id/addEvtCityName"
-
-
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-
             android:text="@string/select_city"
-            android:drawableRight="@drawable/event_down_arrow"
-            android:paddingRight="3dp"
-
+             android:paddingRight="3dp"
+            style="@style/add_spinner_style"
             />
 
         <TextView
@@ -115,8 +119,10 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="4dp"
             android:text="@string/evntVenueName"
-            android:textColor="@color/black"
-            android:textSize="20dp" />
+            android:textStyle="bold"
+            android:textSize="20dp"
+
+            />
 
         <EditText
             android:id="@+id/addEvtVenueVal"
@@ -125,7 +131,10 @@
             android:layout_below="@+id/addEvtVenueName"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:background="@color/white" />
+            android:background="@color/white"
+            android:inputType="text"
+            android:textColorHint="@color/text_gray"
+            />
 
         <TextView
             android:id="@+id/addEvtDescName"
@@ -136,8 +145,10 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="4dp"
             android:text="@string/evntDescName"
-            android:textColor="@color/black"
-            android:textSize="20dp" />
+            android:textStyle="bold"
+            android:textSize="20dp"
+
+            />
 
         <EditText
             android:id="@+id/addEvtDescVal"
@@ -146,7 +157,10 @@
             android:layout_below="@+id/addEvtDescName"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:background="@color/white" />
+            android:background="@color/white"
+            android:inputType="text"
+            android:textColorHint="@color/text_gray"
+            />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -166,7 +180,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="5dp"
                 android:text="@string/evntStartDate"
-                android:textColor="@color/black"
+                android:textStyle="bold"
                 android:textSize="20dp" />
 
             <EditText
@@ -184,7 +198,10 @@
                 android:background="@color/white"
                 android:drawableRight="@drawable/calendar"
                 android:hint="start date"
-                android:onClick="showDatePickerDialog" />
+                android:onClick="showDatePickerDialog"
+                android:textColorHint="@color/text_gray"
+                android:inputType="date"
+                />
 
             <TextView
                 android:id="@+id/addEvtEndDate"
@@ -193,13 +210,13 @@
                 android:layout_height="wrap_content"
                  android:layout_alignParentTop="true"
 
-                android:layout_marginLeft="245dp"
+                android:layout_marginLeft="239dp"
 
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="60dp"
 
                 android:text="@string/evntEndDate"
-                android:textColor="@color/black"
+                android:textStyle="bold"
                 android:textSize="20dp"
 
                 />
@@ -210,15 +227,17 @@
                 android:layout_width="120dp"
                 android:layout_height="30dp"
                 android:layout_toRightOf="@+id/addEvtStartDateVal"
-                android:layout_marginLeft="102dp"
-
+                android:layout_marginLeft="97dp"
+                android:inputType="date"
                 android:layout_below="@+id/addEvtEndDate"
                 android:background="@color/white"
                 android:drawableRight="@drawable/calendar"
                 android:hint="end date"
                 android:paddingLeft="5dp"
                 android:paddingRight="8dp"
-                android:onClick="showDatePickerDialog" />
+                android:onClick="showTimePickerDialog"
+                android:textColorHint="@color/text_gray"
+                />
 
 
             <TextView
@@ -231,7 +250,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="5dp"
                 android:text="@string/eventTime"
-                android:textColor="@color/black"
+                android:textStyle="bold"
                 android:textSize="20dp" />
 
             <EditText
@@ -247,7 +266,10 @@
                 android:background="@color/white"
                 android:drawableRight="@drawable/accesstime"
                 android:hint="Time"
-                android:onClick="showTimePickerDialog" />
+                android:onClick="showTimePickerDialog"
+                android:textColorHint="@color/text_gray"
+                android:inputType="time"
+                />
 
 
 
@@ -263,7 +285,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="4dp"
             android:text="@string/eventContact"
-            android:textColor="@color/black"
+            android:textStyle="bold"
             android:textSize="20dp" />
 
         <EditText
@@ -273,7 +295,10 @@
             android:layout_below="@+id/addEvtContactName"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:background="@color/white" />
+            android:background="@color/white"
+            android:inputType="phone"
+            android:textColorHint="@color/text_gray"
+            />
 
         <TextView
             android:id="@+id/addEvtLat"
@@ -284,8 +309,9 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="4dp"
             android:text="@string/eventLat"
-            android:textColor="@color/black"
-            android:textSize="20dp" />
+            android:textStyle="bold"
+            android:textSize="20dp"
+            />
 
         <EditText
             android:id="@+id/addEvtLatVal"
@@ -294,7 +320,10 @@
             android:layout_below="@+id/addEvtLat"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:background="@color/white" />
+            android:background="@color/white"
+            android:textColorHint="@color/text_gray"
+            android:inputType="numberDecimal|numberSigned"
+            />
 
         <TextView
             android:id="@+id/addEvtLng"
@@ -306,7 +335,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginTop="4dp"
             android:text="@string/eventLng"
-            android:textColor="@color/black"
+            android:textStyle="bold"
             android:textSize="20dp" />
 
         <EditText
@@ -316,7 +345,10 @@
             android:layout_below="@+id/addEvtLng"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:background="@color/white" />
+            android:background="@color/white"
+            android:textColorHint="@color/text_gray"
+            android:inputType="numberDecimal|numberSigned"
+            />
 
         <TextView
             android:id="@+id/addEvtBanner"
@@ -327,8 +359,10 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="4dp"
             android:text="@string/eventBanner"
-            android:textColor="@color/black"
-            android:textSize="20dp" />
+            android:textStyle="bold"
+            android:textSize="20dp"
+
+            />
 
         <TextView
             android:id="@+id/addEvtBanNoFile"
@@ -352,7 +386,9 @@
             android:layout_marginTop="4dp"
             android:paddingLeft="10dp"
             android:text="Add file"
-            android:textSize="18dp" />
+            android:textSize="18dp"
+            android:onClick = "onLoadImageBanner"
+            />
 
         <TextView
             android:id="@+id/addEvtPhotos"
@@ -361,7 +397,7 @@
             android:layout_below="@+id/buttonAddPic"
             android:layout_marginLeft="20dp"
             android:text="@string/eventAddPhoto"
-            android:textColor="@color/black"
+            android:textStyle="bold"
             android:textSize="20dp" />
 
         <TextView
@@ -404,7 +440,9 @@
                 android:id="@+id/addEvtSave"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/eventSave" />
+                android:text="@string/eventSave"
+
+                />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>
