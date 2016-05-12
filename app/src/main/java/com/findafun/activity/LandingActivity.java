@@ -585,14 +585,12 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
             for(Event event: eventsList.getEvents()){
                 GamificationDataHolder.getInstance().addBookmarkedEvent(event.getId());
             }
-
         }
     }
 
     @Override
     public void onEventError(String error) {
         GamificationDataHolder.getInstance().clearBookmarks();
-
     }
 
     private class UploadFileToServer extends AsyncTask<Void, Integer, String> {

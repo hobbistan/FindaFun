@@ -43,7 +43,7 @@ public class AddEventActivity extends AppCompatActivity implements DialogClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_event);
+        setContentView(R.layout.activity_event_add);
 
         eventCategory = (Spinner) findViewById(R.id.addEvtCatgryVal);
         eventType = (Spinner) findViewById(R.id.addEvtTypeVal);
