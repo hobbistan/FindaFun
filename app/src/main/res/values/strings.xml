@@ -109,7 +109,6 @@
     <string name="permissions_not_granted">Few Permissions were not granted.</string>
 
 
-
     //AddEvent Page
     <string name="evntName">Name</string>
     <string name="evntNameVal"></string>
@@ -128,13 +127,14 @@
     <string name="eventAddPhoto">Add Photos</string>
     <string name="eventSave">Save Event</string>
     <string name="eventDiscard">Discard</string>
-    <string name="eventTime">Time</string>
+    <string name="eventStrTime">Start Time</string>
+    <string name="eventEndTime">End Time</string>
 
     <string-array name="event_type">
         <item>Select Type</item>
         <item>Regular</item>
         <item>Special</item>
-        </string-array>
+    </string-array>
 
 
     <string-array name="event_category">

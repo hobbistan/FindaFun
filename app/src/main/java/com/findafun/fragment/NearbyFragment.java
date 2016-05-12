@@ -356,15 +356,11 @@ public class NearbyFragment extends LandingPagerFragment implements OnMapReadyCa
         //alphaAnim.start();
     }
 
-
     @Override
     public void onActivityCreated(Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
         Log.d(TAG, "Activity created");
-
     }
-
-
 
     private void showMapsView(){
 
@@ -396,7 +392,6 @@ public class NearbyFragment extends LandingPagerFragment implements OnMapReadyCa
                                 marker = mGoogleMap.addMarker(new MarkerOptions().position(pos));
                             }
 
-
                             mAddedMarkers.add(marker);
                             mDisplayedEvents.put(pos, event);
                             marker.showInfoWindow();
@@ -405,8 +400,6 @@ public class NearbyFragment extends LandingPagerFragment implements OnMapReadyCa
                         }
                     }
                 }
-
-
             }
             //zoom the camera to current location
             if (mLastLocation != null) {
@@ -416,10 +409,7 @@ public class NearbyFragment extends LandingPagerFragment implements OnMapReadyCa
             }
 
             mAddddLocations = false;
-
         }
-
-
     }
 
     @Override
@@ -532,7 +522,6 @@ public class NearbyFragment extends LandingPagerFragment implements OnMapReadyCa
                 makeEventListServiceCall(pageNumber);
            // }
         }
-
     }
 
     @Override
@@ -571,14 +560,12 @@ public class NearbyFragment extends LandingPagerFragment implements OnMapReadyCa
                     alertDialog.show();
                 }
 
-
             }else {
                 mLocationProgress = new ProgressDialog(getActivity());
                 mLocationProgress.setIndeterminate(true);
                 mLocationProgress.setMessage("Loading");
                 mLocationProgress.show();
             }
-
         }
     }
 
@@ -657,8 +644,6 @@ public class NearbyFragment extends LandingPagerFragment implements OnMapReadyCa
     public void onConnected(Bundle bundle) {
         Log.d(TAG,"API CLient connected. fetch the list");
         fetchCurrentLocation();
-
-
     }
 
     @Override
@@ -677,7 +662,6 @@ public class NearbyFragment extends LandingPagerFragment implements OnMapReadyCa
             super.callGetEventService(1);
             //getNearbyLIst(2);
         }
-
     }
 
     @Override
@@ -738,8 +722,6 @@ public class NearbyFragment extends LandingPagerFragment implements OnMapReadyCa
                     intent.putExtra("eventObj", event);
                     startActivity(intent);
                 }
-
-
             }
         });
         mGoogleMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
