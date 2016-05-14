@@ -187,9 +187,8 @@
             android:name="za.co.riggaroo.materialhelptutorial.tutorial.MaterialTutorialActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".AppRate.AppRate"
+            android:name=".appRate.AppRate"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".activity.PictureDetailsActivity" />
         <activity android:name=".activity.BannerList"></activity>
     </application>
 

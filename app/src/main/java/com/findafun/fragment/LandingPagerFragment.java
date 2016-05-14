@@ -194,6 +194,7 @@ public class LandingPagerFragment extends Fragment implements LoadMoreListView.O
                 case 0:
                     Log.d(TAG, "fetch favourites");
                     eventServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.GET_EVENTS_FAVOURITES, Integer.parseInt(PreferenceStorage.getUserId(getActivity())), pageNumber, PreferenceStorage.getUserCity(getActivity())));
+//                    eventServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.GET_EVENTS_FAVOURITES, pageNumber));
                     break;
                 case 1:
                     Log.d(TAG, "fetch Nearby events");

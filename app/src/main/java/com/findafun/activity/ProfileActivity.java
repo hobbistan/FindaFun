@@ -166,7 +166,6 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
             @Override
             public void onClick(View v) {
                 finish();
-
             }
         });
         mProfileImage = (ImageView) findViewById(R.id.image_profile_pic);

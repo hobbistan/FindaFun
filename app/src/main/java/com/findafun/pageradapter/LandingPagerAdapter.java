@@ -12,8 +12,10 @@ import android.view.ViewGroup;
 import com.findafun.R;
 import com.findafun.activity.MapsActivity;
 import com.findafun.customview.PagerSlidingTabStrip;
+import com.findafun.fragment.FavoriteFragment;
 import com.findafun.fragment.LandingPagerFragment;
 import com.findafun.fragment.NearbyFragment;
+import com.findafun.fragment.PopularFragment;
 import com.findafun.fragment.RewardsFragment;
 import com.findafun.fragment.StaticEventFragment;
 
@@ -23,12 +25,12 @@ import java.util.List;
 /**
  * Created by nandhakumar.k on 30/10/15.
  */
-public class LandingPagerAdapter extends FragmentPagerAdapter implements PagerSlidingTabStrip.IconTabProvider{
+public class LandingPagerAdapter extends FragmentPagerAdapter implements PagerSlidingTabStrip.IconTabProvider {
     private static final String TAG = LandingPagerAdapter.class.getName();
 
     Context context;
     SparseArray<Fragment> registeredFragments = new SparseArray<Fragment>();
-    private final String[] TITLES = {"FAVOURITES", "NEARBY", "POPULAR","EXPLORE"};
+    private final String[] TITLES = {"FAVOURITES", "NEARBY", "POPULAR", "EXPLORE"};
     private List<Integer> mTabResources = new ArrayList<Integer>();
     private List<Integer> mUnselectedTabResources = new ArrayList<Integer>();
     onFragmentsRegisteredListener onFragmentsRegisteredListener;
@@ -38,7 +40,7 @@ public class LandingPagerAdapter extends FragmentPagerAdapter implements PagerSl
         super(fm);
         this.onFragmentsRegisteredListener = onFragmentsRegisteredListener;
         instantiated = false;
-        this.context=context;
+        this.context = context;
         mTabResources.add(R.drawable.home_tab_selected);
         mTabResources.add(R.drawable.location_tab_selected);
         mTabResources.add(R.drawable.explore_white);
@@ -52,24 +54,23 @@ public class LandingPagerAdapter extends FragmentPagerAdapter implements PagerSl
 
     @Override
     public Fragment getItem(int position) {
-        Log.d(TAG,"getItem called"+ position);
+        Log.d(TAG, "getItem called" + position);
 
-        switch (position){
+        switch (position) {
             case 0:
-                Log.d(TAG,"returning Landing page fragment");
-                return  LandingPagerFragment.newInstance(position);
+                Log.d(TAG, "returning Landing page fragment");
+                return FavoriteFragment.newInstance(position);
+//            return  LandingPagerFragment.newInstance(position);
             case 1:
-                Log.d(TAG,"returning Nearby fragment");
+                Log.d(TAG, "returning Nearby fragment");
                 return NearbyFragment.newInstance(position);
             case 2:
-                return LandingPagerFragment.newInstance(position);
+                return PopularFragment.newInstance(position);
+//                return LandingPagerFragment.newInstance(position);
             case 3:
                 return RewardsFragment.newInstance(position);
-
-
         }
         return null;
-
     }
 
     @Override
@@ -80,34 +81,34 @@ public class LandingPagerAdapter extends FragmentPagerAdapter implements PagerSl
 
     @Override
     public CharSequence getPageTitle(int position) {
-       // Log.d(TAG,"getTitle called");
+        // Log.d(TAG,"getTitle called");
         return TITLES[position];
     }
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-      //  Log.d(TAG, "Instantiate page item" + position);
+        //  Log.d(TAG, "Instantiate page item" + position);
         /*if(position>2){
             Intent navigation = new Intent(context, MapsActivity.class);
             navigation.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(navigation);
             return null;
         }else {*/
-            Fragment fragment = (Fragment) super.instantiateItem(container, position);
-            registeredFragments.put(position, fragment);
-            return fragment;
+        Fragment fragment = (Fragment) super.instantiateItem(container, position);
+        registeredFragments.put(position, fragment);
+        return fragment;
         //}
     }
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        Log.d(TAG,"destroy item"+ position);
+        Log.d(TAG, "destroy item" + position);
         registeredFragments.remove(position);
         super.destroyItem(container, position, object);
     }
 
     public Fragment getRegisteredFragment(int position) {
-        Log.d(TAG,"getting registered fragment");
+        Log.d(TAG, "getting registered fragment");
         return registeredFragments.get(position);
     }
 
@@ -118,7 +119,7 @@ public class LandingPagerAdapter extends FragmentPagerAdapter implements PagerSl
 
     @Override
     public int getCurrentPaeIconResId(int position) {
-        Log.d(TAG,"returning current selected image");
+        Log.d(TAG, "returning current selected image");
         return mTabResources.get(position);
     }
 
@@ -129,12 +130,12 @@ public class LandingPagerAdapter extends FragmentPagerAdapter implements PagerSl
     @Override
     public void finishUpdate(ViewGroup container) {
         super.finishUpdate(container);
-        Log.d(TAG,"finishedUpdating the PagerAdapter");
+        Log.d(TAG, "finishedUpdating the PagerAdapter");
         //if (!instantiated) {
-            instantiated = true;
-            if (onFragmentsRegisteredListener != null) {
-                onFragmentsRegisteredListener.onFragmentsRegistered();
-            }
+        instantiated = true;
+        if (onFragmentsRegisteredListener != null) {
+            onFragmentsRegisteredListener.onFragmentsRegistered();
+        }
         //}
     }
 }

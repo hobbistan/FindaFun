@@ -1,4 +1,4 @@
-package com.findafun.AppRate;
+package com.findafun.appRate;
 
 public class PrefsContract {
 
