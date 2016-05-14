@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/White"
     android:orientation="vertical"
+
     tools:context=".activity.AddEventActivity">
 
     <RelativeLayout
@@ -107,14 +108,16 @@
             android:layout_marginRight="5dp"
             android:background="@color/transparent"
             android:clickable="true"
-            android:enabled="false"
-            android:focusable="false"
+
+
             android:hint="Choose category"
             android:padding="3dp"
             android:text=""
             android:textColor="@color/text_gray"
             android:textSize="17sp"
-            android:typeface="serif" />
+            android:typeface="serif"
+            android:drawableRight="@drawable/event_down_arrow"
+            />
     </LinearLayout>
 
     <View
@@ -148,14 +151,16 @@
             android:layout_marginRight="5dp"
             android:background="@color/transparent"
             android:clickable="true"
-            android:enabled="false"
+
             android:focusable="false"
             android:hint="Choose type"
             android:padding="3dp"
             android:text=""
             android:textColor="@color/text_gray"
             android:textSize="17sp"
-            android:typeface="serif" />
+            android:typeface="serif"
+            android:drawableRight="@drawable/event_down_arrow"
+            />
     </LinearLayout>
 
     <View
@@ -189,14 +194,16 @@
             android:layout_marginRight="5dp"
             android:background="@color/transparent"
             android:clickable="true"
-            android:enabled="false"
+
             android:focusable="false"
             android:hint="Choose city"
             android:padding="3dp"
             android:text=""
             android:textColor="@color/text_gray"
             android:textSize="17sp"
-            android:typeface="serif" />
+            android:typeface="serif"
+            android:drawableRight="@drawable/event_down_arrow"
+            />
     </LinearLayout>
 
     <View

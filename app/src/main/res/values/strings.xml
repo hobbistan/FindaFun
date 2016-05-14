@@ -65,6 +65,7 @@
     <string name="till">Till</string>
     <string name="get_started">Get Started</string>
     <string name="title_activity_profile">Profile</string>
+    <string name="title_activity_addEvent">Add Events</string>
     <string name="title_activity_maps">Map</string>
     <!--<string name="google_maps_key">AIzaSyAw8BodwUeiF0YNud7Kfm_D8QZexZf9Nh8</string>-->
     <string name="google_maps_key">AIzaSyAzH0XCvT3Ae7XqFymrdCdiza80Y5HBsdE</string>
@@ -146,9 +147,6 @@
         <item>Exhibitions / Fairs</item>
         <item>Theatre /Stage Shows</item>
         <item>Entertainment</item>
-        <item>Training / Workshop</item>
-        <item>Exhibition / Fairs</item>
-        <item>Theatre / Stage Shows</item>
         <item>Meetouts / Business</item>
         <item>Fest / Carnivals</item>
         <item>Food / Dineout</item>
@@ -168,5 +166,6 @@
     <string name="event_contact">Select phone number</string>
     <string name="event_lat">Select latitude</string>
     <string name="event_lng">Select longitude</string>
+    <string name="event_contact_valid">Enter Valid Phone Number</string>
 
 </resources>
