@@ -196,12 +196,12 @@ public class LandingPagerFragment extends Fragment implements LoadMoreListView.O
                     eventServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.GET_EVENTS_FAVOURITES, Integer.parseInt(PreferenceStorage.getUserId(getActivity())), pageNumber, PreferenceStorage.getUserCity(getActivity())));
 //                    eventServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.GET_EVENTS_FAVOURITES, pageNumber));
                     break;
-                case 1:
-                    Log.d(TAG, "fetch Nearby events");
-//                    eventServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.GET_STATIC_EVENTS, Integer.parseInt(PreferenceStorage.getUserId(getActivity())), pageNumber, PreferenceStorage.getUserCity(getActivity())));
-                    eventServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.GET_EVENTS_NEARBY_URL, pageNumber));
-                    break;
                 case 2:
+                    Log.d(TAG, "fetch Nearby events");
+                    eventServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.GET_STATIC_EVENTS, Integer.parseInt(PreferenceStorage.getUserId(getActivity())), pageNumber, PreferenceStorage.getUserCity(getActivity())));
+//                    eventServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.GET_EVENTS_NEARBY_URL, pageNumber));
+                    break;
+                case 1:
                     Log.d(TAG, "fetch ALL events");
                     eventServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.GET_EVENTS_ALL_URL, pageNumber, PreferenceStorage.getUserCity(getActivity())));
                     break;
@@ -241,11 +241,8 @@ public class LandingPagerFragment extends Fragment implements LoadMoreListView.O
                     if(mNoEventsFound != null)
                         mNoEventsFound.setVisibility(View.VISIBLE);
                 }
-
             }
         });
-
-
     }
 
     @Override
@@ -258,7 +255,6 @@ public class LandingPagerFragment extends Fragment implements LoadMoreListView.O
                 AlertDialogHelper.showSimpleAlertDialog(getActivity(), error);
             }
         });
-
     }
 
     @Override

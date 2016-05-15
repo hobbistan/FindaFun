@@ -1,4 +1,4 @@
-package com.findafun.appRate;
+package com.findafun.AppRate;
 
 import android.content.Context;
 import android.content.SharedPreferences;

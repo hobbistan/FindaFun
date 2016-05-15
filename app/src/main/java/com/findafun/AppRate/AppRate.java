@@ -1,4 +1,4 @@
-package com.findafun.appRate;
+package com.findafun.AppRate;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -33,7 +33,6 @@ public class AppRate implements OnClickListener, OnCancelListener {
 	private long minDaysUntilPrompt = 0;
 
 	private boolean showIfHasCrashed = true;
-
 
 	public AppRate(Activity hostActivity) {
 		this.hostActivity = hostActivity;

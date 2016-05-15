@@ -18,6 +18,7 @@ import com.findafun.fragment.NearbyFragment;
 import com.findafun.fragment.PopularFragment;
 import com.findafun.fragment.RewardsFragment;
 import com.findafun.fragment.StaticEventFragment;
+import com.findafun.fragment.StaticFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +31,7 @@ public class LandingPagerAdapter extends FragmentPagerAdapter implements PagerSl
 
     Context context;
     SparseArray<Fragment> registeredFragments = new SparseArray<Fragment>();
-    private final String[] TITLES = {"FAVOURITES", "NEARBY", "POPULAR", "EXPLORE"};
+    private final String[] TITLES = {"FAVOURITES","POPULAR", "STATIC", "EXPLORE"};
     private List<Integer> mTabResources = new ArrayList<Integer>();
     private List<Integer> mUnselectedTabResources = new ArrayList<Integer>();
     onFragmentsRegisteredListener onFragmentsRegisteredListener;
@@ -42,13 +43,13 @@ public class LandingPagerAdapter extends FragmentPagerAdapter implements PagerSl
         instantiated = false;
         this.context = context;
         mTabResources.add(R.drawable.home_tab_selected);
-        mTabResources.add(R.drawable.location_tab_selected);
         mTabResources.add(R.drawable.explore_white);
+        mTabResources.add(R.drawable.location_tab_selected);
         mTabResources.add(R.drawable.rewards_tab_selected);
 
         mUnselectedTabResources.add(R.drawable.home_tab_unselected);
-        mUnselectedTabResources.add(R.drawable.location_tab_unselected);
         mUnselectedTabResources.add(R.drawable.export_tab_unselected);
+        mUnselectedTabResources.add(R.drawable.location_tab_unselected);
         mUnselectedTabResources.add(R.drawable.rewards_tab_unselected);
     }
 
@@ -61,10 +62,11 @@ public class LandingPagerAdapter extends FragmentPagerAdapter implements PagerSl
                 Log.d(TAG, "returning Landing page fragment");
                 return FavoriteFragment.newInstance(position);
 //            return  LandingPagerFragment.newInstance(position);
-            case 1:
-                Log.d(TAG, "returning Nearby fragment");
-                return NearbyFragment.newInstance(position);
             case 2:
+                Log.d(TAG, "returning Nearby fragment");
+//                return NearbyFragment.newInstance(position);
+                return StaticFragment.newInstance(position);
+            case 1:
                 return PopularFragment.newInstance(position);
 //                return LandingPagerFragment.newInstance(position);
             case 3:

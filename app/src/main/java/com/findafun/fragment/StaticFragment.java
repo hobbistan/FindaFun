@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.findafun.R;
 import com.findafun.activity.EventDetailActivity;
+import com.findafun.activity.StaticEventDetailActivity;
 import com.findafun.bean.events.Event;
 import com.findafun.bean.events.EventList;
 import com.findafun.helper.AlertDialogHelper;
@@ -58,11 +59,11 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Created by Data Crawl 6 on 13-05-2016.
+ * Created by Data Crawl 6 on 14-05-2016.
  */
-public class PopularFragment extends LandingPagerFragment implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
+public class StaticFragment extends LandingPagerFragment implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
 
-    private static final String TAG = FavoriteFragment.class.getName();
+    private static final String TAG = StaticFragment.class.getName();
     private MapView mMapView = null;
     private GoogleMap mGoogleMap = null;
     GoogleApiClient mGoogleApiClient = null;
@@ -105,8 +106,8 @@ public class PopularFragment extends LandingPagerFragment implements OnMapReadyC
     HashMap<Integer,String> latitude = new HashMap<Integer, String>();
     HashMap<Integer, String> longitude = new HashMap<Integer, String>();
 
-    public static PopularFragment newInstance(int position) {
-        PopularFragment frag = new PopularFragment();
+    public static StaticFragment newInstance(int position) {
+        StaticFragment frag = new StaticFragment();
         Bundle b = new Bundle();
         b.putInt("position", position);
         frag.setArguments(b);
@@ -293,7 +294,6 @@ public class PopularFragment extends LandingPagerFragment implements OnMapReadyC
                 if (mAddddLocations) {
                     showMapsView();
                 }
-
             }
 
             @Override
@@ -317,7 +317,6 @@ public class PopularFragment extends LandingPagerFragment implements OnMapReadyC
         ObjectAnimator anim = ObjectAnimator.ofPropertyValuesHolder(mMapView, transX);
 
         anim.setDuration(500);
-
 
         anim.addListener(new Animator.AnimatorListener() {
             @Override
@@ -440,9 +439,9 @@ public class PopularFragment extends LandingPagerFragment implements OnMapReadyC
                         temEventLoc.setLongitude(Double.parseDouble(event.getEventLongitude()));
                         float distance = mLastLocation.distanceTo(temEventLoc);
                         Log.d(TAG,"calculated distance is"+ distance);
-                        //if(distance < (35 * 1000)){
+                        if(distance < (35 * 1000)){
                             mNearbyLIst.add(event);
-                       // }
+                        }
                     }
                     i++;
 
@@ -479,7 +478,7 @@ public class PopularFragment extends LandingPagerFragment implements OnMapReadyC
             mAddddLocations = true;
         }
 
-        mTotalEventCount.setText(Integer.toString(eventsArrayList.size())+ " Popular Events");
+        mTotalEventCount.setText(Integer.toString(eventsArrayList.size())+ " Static Events");
 
        /* progressDialogHelper.hideProgressDialog();
         loadMoreListView.onLoadMoreComplete();
@@ -543,8 +542,6 @@ public class PopularFragment extends LandingPagerFragment implements OnMapReadyC
                                     //add pause button
                                     Intent viewIntent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                                     startActivity(viewIntent);
-
-
                                 }
                             });
 
@@ -711,7 +708,7 @@ public class PopularFragment extends LandingPagerFragment implements OnMapReadyC
                 Event event = mDisplayedEvents.get(pos);
                 if(event != null) {
                     Log.d(TAG, "map info view clicked");
-                    Intent intent = new Intent(getActivity(), EventDetailActivity.class);
+                    Intent intent = new Intent(getActivity(), StaticEventDetailActivity.class);
                     intent.putExtra("eventObj", event);
                     startActivity(intent);
                 }

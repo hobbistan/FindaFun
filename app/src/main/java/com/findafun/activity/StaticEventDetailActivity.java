@@ -75,12 +75,13 @@ import java.util.List;
 import twitter4j.TwitterException;
 import twitter4j.auth.AccessToken;
 
-public class EventDetailActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
+/**
+ * Created by Data Crawl 6 on 14-05-2016.
+ */
+public class StaticEventDetailActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
         LocationListener, IGamificationServiceListener, IEventServiceListener {
-
-
     private Animator mCurrentAnimator;
-    private static final String TAG = EventDetailActivity.class.getName();
+    private static final String TAG = StaticEventDetailActivity.class.getName();
     private Event event;
     private TextView txtEventName, txtEventCategory, txtEventDesc, txtEventVenue, txtEventStartDate, txtEventEndDate, txtEventStartTime, txtEventEndTime;
     private TextView txtEventTime, txtEventDate, txtEventEntry, txtEventContact, txtEventEmail, txtWebSite;
@@ -89,7 +90,6 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
     LinearLayout count_layout;
     int count = 0;
     static TextView page_text[];
-
 
     ImageLoader uImageLoader = AppController.getInstance().getUniversalImageLoader();
     private GoogleApiClient mGoogleApiClient;
@@ -114,8 +114,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         overridePendingTransition(R.anim.slide_right, 0);
-        setContentView(R.layout.activity_event_detail);
-
+        setContentView(R.layout.activity_static_event_detail);
 
         if (Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -127,8 +126,6 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
         getSupportActionBar().setTitle("EVENT");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         curRate = getPreferCount();
-
-
 
        /*   new AppRate(this)
                     .setMinDaysUntilPrompt(2)
@@ -142,7 +139,6 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
         if (curRate == 20) {
             fetchAppRate();
         }
-
 
     }
 
@@ -327,11 +323,11 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
                 double lat = Double.parseDouble(event.getEventLatitude());
                 double longitude = Double.parseDouble(event.getEventLongitude());
                 if ((lat > 0) | (longitude > 0)) {
-                    Intent intent = new Intent(EventDetailActivity.this, MapsActivity.class);
+                    Intent intent = new Intent(StaticEventDetailActivity.this, MapsActivity.class);
                     intent.putExtra("eventObj", event);
                     startActivity(intent);
                 } else {
-                    Toast.makeText(EventDetailActivity.this, "Location information not available for this event", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(StaticEventDetailActivity.this, "Location information not available for this event", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -431,17 +427,17 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
             public void onClick(View v) {
                 Log.d(TAG, "Bookmark Button selected" + event.getId());
                 if (mServiceHelper == null) {
-                    mServiceHelper = new EventServiceHelper(EventDetailActivity.this);
-                    mServiceHelper.setEventServiceListener(EventDetailActivity.this);
+                    mServiceHelper = new EventServiceHelper(StaticEventDetailActivity.this);
+                    mServiceHelper.setEventServiceListener(StaticEventDetailActivity.this);
 
                 }
                 if (GamificationDataHolder.getInstance().isEventBookmarked(event.getId())) {
-                    Toast.makeText(EventDetailActivity.this, "Event already bookmarked", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(StaticEventDetailActivity.this, "Event already bookmarked", Toast.LENGTH_SHORT).show();
 
                 } else {
                     try {
                         mServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.ADD_EVENT_BOOKMARK,
-                                Integer.parseInt(PreferenceStorage.getUserId(EventDetailActivity.this)), Integer.parseInt((event.getId()))));
+                                Integer.parseInt(PreferenceStorage.getUserId(StaticEventDetailActivity.this)), Integer.parseInt((event.getId()))));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -476,7 +472,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
 
 
         //  imgList.add(0, event.getEventLogo());
-        ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(EventDetailActivity.this));
+        ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(StaticEventDetailActivity.this));
 
         BannerAdapter adapter = new BannerAdapter(this, imgList);
 
@@ -516,7 +512,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                    Intent intent = new Intent(EventDetailActivity.this, BannerList.class);
+                    Intent intent = new Intent(StaticEventDetailActivity.this, BannerList.class);
                     intent.putExtra("eventObj", event);
                     startActivity(intent);
                 }
@@ -628,12 +624,12 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
     }
 
     private void shareWithfacebook() {
-        shareDialog = new ShareDialog(EventDetailActivity.this);
+        shareDialog = new ShareDialog(StaticEventDetailActivity.this);
         shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
             @Override
             public void onSuccess(Sharer.Result result) {
                 Log.d(TAG, "Share success");
-                Toast.makeText(EventDetailActivity.this, "Shared event using facebook", Toast.LENGTH_SHORT).show();
+                Toast.makeText(StaticEventDetailActivity.this, "Shared event using facebook", Toast.LENGTH_SHORT).show();
                 sendShareStatus();
             }
 
@@ -646,7 +642,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
             @Override
             public void onError(FacebookException error) {
                 Log.e(TAG, "Share failed" + error.getLocalizedMessage());
-                Toast.makeText(EventDetailActivity.this, "Error posting message. Please try again", Toast.LENGTH_SHORT);
+                Toast.makeText(StaticEventDetailActivity.this, "Error posting message. Please try again", Toast.LENGTH_SHORT);
             }
         });
         if (ShareDialog.canShow(ShareLinkContent.class)) {
