@@ -100,6 +100,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarEventDetails" />
         <activity
+            android:name=".activity.StaticEventDetailActivity"
+            android:label="@string/title_activity_event_detail"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeNoActionBarEventDetails" />
+        <activity
             android:name=".activity.BookmarksActivity"
             android:label="@string/title_book_mark"
             android:screenOrientation="portrait"
@@ -111,6 +116,10 @@
             android:theme="@style/AppFullScreenTheme" />
         <activity
             android:name=".activity.ProfileActivity"
+            android:label="@string/title_activity_profile"
+            android:theme="@style/AppFullScreenTheme" />
+        <activity
+            android:name=".activity.AddEventActivity"
             android:label="@string/title_activity_profile"
             android:theme="@style/AppFullScreenTheme" />
         <activity
@@ -186,11 +195,10 @@
         <activity
             android:name="za.co.riggaroo.materialhelptutorial.tutorial.MaterialTutorialActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name=".AppRate.AppRate"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".activity.PictureDetailsActivity" />
-        <activity android:name=".activity.BannerList"></activity>
+        <!--<activity-->
+            <!--android:name=".AppRate.AppRate"-->
+            <!--android:theme="@style/Theme.AppCompat.Light.NoActionBar" />-->
+        <!--<activity android:name=".activity.BannerList"></activity>-->
     </application>
 
 </manifest>

@@ -79,7 +79,7 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
 
     public static final int TAG_FAVOURITES = 0, TAG_FEATURED = 1, TAG_ALL = 2;
     private ArrayAdapter<String> navListAdapter;
-    private String[] values = {"Change City", "Profile", "Edit Preferences","Bookmarks","Add Event", "Log Out"};
+    private String[] values = {"Change City", "Profile", "Edit Preferences","Wishlists","Add Event", "Log Out"};
 
     private boolean mFragmentsLoaded = false;
     TextView navUserName = null;
@@ -533,7 +533,7 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
             LandingPagerFragment landingPagerFragment = (LandingPagerFragment)
                     landingPagerAdapter.getRegisteredFragment(viewPager.getCurrentItem());
             if(landingPagerFragment != null){
-                landingPagerFragment.onWindowFocusChanged();
+                landingPagerFragment.onWindowFoucusChanged();
             }
         }
     }
@@ -559,7 +559,6 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
         homeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(homeIntent);
         this.finish();
-
     }
 
     @Override

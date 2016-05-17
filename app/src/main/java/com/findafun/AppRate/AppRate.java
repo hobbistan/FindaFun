@@ -34,7 +34,6 @@ public class AppRate implements OnClickListener, OnCancelListener {
 
 	private boolean showIfHasCrashed = true;
 
-
 	public AppRate(Activity hostActivity) {
 		this.hostActivity = hostActivity;
 		preferences = hostActivity.getSharedPreferences(PrefsContract.SHARED_PREFS_NAME, 0);

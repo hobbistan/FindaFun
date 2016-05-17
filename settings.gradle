@@ -1,1 +1,1 @@
-include ':app', ':pulltorefresh-and-loadmore', ':recyclerview'
+include ':app', ':pulltorefresh-and-loadmore'
