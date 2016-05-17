@@ -55,7 +55,9 @@ public class EventServiceHelper {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d(TAG, "ajaz : " + response.toString());
-                        eventServiceListener.onEventResponse(response);
+                        if(response != null) {
+                            eventServiceListener.onEventResponse(response);
+                        }
                     }
                 }, new com.android.volley.Response.ErrorListener() {
 

@@ -416,7 +416,7 @@ public class StaticFragment extends LandingPagerFragment implements OnMapReadyCa
             Log.d(TAG,"fetched all event list count"+ eventsList.getCount());
         }
         int totalNearbyCount =0;
-        if (eventsList.getEvents() != null && eventsList.getEvents().size() > 0) {
+        if (eventsList.getEvents() != null && eventsList.getEvents().size() > 0 && eventsList != null) {
             if(mLastLocation != null) {
                 Log.d(TAG,"Location is set");
                 ArrayList<Event> mNearbyLIst = new ArrayList<Event>();
