@@ -439,12 +439,11 @@ public class StaticFragment extends LandingPagerFragment implements OnMapReadyCa
                         temEventLoc.setLongitude(Double.parseDouble(event.getEventLongitude()));
                         float distance = mLastLocation.distanceTo(temEventLoc);
                         Log.d(TAG,"calculated distance is"+ distance);
-                        if(distance < (35 * 1000)){
+                        //if(distance < (35 * 1000)){
                             mNearbyLIst.add(event);
-                        }
+                        //}
                     }
                     i++;
-
                 }
                 totalNearbyCount = mNearbyLIst.size();
                 Log.d(TAG,"Total event close by 35km "+ totalNearbyCount);
