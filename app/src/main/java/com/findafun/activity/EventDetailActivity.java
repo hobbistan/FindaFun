@@ -376,8 +376,8 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
         Log.d(TAG, "Image uri is" + event.getEventBanner());
       //  uImageLoader.displayImage((event.getEventLogo()), imgEventBanner);
         imgList.add(0, event.getEventLogo());
-        imgList.add(1,"http://placehold.it/120x120&text=image2");
-        imgList.add(2,"http://placehold.it/120x120&text=image3");
+     //   imgList.add(1,"http://placehold.it/120x120&text=image2");
+     //   imgList.add(2,"http://placehold.it/120x120&text=image3");
         initializeViews();
 
 
@@ -527,7 +527,9 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
             });
 
 
-            imgEventBanner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            /*image banner item click*/
+
+           /* imgEventBanner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
@@ -538,7 +540,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
 
 
                 }
-            });
+            });*/
 
 
             callbackManager = CallbackManager.Factory.create();
