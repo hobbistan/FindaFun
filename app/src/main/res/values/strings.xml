@@ -33,6 +33,7 @@
     <string name="progress_loading">Loading...</string>
     <string name="no_connectivity">Please check your internet connectivity and try again.</string>
     <string name="title_activity_event_detail">EventDetailActivity</string>
+    <string name="title_activity_static_event_detail">StaticEventDetailActivity</string>
     <string name="title_book_mark">Bookmarks</string>
     <string name="venue">Venue</string>
     <string name="about_event">About Event</string>

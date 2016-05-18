@@ -23,6 +23,7 @@ import com.findafun.bean.events.EventList;
 import com.findafun.helper.AlertDialogHelper;
 import com.findafun.helper.ProgressDialogHelper;
 import com.findafun.servicehelpers.EventServiceHelper;
+import com.findafun.servicehelpers.StaticEventServiceHelper;
 import com.findafun.serviceinterfaces.IEventServiceListener;
 import com.findafun.utils.CommonUtils;
 import com.findafun.utils.FindAFunConstants;
@@ -45,6 +46,7 @@ public class LandingPagerFragment extends Fragment implements LoadMoreListView.O
     protected View view;
     protected EventsListAdapter eventsListAdapter;
     protected EventServiceHelper eventServiceHelper;
+    //protected StaticEventServiceHelper staticEventServiceHelper;
     protected ArrayList<Event> eventsArrayList;
     int pageNumber = 0, totalCount = 0;
     protected ProgressDialogHelper progressDialogHelper;

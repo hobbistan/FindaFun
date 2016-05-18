@@ -212,44 +212,6 @@ public class StaticFragment extends LandingPagerFragment implements OnMapReadyCa
         mMapView.getMapAsync(this);
         mAddedMarkers.clear();
         mDisplayedEvents.clear();
-       /* if(mGoogleMap != null){
-            mGoogleMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
-                @Override
-                public View getInfoWindow(Marker marker) {
-                    Log.d(TAG,"Getting the info view contents");
-
-                    View infowindow = getActivity().getLayoutInflater().inflate(R.layout.map_info_window_layout, null);
-                    LatLng pos = marker.getPosition();
-                    if(pos != null) {
-                        Event event = mDisplayedEvents.get(pos);
-                        if(event != null) {
-                            TextView title = (TextView) infowindow.findViewById(R.id.info_window_Title);
-                            TextView subTitle = (TextView) infowindow.findViewById(R.id.info_window_subtext);
-                            String eventname = event.getEventName();
-                            if((eventname != null) && !eventname.isEmpty()){
-                                if(eventname.length() > 15){
-                                    Log.d(TAG,"length more that 15");
-                                    String substr = eventname.substring(0,14);
-                                    Log.d(TAG,"title is"+ substr);
-                                    title.setText(substr + "..");
-                                }else{
-                                    Log.d(TAG,"title less that 15 is"+ eventname);
-                                    title.setText(eventname);
-                                }
-                            }
-                           // title.setText(event.getEventName());
-                            subTitle.setText(event.getCategoryName());
-                        }
-                    }
-                    return infowindow;
-                }
-
-                @Override
-                public View getInfoContents(Marker marker) {
-                   return null;
-                }
-            });
-        }*/
 
         // Needs to call MapsInitializer before doing any CameraUpdateFactory calls
         try {
@@ -258,10 +220,6 @@ public class StaticFragment extends LandingPagerFragment implements OnMapReadyCa
             e.printStackTrace();
         }
 
-
-        // Updates the location and zoom of the MapView
-        /*CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(43.1, -87.9), 10);
-        mGoogleMap.animateCamera(cameraUpdate);*/
     }
 
     @Override
@@ -416,7 +374,7 @@ public class StaticFragment extends LandingPagerFragment implements OnMapReadyCa
             Log.d(TAG,"fetched all event list count"+ eventsList.getCount());
         }
         int totalNearbyCount =0;
-        if (eventsList.getEvents() != null && eventsList.getEvents().size() > 0 && eventsList != null) {
+        if (eventsList.getEvents() != null && eventsList.getEvents().size() > 0 ) {
             if(mLastLocation != null) {
                 Log.d(TAG,"Location is set");
                 ArrayList<Event> mNearbyLIst = new ArrayList<Event>();
@@ -439,9 +397,9 @@ public class StaticFragment extends LandingPagerFragment implements OnMapReadyCa
                         temEventLoc.setLongitude(Double.parseDouble(event.getEventLongitude()));
                         float distance = mLastLocation.distanceTo(temEventLoc);
                         Log.d(TAG,"calculated distance is"+ distance);
-                        //if(distance < (35 * 1000)){
+                        if(distance < (350 * 1000)){
                             mNearbyLIst.add(event);
-                        //}
+                        }
                     }
                     i++;
                 }
@@ -477,17 +435,7 @@ public class StaticFragment extends LandingPagerFragment implements OnMapReadyCa
             mAddddLocations = true;
         }
 
-        mTotalEventCount.setText(Integer.toString(eventsArrayList.size())+ " Static Events");
-
-       /* progressDialogHelper.hideProgressDialog();
-        loadMoreListView.onLoadMoreComplete();
-        Gson gson = new Gson();
-        EventList eventsList = gson.fromJson(response.toString(), EventList.class);
-        if (eventsList.getEvents() != null && eventsList.getEvents().size() > 0) {
-            totalCount = eventsList.getCount();
-            isLoadingForFirstTime = false;
-            updateListAdapter(eventsList.getEvents());
-        }*/
+        mTotalEventCount.setText(Integer.toString(eventsArrayList.size())+ " Hotspot Events");
     }
 
     @Override

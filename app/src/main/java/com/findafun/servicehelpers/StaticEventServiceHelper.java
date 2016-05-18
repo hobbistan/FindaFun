@@ -12,6 +12,7 @@ import com.findafun.R;
 import com.findafun.activity.LandingActivity;
 import com.findafun.app.AppController;
 import com.findafun.serviceinterfaces.IEventServiceListener;
+import com.findafun.serviceinterfaces.IStaticEventServiceListener;
 import com.findafun.utils.FindAFunConstants;
 import com.findafun.utils.PreferenceStorage;
 
@@ -31,18 +32,18 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 
 /**
- * Created by zahid.r on 10/30/2015.
+ * Created by Data Crawl 6 on 18-05-2016.
  */
-public class EventServiceHelper {
+public class StaticEventServiceHelper {
     private String TAG = LandingActivity.class.getSimpleName();
     private Context context;
-    IEventServiceListener eventServiceListener;
+    IStaticEventServiceListener eventServiceListener;
 
-    public EventServiceHelper(Context context) {
+    public StaticEventServiceHelper(Context context) {
         this.context = context;
     }
 
-    public void setEventServiceListener(IEventServiceListener eventServiceListener) {
+    public void setEventServiceListener(IStaticEventServiceListener eventServiceListener) {
         this.eventServiceListener = eventServiceListener;
     }
 
@@ -157,10 +158,10 @@ public class EventServiceHelper {
 
             // 10. convert inputstream to string
             if (inputStream != null) {
-                
+
                 try {
                     result = convertInputStreamToString(inputStream);
-                   // Log.d(TAG, "ajazFilter : " + result.toString());
+                    // Log.d(TAG, "ajazFilter : " + result.toString());
                     JSONObject obj = new JSONObject(result);
                     eventServiceListener.onEventResponse(obj);
 

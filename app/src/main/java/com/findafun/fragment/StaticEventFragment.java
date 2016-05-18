@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.costum.android.widget.LoadMoreListView;
 import com.findafun.R;
 import com.findafun.activity.EventDetailActivity;
+import com.findafun.activity.StaticEventDetailActivity;
 import com.findafun.adapter.EventsListAdapter;
 import com.findafun.adapter.StaticEventListAdapter;
 import com.findafun.bean.events.Event;
@@ -24,6 +25,7 @@ import com.findafun.bean.events.EventList;
 import com.findafun.helper.AlertDialogHelper;
 import com.findafun.helper.ProgressDialogHelper;
 import com.findafun.servicehelpers.EventServiceHelper;
+import com.findafun.servicehelpers.StaticEventServiceHelper;
 import com.findafun.serviceinterfaces.IEventServiceListener;
 import com.findafun.utils.CommonUtils;
 import com.findafun.utils.FindAFunConstants;
@@ -46,7 +48,9 @@ public class StaticEventFragment extends Fragment implements LoadMoreListView.On
     protected View view;
     protected StaticEventListAdapter staticEventsListAdapter;
     protected EventServiceHelper eventServiceHelper;
+    //protected StaticEventServiceHelper staticEventServiceHelper;
     protected ArrayList<Event> eventsArrayList;
+    //protected ArrayList<Event> staticEventsArrayList;
     int pageNumber = 0, totalCount = 0;
     protected ProgressDialogHelper progressDialogHelper;
     protected boolean isLoadingForFirstTime = true;
@@ -270,7 +274,7 @@ public class StaticEventFragment extends Fragment implements LoadMoreListView.On
         } else {
             event = eventsArrayList.get(i);
         }
-        Intent intent = new Intent(getActivity(), EventDetailActivity.class);
+        Intent intent = new Intent(getActivity(), StaticEventDetailActivity.class);
         intent.putExtra("eventObj", event);
         // intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);

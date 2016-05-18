@@ -101,7 +101,7 @@
             android:theme="@style/AppThemeNoActionBarEventDetails" />
         <activity
             android:name=".activity.StaticEventDetailActivity"
-            android:label="@string/title_activity_event_detail"
+            android:label="@string/title_activity_static_event_detail"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarEventDetails" />
         <activity
