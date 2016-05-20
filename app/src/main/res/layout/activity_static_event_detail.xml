@@ -153,13 +153,13 @@
                     android:layout_width="0dp"
                     android:layout_height="40dp"
                     android:layout_weight="0.25"
-                    android:visibility="gone"
                     android:background="@drawable/contact_btn_selector"
                     android:drawableLeft="@drawable/ic_contact"
                     android:drawablePadding="10dp"
                     android:paddingLeft="5dp"
                     android:text="Review"
-                    android:textSize="10dp" />
+                    android:textSize="10dp"
+                    android:visibility="gone" />
 
             </LinearLayout>
 
@@ -271,7 +271,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
                             android:gravity="center"
-                            android:orientation="horizontal">
+                            android:orientation="vertical">
 
                             <ImageView
                                 android:id="@+id/clock_img"
@@ -287,6 +287,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/clock_img"
                                 android:layout_centerHorizontal="true"
+                                android:layout_gravity="left"
                                 android:orientation="horizontal">
 
                                 <TextView
@@ -314,8 +315,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/from_clock_layout"
-
                                 android:layout_centerHorizontal="true"
+                                android:layout_gravity="left"
                                 android:layout_marginLeft="15dp"
                                 android:orientation="horizontal">
 
@@ -333,7 +334,7 @@
                                     android:id="@+id/clock_to_val"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="20dp"
+                                    android:layout_marginLeft="15dp"
                                     android:layout_marginTop="3dp"
                                     android:text="00"
                                     android:textColor="@color/black_semi_trans"

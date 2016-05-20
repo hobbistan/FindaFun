@@ -69,7 +69,10 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import twitter4j.TwitterException;
@@ -347,12 +350,25 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
         //fetch timer values
         start = FindAFunHelper.getTime(event.getStartDate());
         end = FindAFunHelper.getTime(event.getEndDate());
+
+        String startTime = "", endTime = "";
+        try {
+            final SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+            final Date startDateObj = sdf.parse(start);
+            final Date endDateObj = sdf.parse(end);
+            System.out.println(startDateObj);
+            startTime = (new SimpleDateFormat("KK:mm a").format(startDateObj));
+            endTime = (new SimpleDateFormat("KK:mm a").format(endDateObj));
+        } catch (final ParseException e) {
+            e.printStackTrace();
+        }
+
         if (start != null) {
-            txtEventStartTime.setText(start);
+            txtEventStartTime.setText(startTime);
         }
 
         if (end != null) {
-            txtEventEndTime.setText(end);
+            txtEventEndTime.setText(endTime);
         }
 
         if ((event.getEventEmail() != null) && !(event.getEventEmail().isEmpty())) {
