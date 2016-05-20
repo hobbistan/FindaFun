@@ -100,6 +100,7 @@
         android:background="@color/event_time_row_color"
         android:orientation="horizontal"
         android:paddingBottom="4dp"
+        android:gravity="center"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:paddingTop="4dp">

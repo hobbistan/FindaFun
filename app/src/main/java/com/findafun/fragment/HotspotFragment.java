@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.findafun.R;
 import com.findafun.activity.EventDetailActivity;
+import com.findafun.activity.StaticEventDetailActivity;
 import com.findafun.bean.events.Event;
 import com.findafun.bean.events.EventList;
 import com.findafun.helper.AlertDialogHelper;
@@ -58,40 +59,41 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Created by BXDC46 on 1/11/2016.
+ * Created by Data Crawl 6 on 20-05-2016.
  */
-public class NearbyFragment extends LandingPagerFragment implements OnMapReadyCallback,GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
-    private static final String TAG = NearbyFragment.class.getName();
-    private MapView mMapView = null;
-    private GoogleMap mGoogleMap = null;
-    GoogleApiClient mGoogleApiClient = null;
+public class HotspotFragment extends StaticEventFragment implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
+
+    private static final String TAG = HotspotFragment.class.getName();
+    private MapView mMapView_hp = null;
+    private GoogleMap mGoogleMap_hp = null;
+    GoogleApiClient mGoogleApiClient_hp = null;
     private boolean mMapLoaded = false;
-    Location mLastLocation = null;
-    private ImageButton mLocationBtn = null;
-    private List<Marker> mAddedMarkers = new ArrayList<Marker>();
-    private HashMap<LatLng, Event> mDisplayedEvents = new HashMap<LatLng,Event>();
-    private boolean mAddddLocations = true;
-    private TextView mTotalEventCount = null;
-    private Drawable  mLocationUnselected = null;
-    private Drawable  mLocationSelected = null;
-    private Drawable  mListUnselected = null;
-    private Drawable mListSelected = null;
+    Location mLastLocation_hp = null;
+    private ImageButton mLocationBtn_hp = null;
+    private List<Marker> mAddedMarkers_hp = new ArrayList<Marker>();
+    private HashMap<LatLng, Event> mDisplayedEvents_hp = new HashMap<LatLng,Event>();
+    private boolean mAddddLocations_hp = true;
+    private TextView mTotalEventCount_hp = null;
+    private Drawable  mLocationUnselected_hp = null;
+    private Drawable  mLocationSelected_hp = null;
+    private Drawable  mListUnselected_hp = null;
+    private Drawable mListSelected_hp = null;
 
     //icons
-    private Drawable mselectedlocationicon = null;
-    private Drawable munselectedlocationicon = null;
-    private Drawable mselectedlisticon = null;
-    private Drawable munselectedlisticon = null;
-    private BitmapDescriptor mMapIcon = null;
+    private Drawable mselectedlocationicon_hp = null;
+    private Drawable munselectedlocationicon_hp = null;
+    private Drawable mselectedlisticon_hp = null;
+    private Drawable munselectedlisticon_hp = null;
+    private BitmapDescriptor mMapIcon_hp = null;
 
-    private float mStartX;
+    private float mStartX_hp;
     private float mStartY;
-    private float mEndX;
+    private float mEndX_hp;
     private float mEndY;
 
-    private ProgressDialog mLocationProgress = null;
-    private boolean mNearbySelected = false;
-    private int mTotalReceivedEvents =0;
+    private ProgressDialog mLocationProgress_hp = null;
+    private boolean mNearbySelected_hp = false;
+    private int mTotalReceivedEvents_hp =0;
 
     public static final CameraPosition COIMBATORE =
             new CameraPosition.Builder().target(new LatLng(11.00, 77.00))
@@ -104,8 +106,8 @@ public class NearbyFragment extends LandingPagerFragment implements OnMapReadyCa
     HashMap<Integer,String> latitude = new HashMap<Integer, String>();
     HashMap<Integer, String> longitude = new HashMap<Integer, String>();
 
-    public static NearbyFragment newInstance(int position) {
-        NearbyFragment frag = new NearbyFragment();
+    public static HotspotFragment newInstance(int position) {
+        HotspotFragment frag = new HotspotFragment();
         Bundle b = new Bundle();
         b.putInt("position", position);
         frag.setArguments(b);
@@ -113,81 +115,75 @@ public class NearbyFragment extends LandingPagerFragment implements OnMapReadyCa
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         Log.d(TAG,"Nearby fragment onCreateView called");
-        view = inflater.inflate(R.layout.nearby_layout, container, false);
-
+        view = inflater.inflate(R.layout.favorite_layout, container, false);
 
         initializeViews();
         initializeEventHelpers();
 
-        mAddddLocations = true;
-        mMapView = (MapView) view.findViewById(R.id.mapview);
-        mMapView.onCreate(savedInstanceState);
+        mAddddLocations_hp = true;
+        mMapView_hp = (MapView) view.findViewById(R.id.mapview);
+        mMapView_hp.onCreate(savedInstanceState);
         setUpGoogleMaps();
-        mLocationUnselected = getActivity().getResources().getDrawable(R.drawable.btn_rounded_white);
-        mLocationSelected = getActivity().getResources().getDrawable(R.drawable.btn_rounded_red);
-        mListUnselected = getActivity().getResources().getDrawable(R.drawable.btn_rounded_white_right);
-        mListSelected = getActivity().getResources().getDrawable(R.drawable.btn_rounded_red_rightside);
-        mselectedlocationicon = getActivity().getResources().getDrawable(R.drawable.location_tab_selected);
-        munselectedlocationicon = getActivity().getResources().getDrawable(R.drawable.location_tab_unselected);
-        mselectedlisticon = getActivity().getResources().getDrawable(R.drawable.list_white_selected);
-        munselectedlisticon = getActivity().getResources().getDrawable(R.drawable.list_white_unselected);
-        mMapIcon = BitmapDescriptorFactory.fromResource(R.drawable.location_dot_img);
+        mLocationUnselected_hp = getActivity().getResources().getDrawable(R.drawable.btn_rounded_white);
+        mLocationSelected_hp = getActivity().getResources().getDrawable(R.drawable.btn_rounded_red);
+        mListUnselected_hp = getActivity().getResources().getDrawable(R.drawable.btn_rounded_white_right);
+        mListSelected_hp = getActivity().getResources().getDrawable(R.drawable.btn_rounded_red_rightside);
+        mselectedlocationicon_hp = getActivity().getResources().getDrawable(R.drawable.location_tab_selected);
+        munselectedlocationicon_hp = getActivity().getResources().getDrawable(R.drawable.location_tab_unselected);
+        mselectedlisticon_hp = getActivity().getResources().getDrawable(R.drawable.list_white_selected);
+        munselectedlisticon_hp = getActivity().getResources().getDrawable(R.drawable.list_white_unselected);
+        mMapIcon_hp = BitmapDescriptorFactory.fromResource(R.drawable.location_dot_img);
 
-        mTotalEventCount = (TextView) view.findViewById(R.id.nearby_totalevents);
-        mLocationBtn = (ImageButton) view.findViewById(R.id.nearby_location_btn);
+        mTotalEventCount_hp = (TextView) view.findViewById(R.id.nearby_totalevents);
+        mLocationBtn_hp = (ImageButton) view.findViewById(R.id.nearby_location_btn);
         final ImageButton listAppearence = (ImageButton) view.findViewById(R.id.nearby_grid_view_btn);
-        mLocationBtn.setOnClickListener(new View.OnClickListener() {
+        mLocationBtn_hp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //loadMoreListView.setVisibility(View.GONE);
                 LocationHelper.FindLocationManager(getContext());
 
-                mMapView.setVisibility(View.VISIBLE);
+                mMapView_hp.setVisibility(View.VISIBLE);
                 performSlideLeftAnimation();
-                mLocationBtn.setBackgroundDrawable(mLocationSelected);
-                listAppearence.setBackgroundDrawable(mListUnselected);
-                mLocationBtn.setImageDrawable(mselectedlocationicon);
-                listAppearence.setImageDrawable(munselectedlisticon);
-
-
+                mLocationBtn_hp.setBackgroundDrawable(mLocationSelected_hp);
+                listAppearence.setBackgroundDrawable(mListUnselected_hp);
+                mLocationBtn_hp.setImageDrawable(mselectedlocationicon_hp);
+                listAppearence.setImageDrawable(munselectedlisticon_hp);
             }
         });
 
         //by default set it to disabled
-        mLocationBtn.setEnabled(false);
-        mDisplayedEvents.clear();
+        mLocationBtn_hp.setEnabled(false);
+        mDisplayedEvents_hp.clear();
 
         listAppearence.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //mMapView.setVisibility(View.GONE);
                 performSlideRightAnimation();
-                mLocationBtn.setBackgroundDrawable(mLocationUnselected);
-                listAppearence.setBackgroundDrawable(mListSelected);
-                mLocationBtn.setImageDrawable(munselectedlocationicon);
-                listAppearence.setImageDrawable(mselectedlisticon);
+                mLocationBtn_hp.setBackgroundDrawable(mLocationUnselected_hp);
+                listAppearence.setBackgroundDrawable(mListSelected_hp);
+                mLocationBtn_hp.setImageDrawable(munselectedlocationicon_hp);
+                listAppearence.setImageDrawable(mselectedlisticon_hp);
                 /*loadMoreListView.setVisibility(View.VISIBLE);
                 if (eventsListAdapter != null) {
                     eventsListAdapter.notifyDataSetChanged();
                 }*/
-
-
             }
         });
-        mLocationBtn.setBackgroundDrawable(mLocationUnselected);
-        listAppearence.setBackgroundDrawable(mListSelected);
-        mLocationBtn.setImageDrawable(munselectedlocationicon);
-        listAppearence.setImageDrawable(mselectedlisticon);
+        mLocationBtn_hp.setBackgroundDrawable(mLocationUnselected_hp);
+        listAppearence.setBackgroundDrawable(mListSelected_hp);
+        mLocationBtn_hp.setImageDrawable(munselectedlocationicon_hp);
+        listAppearence.setImageDrawable(mselectedlisticon_hp);
         return view;
     }
 
     protected  void buildGoogleApiClient() {
         Log.d(TAG, "Initiate GoogleApi connection");
-        mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
+        mGoogleApiClient_hp = new GoogleApiClient.Builder(getActivity())
                 .addApi(LocationServices.API)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -198,64 +194,24 @@ public class NearbyFragment extends LandingPagerFragment implements OnMapReadyCa
     public void onResume() {
         super.onResume();
         Log.d(TAG, "onResume called");
-        mMapView.onResume();
+        mMapView_hp.onResume();
 
-        if((mGoogleApiClient != null)  && !mGoogleApiClient.isConnected()){
+        if((mGoogleApiClient_hp != null)  && !mGoogleApiClient_hp.isConnected()){
             Log.d(TAG, "make api connect");
-            mGoogleApiClient.connect();
+            mGoogleApiClient_hp.connect();
 
         }else{
             Log.e(TAG,"googleapi is null");
         }
-
     }
-
 
     private void setUpGoogleMaps() {
         Log.d(TAG, "Setting up google maps");
         buildGoogleApiClient();
-        mGoogleMap = null;
-        mMapView.getMapAsync(this);
-        mAddedMarkers.clear();
-        mDisplayedEvents.clear();
-       /* if(mGoogleMap != null){
-            mGoogleMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
-                @Override
-                public View getInfoWindow(Marker marker) {
-                    Log.d(TAG,"Getting the info view contents");
-
-                    View infowindow = getActivity().getLayoutInflater().inflate(R.layout.map_info_window_layout, null);
-                    LatLng pos = marker.getPosition();
-                    if(pos != null) {
-                        Event event = mDisplayedEvents.get(pos);
-                        if(event != null) {
-                            TextView title = (TextView) infowindow.findViewById(R.id.info_window_Title);
-                            TextView subTitle = (TextView) infowindow.findViewById(R.id.info_window_subtext);
-                            String eventname = event.getEventName();
-                            if((eventname != null) && !eventname.isEmpty()){
-                                if(eventname.length() > 15){
-                                    Log.d(TAG,"length more that 15");
-                                    String substr = eventname.substring(0,14);
-                                    Log.d(TAG,"title is"+ substr);
-                                    title.setText(substr + "..");
-                                }else{
-                                    Log.d(TAG,"title less that 15 is"+ eventname);
-                                    title.setText(eventname);
-                                }
-                            }
-                           // title.setText(event.getEventName());
-                            subTitle.setText(event.getCategoryName());
-                        }
-                    }
-                    return infowindow;
-                }
-
-                @Override
-                public View getInfoContents(Marker marker) {
-                   return null;
-                }
-            });
-        }*/
+        mGoogleMap_hp = null;
+        mMapView_hp.getMapAsync(this);
+        mAddedMarkers_hp.clear();
+        mDisplayedEvents_hp.clear();
 
         // Needs to call MapsInitializer before doing any CameraUpdateFactory calls
         try {
@@ -264,25 +220,21 @@ public class NearbyFragment extends LandingPagerFragment implements OnMapReadyCa
             e.printStackTrace();
         }
 
-
-        // Updates the location and zoom of the MapView
-        /*CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(43.1, -87.9), 10);
-        mGoogleMap.animateCamera(cameraUpdate);*/
     }
 
     @Override
     public void onWindowFoucusChanged(){
         Log.d(TAG, "List view coordinates" + loadMoreListView.getX() + "yval" + loadMoreListView.getLeft() + "width" + loadMoreListView.getRight());
-        mStartX = loadMoreListView.getLeft();
-        mEndX = loadMoreListView.getRight();
+        mStartX_hp = loadMoreListView.getLeft();
+        mEndX_hp = loadMoreListView.getRight();
 
     }
 
     private void performSlideLeftAnimation(){
-        PropertyValuesHolder transX = PropertyValuesHolder.ofFloat("x",mEndX,mStartX);
+        PropertyValuesHolder transX = PropertyValuesHolder.ofFloat("x",mEndX_hp,mStartX_hp);
         PropertyValuesHolder alphaV = PropertyValuesHolder.ofFloat("alpha", 1, 0);
 
-        ObjectAnimator anim = ObjectAnimator.ofPropertyValuesHolder(mMapView, transX);
+        ObjectAnimator anim = ObjectAnimator.ofPropertyValuesHolder(mMapView_hp, transX);
         ObjectAnimator alphaAnim = ObjectAnimator.ofPropertyValuesHolder(loadMoreListView,alphaV);
         anim.setDuration(500);
         alphaAnim.setDuration(500);
@@ -297,10 +249,9 @@ public class NearbyFragment extends LandingPagerFragment implements OnMapReadyCa
             public void onAnimationEnd(Animator animation) {
                 loadMoreListView.setVisibility(View.GONE);
 
-                if (mAddddLocations) {
+                if (mAddddLocations_hp) {
                     showMapsView();
                 }
-
             }
 
             @Override
@@ -318,13 +269,12 @@ public class NearbyFragment extends LandingPagerFragment implements OnMapReadyCa
     }
 
     private void performSlideRightAnimation(){
-        PropertyValuesHolder transX = PropertyValuesHolder.ofFloat("x",mStartX,mEndX);
+        PropertyValuesHolder transX = PropertyValuesHolder.ofFloat("x",mStartX_hp,mEndX_hp);
         PropertyValuesHolder alphaV = PropertyValuesHolder.ofFloat("alpha", 1, 0);
 
-        ObjectAnimator anim = ObjectAnimator.ofPropertyValuesHolder(mMapView, transX);
+        ObjectAnimator anim = ObjectAnimator.ofPropertyValuesHolder(mMapView_hp, transX);
 
         anim.setDuration(500);
-
 
         anim.addListener(new Animator.AnimatorListener() {
             @Override
@@ -334,10 +284,10 @@ public class NearbyFragment extends LandingPagerFragment implements OnMapReadyCa
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                mMapView.setVisibility(View.GONE);
+                mMapView_hp.setVisibility(View.GONE);
                 loadMoreListView.setVisibility(View.VISIBLE);
-                if (eventsListAdapter != null) {
-                    eventsListAdapter.notifyDataSetChanged();
+                if (staticEventsListAdapter != null) {
+                    staticEventsListAdapter.notifyDataSetChanged();
                 }
 
             }
@@ -364,13 +314,13 @@ public class NearbyFragment extends LandingPagerFragment implements OnMapReadyCa
 
     private void showMapsView(){
 
-        if(mMapView.getVisibility() == View.VISIBLE) {
+        if(mMapView_hp.getVisibility() == View.VISIBLE) {
             Log.d(TAG, "displaying the Map view");
             //fetch the lat and longitudes
             int i = 0;
 
-            if (mMapIcon == null) {
-                mMapIcon = BitmapDescriptorFactory.fromResource(R.drawable.location_dot_img);
+            if (mMapIcon_hp == null) {
+                mMapIcon_hp = BitmapDescriptorFactory.fromResource(R.drawable.location_dot_img);
             }
 
             for (Event event : eventsArrayList) {
@@ -379,21 +329,21 @@ public class NearbyFragment extends LandingPagerFragment implements OnMapReadyCa
                     double longitude = Double.parseDouble(event.getEventLongitude());
                     if ((lat > 0) | (longitude > 0)) {
                         LatLng pos = new LatLng(lat, longitude);
-                        if ((pos != null) && (mGoogleMap != null)) {
+                        if ((pos != null) && (mGoogleMap_hp != null)) {
                             Log.d(TAG, "has lat lon" + "lat:" + event.getEventLatitude() + "long:" + event.getEventLongitude());
                             //mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(pos, 14), 1000, null);
                             Marker marker = null;
-                            if (mMapIcon != null) {
+                            if (mMapIcon_hp != null) {
                                 Log.d(TAG, "Valid bitmap icon");
-                                marker = mGoogleMap.addMarker(new MarkerOptions().position(pos).icon(mMapIcon));
+                                marker = mGoogleMap_hp.addMarker(new MarkerOptions().position(pos).icon(mMapIcon_hp));
 
                             } else {
                                 Log.d(TAG, "No valid map icon");
-                                marker = mGoogleMap.addMarker(new MarkerOptions().position(pos));
+                                marker = mGoogleMap_hp.addMarker(new MarkerOptions().position(pos));
                             }
 
-                            mAddedMarkers.add(marker);
-                            mDisplayedEvents.put(pos, event);
+                            mAddedMarkers_hp.add(marker);
+                            mDisplayedEvents_hp.put(pos, event);
                             marker.showInfoWindow();
                         } else {
                             Log.d(TAG, "Google maps was not created properly");
@@ -402,20 +352,20 @@ public class NearbyFragment extends LandingPagerFragment implements OnMapReadyCa
                 }
             }
             //zoom the camera to current location
-            if (mLastLocation != null) {
-                LatLng pos = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+            if (mLastLocation_hp != null) {
+                LatLng pos = new LatLng(mLastLocation_hp.getLatitude(), mLastLocation_hp.getLongitude());
                /* mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(pos,10));*/
-                mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(pos, 14), 1000, null);
+                mGoogleMap_hp.animateCamera(CameraUpdateFactory.newLatLngZoom(pos, 14), 1000, null);
             }
 
-            mAddddLocations = false;
+            mAddddLocations_hp = false;
         }
     }
 
     @Override
     public void onEventResponse(JSONObject response) {
         Log.d(TAG, "Received Nearby events");
-       // super.onEventResponse(response);
+        // super.onEventResponse(response);
         progressDialogHelper.hideProgressDialog();
         loadMoreListView.onLoadMoreComplete();
         Gson gson = new Gson();
@@ -424,8 +374,8 @@ public class NearbyFragment extends LandingPagerFragment implements OnMapReadyCa
             Log.d(TAG,"fetched all event list count"+ eventsList.getCount());
         }
         int totalNearbyCount =0;
-        if (eventsList.getEvents() != null && eventsList.getEvents().size() > 0) {
-            if(mLastLocation != null) {
+        if (eventsList.getEvents() != null && eventsList.getEvents().size() > 0 ) {
+            if(mLastLocation_hp != null) {
                 Log.d(TAG,"Location is set");
                 ArrayList<Event> mNearbyLIst = new ArrayList<Event>();
                 Location temEventLoc = new Location("temp");
@@ -440,30 +390,29 @@ public class NearbyFragment extends LandingPagerFragment implements OnMapReadyCa
                         event.setEventLongitude(longitude.get(i));
                     }*/
                     //end of testing
-                    mTotalReceivedEvents ++;
+                    mTotalReceivedEvents_hp ++;
 
                     if((event.getEventLatitude() != null) && (event.getEventLongitude() != null)){
                         temEventLoc.setLatitude(Double.parseDouble(event.getEventLatitude()));
                         temEventLoc.setLongitude(Double.parseDouble(event.getEventLongitude()));
-                        float distance = mLastLocation.distanceTo(temEventLoc);
+                        float distance = mLastLocation_hp.distanceTo(temEventLoc);
                         Log.d(TAG,"calculated distance is"+ distance);
-                       if(distance < (35 * 1000)){
+                        if(distance < (350 * 1000)){
                             mNearbyLIst.add(event);
-                       }
+                        }
                     }
                     i++;
-
                 }
                 totalNearbyCount = mNearbyLIst.size();
                 Log.d(TAG,"Total event close by 35km "+ totalNearbyCount);
                 isLoadingForFirstTime = false;
                 totalCount = eventsList.getCount();
                 updateListAdapter(mNearbyLIst);
-                if(mTotalReceivedEvents < totalCount){
+                if(mTotalReceivedEvents_hp < totalCount){
                     Log.d(TAG,"fetch remaining events");
                     if(eventsArrayList.size() < 10){
 
-                        pageNumber = (mTotalReceivedEvents / 10) + 1;
+                        pageNumber = (mTotalReceivedEvents_hp / 10) + 1;
 
                         Log.d(TAG,"Page number"+ pageNumber);
                         makeEventListServiceCall(pageNumber);
@@ -481,64 +430,53 @@ public class NearbyFragment extends LandingPagerFragment implements OnMapReadyCa
         // Updates the location and zoom of the MapView
 
         if(totalCount > 0){
-            mLocationBtn.setEnabled(true);
+            mLocationBtn_hp.setEnabled(true);
         }else{
-            mAddddLocations = true;
+            mAddddLocations_hp = true;
         }
 
-        mTotalEventCount.setText(Integer.toString(eventsArrayList.size())+ " Events Nearby");
-
-       /* progressDialogHelper.hideProgressDialog();
-        loadMoreListView.onLoadMoreComplete();
-        Gson gson = new Gson();
-        EventList eventsList = gson.fromJson(response.toString(), EventList.class);
-        if (eventsList.getEvents() != null && eventsList.getEvents().size() > 0) {
-            totalCount = eventsList.getCount();
-            isLoadingForFirstTime = false;
-            updateListAdapter(eventsList.getEvents());
-        }*/
+        mTotalEventCount_hp.setText(Integer.toString(eventsArrayList.size())+ " Hotspot Events");
     }
-
 
     @Override
     public void onEventError(String error) {
-       super.onEventError(error);
+        super.onEventError(error);
         if(totalCount > 0){
-            mLocationBtn.setEnabled(true);
+            mLocationBtn_hp.setEnabled(true);
         }
-        mAddddLocations = true;
+        mAddddLocations_hp = true;
     }
 
     @Override
     public void onLoadMore() {
 
-        if(mTotalReceivedEvents < totalCount){
+        if(mTotalReceivedEvents_hp < totalCount){
             Log.d(TAG,"fetch remaining events");
-           // if(eventsArrayList.size() < 20){
+            // if(eventsArrayList.size() < 20){
 
-                pageNumber = (mTotalReceivedEvents / 10) + 1;
+            pageNumber = (mTotalReceivedEvents_hp / 10) + 1;
 
-                Log.d(TAG,"Page number"+ pageNumber);
-                makeEventListServiceCall(pageNumber);
-           // }
+            Log.d(TAG,"Page number"+ pageNumber);
+            makeEventListServiceCall(pageNumber);
+            // }
         }
     }
 
     @Override
     public void callGetEventService(int position) {
         Log.d(TAG, "fetch event list" + position);
-        mNearbySelected = true;
+        mNearbySelected_hp = true;
 
-        if(mLastLocation != null){
+        if(mLastLocation_hp != null){
             Log.d(TAG, "Location present");
-            mTotalReceivedEvents =0;
-           super.callGetEventService(position);
-           // getNearbyLIst(position);
+            mTotalReceivedEvents_hp =0;
+            super.callGetEventService(position);
+            // getNearbyLIst(position);
         }else{
-            if(mGoogleApiClient.isConnected()){
+            if(mGoogleApiClient_hp.isConnected()){
                 fetchCurrentLocation();
-                if(mLastLocation == null) {
-                   // AlertDialogHelper.showSimpleAlertDialog(getActivity(), "Enable Location services in settings");
+                if(mLastLocation_hp == null) {
+                    // AlertDialogHelper.showSimpleAlertDialog(getActivity(), "Enable Location services in settings");
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
                     alertDialogBuilder.setMessage("Enable Location services in settings");
                     alertDialogBuilder.setPositiveButton("OK",
@@ -551,8 +489,6 @@ public class NearbyFragment extends LandingPagerFragment implements OnMapReadyCa
                                     //add pause button
                                     Intent viewIntent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                                     startActivity(viewIntent);
-
-
                                 }
                             });
 
@@ -561,35 +497,11 @@ public class NearbyFragment extends LandingPagerFragment implements OnMapReadyCa
                 }
 
             }else {
-                mLocationProgress = new ProgressDialog(getActivity());
-                mLocationProgress.setIndeterminate(true);
-                mLocationProgress.setMessage("Loading");
-                mLocationProgress.show();
+                mLocationProgress_hp = new ProgressDialog(getActivity());
+                mLocationProgress_hp.setIndeterminate(true);
+                mLocationProgress_hp.setMessage("Loading");
+                mLocationProgress_hp.show();
             }
-        }
-    }
-
-
-    public void getNearbyLIst(int position) {
-        Log.d(TAG, "fetch event list" + position);
-        /*if(eventsListAdapter != null){
-            eventsListAdapter.clearSearchFlag();
-        }*/
-
-        if (isLoadingForFirstTime) {
-            Log.d(TAG,"Loading for the first time");
-            if (eventsArrayList != null)
-                eventsArrayList.clear();
-
-            if (CommonUtils.isNetworkAvailable(getActivity())) {
-                progressDialogHelper.showProgressDialog(getString(R.string.progress_loading));
-//                makeEventListServiceCall(2);
-                eventServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.GET_EVENTS_ALL_TEST_URL, Integer.parseInt(PreferenceStorage.getUserId(getActivity())), 1));
-            } else {
-                AlertDialogHelper.showSimpleAlertDialog(getActivity(), getString(R.string.no_connectivity));
-            }
-        }else{
-            Log.d(TAG, "Do nothing");
         }
     }
 
@@ -597,18 +509,18 @@ public class NearbyFragment extends LandingPagerFragment implements OnMapReadyCa
         Log.d(TAG,"fetch the current location");
         try {
 
-            mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
-                    mGoogleApiClient);
+            mLastLocation_hp = LocationServices.FusedLocationApi.getLastLocation(
+                    mGoogleApiClient_hp);
             // Log.e(TAG, "Current location is" + "Lat" + String.valueOf(mLastLocation.getLatitude()) + "Long" + String.valueOf(mLastLocation.getLongitude()));
-            if(mLocationProgress != null){
-                mLocationProgress.cancel();
+            if(mLocationProgress_hp != null){
+                mLocationProgress_hp.cancel();
             }
-            if (mNearbySelected && (mLastLocation != null)) {
-                mTotalReceivedEvents =0;
+            if (mNearbySelected_hp && (mLastLocation_hp != null)) {
+                mTotalReceivedEvents_hp =0;
                 super.callGetEventService(1);
-               // getNearbyLIst(2);
+                // getNearbyLIst(2);
             }
-            if(mLastLocation == null){
+            if(mLastLocation_hp == null){
                 Log.e(TAG,"Received location is null");
             }
 
@@ -620,24 +532,25 @@ public class NearbyFragment extends LandingPagerFragment implements OnMapReadyCa
     @Override
     public void onPause() {
         super.onPause();
-        mMapView.onPause();
-        if((mGoogleApiClient != null) && (mGoogleApiClient.isConnected())) {
+        mMapView_hp.onPause();
+        if((mGoogleApiClient_hp != null) && (mGoogleApiClient_hp.isConnected())) {
             Log.d(TAG,"make api disconnect");
-            mGoogleApiClient.disconnect();
+            mGoogleApiClient_hp.disconnect();
         }
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mMapView.onDestroy();
+        mMapView_hp.onDestroy();
     }
 
     @Override
     public void onLowMemory() {
         super.onLowMemory();
-        mMapView.onLowMemory();
+        mMapView_hp.onLowMemory();
     }
+
 
     @Override
     public void onConnected(Bundle bundle) {
@@ -654,10 +567,10 @@ public class NearbyFragment extends LandingPagerFragment implements OnMapReadyCa
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
         Log.e(TAG,"Connection to google locations failed");
-        if(mLocationProgress != null){
-            mLocationProgress.cancel();
+        if(mLocationProgress_hp != null){
+            mLocationProgress_hp.cancel();
         }
-        if(mNearbySelected) {
+        if(mNearbySelected_hp) {
             super.callGetEventService(1);
             //getNearbyLIst(2);
         }
@@ -666,11 +579,11 @@ public class NearbyFragment extends LandingPagerFragment implements OnMapReadyCa
     @Override
     public void onMapReady(GoogleMap googleMap) {
         Log.d(TAG,"ON Google map ready");
-        mGoogleMap = googleMap;
-        mGoogleMap.getUiSettings().setMyLocationButtonEnabled(false);
-        mGoogleMap.setMyLocationEnabled(true);
-        if(mGoogleMap != null){
-            mGoogleMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+        mGoogleMap_hp = googleMap;
+        mGoogleMap_hp.getUiSettings().setMyLocationButtonEnabled(false);
+        mGoogleMap_hp.setMyLocationEnabled(true);
+        if(mGoogleMap_hp != null){
+            mGoogleMap_hp.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
                 @Override
                 public View getInfoWindow(Marker marker) {
                     Log.d(TAG,"Getting the info view contents");
@@ -678,7 +591,7 @@ public class NearbyFragment extends LandingPagerFragment implements OnMapReadyCa
                     View infowindow = getActivity().getLayoutInflater().inflate(R.layout.map_info_window_layout, null);
                     LatLng pos = marker.getPosition();
                     if(pos != null) {
-                        Event event = mDisplayedEvents.get(pos);
+                        Event event = mDisplayedEvents_hp.get(pos);
 
                         if(event != null) {
                             TextView title = (TextView) infowindow.findViewById(R.id.info_window_Title);
@@ -708,22 +621,22 @@ public class NearbyFragment extends LandingPagerFragment implements OnMapReadyCa
                 }
             });
         }
-        mGoogleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+        mGoogleMap_hp.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
                 LatLng pos = marker.getPosition();
                 Log.d(TAG,"Marker Info window clicked");
 
-                Event event = mDisplayedEvents.get(pos);
+                Event event = mDisplayedEvents_hp.get(pos);
                 if(event != null) {
                     Log.d(TAG, "map info view clicked");
-                    Intent intent = new Intent(getActivity(), EventDetailActivity.class);
+                    Intent intent = new Intent(getActivity(), StaticEventDetailActivity.class);
                     intent.putExtra("eventObj", event);
                     startActivity(intent);
                 }
             }
         });
-        mGoogleMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
+        mGoogleMap_hp.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
             @Override
             public void onMapLoaded() {
                 // mMapLoaded = true;

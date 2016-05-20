@@ -58,8 +58,8 @@ public class StaticEventFragment extends Fragment implements LoadMoreListView.On
     private TextView mNoEventsFound = null;
 
 
-    public static LandingPagerFragment newInstance(int position) {
-        LandingPagerFragment frag = new LandingPagerFragment();
+    public static StaticEventFragment newInstance(int position) {
+        StaticEventFragment frag = new StaticEventFragment();
         Bundle b = new Bundle();
         b.putInt("position", position);
         frag.setArguments(b);
@@ -194,18 +194,18 @@ public class StaticEventFragment extends Fragment implements LoadMoreListView.On
     public void makeEventListServiceCall(int pageNumber) {
         if ((pageNumber != -1) && (pageNumber >= 0 && pageNumber <= 6)) {
             switch (getArguments().getInt("position")) {
-                case 0:
-                    Log.d(TAG, "fetch favourites");
-                    eventServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.GET_EVENTS_FAVOURITES, Integer.parseInt(PreferenceStorage.getUserId(getActivity())), pageNumber, PreferenceStorage.getUserCity(getActivity())));
-                    break;
-                case 1:
+//                case 0:
+//                    Log.d(TAG, "fetch favourites");
+//                    eventServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.GET_EVENTS_FAVOURITES, Integer.parseInt(PreferenceStorage.getUserId(getActivity())), pageNumber, PreferenceStorage.getUserCity(getActivity())));
+//                    break;
+                case 2:
                     Log.d(TAG, "fetch Nearby events");
                     eventServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.GET_STATIC_EVENTS, Integer.parseInt(PreferenceStorage.getUserId(getActivity())), pageNumber, PreferenceStorage.getUserCity(getActivity())));
                     break;
-                case 2:
-                    Log.d(TAG, "fetch ALL events");
-                    eventServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.GET_EVENTS_ALL_URL, pageNumber, PreferenceStorage.getUserCity(getActivity())));
-                    break;
+//                case 1:
+//                    Log.d(TAG, "fetch ALL events");
+//                    eventServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.GET_EVENTS_ALL_URL, pageNumber, PreferenceStorage.getUserCity(getActivity())));
+//                    break;
              /*   case 3:
                     Log.d(TAG, "fetch Filter events");
                     eventServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.GET_ADVANCE_SINGLE_SEARCH, PreferenceStorage.getFilterSingleDate(getActivity())));

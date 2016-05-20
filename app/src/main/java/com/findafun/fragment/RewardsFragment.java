@@ -260,10 +260,7 @@ public class RewardsFragment extends LandingPagerFragment implements IGamificati
         if(count != null) {
             mBookingsCount.setText(count);
         }
-
-
     }
-
 
     @Override
     public void onSuccess(int resultCode, Object result) {
@@ -279,13 +276,11 @@ public class RewardsFragment extends LandingPagerFragment implements IGamificati
                 mLoadData = false;
             }
         }
-
     }
 
     @Override
     public void onError(String error) {
         AlertDialogHelper.showSimpleAlertDialog(getActivity(), error);
-
     }
 
     @Override

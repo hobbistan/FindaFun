@@ -17,7 +17,9 @@ import android.widget.Toast;
 import com.costum.android.widget.LoadMoreListView;
 import com.findafun.R;
 import com.findafun.activity.EventDetailActivity;
+import com.findafun.activity.StaticEventDetailActivity;
 import com.findafun.adapter.EventsListAdapter;
+import com.findafun.adapter.StaticEventListAdapter;
 import com.findafun.bean.events.Event;
 import com.findafun.bean.events.EventList;
 import com.findafun.helper.AlertDialogHelper;
@@ -45,6 +47,7 @@ public class LandingPagerFragment extends Fragment implements LoadMoreListView.O
     protected LoadMoreListView loadMoreListView;
     protected View view;
     protected EventsListAdapter eventsListAdapter;
+    protected StaticEventListAdapter staticEventListAdapter;
     protected EventServiceHelper eventServiceHelper;
     //protected StaticEventServiceHelper staticEventServiceHelper;
     protected ArrayList<Event> eventsArrayList;
@@ -79,7 +82,7 @@ public class LandingPagerFragment extends Fragment implements LoadMoreListView.O
         Log.d(TAG, "initialize pull to refresh view");
         loadMoreListView = (LoadMoreListView) view.findViewById(R.id.listView_events);
         mNoEventsFound = (TextView) view.findViewById(R.id.no_home_events);
-        if(mNoEventsFound != null)
+        if (mNoEventsFound != null)
             mNoEventsFound.setVisibility(View.GONE);
         loadMoreListView.setOnLoadMoreListener(this);
         loadMoreListView.setOnItemClickListener(this);
@@ -124,7 +127,7 @@ public class LandingPagerFragment extends Fragment implements LoadMoreListView.O
             eventsArrayList.clear();
 
         if (CommonUtils.isNetworkAvailable(getActivity())) {
-           progressDialogHelper.showProgressDialog(getString(R.string.progress_loading));
+            progressDialogHelper.showProgressDialog(getString(R.string.progress_loading));
             //    eventServiceHelper.makeRawRequest(FindAFunConstants.GET_ADVANCE_SINGLE_SEARCH);
             new HttpAsyncTask().execute("");
         } else {
@@ -139,6 +142,7 @@ public class LandingPagerFragment extends Fragment implements LoadMoreListView.O
             eventServiceHelper.makeRawRequest(FindAFunConstants.GET_ADVANCE_SINGLE_SEARCH);
             return null;
         }
+
         // onPostExecute displays the results of the AsyncTask.
         @Override
         protected void onPostExecute(Void result) {
@@ -148,7 +152,7 @@ public class LandingPagerFragment extends Fragment implements LoadMoreListView.O
 
     protected void updateListAdapter(ArrayList<Event> eventsArrayList) {
         this.eventsArrayList.addAll(eventsArrayList);
-        if(mNoEventsFound != null)
+        if (mNoEventsFound != null)
             mNoEventsFound.setVisibility(View.GONE);
 
         if (eventsListAdapter == null) {
@@ -176,7 +180,6 @@ public class LandingPagerFragment extends Fragment implements LoadMoreListView.O
         }
     }
 
-
     @Override
     public void onLoadMore() {
 
@@ -198,15 +201,16 @@ public class LandingPagerFragment extends Fragment implements LoadMoreListView.O
                     eventServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.GET_EVENTS_FAVOURITES, Integer.parseInt(PreferenceStorage.getUserId(getActivity())), pageNumber, PreferenceStorage.getUserCity(getActivity())));
 //                    eventServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.GET_EVENTS_FAVOURITES, pageNumber));
                     break;
-                case 2:
-                    Log.d(TAG, "fetch Nearby events");
-                    eventServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.GET_STATIC_EVENTS, Integer.parseInt(PreferenceStorage.getUserId(getActivity())), pageNumber, PreferenceStorage.getUserCity(getActivity())));
-//                    eventServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.GET_EVENTS_NEARBY_URL, pageNumber));
-                    break;
                 case 1:
                     Log.d(TAG, "fetch ALL events");
                     eventServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.GET_EVENTS_ALL_URL, pageNumber, PreferenceStorage.getUserCity(getActivity())));
                     break;
+//                case 2:
+//                    Log.d(TAG, "fetch Hotspot events");
+//                    eventServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.GET_STATIC_EVENTS, Integer.parseInt(PreferenceStorage.getUserId(getActivity())), pageNumber, PreferenceStorage.getUserCity(getActivity())));
+//                    //eventServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.GET_EVENTS_NEARBY_URL, pageNumber));
+//                    break;
+
              /*   case 3:
                     Log.d(TAG, "fetch Filter events");
                     eventServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.GET_ADVANCE_SINGLE_SEARCH, PreferenceStorage.getFilterSingleDate(getActivity())));
@@ -230,17 +234,16 @@ public class LandingPagerFragment extends Fragment implements LoadMoreListView.O
                 progressDialogHelper.hideProgressDialog();
                 loadMoreListView.onLoadMoreComplete();
 
-
                 Gson gson = new Gson();
                 EventList eventsList = gson.fromJson(response.toString(), EventList.class);
                 if (eventsList.getEvents() != null && eventsList.getEvents().size() > 0) {
-                    if(mNoEventsFound != null)
+                    if (mNoEventsFound != null)
                         mNoEventsFound.setVisibility(View.GONE);
                     totalCount = eventsList.getCount();
                     isLoadingForFirstTime = false;
                     updateListAdapter(eventsList.getEvents());
-                }else{
-                    if(mNoEventsFound != null)
+                } else {
+                    if (mNoEventsFound != null)
                         mNoEventsFound.setVisibility(View.VISIBLE);
                 }
             }
@@ -271,11 +274,12 @@ public class LandingPagerFragment extends Fragment implements LoadMoreListView.O
         } else {
             event = eventsArrayList.get(i);
         }
+
         Intent intent = new Intent(getActivity(), EventDetailActivity.class);
         intent.putExtra("eventObj", event);
         // intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
-        // getActivity().overridePendingTransition(R.anim.slide_left, R.anim.slide_right);
+//        // getActivity().overridePendingTransition(R.anim.slide_left, R.anim.slide_right);
     }
 
     public void onWindowFoucusChanged() {

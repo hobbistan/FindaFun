@@ -62,13 +62,14 @@ public class LandingPagerAdapter extends FragmentPagerAdapter implements PagerSl
                 Log.d(TAG, "returning Landing page fragment");
                 return FavoriteFragment.newInstance(position);
 //            return  LandingPagerFragment.newInstance(position);
+            case 1:
+                Log.d(TAG, "returning Popular fragment");
+                return PopularFragment.newInstance(position);
+//                return LandingPagerFragment.newInstance(position);
             case 2:
                 Log.d(TAG, "returning Nearby fragment");
 //                return NearbyFragment.newInstance(position);
                 return StaticFragment.newInstance(position);
-            case 1:
-                return PopularFragment.newInstance(position);
-//                return LandingPagerFragment.newInstance(position);
             case 3:
                 return RewardsFragment.newInstance(position);
         }

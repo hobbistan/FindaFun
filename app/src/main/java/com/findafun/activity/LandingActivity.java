@@ -35,6 +35,7 @@ import com.findafun.bean.events.EventList;
 import com.findafun.bean.gamification.GamificationDataHolder;
 import com.findafun.customview.PagerSlidingTabStrip;
 import com.findafun.fragment.LandingPagerFragment;
+import com.findafun.fragment.StaticEventFragment;
 import com.findafun.interfaces.DialogClickListener;
 import com.findafun.pageradapter.LandingPagerAdapter;
 import com.findafun.servicehelpers.EventServiceHelper;
@@ -134,9 +135,21 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
             String singledate = PreferenceStorage.getFilterSingleDate(this);
 
             LandingPagerFragment landingPagerFragment = (LandingPagerFragment)
-                    landingPagerAdapter.getRegisteredFragment(0);
+                    landingPagerAdapter.getRegisteredFragment(getTaskId());
             if (landingPagerFragment != null) {
                 landingPagerFragment.callGetFilterService();
+            }
+
+            LandingPagerFragment landingPagerFragment1 = (LandingPagerFragment)
+                    landingPagerAdapter.getRegisteredFragment(getTaskId());
+            if (landingPagerFragment1 != null) {
+                landingPagerFragment1.callGetFilterService();
+            }
+
+            StaticEventFragment staticEventFragment = (StaticEventFragment)
+                    landingPagerAdapter.getRegisteredFragment(getTaskId());
+            if (staticEventFragment != null) {
+                staticEventFragment.callGetFilterService();
             }
 
             //Toast.makeText(this,"filter service called",Toast.LENGTH_SHORT).show();

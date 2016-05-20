@@ -23,7 +23,10 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by zahid.r on 10/30/2015.
@@ -114,7 +117,16 @@ public class EventsListAdapter extends BaseAdapter {
         Event event = events.get(position);
 
         holder.txtEventName.setText(events.get(position).getEventName());
-        holder.txtEventVenue.setText(events.get(position).getEventVenue());
+//        holder.txtEventVenue.setText(events.get(position).getEventVenue());
+        String[] aux = events.get(position).getEventVenue().toString().split(",\\s*");
+        String result="";
+        if(aux.length >2) {
+            result = aux[aux.length - 2];
+        }
+        else {
+            result = aux[aux.length - 1];
+        }
+        holder.txtEventVenue.setText(result);
        // Log.d("Event Adapter","event isAd "+ event.getIsAd());
         String isAd = event.getIsAd();
         if( (isAd != null) && (isAd.equalsIgnoreCase("1"))){
@@ -143,6 +155,7 @@ public class EventsListAdapter extends BaseAdapter {
         }
         String start = FindAFunHelper.getDate(events.get(position).getStartDate());
         String end = FindAFunHelper.getDate(events.get(position).getEndDate());
+
         if( (start != null) && (end != null)) {
             holder.txtDate.setText(start + "-"+end);
         }else{
@@ -151,9 +164,19 @@ public class EventsListAdapter extends BaseAdapter {
         //fetch timer values
         start = FindAFunHelper.getTime(events.get(position).getStartDate());
         end = FindAFunHelper.getTime(events.get(position).getEndDate());
-        if((start != null) && (end != null)){
-            holder.txtTime.setText(start +"-"+ end);
-
+        String startTime="", endTime="";
+        try {
+            final SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+            final Date startDateObj = sdf.parse(start);
+            final Date endDateObj = sdf.parse(end);
+            System.out.println(startDateObj);
+            startTime = (new SimpleDateFormat("KK:mm a").format(startDateObj));
+            endTime = (new SimpleDateFormat("KK:mm a").format(endDateObj));
+        } catch (final ParseException e) {
+            e.printStackTrace();
+        }
+        if((startTime != null) && (end != null)){
+            holder.txtTime.setText(startTime +"-"+ endTime);
         }
 
         holder.txtCategory.setText(events.get(position).getCategoryName());

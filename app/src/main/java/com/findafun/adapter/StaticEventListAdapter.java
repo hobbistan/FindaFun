@@ -23,7 +23,10 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by nandha on 02/05/2016.
@@ -35,7 +38,7 @@ public class StaticEventListAdapter extends BaseAdapter {
     private ArrayList<Event> events;
     private boolean mSearching = false;
     private boolean mAnimateSearch = false;
-    private ArrayList<Integer> mValidSearchIndices =new ArrayList<Integer>();
+    private ArrayList<Integer> mValidSearchIndices = new ArrayList<Integer>();
     private ImageLoader imageLoader = AppController.getInstance().getUniversalImageLoader();
 
     public StaticEventListAdapter(Context context, ArrayList<Event> events) {
@@ -51,14 +54,14 @@ public class StaticEventListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        if(mSearching){
+        if (mSearching) {
             // Log.d("Event List Adapter","Search count"+mValidSearchIndices.size());
-            if(!mAnimateSearch){
+            if (!mAnimateSearch) {
                 mAnimateSearch = true;
             }
             return mValidSearchIndices.size();
 
-        }else{
+        } else {
             // Log.d(TAG,"Normal count size");
             return events.size();
         }
@@ -67,9 +70,9 @@ public class StaticEventListAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        if(mSearching){
+        if (mSearching) {
             return events.get(mValidSearchIndices.get(position));
-        }else {
+        } else {
             return events.get(position);
         }
     }
@@ -102,58 +105,77 @@ public class StaticEventListAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        if(mSearching){
+        if (mSearching) {
             // Log.d("Event List Adapter","actual position"+ position);
             position = mValidSearchIndices.get(position);
             //Log.d("Event List Adapter", "position is"+ position);
 
-        }else{
+        } else {
             // Log.d("Event List Adapter","getview pos called"+ position);
         }
 
         Event event = events.get(position);
 
         holder.txtEventName.setText(events.get(position).getEventName());
-        holder.txtEventVenue.setText(events.get(position).getEventVenue());
+        String[] aux = events.get(position).getEventVenue().toString().split(",\\s*");
+        String result = "";
+        if (aux.length > 2) {
+            result = aux[aux.length - 2];
+        } else {
+            result = aux[aux.length - 1];
+        }
+
+        holder.txtEventVenue.setText(result);
         // Log.d("Event Adapter","event isAd "+ event.getIsAd());
         String isAd = event.getIsAd();
-        if( (isAd != null) && (isAd.equalsIgnoreCase("1"))){
+        if ((isAd != null) && (isAd.equalsIgnoreCase("1"))) {
             // Log.d("EventAdapter", "setting the ad image to visible");
             holder.adImage.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             holder.adImage.setVisibility(View.INVISIBLE);
         }
         String paidBtnVal = event.getEvent_cost();
-        if( paidBtnVal!= null){
+        if (paidBtnVal != null) {
             holder.paidBtn.setText(event.getEvent_cost());
-            if(paidBtnVal.equalsIgnoreCase("invite")){
+            if (paidBtnVal.equalsIgnoreCase("invite")) {
                 holder.paidBtn.setTextColor(context.getResources().getColor(R.color.Blue));
-            }else if(paidBtnVal.equalsIgnoreCase("free")){
+            } else if (paidBtnVal.equalsIgnoreCase("free")) {
                 holder.paidBtn.setTextColor(context.getResources().getColor(R.color.Green));
-            }else if(paidBtnVal.equalsIgnoreCase("paid")){
+            } else if (paidBtnVal.equalsIgnoreCase("paid")) {
                 holder.paidBtn.setTextColor(context.getResources().getColor(R.color.rounder_button));
             }
         }
 
         //imageLoader.displayImage(events.get(position).getEventLogo(), holder.imageView, AppController.getInstance().getLogoDisplayOptions());
-        if(FindAFunValidator.checkNullString(events.get(position).getEventLogo())) {
+        if (FindAFunValidator.checkNullString(events.get(position).getEventLogo())) {
             Picasso.with(this.context).load(events.get(position).getEventLogo()).fit().transform(this.transformation).placeholder(R.drawable.placeholder_small).error(R.drawable.placeholder_small).into(holder.imageView);
         } else {
             holder.imageView.setImageResource(R.drawable.placeholder_small);
         }
         String start = FindAFunHelper.getDate(events.get(position).getStartDate());
         String end = FindAFunHelper.getDate(events.get(position).getEndDate());
-        if( (start != null) && (end != null)) {
-            holder.txtDate.setText(start + "-"+end);
-        }else{
+
+        if ((start != null) && (end != null)) {
+            holder.txtDate.setText(start + "-" + end);
+        } else {
             holder.txtDate.setText("N/A");
         }
         //fetch timer values
         start = FindAFunHelper.getTime(events.get(position).getStartDate());
         end = FindAFunHelper.getTime(events.get(position).getEndDate());
-        if((start != null) && (end != null)){
-            holder.txtTime.setText(start +"-"+ end);
-
+        String startTime = "", endTime = "";
+        try {
+            final SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+            final Date startDateObj = sdf.parse(start);
+            final Date endDateObj = sdf.parse(end);
+            System.out.println(startDateObj);
+            startTime = (new SimpleDateFormat("KK:mm a").format(startDateObj));
+            endTime = (new SimpleDateFormat("KK:mm a").format(endDateObj));
+        } catch (final ParseException e) {
+            e.printStackTrace();
+        }
+        if ((startTime != null) && (end != null)) {
+            holder.txtTime.setText(startTime + "-" + endTime);
         }
 
         holder.txtCategory.setText(events.get(position).getCategoryName());
@@ -168,40 +190,40 @@ public class StaticEventListAdapter extends BaseAdapter {
         return convertView;
     }
 
-    public void startSearch(String eventName){
+    public void startSearch(String eventName) {
         mSearching = true;
         mAnimateSearch = false;
-        Log.d("EventListAdapter","serach for event"+eventName);
+        Log.d("EventListAdapter", "serach for event" + eventName);
         mValidSearchIndices.clear();
-        for(int i =0; i< events.size(); i++){
+        for (int i = 0; i < events.size(); i++) {
             String eventname = events.get(i).getEventName();
-            if((eventname != null) && !(eventname.isEmpty())){
-                if( eventname.toLowerCase().contains(eventName.toLowerCase())){
+            if ((eventname != null) && !(eventname.isEmpty())) {
+                if (eventname.toLowerCase().contains(eventName.toLowerCase())) {
                     mValidSearchIndices.add(i);
                 }
 
             }
 
         }
-        Log.d("Event List Adapter","notify"+ mValidSearchIndices.size());
+        Log.d("Event List Adapter", "notify" + mValidSearchIndices.size());
         //notifyDataSetChanged();
 
     }
 
-    public void exitSearch(){
+    public void exitSearch() {
         mSearching = false;
         mValidSearchIndices.clear();
         mAnimateSearch = false;
         // notifyDataSetChanged();
     }
 
-    public void clearSearchFlag(){
+    public void clearSearchFlag() {
         mSearching = false;
     }
 
     public class ViewHolder {
         public TextView txtEventName, txtEventVenue, txtDate, txtTime, txtCategory;
-        public ImageView imageView,adImage;
+        public ImageView imageView, adImage;
         public Button paidBtn;
     }
 
@@ -209,10 +231,10 @@ public class StaticEventListAdapter extends BaseAdapter {
         return mSearching;
     }
 
-    public int getActualEventPos(int selectedSearchpos){
-        if(selectedSearchpos < mValidSearchIndices.size()) {
+    public int getActualEventPos(int selectedSearchpos) {
+        if (selectedSearchpos < mValidSearchIndices.size()) {
             return mValidSearchIndices.get(selectedSearchpos);
-        }else{
+        } else {
             return 0;
         }
     }

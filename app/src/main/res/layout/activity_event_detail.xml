@@ -117,7 +117,7 @@
                     android:id="@+id/whishlist_btn"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
-                    android:layout_weight="0.25"
+                    android:layout_weight="0.33"
                     android:background="@drawable/whishlist_selector"
                     android:drawableLeft="@drawable/ic_wishlist"
                     android:drawablePadding="10dp"
@@ -129,7 +129,7 @@
                     android:id="@+id/share_btn"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
-                    android:layout_weight="0.25"
+                    android:layout_weight="0.33"
                     android:background="@drawable/share_btn_selector"
                     android:drawableLeft="@drawable/ic_share"
                     android:drawablePadding="10dp"
@@ -141,8 +141,8 @@
                     android:id="@+id/contact_btn"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
-                    android:layout_weight="0.25"
-                    android:background="@drawable/share_btn_selector"
+                    android:layout_weight="0.33"
+                    android:background="@drawable/contact_btn_selector"
                     android:drawableLeft="@drawable/ic_contact"
                     android:drawablePadding="10dp"
                     android:paddingLeft="5dp"
@@ -159,7 +159,8 @@
                     android:drawablePadding="10dp"
                     android:paddingLeft="5dp"
                     android:text="Review"
-                    android:textSize="10dp" />
+                    android:textSize="10dp"
+                    android:visibility="gone" />
 
             </LinearLayout>
 
