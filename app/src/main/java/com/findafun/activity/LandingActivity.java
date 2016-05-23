@@ -98,6 +98,8 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing);
 
+        //hi
+
         toolbar = (Toolbar) findViewById(R.id.activity_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
