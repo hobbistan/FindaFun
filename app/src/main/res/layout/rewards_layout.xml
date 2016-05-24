@@ -430,21 +430,28 @@
             </RelativeLayout>
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="#f2f2f2"></View>
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:orientation="horizontal"
+            android:background="@android:color/white"
             android:paddingBottom="10dp"
             android:paddingTop="10dp">
 
             <TextView
                 android:id="@+id/view_statistics"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
                 android:layout_marginRight="10dp"
                 android:text="View Full Statistics"
-                android:textSize="20dp"
+                android:textSize="16dp"
+                android:textColor="@android:color/black"
                 android:typeface="serif" />
 
         </RelativeLayout>

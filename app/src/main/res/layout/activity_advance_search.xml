@@ -54,7 +54,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_marginBottom="@dimen/mainmargin"
                 android:gravity="center"
-                android:text="Sort by day"
+                android:text="Select day"
                 android:textColor="@color/white"
                 android:textSize="@dimen/actionbarTextSize" />
 
@@ -160,7 +160,7 @@
                 android:layout_below="@id/cityspinner"
                 android:layout_marginTop="@dimen/mainmargin"
                 android:gravity="center"
-                android:text="Select Date Range"
+                android:text="Select Date"
                 android:textColor="@color/white"
                 android:textSize="@dimen/actionbarTextSize" />
 

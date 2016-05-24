@@ -100,7 +100,7 @@
         android:background="@color/event_time_row_color"
         android:orientation="horizontal"
         android:paddingBottom="4dp"
-        android:gravity="center"
+        android:gravity="left"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:paddingTop="4dp">
@@ -126,6 +126,7 @@
             android:drawableLeft="@drawable/ic_time"
             android:drawablePadding="3dp"
             android:ellipsize="end"
+            android:paddingLeft="60dp"
             android:paddingRight="5dp"
             android:singleLine="true"
             android:textColor="@android:color/black"

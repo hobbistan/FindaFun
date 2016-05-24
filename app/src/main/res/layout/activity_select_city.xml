@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
+    android:background="#ffffff"
     android:orientation="vertical"
     android:weightSum="10"
     tools:context="com.findafun.activity.SelectCityActivity">
@@ -13,10 +13,10 @@
         android:layout_height="0dp"
         android:layout_centerInParent="true"
         android:layout_gravity="center"
-        android:layout_weight="9"
-        android:background="#000000"
+        android:layout_weight="8"
+        android:background="#ffffff"
         android:padding="80dp"
-        android:src="@drawable/img_logo" />
+        android:src="@drawable/ac_logo_main" />
 
     <EditText
         android:id="@+id/btn_city_drop_down"
@@ -26,7 +26,6 @@
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:layout_marginTop="40dp"
-
         android:background="@drawable/button_rounded_white_orange_border"
         android:clickable="false"
         android:cursorVisible="false"

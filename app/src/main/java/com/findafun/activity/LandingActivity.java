@@ -98,8 +98,6 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing);
 
-        //hi
-
         toolbar = (Toolbar) findViewById(R.id.activity_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -118,7 +116,6 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
         if (CommonUtils.isNetworkAvailable(this)) {
 
             eventServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.GET_EVENTS_BOOKMARK, Integer.parseInt(PreferenceStorage.getUserId(this))));
-
         }
     }
 
@@ -281,7 +278,8 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
                 }
                 Log.d(TAG, "user name value" + userName);
                 if( (userName != null) && !userName.isEmpty()){
-                    navUserName.setText(userName);
+                    String[] splitStr = userName.split("\\s+");
+                    navUserName.setText(splitStr[0]);
 
                 }
 
@@ -411,10 +409,10 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Search button clicked");
-
-
             }
         });
+
+
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
             @Override
