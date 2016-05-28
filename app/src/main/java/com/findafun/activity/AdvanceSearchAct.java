@@ -77,8 +77,6 @@ public class AdvanceSearchAct extends AppCompatActivity implements AdapterView.O
         setContentView(R.layout.activity_advance_search);
         fetchCategoryValues();
         iniView();
-
-
     }
 
 
@@ -331,7 +329,6 @@ public class AdvanceSearchAct extends AppCompatActivity implements AdapterView.O
 
         return  year +"-" + formattedMonth + "-" +  formattedDay;
     }
-
 
     private static String formatDate(int year, int month, int day) {
 

@@ -109,10 +109,8 @@ public class LeaderBoardActivity extends AppCompatActivity implements IGamificat
                         mAdapter.notifyDataSetChanged();
                     }
                 });
-
             }
         }
-
     }
 
     @Override

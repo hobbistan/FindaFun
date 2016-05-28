@@ -114,7 +114,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;*/
 
-public class ProfileActivity extends AppCompatActivity implements DialogClickListener, IServiceListener,  DatePickerDialog.OnDateSetListener {
+public class ProfileActivity extends AppCompatActivity implements DialogClickListener, IServiceListener, DatePickerDialog.OnDateSetListener {
     private static final String TAG = ProfileActivity.class.getName();
     static final int REQUEST_IMAGE_GET = 1;
     EditText name;
@@ -134,13 +134,13 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
     private Button mSaveBtn = null;
     private boolean mEditmode = false;
     private ProgressDialog mProgressDialog = null;
-    private  ArrayAdapter<String> mGenderAdapter = null;
+    private ArrayAdapter<String> mGenderAdapter = null;
     private List<String> mGenderList = new ArrayList<String>();
     private Uri outputFileUri;
     private Bitmap mCurrentUserImageBitmap = null;
 
     private List<String> mOccupationList = new ArrayList<String>();
-    private  ArrayAdapter<String> mOccupationAdapter = null;
+    private ArrayAdapter<String> mOccupationAdapter = null;
 
     private Uri mSelectedImageUri = null;
     private String mActualFilePath = null;
@@ -149,7 +149,7 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
     private Handler mHandler = new Handler();
     private String mUpdatedImageUrl = null;
 
-    private final String  MOBILE_NUM_PATTERN = "/^\\d{3}-\\d{3}-\\d{4}$/";
+    private final String MOBILE_NUM_PATTERN = "/^\\d{3}-\\d{3}-\\d{4}$/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -178,9 +178,8 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
             public void onClick(View view) {
 
                 //enable the edit boxes
-                if(mEditmode) {
+                if (mEditmode) {
                     int color = getResources().getColor(R.color.text_gray);
-
 
                     name.setEnabled(false);
                     name.setTextColor(color);
@@ -188,7 +187,7 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
                     city.setTextColor(color);
                     phone.setEnabled(false);
                     phone.setTextColor(color);
-                   // email.setEnabled(false);
+                    // email.setEnabled(false);
                     password.setEnabled(false);
                     password.setTextColor(color);
 
@@ -201,7 +200,7 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
                     mOccupation.setTextColor(color);
                     mSaveBtn.setVisibility(View.INVISIBLE);
                     mEditmode = false;
-                }else{
+                } else {
                     Snackbar.make(view, "Edit Your Profile", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                     int color = getResources().getColor(R.color.detail_color);
@@ -211,7 +210,7 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
                     city.setTextColor(color);
                     phone.setEnabled(true);
                     phone.setTextColor(color);
-                   // email.setEnabled(true);
+                    // email.setEnabled(true);
                     password.setEnabled(true);
                     password.setTextColor(color);
                     mSex.setEnabled(true);
@@ -236,15 +235,15 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
                     mEditmode = true;
                     mSaveBtn.setFocusable(true);
                 }
-
             }
         });
     }
-    void setUI(){
-        name=(EditText)findViewById(R.id.name);
-        email=(EditText)findViewById(R.id.email);
-        phone=(EditText)findViewById(R.id.phone);
-        city=(EditText)findViewById(R.id.city);
+
+    void setUI() {
+        name = (EditText) findViewById(R.id.name);
+        email = (EditText) findViewById(R.id.email);
+        phone = (EditText) findViewById(R.id.phone);
+        city = (EditText) findViewById(R.id.city);
         password = (EditText) findViewById(R.id.edit_password);
         mOccupation = (EditText) findViewById(R.id.occupation_val);
         name.setText(PreferenceStorage.getUserName(getApplicationContext()));
@@ -262,7 +261,7 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
             }
         });
         String birthdayval = PreferenceStorage.getUserBirthday(this);
-        if(birthdayval != null){
+        if (birthdayval != null) {
 
             mBirthday.setText(birthdayval);
         }
@@ -279,8 +278,9 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
         mGenderList.add("Others");
 
         mGenderAdapter = new ArrayAdapter<String>(this, R.layout.gender_layout, R.id.gender_name, mGenderList) { // The third parameter works around ugly Android legacy. http://stackoverflow.com/a/18529511/145173
-            @Override public View getView(int position, View convertView, ViewGroup parent) {
-                Log.d(TAG,"getview called"+ position);
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                Log.d(TAG, "getview called" + position);
                 View view = getLayoutInflater().inflate(R.layout.gender_layout, parent, false);
                 TextView gendername = (TextView) view.findViewById(R.id.gender_name);
                 gendername.setText(mGenderList.get(position));
@@ -291,10 +291,9 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
         };
 
 
-
         mSex = (EditText) findViewById(R.id.sex_val);
         String sexVal = CommonUtils.getGenderVal(PreferenceStorage.getUserGender(this));
-        if(sexVal != null){
+        if (sexVal != null) {
             mSex.setText(sexVal);
         }
         mSex.setOnClickListener(new View.OnClickListener() {
@@ -312,8 +311,9 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
         mOccupationList.add("Home Maker");
         mOccupationList.add("Other");
         mOccupationAdapter = new ArrayAdapter<String>(this, R.layout.gender_layout, R.id.gender_name, mOccupationList) { // The third parameter works around ugly Android legacy. http://stackoverflow.com/a/18529511/145173
-            @Override public View getView(int position, View convertView, ViewGroup parent) {
-                Log.d(TAG,"getview called"+ position);
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                Log.d(TAG, "getview called" + position);
                 View view = getLayoutInflater().inflate(R.layout.gender_layout, parent, false);
                 TextView gendername = (TextView) view.findViewById(R.id.gender_name);
                 gendername.setText(mOccupationList.get(position));
@@ -323,7 +323,7 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
             }
         };
         String occupation = PreferenceStorage.getUserOccupation(this);
-        if(occupation != null){
+        if (occupation != null) {
             mOccupation.setText(occupation);
         }
         mOccupation.setOnClickListener(new View.OnClickListener() {
@@ -338,7 +338,7 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
         mSaveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG,"Save button selected");
+                Log.d(TAG, "Save button selected");
                 saveUserProfile();
 
             }
@@ -346,25 +346,25 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
 
         mPasswordLayout = (LinearLayout) findViewById(R.id.edit_password_layout);
         int loginMode = PreferenceStorage.getLoginMode(this);
-        if(loginMode == 2){//signed using user name
+        if (loginMode == 2) {//signed using user name
             mPasswordLayout.setVisibility(View.VISIBLE);
             String pwdVal = PreferenceStorage.getPassword(this);
-            if( (pwdVal != null) && !(pwdVal.isEmpty())){
+            if ((pwdVal != null) && !(pwdVal.isEmpty())) {
                 password.setText(pwdVal);
             }
 
-        }else{
+        } else {
             mPasswordLayout.setVisibility(View.GONE);
         }
 
         String url = PreferenceStorage.getProfileUrl(this);
-        if( (url == null) || (url.isEmpty())){
-            if((loginMode == 1) || (loginMode == 3)){
+        if ((url == null) || (url.isEmpty())) {
+            if ((loginMode == 1) || (loginMode == 3)) {
                 url = PreferenceStorage.getSocialNetworkProfileUrl(this);
             }
 
         }
-        if( ( (url != null) && !(url.isEmpty()))){
+        if (((url != null) && !(url.isEmpty()))) {
             Picasso.with(this).load(url).placeholder(R.drawable.placeholder_small).error(R.drawable.placeholder_small).into(mProfileImage);
         }
         mProfileImage.setEnabled(false);
@@ -378,7 +378,7 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
         });
     }
 
-    private void showCityList(){
+    private void showCityList() {
         Log.d(TAG, "show the city list");
         AlertDialog.Builder builderSingle = new AlertDialog.Builder(this);
         View view = getLayoutInflater().inflate(R.layout.gender_header_layout, null);
@@ -396,7 +396,7 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
         }).create().show();
     }
 
-    private void showOccupationList(){
+    private void showOccupationList() {
         Log.d(TAG, "Show occupation list");
         AlertDialog.Builder builderSingle = new AlertDialog.Builder(this);
         View view = getLayoutInflater().inflate(R.layout.gender_header_layout, null);
@@ -404,8 +404,7 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
         header.setText("Select Occupation");
         builderSingle.setCustomTitle(view);
 
-        builderSingle.setAdapter(mOccupationAdapter
-                ,
+        builderSingle.setAdapter(mOccupationAdapter,
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -419,27 +418,26 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
     private void openImageIntent() {
 
 // Determine Uri of camera image to save.
-        final File root = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) , "MyDir");
+        final File root = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "MyDir");
 
-        if( !root.exists()){
-            if(!root.mkdirs()){
-                Log.d(TAG,"Failed to create directory for storing images");
+        if (!root.exists()) {
+            if (!root.mkdirs()) {
+                Log.d(TAG, "Failed to create directory for storing images");
                 return;
             }
-
         }
 
-        final String fname = PreferenceStorage.getUserId(this)+ ".png";
-        final File sdImageMainDirectory = new File(root.getPath()+File.separator+ fname);
+        final String fname = PreferenceStorage.getUserId(this) + ".png";
+        final File sdImageMainDirectory = new File(root.getPath() + File.separator + fname);
         outputFileUri = Uri.fromFile(sdImageMainDirectory);
-        Log.d(TAG,"camera output Uri"+ outputFileUri);
+        Log.d(TAG, "camera output Uri" + outputFileUri);
 
         // Camera.
         final List<Intent> cameraIntents = new ArrayList<Intent>();
         final Intent captureIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
         final PackageManager packageManager = getPackageManager();
         final List<ResolveInfo> listCam = packageManager.queryIntentActivities(captureIntent, 0);
-        for(ResolveInfo res : listCam) {
+        for (ResolveInfo res : listCam) {
             final String packageName = res.activityInfo.packageName;
             final Intent intent = new Intent(captureIntent);
             intent.setComponent(new ComponentName(res.activityInfo.packageName, res.activityInfo.name));
@@ -468,14 +466,14 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
         if (resultCode == RESULT_OK) {
 
             if (requestCode == REQUEST_IMAGE_GET) {
-                Log.d(TAG,"ONActivity Result");
+                Log.d(TAG, "ONActivity Result");
                 final boolean isCamera;
                 if (data == null) {
-                    Log.d(TAG,"camera is true");
+                    Log.d(TAG, "camera is true");
                     isCamera = true;
                 } else {
                     final String action = data.getAction();
-                    Log.d(TAG,"camera action is"+ action);
+                    Log.d(TAG, "camera action is" + action);
                     if (action == null) {
                         isCamera = false;
                     } else {
@@ -486,21 +484,21 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
                 Uri selectedImageUri;
 
                 if (isCamera) {
-                    Log.d(TAG,"Add to gallery");
+                    Log.d(TAG, "Add to gallery");
                     selectedImageUri = outputFileUri;
                     mActualFilePath = outputFileUri.getPath();
                     galleryAddPic(selectedImageUri);
                 } else {
                     selectedImageUri = data == null ? null : data.getData();
-                    mActualFilePath = getRealPathFromURI(this,selectedImageUri);
-                    Log.d(TAG,"path to image is"+ mActualFilePath);
+                    mActualFilePath = getRealPathFromURI(this, selectedImageUri);
+                    Log.d(TAG, "path to image is" + mActualFilePath);
 
                     // dummyflag= true;
 
                 }
-                Log.d(TAG,"image Uri is"+ selectedImageUri);
-                if(selectedImageUri != null){
-                    Log.d(TAG,"image URI is"+ selectedImageUri);
+                Log.d(TAG, "image Uri is" + selectedImageUri);
+                if (selectedImageUri != null) {
+                    Log.d(TAG, "image URI is" + selectedImageUri);
                     //if( ! dummyflag) {
                     setPic(selectedImageUri);
                        /* }else{
@@ -541,7 +539,7 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
         int photoH = bmOptions.outHeight;
 
         // Determine how much to scale down the image
-        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
+        int scaleFactor = Math.min(photoW / targetW, photoH / targetH);
 
         // Decode the image file into a Bitmap sized to fill the View
         bmOptions.inJustDecodeBounds = false;
@@ -556,8 +554,8 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
             mProfileImage.setImageBitmap(bitmap);
             //mUserImage.setScaleType(ImageView.ScaleType.FIT_XY);
             mCurrentUserImageBitmap = bitmap;
-          //  new UploadFileToServer().execute();
-           // new Upload(bitmap,"myuserimage").execute();
+            //  new UploadFileToServer().execute();
+            // new Upload(bitmap,"myuserimage").execute();
             //  ServiceLocatorUtils.getInstance().setmCurrentUserProfileImage(mCurrentUserImageBitmap);
 
         } catch (FileNotFoundException e) {
@@ -566,9 +564,10 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
 
     }
 
-    private void uploadImaeUsingHttp(){
+    private void uploadImaeUsingHttp() {
 
     }
+
     public String getRealPathFromURI(Context context, Uri contentUri) {
         String result = null;
         try {
@@ -585,11 +584,11 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
             } else {
                 Log.d(TAG, "cursor is null");
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             result = null;
-            Toast.makeText(this,"Was unable to save  image", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Was unable to save  image", Toast.LENGTH_SHORT).show();
 
-        }finally {
+        } finally {
             return result;
         }
 
@@ -655,7 +654,7 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
         this.sendBroadcast(mediaScanIntent);
     }
 
-    private void showGenderList(){
+    private void showGenderList() {
         AlertDialog.Builder builderSingle = new AlertDialog.Builder(this);
 
         builderSingle.setTitle("Select Gender");
@@ -676,7 +675,7 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
         builderSingle.show();
     }
 
-    private void  showBirthdayDate(){
+    private void showBirthdayDate() {
         Log.d(TAG, "Show the birthday date");
         Calendar newCalendar = Calendar.getInstance();
         String currentdate = mBirthday.getText().toString();
@@ -684,35 +683,34 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
         int month = newCalendar.get(Calendar.MONTH);
         int day = newCalendar.get(Calendar.DAY_OF_MONTH);
         int year = newCalendar.get(Calendar.YEAR);
-        if( (currentdate != null) && !(currentdate.isEmpty())){
+        if ((currentdate != null) && !(currentdate.isEmpty())) {
             //extract the date/month and year
             try {
-                Date startDate= mDateFormatter.parse(currentdate);
+                Date startDate = mDateFormatter.parse(currentdate);
                 Calendar newDate = Calendar.getInstance();
 
                 newDate.setTime(startDate);
                 month = newDate.get(Calendar.MONTH);
                 day = newDate.get(Calendar.DAY_OF_MONTH);
                 year = newDate.get(Calendar.YEAR);
-                Log.d(TAG,"month"+ month+ "day"+ day+ "year"+ year);
+                Log.d(TAG, "month" + month + "day" + day + "year" + year);
 
             } catch (ParseException e) {
                 e.printStackTrace();
-            }finally {
-                mDatePicker = new DatePickerDialog(this,this,year,month,day);
+            } finally {
+                mDatePicker = new DatePickerDialog(this, this, year, month, day);
                 mDatePicker.show();
 
             }
-        }else{
-            Log.d(TAG,"show default date");
+        } else {
+            Log.d(TAG, "show default date");
 
-            mDatePicker = new DatePickerDialog(this,this,year,month,day);
+            mDatePicker = new DatePickerDialog(this, this, year, month, day);
             mDatePicker.show();
         }
     }
 
-     private boolean isValidMobile(String phone)
-    {
+    private boolean isValidMobile(String phone) {
         /*boolean check = false;
         Pattern p;
         Matcher m;
@@ -723,27 +721,27 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
 */
 
         boolean valid = false;
-        if(android.util.Patterns.PHONE.matcher(phone).matches() ){
+        if (android.util.Patterns.PHONE.matcher(phone).matches()) {
 
             String Regex = "[^\\d]";
             String PhoneDigits = phone.replaceAll(Regex, "");
-            if(PhoneDigits.length() == 10){
+            if (PhoneDigits.length() == 10) {
                 valid = true;
             }
         }
 
         return valid;
-       // return check;
+        // return check;
     }
 
-    private void saveUserImage(){
+    private void saveUserImage() {
         mUpdatedImageUrl = null;
 
         new UploadFileToServer().execute();
 
     }
 
-    private void saveProfileData(){
+    private void saveProfileData() {
         String nameVal = null;
         nameVal = name.getText().toString();
         String emailVal = email.getText().toString();
@@ -755,11 +753,11 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
         String birthday = mBirthday.getText().toString();
         passwordVal = password.getText().toString();
         String occupation = mOccupation.getText().toString();
-        if(loginMode == 2){
+        if (loginMode == 2) {
             String pwd = password.getText().toString();
-            if( (pwd != null) && !(pwd.isEmpty())){
+            if ((pwd != null) && !(pwd.isEmpty())) {
                 passwordVal = pwd;
-            }else {
+            } else {
                 passwordVal = PreferenceStorage.getPassword(this);
             }
         }
@@ -798,7 +796,6 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
         }*/
 
 
-
         String url = String.format(FindAFunConstants.UPDATE_PROFILE_URL, emailVal, Uri.encode(nameVal),
                 Integer.parseInt(PreferenceStorage.getUserId(this)), Uri.encode(passwordVal), cityVal, genderval, birthday, Uri.encode(occupation), phoneVal);
 
@@ -809,24 +806,24 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
 
     }
 
-    private boolean shouldUploadSocialNetworkPic(){
+    private boolean shouldUploadSocialNetworkPic() {
         boolean upload = false;
         String url = PreferenceStorage.getSocialNetworkProfileUrl(ProfileActivity.this);
         String userimageUrl = PreferenceStorage.getProfileUrl(ProfileActivity.this);
         int loginMode = PreferenceStorage.getLoginMode(ProfileActivity.this);
-        if( (userimageUrl == null) || (userimageUrl.isEmpty())){
-            if((loginMode == 1) || (loginMode == 3)){
-                if( (url != null) && !(url.isEmpty())){
-                    mCurrentUserImageBitmap = ((BitmapDrawable)mProfileImage.getDrawable()).getBitmap();
-                    Log.d(TAG,"valid URL present");
-                    if(mCurrentUserImageBitmap != null){
+        if ((userimageUrl == null) || (userimageUrl.isEmpty())) {
+            if ((loginMode == 1) || (loginMode == 3)) {
+                if ((url != null) && !(url.isEmpty())) {
+                    mCurrentUserImageBitmap = ((BitmapDrawable) mProfileImage.getDrawable()).getBitmap();
+                    Log.d(TAG, "valid URL present");
+                    if (mCurrentUserImageBitmap != null) {
                         upload = true;
-                    }else{
-                        Log.e(TAG,"No Bitmap present");
+                    } else {
+                        Log.e(TAG, "No Bitmap present");
                     }
 
-                }else{
-                    Log.e(TAG,"No image present for social network sites");
+                } else {
+                    Log.e(TAG, "No image present for social network sites");
                 }
 
             }
@@ -836,19 +833,19 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
         return upload;
     }
 
-    private void saveUserProfile(){
+    private void saveUserProfile() {
         String phoneVal = phone.getText().toString();
-        if( (phoneVal != null) && !(phoneVal.isEmpty()) && !isValidMobile(phoneVal)){
-            AlertDialogHelper.showSimpleAlertDialog(this,"Enter valid phone number");
-        }else {
+        if ((phoneVal != null) && !(phoneVal.isEmpty()) && !isValidMobile(phoneVal)) {
+            AlertDialogHelper.showSimpleAlertDialog(this, "Enter valid phone number");
+        } else {
             mProgressDialog = new ProgressDialog(this);
             mProgressDialog.setIndeterminate(true);
             mProgressDialog.setMessage("Updating Profile");
             mProgressDialog.show();
-            if( (mActualFilePath != null) ){
+            if ((mActualFilePath != null)) {
                 Log.d(TAG, "Update profile picture");
                 saveUserImage();
-            }else{
+            } else {
                 saveProfileData();
             }
         }
@@ -867,13 +864,13 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
 
     @Override
     public void onSuccess(int resultCode, Object result) {
-        if(mProgressDialog != null){
+        if (mProgressDialog != null) {
             mProgressDialog.cancel();
         }
         Log.d(TAG, "received on success");
 
-        if(result instanceof  JSONObject){
-            Log.d(TAG,"Profile was saved successfully");
+        if (result instanceof JSONObject) {
+            Log.d(TAG, "Profile was saved successfully");
 
             String nameVal = name.getText().toString();
             String emailVal = email.getText().toString();
@@ -885,7 +882,7 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
             String birthday = mBirthday.getText().toString();
             String occupation = mOccupation.getText().toString();
 
-            PreferenceStorage.saveUserGender(this,genderval);
+            PreferenceStorage.saveUserGender(this, genderval);
             PreferenceStorage.saveUserBirthday(this, birthday);
             PreferenceStorage.saveUserCity(this, cityVal);
             PreferenceStorage.saveUserEmail(this, emailVal);
@@ -913,25 +910,18 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
             mOccupation.setTextColor(color);
             mProfileImage.setEnabled(false);
             mEditmode = false;
-            AlertDialogHelper.showSimpleAlertDialog(this,"Profile updated succesfully");
+            AlertDialogHelper.showSimpleAlertDialog(this, "Profile updated succesfully");
             mActualFilePath = null;
 
-
         }
-
-
-
-
     }
 
     @Override
     public void onError(String erorr) {
-        if(mProgressDialog != null){
+        if (mProgressDialog != null) {
             mProgressDialog.cancel();
         }
         AlertDialogHelper.showSimpleAlertDialog(this, "Error saving your profile. Try again");
-
-
     }
 
     @Override
@@ -939,10 +929,9 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
         Calendar newDate = Calendar.getInstance();
         newDate.set(year, monthOfYear, dayOfMonth);
         mBirthday.setText(mDateFormatter.format(newDate.getTime()));
-
     }
 
-    private class ImagetoByteConverter extends AsyncTask<Bitmap, Void ,String> {
+    private class ImagetoByteConverter extends AsyncTask<Bitmap, Void, String> {
 
         @Override
         protected String doInBackground(Bitmap... params) {
@@ -979,17 +968,15 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
 
         @Override
         protected void onPostExecute(String result) {
-            Log.d(TAG,"Setting the user image");
+            Log.d(TAG, "Setting the user image");
             uploadImage(result);
-
-
         }
     }
 
     private String hashMapToUrl(HashMap<String, String> params) throws UnsupportedEncodingException {
         StringBuilder result = new StringBuilder();
         boolean first = true;
-        for(Map.Entry<String, String> entry : params.entrySet()){
+        for (Map.Entry<String, String> entry : params.entrySet()) {
             if (first)
                 first = false;
             else
@@ -1010,7 +997,7 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
         private static final String TAG = "UploadFileToServer";
         private HttpClient httpclient;
         HttpPost httppost;
-        public  boolean isTaskAborted = false;
+        public boolean isTaskAborted = false;
 
         @Override
         protected void onPreExecute() {
@@ -1052,11 +1039,11 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
 
                             @Override
                             public void transferred(long num) {
-                              //  publishProgress((int) ((num / (float) totalSize) * 100));
+                                //  publishProgress((int) ((num / (float) totalSize) * 100));
                             }
                         });
-                Log.d(TAG,"actual file path is"+ mActualFilePath);
-                if(mActualFilePath != null) {
+                Log.d(TAG, "actual file path is" + mActualFilePath);
+                if (mActualFilePath != null) {
 
                     File sourceFile = new File(mActualFilePath);
 
@@ -1121,11 +1108,11 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
             Log.e(TAG, "Response from server: " + result);
 
             super.onPostExecute(result);
-            if((result == null) || (result.isEmpty()) || (result.contains("Error"))){
-                Toast.makeText(ProfileActivity.this,"Unable to save profile picture", Toast.LENGTH_SHORT).show();
-            }else{
-                if(mUpdatedImageUrl != null){
-                    PreferenceStorage.saveProfilePic(ProfileActivity.this,mUpdatedImageUrl);
+            if ((result == null) || (result.isEmpty()) || (result.contains("Error"))) {
+                Toast.makeText(ProfileActivity.this, "Unable to save profile picture", Toast.LENGTH_SHORT).show();
+            } else {
+                if (mUpdatedImageUrl != null) {
+                    PreferenceStorage.saveProfilePic(ProfileActivity.this, mUpdatedImageUrl);
                 }
             }
             saveProfileData();
@@ -1151,12 +1138,11 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
     }
 
 
-
-    private class Upload extends AsyncTask<Void,Void,String>{
+    private class Upload extends AsyncTask<Void, Void, String> {
         private Bitmap image;
         private String name;
 
-        public Upload(Bitmap image,String name){
+        public Upload(Bitmap image, String name) {
             this.image = image;
             this.name = name;
         }
@@ -1164,14 +1150,14 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
         @Override
         protected String doInBackground(Void... params) {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            Log.d(TAG,"Do image compression");
+            Log.d(TAG, "Do image compression");
             //compress the image to jpg format
-            image.compress(Bitmap.CompressFormat.PNG,90,byteArrayOutputStream);
+            image.compress(Bitmap.CompressFormat.PNG, 90, byteArrayOutputStream);
             /*
             * encode image to base64 so that it can be picked by saveImage.php file
             * */
 
-           // String encodeImage = Base64.encodeToString(byteArrayOutputStream.toByteArray(),Base64.DEFAULT);
+            // String encodeImage = Base64.encodeToString(byteArrayOutputStream.toByteArray(),Base64.DEFAULT);
             String encodeImage = null;
             /*try {
                // encodeImage = byteArrayOutputStream.toString("UTF-8");
@@ -1197,16 +1183,16 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
             int bytesRead, bytesAvailable, bufferSize;
             byte[] buffer;
             int maxBufferSize = 1 * 1024 * 1024;
-            String fileNameVal = PreferenceStorage.getUserId(ProfileActivity.this)+".png";
+            String fileNameVal = PreferenceStorage.getUserId(ProfileActivity.this) + ".png";
 
             try {
                 //convert this HashMap to encodedUrl to send to php file
-                Log.d(TAG,"start uploading the image");
-                    String dataToSend = null;
+                Log.d(TAG, "start uploading the image");
+                String dataToSend = null;
 
                 buffer = byteArrayOutputStream.toByteArray();
-                   // dataToSend = hashMapToUrl(detail);
-                URL url = new URL(String.format(FindAFunConstants.UPLOAD_PROFILE_IMAGE,Integer.parseInt(PreferenceStorage.getUserId(ProfileActivity.this))));
+                // dataToSend = hashMapToUrl(detail);
+                URL url = new URL(String.format(FindAFunConstants.UPLOAD_PROFILE_IMAGE, Integer.parseInt(PreferenceStorage.getUserId(ProfileActivity.this))));
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
                 con.setDoInput(true);
                 con.setDoOutput(true);
@@ -1219,29 +1205,27 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
                 con.setRequestProperty("Connection", "Keep-Alive");
                 // con.setChunkedStreamingMode(1024);
 
-               // con.setRequestProperty("fileToUpload", fileNameVal);
+                // con.setRequestProperty("fileToUpload", fileNameVal);
                 con.setRequestProperty("content-type", "multipart/form-data; boundary=" + boundary);
                 con.setRequestProperty("cache-control", "no-cache");
-
 
                 //con.setDoOutput(true);
 
                 DataOutputStream os = new DataOutputStream(con.getOutputStream());
-              //  BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+                //  BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
                 os.writeBytes(twoHyphens + boundary + lineEnd);
-                os.writeBytes("Content-Disposition:form-data; name=\"fileToUpload\"; filename=\""+ fileNameVal + "\"" + lineEnd);
-               // os.writeBytes("Content-Type: image/png" + lineEnd);
+                os.writeBytes("Content-Disposition:form-data; name=\"fileToUpload\"; filename=\"" + fileNameVal + "\"" + lineEnd);
+                // os.writeBytes("Content-Type: image/png" + lineEnd);
 
                 //os.writeBytes("Content-Length: " + buffer.length + lineEnd);
 
-               // os.writeBytes("Content-Length: " + buffer.length + lineEnd);
-                os.writeBytes(lineEnd+ lineEnd+ twoHyphens+ boundary+ twoHyphens);
+                // os.writeBytes("Content-Length: " + buffer.length + lineEnd);
+                os.writeBytes(lineEnd + lineEnd + twoHyphens + boundary + twoHyphens);
 
                 int bufferLength = 1024;
-                int i=0;
-                for ( i = 0; i < buffer.length; i += bufferLength) {
+                int i = 0;
+                for (i = 0; i < buffer.length; i += bufferLength) {
                     // publishing the progress....
-
 
                     if (buffer.length - i >= bufferLength) {
                         os.write(buffer, i, bufferLength);
@@ -1252,19 +1236,18 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
                 //os.write(buffer);
                 Log.d(TAG, "Total sent image bytes");
 
-               // os.writeBytes(lineEnd);
-               // os.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
+                // os.writeBytes(lineEnd);
+                // os.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
                 os.flush();
                 os.close();
 
-                    //get the response
+                //get the response
                 int responseCode = con.getResponseCode();
-                Log.d(TAG,"response code"+ responseCode);
-
+                Log.d(TAG, "response code" + responseCode);
 
                 if (responseCode == HttpURLConnection.HTTP_OK) {
                     //read the response
-                    Log.d(TAG,"upload success");
+                    Log.d(TAG, "upload success");
                     StringBuilder sb = new StringBuilder();
 
                     BufferedReader reader = new BufferedReader(
@@ -1275,8 +1258,7 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
                     while ((line = reader.readLine()) != null) {
                         sb.append(line).append("\n");
                     }
-                    Log.d(TAG,"received response is"+ sb.toString());
-
+                    Log.d(TAG, "received response is" + sb.toString());
 
                     //return the response
                     return sb.toString();
@@ -1286,14 +1268,13 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
                     return null;
                 }
 
-                }catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-                catch (Exception e) {
-                    e.printStackTrace();
-                    Log.e(TAG, "ERROR  " + e);
-                    return null;
-                }
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.e(TAG, "ERROR  " + e);
+                return null;
+            }
             return null;
 
         }
@@ -1301,10 +1282,10 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
         @Override
         protected void onPostExecute(String s) {
             //show image uploaded
-            if(s != null){
-                Log.d(TAG,"receive resposnse is"+ s);
+            if (s != null) {
+                Log.d(TAG, "receive resposnse is" + s);
             }
-            Toast.makeText(getApplicationContext(),"Image Uploaded", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Image Uploaded", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -1345,16 +1326,15 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
     }*/
 
 
-
-    private void uploadImage(String imageString){
-        Log.d(TAG,"upload the image with size"+ imageString.length());
+    private void uploadImage(String imageString) {
+        Log.d(TAG, "upload the image with size" + imageString.length());
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setMessage("uploading image");
         mProgressDialog.show();
 
         SignUpServiceHelper uploadHelper = new SignUpServiceHelper(this);
-        uploadHelper.uploadUserImage(String.format(FindAFunConstants.UPLOAD_PROFILE_IMAGE,Integer.parseInt(PreferenceStorage.getUserId(this))),imageString,this);
+        uploadHelper.uploadUserImage(String.format(FindAFunConstants.UPLOAD_PROFILE_IMAGE, Integer.parseInt(PreferenceStorage.getUserId(this))), imageString, this);
 
     }
 
@@ -1407,23 +1387,21 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
         @Override
         protected String doInBackground(String... params) {
             final String url = FindAFunConstants.GET_CITY_URL;
-            Log.d(TAG,"fetch city list URL");
+            Log.d(TAG, "fetch city list URL");
 
             new Thread() {
                 public void run() {
                     String in = null;
                     try {
                         in = openHttpConnection(url);
-                        JSONArray jsonArray=new JSONArray(in);
+                        JSONArray jsonArray = new JSONArray(in);
 
-                        for(int i=0;i<jsonArray.length();i++) {
-                            JSONObject jsonObject =jsonArray.getJSONObject(i);
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject jsonObject = jsonArray.getJSONObject(i);
                             cityList.add(jsonObject.getString("city_name"));
                         }
-                        Log.d(TAG,"Received city list"+ jsonArray.length());
-                    }
-
-                    catch (Exception e1) {
+                        Log.d(TAG, "Received city list" + jsonArray.length());
+                    } catch (Exception e1) {
                         e1.printStackTrace();
                     }
 
@@ -1448,7 +1426,7 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
 
     private String openHttpConnection(String urlStr) {
         InputStream in = null;
-        StringBuilder sb=new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         int resCode = -1;
 
         try {
@@ -1471,24 +1449,19 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
                 BufferedReader br = new BufferedReader(new InputStreamReader(in));
                 String read;
 
-                while((read=br.readLine()) != null) {
+                while ((read = br.readLine()) != null) {
                     //System.out.println(read);
                     sb.append(read);
                 }
 
             }
-        }
-
-        catch (MalformedURLException e) {
+        } catch (MalformedURLException e) {
             e.printStackTrace();
-        }
-
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return sb.toString();
     }
-
 
 
 }
