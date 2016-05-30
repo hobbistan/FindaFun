@@ -79,12 +79,19 @@ public class StaticFragment extends LandingPagerFragment implements LoadMoreList
     private HashMap<LatLng, Event> mDisplayedEvents_hp = new HashMap<LatLng, Event>();
     private boolean mAddddLocations_hp = true;
     private TextView mTotalEventCount_hp = null;
+
+    private Drawable  mNearbyTabUnselected = null;
+    private Drawable  mNearbyTabSelected = null;
+
     private Drawable mLocationUnselected_hp = null;
     private Drawable mLocationSelected_hp = null;
     private Drawable mListUnselected_hp = null;
     private Drawable mListSelected_hp = null;
 
     //icons
+    private Drawable mselectednearbyicon = null;
+    private Drawable munselectednearbyicon = null;
+
     private Drawable mselectedlocationicon_hp = null;
     private Drawable munselectedlocationicon_hp = null;
     private Drawable mselectedlisticon_hp = null;
@@ -162,10 +169,17 @@ public class StaticFragment extends LandingPagerFragment implements LoadMoreList
         mMapView_hp = (MapView) view.findViewById(R.id.mapview);
         mMapView_hp.onCreate(savedInstanceState);
         setUpGoogleMaps();
-        mLocationUnselected_hp = getActivity().getResources().getDrawable(R.drawable.btn_rounded_white);
-        mLocationSelected_hp = getActivity().getResources().getDrawable(R.drawable.btn_rounded_red);
+        mNearbyTabUnselected = getActivity().getResources().getDrawable(R.drawable.btn_rounded_white);
+        mNearbyTabSelected = getActivity().getResources().getDrawable(R.drawable.btn_rounded_red);
+
+        mLocationUnselected_hp = getActivity().getResources().getDrawable(R.drawable.btn_square_white);
+        mLocationSelected_hp = getActivity().getResources().getDrawable(R.drawable.btn_square_red);
         mListUnselected_hp = getActivity().getResources().getDrawable(R.drawable.btn_rounded_white_right);
         mListSelected_hp = getActivity().getResources().getDrawable(R.drawable.btn_rounded_red_rightside);
+
+        mselectednearbyicon = getActivity().getResources().getDrawable(R.drawable.nearby_tab_selected);
+        munselectednearbyicon = getActivity().getResources().getDrawable(R.drawable.nearby_tab_unselected);
+
         mselectedlocationicon_hp = getActivity().getResources().getDrawable(R.drawable.location_tab_selected);
         munselectedlocationicon_hp = getActivity().getResources().getDrawable(R.drawable.location_tab_unselected);
         mselectedlisticon_hp = getActivity().getResources().getDrawable(R.drawable.list_white_selected);
@@ -175,6 +189,25 @@ public class StaticFragment extends LandingPagerFragment implements LoadMoreList
         mTotalEventCount_hp = (TextView) view.findViewById(R.id.nearby_totalevents);
         mLocationBtn_hp = (ImageButton) view.findViewById(R.id.nearby_location_btn);
         final ImageButton listAppearence = (ImageButton) view.findViewById(R.id.nearby_grid_view_btn);
+
+        final ImageButton listAppearenceNearBy = (ImageButton) view.findViewById(R.id.nearby_list_btn);
+
+        listAppearenceNearBy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                performSlideRightAnimation();
+                mLocationBtn_hp.setBackgroundDrawable(mLocationUnselected_hp);
+                listAppearence.setBackgroundDrawable(mListUnselected_hp);
+                listAppearenceNearBy.setBackgroundDrawable(mNearbyTabSelected);
+
+                mLocationBtn_hp.setImageDrawable(munselectedlocationicon_hp);
+                listAppearence.setImageDrawable(munselectedlisticon_hp);
+                listAppearenceNearBy.setImageDrawable(mselectednearbyicon);
+
+                mTotalEventCount_hp.setText(Integer.toString(eventsArrayList.size())+ " Nearby Events");
+            }
+        });
+
         mLocationBtn_hp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -185,8 +218,12 @@ public class StaticFragment extends LandingPagerFragment implements LoadMoreList
                 performSlideLeftAnimation();
                 mLocationBtn_hp.setBackgroundDrawable(mLocationSelected_hp);
                 listAppearence.setBackgroundDrawable(mListUnselected_hp);
+                listAppearenceNearBy.setBackgroundDrawable(mNearbyTabUnselected);
                 mLocationBtn_hp.setImageDrawable(mselectedlocationicon_hp);
                 listAppearence.setImageDrawable(munselectedlisticon_hp);
+                listAppearenceNearBy.setImageDrawable(munselectednearbyicon);
+
+                mTotalEventCount_hp.setText(Integer.toString(eventsArrayList.size()) + " Hotspot Events");
             }
         });
 
@@ -201,8 +238,12 @@ public class StaticFragment extends LandingPagerFragment implements LoadMoreList
                 performSlideRightAnimation();
                 mLocationBtn_hp.setBackgroundDrawable(mLocationUnselected_hp);
                 listAppearence.setBackgroundDrawable(mListSelected_hp);
+                listAppearenceNearBy.setBackgroundDrawable(mNearbyTabUnselected);
                 mLocationBtn_hp.setImageDrawable(munselectedlocationicon_hp);
                 listAppearence.setImageDrawable(mselectedlisticon_hp);
+                listAppearenceNearBy.setImageDrawable(munselectednearbyicon);
+
+                mTotalEventCount_hp.setText(Integer.toString(eventsArrayList.size()) + " Hotspot Events");
                 /*loadMoreListView.setVisibility(View.VISIBLE);
                 if (eventsListAdapter != null) {
                     eventsListAdapter.notifyDataSetChanged();

@@ -73,12 +73,19 @@ public class PopularFragment extends LandingPagerFragment implements OnMapReadyC
     private HashMap<LatLng, Event> mDisplayedEvents = new HashMap<LatLng,Event>();
     private boolean mAddddLocations = true;
     private TextView mTotalEventCount = null;
+
+    private Drawable  mNearbyTabUnselected = null;
+    private Drawable  mNearbyTabSelected = null;
+
     private Drawable  mLocationUnselected = null;
     private Drawable  mLocationSelected = null;
     private Drawable  mListUnselected = null;
     private Drawable mListSelected = null;
 
     //icons
+    private Drawable mselectednearbyicon = null;
+    private Drawable munselectednearbyicon = null;
+
     private Drawable mselectedlocationicon = null;
     private Drawable munselectedlocationicon = null;
     private Drawable mselectedlisticon = null;
@@ -126,10 +133,16 @@ public class PopularFragment extends LandingPagerFragment implements OnMapReadyC
         mMapView = (MapView) view.findViewById(R.id.mapview);
         mMapView.onCreate(savedInstanceState);
         setUpGoogleMaps();
-        mLocationUnselected = getActivity().getResources().getDrawable(R.drawable.btn_rounded_white);
-        mLocationSelected = getActivity().getResources().getDrawable(R.drawable.btn_rounded_red);
+        mNearbyTabUnselected = getActivity().getResources().getDrawable(R.drawable.btn_rounded_white);
+        mNearbyTabSelected = getActivity().getResources().getDrawable(R.drawable.btn_rounded_red);
+
+        mLocationUnselected = getActivity().getResources().getDrawable(R.drawable.btn_square_white);
+        mLocationSelected = getActivity().getResources().getDrawable(R.drawable.btn_square_red);
         mListUnselected = getActivity().getResources().getDrawable(R.drawable.btn_rounded_white_right);
         mListSelected = getActivity().getResources().getDrawable(R.drawable.btn_rounded_red_rightside);
+
+        mselectednearbyicon = getActivity().getResources().getDrawable(R.drawable.nearby_tab_selected);
+        munselectednearbyicon = getActivity().getResources().getDrawable(R.drawable.nearby_tab_unselected);
         mselectedlocationicon = getActivity().getResources().getDrawable(R.drawable.location_tab_selected);
         munselectedlocationicon = getActivity().getResources().getDrawable(R.drawable.location_tab_unselected);
         mselectedlisticon = getActivity().getResources().getDrawable(R.drawable.list_white_selected);
@@ -139,6 +152,25 @@ public class PopularFragment extends LandingPagerFragment implements OnMapReadyC
         mTotalEventCount = (TextView) view.findViewById(R.id.nearby_totalevents);
         mLocationBtn = (ImageButton) view.findViewById(R.id.nearby_location_btn);
         final ImageButton listAppearence = (ImageButton) view.findViewById(R.id.nearby_grid_view_btn);
+
+        final ImageButton listAppearenceNearBy = (ImageButton) view.findViewById(R.id.nearby_list_btn);
+
+        listAppearenceNearBy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                performSlideRightAnimation();
+                mLocationBtn.setBackgroundDrawable(mLocationUnselected);
+                listAppearence.setBackgroundDrawable(mListUnselected);
+                listAppearenceNearBy.setBackgroundDrawable(mNearbyTabSelected);
+
+                mLocationBtn.setImageDrawable(munselectedlocationicon);
+                listAppearence.setImageDrawable(munselectedlisticon);
+                listAppearenceNearBy.setImageDrawable(mselectednearbyicon);
+
+                mTotalEventCount.setText(Integer.toString(eventsArrayList.size())+ " Nearby Events");
+            }
+        });
+
         mLocationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -149,8 +181,12 @@ public class PopularFragment extends LandingPagerFragment implements OnMapReadyC
                 performSlideLeftAnimation();
                 mLocationBtn.setBackgroundDrawable(mLocationSelected);
                 listAppearence.setBackgroundDrawable(mListUnselected);
+                listAppearenceNearBy.setBackgroundDrawable(mNearbyTabUnselected);
                 mLocationBtn.setImageDrawable(mselectedlocationicon);
                 listAppearence.setImageDrawable(munselectedlisticon);
+                listAppearenceNearBy.setImageDrawable(munselectednearbyicon);
+
+                mTotalEventCount.setText(Integer.toString(eventsArrayList.size())+ " Popular Events");
             }
         });
 
@@ -165,8 +201,12 @@ public class PopularFragment extends LandingPagerFragment implements OnMapReadyC
                 performSlideRightAnimation();
                 mLocationBtn.setBackgroundDrawable(mLocationUnselected);
                 listAppearence.setBackgroundDrawable(mListSelected);
+                listAppearenceNearBy.setBackgroundDrawable(mNearbyTabUnselected);
                 mLocationBtn.setImageDrawable(munselectedlocationicon);
                 listAppearence.setImageDrawable(mselectedlisticon);
+                listAppearenceNearBy.setImageDrawable(munselectednearbyicon);
+
+                mTotalEventCount.setText(Integer.toString(eventsArrayList.size())+ " Popular Events");
                 /*loadMoreListView.setVisibility(View.VISIBLE);
                 if (eventsListAdapter != null) {
                     eventsListAdapter.notifyDataSetChanged();
@@ -332,7 +372,6 @@ public class PopularFragment extends LandingPagerFragment implements OnMapReadyC
                 if (eventsListAdapter != null) {
                     eventsListAdapter.notifyDataSetChanged();
                 }
-
             }
 
             @Override
@@ -445,7 +484,6 @@ public class PopularFragment extends LandingPagerFragment implements OnMapReadyC
                        // }
                     }
                     i++;
-
                 }
                 totalNearbyCount = mNearbyLIst.size();
                 Log.d(TAG,"Total event close by 35km "+ totalNearbyCount);

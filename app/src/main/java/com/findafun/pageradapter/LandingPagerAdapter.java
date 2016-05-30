@@ -31,7 +31,7 @@ public class LandingPagerAdapter extends FragmentPagerAdapter implements PagerSl
 
     Context context;
     SparseArray<Fragment> registeredFragments = new SparseArray<Fragment>();
-    private final String[] TITLES = {"FAVOURITES","POPULAR", "HOTSPOT", "EXPLORE"};
+    private final String[] TITLES = {"FAVORITES","POPULAR", "HOTSPOT", "EXPLORE"};
     private List<Integer> mTabResources = new ArrayList<Integer>();
     private List<Integer> mUnselectedTabResources = new ArrayList<Integer>();
     onFragmentsRegisteredListener onFragmentsRegisteredListener;
