@@ -1,0 +1,94 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="@color/colorRed"
+    android:orientation="vertical"
+
+    >
+
+
+    <EditText
+        android:id="@+id/editText_name"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:hint="Name"
+        android:drawableLeft="@drawable/login_name_icon"
+        android:drawablePadding="8dp"
+        android:layout_gravity="center"
+        android:textColor="@color/colorWhite"
+        android:textColorHint="@color/colorWhite"
+        android:backgroundTint="@color/colorWhite"
+        android:layout_marginTop="30dp"
+        />
+
+    <EditText
+        android:id="@+id/editText_email"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:hint="Email"
+        android:drawableLeft="@drawable/login_mail_icon"
+        android:drawablePadding="8dp"
+        android:layout_below="@+id/editText_name"
+        android:layout_gravity="center"
+        android:textColor="@color/colorWhite"
+        android:textColorHint="@color/colorWhite"
+        android:backgroundTint="@color/colorWhite"
+        />
+
+    <EditText
+        android:id="@+id/editText_password"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText_email"
+        android:hint="Password"
+        android:drawableLeft="@drawable/login_pass_icon"
+        android:drawablePadding="8dp"
+        android:layout_gravity="center"
+        android:textColor="@color/colorWhite"
+        android:textColorHint="@color/colorWhite"
+
+        android:backgroundTint="@color/colorWhite"
+        />
+
+    <TextView
+        android:id="@+id/textView_agreeing_up"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="By signing up, I agree With Hobbistan's"
+        android:layout_below="@+id/editText_password"
+        android:layout_gravity="center"
+        android:textColor="@color/colorWhite"
+        android:layout_marginTop="20dp"
+        />
+
+    <TextView
+        android:id="@+id/textView_terms"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="Terms and Conditions"
+        android:layout_below="@+id/textView_agreeing_up"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textColor="@color/colorWhite"
+        android:layout_marginTop="16dp"
+        />
+
+    <Button
+        android:id="@+id/btn_sign_in"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView_terms"
+        android:text="Sign Up"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:textColor="@color/colorWhite"
+        android:background="@color/colorGreen"
+        android:layout_marginTop="16dp"
+        android:textSize="16dp"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        />
+
+</LinearLayout>

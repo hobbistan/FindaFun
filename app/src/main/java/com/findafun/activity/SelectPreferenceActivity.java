@@ -60,7 +60,12 @@ public class SelectPreferenceActivity extends AppCompatActivity implements Prefe
         setContentView(R.layout.activity_select_preference);
 
 
-        loadTutorial();
+        FirstTimePreference prefFirstTime = new FirstTimePreference(getApplicationContext());
+
+        if (prefFirstTime.runTheFirstTime("FirstTimePermitDemo")) {
+            loadTutorial();
+        }
+
 
 
         txtGetStarted = (TextView) findViewById(R.id.text_getStarted);
@@ -118,7 +123,6 @@ public class SelectPreferenceActivity extends AppCompatActivity implements Prefe
 
         TutorialItem tutorialItem4 = new TutorialItem(context.getString(R.string.detail_events), context.getString(R.string.abt_event),
                 R.color.text_color, R.drawable.detail_event,  R.drawable.detail_event);
-
 
         ArrayList<TutorialItem> tutorialItems = new ArrayList<>();
         tutorialItems.add(tutorialItem1);
