@@ -271,7 +271,7 @@ public class NearbyFragment extends LandingPagerFragment implements OnMapReadyCa
     }
 
     @Override
-    public void onWindowFoucusChanged(){
+    public void onWindowFocusChanged(){
         Log.d(TAG, "List view coordinates" + loadMoreListView.getX() + "yval" + loadMoreListView.getLeft() + "width" + loadMoreListView.getRight());
         mStartX = loadMoreListView.getLeft();
         mEndX = loadMoreListView.getRight();

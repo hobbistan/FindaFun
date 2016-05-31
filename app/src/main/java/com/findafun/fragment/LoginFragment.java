@@ -30,10 +30,12 @@ import com.findafun.activity.LandingActivity;
 import com.findafun.activity.LoginActivity;
 import com.findafun.activity.SelectCityActivity;
 import com.findafun.activity.SelectPreferenceActivity;
+import com.findafun.bean.gamification.GamificationDataHolder;
 import com.findafun.helper.AlertDialogHelper;
 import com.findafun.helper.ProgressDialogHelper;
 import com.findafun.interfaces.DialogClickListener;
 import com.findafun.servicehelpers.SignUpServiceHelper;
+import com.findafun.serviceinterfaces.ISignUpServiceListener;
 import com.findafun.utils.CommonUtils;
 import com.findafun.utils.FindAFunConstants;
 import com.findafun.utils.FindAFunValidator;
@@ -59,7 +61,7 @@ import java.io.IOException;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LoginFragment extends Fragment implements View.OnClickListener,DialogClickListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,ActivityCompat.OnRequestPermissionsResultCallback{
+public class LoginFragment extends Fragment implements View.OnClickListener,DialogClickListener,ISignUpServiceListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,ActivityCompat.OnRequestPermissionsResultCallback{
 
     private  static final String TAG = LoginActivity.class.getName();
 
@@ -170,7 +172,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener,Dial
 
 
             viewResult = initializeViews(view);
-
+            signUpServiceHelper = new SignUpServiceHelper(getActivity());
+            signUpServiceHelper.setSignUpServiceListener(this);
             progressDialogHelper = new ProgressDialogHelper(getActivity());
         }
 
@@ -702,5 +705,84 @@ public class LoginFragment extends Fragment implements View.OnClickListener,Dial
     @Override
     public void onAlertNegativeClicked(int tag) {
 
+    }
+
+    @Override
+    public void onSignUp(JSONObject response) {
+        progressDialogHelper.hideProgressDialog();
+        if(validateSignInResponse(response)) {
+            try {
+                JSONObject userData = response.getJSONObject("userData");
+                String user_id = null;
+                Log.d(TAG,"userData dictionary"+ userData.toString());
+                if(userData != null) {
+                    user_id = userData.getString("id");
+                    PreferenceStorage.saveUserId(getActivity(), userData.getString("id"));
+
+                    Log.d(TAG, "created user id" + user_id);
+
+                    //need to re do this
+                    Log.d(TAG, "sign in response is" + response.toString());
+                    String name = userData.getString("name");
+                    String userEmail = userData.getString("user_name");
+                    // String pwd = userData.getString(FindAFunConstants.PARAMS_USER_PASSWORD);
+                    String phone = userData.getString("phone");
+                    String gender = userData.getString("gender");
+                    String birthday = userData.getString("birthday");
+                    String city = userData.getString("city");
+                    String occupation = userData.getString("occupation");
+                    String userImageUrl = userData.getString("user_image");
+                    if ((name != null) && !(name.isEmpty()) && !name.equalsIgnoreCase("null")) {
+                        PreferenceStorage.saveUserName(getActivity(), name);
+                    }
+                    if((userEmail != null) && !(userEmail.isEmpty()) && !userEmail.equalsIgnoreCase("null") ){
+                        PreferenceStorage.saveUserEmail(getActivity(), userEmail);
+
+                    }
+                    /*if((pwd != null) && !(pwd.isEmpty()) && !pwd.equalsIgnoreCase("null") ){
+                        PreferenceStorage.savePassword(this, pwd);
+
+                    }*/
+                    if((phone != null) && !(phone.isEmpty()) && !phone.equalsIgnoreCase("null")){
+                        PreferenceStorage.saveUserPhone(getActivity(), phone);
+                    }
+                    if((gender != null) && !(gender.isEmpty()) && !gender.equalsIgnoreCase("null")){
+                        PreferenceStorage.saveUserGender(getActivity(), gender);
+                    }
+                    if((birthday != null) && !(birthday.isEmpty()) && !birthday.equalsIgnoreCase("null") ){
+                        PreferenceStorage.saveUserBirthday(getActivity(), birthday);
+                    }
+                    if((city != null) && !(city.isEmpty()) && !(city.equalsIgnoreCase("0")) && !city.equalsIgnoreCase("null")){
+                        PreferenceStorage.saveUserCity(getActivity(), city);
+                    }
+                    if((occupation != null) && !(occupation.isEmpty()) && !(occupation.equalsIgnoreCase("0")) && !occupation.equalsIgnoreCase("null")){
+                        PreferenceStorage.saveUserOccupation(getActivity(), occupation);
+                    }
+                    if( (userImageUrl != null) && !(userImageUrl.isEmpty()) && !userImageUrl.equalsIgnoreCase("null")){
+                        PreferenceStorage.saveProfilePic(getActivity(), userImageUrl);
+
+                    }
+                    //
+
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            //clear out data for old login
+            GamificationDataHolder.getInstance().clearGamificationData();
+            Intent intent = new Intent(getActivity(), SelectCityActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            getActivity().finish();
+        }else{
+            Log.d(TAG,"Error while sign In");
+        }
+    }
+
+    @Override
+    public void onSignUpError(String error) {
+        progressDialogHelper.hideProgressDialog();
+        AlertDialogHelper.showSimpleAlertDialog(getActivity(), error);
     }
 }

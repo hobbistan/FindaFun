@@ -13,6 +13,12 @@
     <!-- Login Screen -->
     <color name="button_bg_gray">#d7d7d7</color>
     <color name="transparent">#00000000</color>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorRed">#EB472E</color>
+    <color name="colorGreen">#6CAE4C</color>
 
     <!-- Select Preference -->
     <color name="bg_gray">#F2F2F2</color>

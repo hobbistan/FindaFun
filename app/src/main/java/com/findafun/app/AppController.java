@@ -1,10 +1,13 @@
 package com.findafun.app;
 
-import android.app.Application;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.text.TextUtils;
+import android.util.Base64;
+import android.util.Log;
 
 import com.android.volley.Request;
-import java.io.*;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
@@ -13,7 +16,10 @@ import com.findafun.R;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 
 public class AppController extends android.support.multidex.MultiDexApplication  {
 
@@ -32,6 +38,7 @@ public class AppController extends android.support.multidex.MultiDexApplication 
         super.onCreate();
         mInstance = this;
         FacebookSdk.sdkInitialize(getApplicationContext());
+        getHashKey();
     }
 
     public com.nostra13.universalimageloader.core.ImageLoader getUniversalImageLoader() {
@@ -94,4 +101,20 @@ public class AppController extends android.support.multidex.MultiDexApplication 
             mRequestQueue.cancelAll(tag);
         }
     }
+
+    private void getHashKey() {
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo(
+                    getPackageName(), PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.e("MY_KEY_HASH:",
+                        Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+        } catch (NoSuchAlgorithmException e) {
+        } }
+
+
 }

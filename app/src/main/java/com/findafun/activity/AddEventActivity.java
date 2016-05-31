@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListPopupWindow;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -35,32 +36,34 @@ import java.util.List;
 
 public class AddEventActivity extends AppCompatActivity implements DialogClickListener {
     TextView startDate, endDate, Time;
-    EditText nameVal, venueVal, desciptVal, startVal, endVal, TimeVal, contactVal, latVal, lngVal,eventCity, eventType, eventCategory;
+    EditText nameVal, venueVal, desciptVal, startVal, endVal, startTimeVal, endTimeVal, contactVal, latVal, lngVal, eventCity, eventType, eventCategory;
+    LinearLayout layout_date, layout_time;
     DialogFragment timepicker, datepicker;
-  //  private String[] categoryList,typeList,citysList;
+    //  private String[] categoryList,typeList,citysList;
     private static final String TAG = SelectCityActivity.class.getName();
     //Spinner eventcity, eventType, eventCategory;
     ImageView imageView_back;
     private CitySpinnerAdapter citySpinnerAdapter;
     ArrayAdapter<CharSequence> cityAdapt, typeAdapt, categAdapt;
-    Button btnSave,btnDiscard;
-    String selectedCategory,selectedType,selectedCity;
+    Button btnSave, btnDiscard;
+    String selectedCategory, selectedType, selectedCity;
     private static int RESULT_LOAD_IMG_BANNER = 1;
     String imgBannerDecodableString;
-    private ListPopupWindow listPopupCategory,listPopupCity,listPopupType;
+    private ListPopupWindow listPopupCategory, listPopupCity, listPopupType;
 
-    private  ArrayAdapter<String> mCityAdapter = null;
+    private ArrayAdapter<String> mCityAdapter = null;
     private List<String> mCityList = new ArrayList<String>();
-    private  ArrayAdapter<String> mTypeAdapter = null;
+    private ArrayAdapter<String> mTypeAdapter = null;
     private List<String> mTypeList = new ArrayList<String>();
-    private  ArrayAdapter<String> mCategoryAdapter = null;
+    private ArrayAdapter<String> mCategoryAdapter = null;
     private List<String> mCategoryList = new ArrayList<String>();
-
+    static int datePickerInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_add);
+
 
         mCityList.add("Select Your City");
         mCityList.add("Chennai");
@@ -71,8 +74,9 @@ public class AddEventActivity extends AppCompatActivity implements DialogClickLi
         mCityList.add("Bangalore");
 
         mCityAdapter = new ArrayAdapter<String>(this, R.layout.city_layout, R.id.city_name, mCityList) { // The third parameter works around ugly Android legacy. http://stackoverflow.com/a/18529511/145173
-            @Override public View getView(int position, View convertView, ViewGroup parent) {
-                Log.d(TAG,"getview called"+ position);
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                Log.d(TAG, "getview called" + position);
                 View view = getLayoutInflater().inflate(R.layout.city_layout, parent, false);
                 TextView cityname = (TextView) view.findViewById(R.id.city_name);
                 cityname.setText(mCityList.get(position));
@@ -88,10 +92,10 @@ public class AddEventActivity extends AppCompatActivity implements DialogClickLi
         mTypeList.add("Special");
 
 
-
         mTypeAdapter = new ArrayAdapter<String>(this, R.layout.type_layout, R.id.type_name, mTypeList) { // The third parameter works around ugly Android legacy. http://stackoverflow.com/a/18529511/145173
-            @Override public View getView(int position, View convertView, ViewGroup parent) {
-                Log.d(TAG,"getview called"+ position);
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                Log.d(TAG, "getview called" + position);
                 View view = getLayoutInflater().inflate(R.layout.type_layout, parent, false);
                 TextView typename = (TextView) view.findViewById(R.id.type_name);
                 typename.setText(mTypeList.get(position));
@@ -101,7 +105,7 @@ public class AddEventActivity extends AppCompatActivity implements DialogClickLi
             }
         };
 
-     //   categoryList = new String[] { "Select Category", "Sports and Fitness", "Travel and Adventures", "Entertainment","Training / Workshop","Exhibitions / Fairs","Theatre /Stage Shows","Entertainment","Meetouts / Business","Fest / Carnivals","Food / Dineout","Shopping","Bars / Pubs"};
+        //   categoryList = new String[] { "Select Category", "Sports and Fitness", "Travel and Adventures", "Entertainment","Training / Workshop","Exhibitions / Fairs","Theatre /Stage Shows","Entertainment","Meetouts / Business","Fest / Carnivals","Food / Dineout","Shopping","Bars / Pubs"};
         mCategoryList.add("Select Category");
         mCategoryList.add("Sports and Fitness");
         mCategoryList.add("Travel and Adventures");
@@ -116,10 +120,10 @@ public class AddEventActivity extends AppCompatActivity implements DialogClickLi
         mCategoryList.add("Bars / Pubs");
 
 
-
         mCategoryAdapter = new ArrayAdapter<String>(this, R.layout.category_layout, R.id.category_name, mCategoryList) { // The third parameter works around ugly Android legacy. http://stackoverflow.com/a/18529511/145173
-            @Override public View getView(int position, View convertView, ViewGroup parent) {
-                Log.d(TAG,"getview called"+ position);
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                Log.d(TAG, "getview called" + position);
                 View view = getLayoutInflater().inflate(R.layout.category_layout, parent, false);
                 TextView typename = (TextView) view.findViewById(R.id.category_name);
                 typename.setText(mCategoryList.get(position));
@@ -130,10 +134,8 @@ public class AddEventActivity extends AppCompatActivity implements DialogClickLi
         };
 
 
-
-
-       // typeList = new String[] { "Select Type", "Regular", "Special" };
-      //  citysList = new String[] { "Select Your City", "Chennai", "Coimbatore", "Mumbai","Trivandrum","Delhi","Bangalore" };
+        // typeList = new String[] { "Select Type", "Regular", "Special" };
+        //  citysList = new String[] { "Select Your City", "Chennai", "Coimbatore", "Mumbai","Trivandrum","Delhi","Bangalore" };
 
 
         imageView_back = (ImageView) findViewById(R.id.cst_back_btn);
@@ -146,7 +148,8 @@ public class AddEventActivity extends AppCompatActivity implements DialogClickLi
         eventCategory = (EditText) findViewById(R.id.addEvtCatgryVal);
 
 
-
+        layout_date = (LinearLayout) findViewById(R.id.layout_date);
+        layout_time = (LinearLayout) findViewById(R.id.layout_time);
         eventType = (EditText) findViewById(R.id.addEvtTypeVal);
         eventCity = (EditText) findViewById(R.id.addEvtCityVal);
         btnSave = (Button) findViewById(R.id.addEvtSave);
@@ -164,7 +167,75 @@ public class AddEventActivity extends AppCompatActivity implements DialogClickLi
 
         startVal = (EditText) findViewById(R.id.addEvtStartDateVal);
         endVal = (EditText) findViewById(R.id.addEvtEndDateVal);
-        TimeVal = (EditText) findViewById(R.id.addEvtTimeVal);
+        startTimeVal = (EditText) findViewById(R.id.addEvtTimeVal);
+        endTimeVal = (EditText) findViewById(R.id.addEvtEndTimeVal);
+
+
+        startTimeVal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("TIME", 1);
+
+                DialogFragment newFragment = new TimePickerFragment();
+                newFragment.setArguments(bundle);
+
+                newFragment.show(getSupportFragmentManager(), "TimePicker");
+
+
+            }
+        });
+
+
+        endTimeVal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("TIME", 2);
+
+                DialogFragment newFragment = new TimePickerFragment();
+                newFragment.setArguments(bundle);
+
+                newFragment.show(getSupportFragmentManager(), "TimePicker");
+
+
+            }
+        });
+
+        startVal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("DATE", 1);
+
+                DialogFragment newFragment = new DatePickerFragment();
+                newFragment.setArguments(bundle);
+
+                newFragment.show(getSupportFragmentManager(), "datePicker");
+
+                endDate.setVisibility(View.VISIBLE);
+                endVal.setVisibility(View.VISIBLE);
+
+
+            }
+        });
+
+
+        endVal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("DATE", 2);
+
+                DialogFragment newFragment = new DatePickerFragment();
+                newFragment.setArguments(bundle);
+
+                newFragment.show(getSupportFragmentManager(), "datePicker");
+
+
+
+            }
+        });
 
 
 
@@ -190,14 +261,12 @@ public class AddEventActivity extends AppCompatActivity implements DialogClickLi
         });
 
 
+        // getcityList();
+
+        getTypeList();
 
 
-      // getcityList();
-
-     //  getTypeList();
-
-
-      // getCategoryList();
+        // getCategoryList();
 
 
         btnDiscard.setOnClickListener(new View.OnClickListener() {
@@ -211,7 +280,8 @@ public class AddEventActivity extends AppCompatActivity implements DialogClickLi
                 desciptVal.setText("");
                 startVal.setText("");
                 endVal.setText("");
-                TimeVal.setText("");
+                startTimeVal.setText("");
+                endTimeVal.setText("");
                 contactVal.setText("");
                 latVal.setText("");
                 lngVal.setText("");
@@ -220,15 +290,14 @@ public class AddEventActivity extends AppCompatActivity implements DialogClickLi
         });
 
 
-
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
 
-               if(validateFields()){
-                   Toast.makeText(AddEventActivity.this, "validated", Toast.LENGTH_SHORT).show();
-               }
+                if (validateFields()) {
+                    Toast.makeText(AddEventActivity.this, "validated", Toast.LENGTH_SHORT).show();
+                }
 
 
                /* if (nameVal.getText().toString().length() == 0) {
@@ -248,21 +317,11 @@ public class AddEventActivity extends AppCompatActivity implements DialogClickLi
         });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
+
     private void showTypeList() {
+
 
         AlertDialog.Builder builderSingle = new AlertDialog.Builder(this);
 
@@ -280,6 +339,38 @@ public class AddEventActivity extends AppCompatActivity implements DialogClickLi
                     public void onClick(DialogInterface dialog, int which) {
                         String strName = mTypeList.get(which);
                         eventType.setText(strName);
+
+                        if (strName.trim().toLowerCase().equals("regular")) {
+
+                            layout_time.setVisibility(View.VISIBLE);
+                            endDate.setVisibility(View.VISIBLE);
+                            endVal.setVisibility(View.VISIBLE);
+
+                            /*
+                            Time.setVisibility(View.VISIBLE);
+                            TimeVal.setVisibility(View.VISIBLE);
+                            startDate.setVisibility(View.GONE);
+                            endDate.setVisibility(View.GONE);
+                            startVal.setVisibility(View.GONE);
+                            endVal.setVisibility(View.GONE);*/
+
+                        } else if (strName.trim().toLowerCase().equals("special")) {
+
+                          /*  Time.setVisibility(View.VISIBLE);
+                            TimeVal.setVisibility(View.VISIBLE);
+                            startDate.setVisibility(View.VISIBLE);
+                            endDate.setVisibility(View.VISIBLE);
+                            startVal.setVisibility(View.VISIBLE);
+                            endVal.setVisibility(View.VISIBLE);
+*/
+
+                            layout_date.setVisibility(View.VISIBLE);
+                            startDate.setVisibility(View.VISIBLE);
+                            startVal.setVisibility(View.VISIBLE);
+
+                        }
+
+
                     }
                 });
         builderSingle.show();
@@ -336,13 +427,6 @@ public class AddEventActivity extends AppCompatActivity implements DialogClickLi
     }
 
 
-
-
-
-
-
-
-
     private boolean validateFields() {
         if (!FindAFunValidator.checkNullString(this.nameVal.getText().toString().trim())) {
             AlertDialogHelper.showSimpleAlertDialog(this, this.getResources().getString(R.string.event_name));
@@ -350,16 +434,16 @@ public class AddEventActivity extends AppCompatActivity implements DialogClickLi
         } else if (!FindAFunValidator.checkStartWith(selectedCategory)) {
             AlertDialogHelper.showSimpleAlertDialog(this, this.getResources().getString(R.string.event_category));
             return false;
-        }  else if (!FindAFunValidator.checkStartWith(selectedType)) {
+        } else if (!FindAFunValidator.checkStartWith(selectedType)) {
             AlertDialogHelper.showSimpleAlertDialog(this, this.getResources().getString(R.string.event_type));
             return false;
-        }  else if (!FindAFunValidator.checkStartWith(selectedCity)) {
+        } else if (!FindAFunValidator.checkStartWith(selectedCity)) {
             AlertDialogHelper.showSimpleAlertDialog(this, this.getResources().getString(R.string.event_city));
             return false;
-        } else  if (!FindAFunValidator.checkNullString(this.venueVal.getText().toString().trim())) {
+        } else if (!FindAFunValidator.checkNullString(this.venueVal.getText().toString().trim())) {
             AlertDialogHelper.showSimpleAlertDialog(this, this.getResources().getString(R.string.event_venue));
             return false;
-        } else  if (!FindAFunValidator.checkNullString(this.desciptVal.getText().toString().trim())) {
+        } else if (!FindAFunValidator.checkNullString(this.desciptVal.getText().toString().trim())) {
             AlertDialogHelper.showSimpleAlertDialog(this, this.getResources().getString(R.string.event_desc));
             return false;
         }/*else
@@ -369,7 +453,10 @@ public class AddEventActivity extends AppCompatActivity implements DialogClickLi
         } else if (!FindAFunValidator.checkNullString(this.endVal.getText().toString().trim())) {
             AlertDialogHelper.showSimpleAlertDialog(this, this.getResources().getString(R.string.event_end_date));
             return false;
-        }*/ else if (!FindAFunValidator.checkNullString(this.TimeVal.getText().toString().trim())) {
+        }*/ else if (!FindAFunValidator.checkNullString(this.startTimeVal.getText().toString().trim())) {
+            AlertDialogHelper.showSimpleAlertDialog(this, this.getResources().getString(R.string.event_time));
+            return false;
+        } else if (!FindAFunValidator.checkNullString(this.endTimeVal.getText().toString().trim())) {
             AlertDialogHelper.showSimpleAlertDialog(this, this.getResources().getString(R.string.event_time));
             return false;
         } else if (!FindAFunValidator.checkNullString(this.contactVal.getText().toString().trim())) {
@@ -384,9 +471,7 @@ public class AddEventActivity extends AppCompatActivity implements DialogClickLi
         } else if (!FindAFunValidator.checkNullString(this.lngVal.getText().toString().trim())) {
             AlertDialogHelper.showSimpleAlertDialog(this, this.getResources().getString(R.string.event_lng));
             return false;
-        }
-
-        else {
+        } else {
             return true;
         }
     }
@@ -424,16 +509,7 @@ public class AddEventActivity extends AppCompatActivity implements DialogClickLi
 
 
 
-
-
-
-
-
-
-
-
-
-      /*  typeAdapt = ArrayAdapter.createFromResource(this,
+/*        typeAdapt = ArrayAdapter.createFromResource(this,
                 R.array.event_type, android.R.layout.simple_spinner_item);
 // Specify the layout to use when the list of choices appears
         typeAdapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -510,7 +586,7 @@ public class AddEventActivity extends AppCompatActivity implements DialogClickLi
     }
 
 
- public void showTimePickerDialog(View v) {
+    public void showTimePickerDialog(View v) {
 
         timepicker = new TimePickerFragment();
         timepicker.show(getSupportFragmentManager(), "timePicker");
@@ -565,9 +641,15 @@ public class AddEventActivity extends AppCompatActivity implements DialogClickLi
         return false;
     }*/
 
-    @SuppressLint("ValidFragment")
+
     class TimePickerFragment extends DialogFragment
             implements TimePickerDialog.OnTimeSetListener {
+
+        static final int START_TIME = 1;
+        static final int END_TIME = 2;
+        private int mChosenTime;
+        int cur = 0;
+        String am_pm = "";
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -576,17 +658,58 @@ public class AddEventActivity extends AppCompatActivity implements DialogClickLi
             int hour = c.get(Calendar.HOUR_OF_DAY);
             int minute = c.get(Calendar.MINUTE);
 
-            // Create a new instance of TimePickerDialog and return it
-            return new TimePickerDialog(getActivity(), this, hour, minute,
-                    DateFormat.is24HourFormat(getActivity()));
+
+
+            if (c.get(Calendar.AM_PM) == Calendar.AM){
+                am_pm = "AM";}
+            else if (c.get(Calendar.AM_PM) == Calendar.PM){
+                am_pm = "PM";}
+
+
+            Bundle bundle = this.getArguments();
+            if (bundle != null) {
+                mChosenTime = bundle.getInt("TIME", 1);
+            }
+
+
+            switch (mChosenTime) {
+
+                case START_TIME:
+                    cur = START_TIME;
+                    return new TimePickerDialog(getActivity(), this, hour, minute,true);
+
+                case END_TIME:
+                    cur = END_TIME;
+                    return new TimePickerDialog(getActivity(), this, hour, minute, true);
+
+            }
+            return null;
         }
 
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            // Do something with the time chosen by the user
-            String timeString = hourOfDay + ":" + minute;
 
-            onTimeSet(timeString);
-       //     Toast.makeText(getActivity(), "date :" + hourOfDay + " " + minute, Toast.LENGTH_LONG).show();
+
+
+
+              if (cur == START_TIME) {
+                // set selected date into textview
+                Log.v("Date Début", "Date1 : " + new StringBuilder().append(hourOfDay)
+                        .append(":").append(minute)
+                        .append(" "));
+
+                ((EditText) getActivity().findViewById(R.id.addEvtTimeVal)).setText( new StringBuilder().append(hourOfDay)
+                        .append(":").append(minute).append(" ").append(am_pm)
+                        .append(" "));
+            } else {
+                Log.v("Date fin", "Date2 : " + new StringBuilder().append(hourOfDay)
+                        .append(":").append(minute)
+                        .append(" "));
+
+                ((EditText) getActivity().findViewById(R.id.addEvtEndTimeVal)).setText(new StringBuilder().append(hourOfDay)
+                        .append(":").append(minute).append(" ").append(am_pm)
+                        .append(" "));
+
+            }
 
         }
 
@@ -604,57 +727,75 @@ public class AddEventActivity extends AppCompatActivity implements DialogClickLi
     }
 
 
-    public static class DatePickerFragment extends DialogFragment
-            implements DatePickerDialog.OnDateSetListener {
+
+
+
+
+
+    public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+
+        static final int START_DATE = 1;
+        static final int END_DATE = 2;
+
+        private int mChosenDate;
+
+        int cur = 0;
+
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
+
             // Use the current date as the default date in the picker
             final Calendar c = Calendar.getInstance();
             int year = c.get(Calendar.YEAR);
             int month = c.get(Calendar.MONTH);
             int day = c.get(Calendar.DAY_OF_MONTH);
 
-            // Create a new instance of DatePickerDialog and return it
-            return new DatePickerDialog(getActivity(), this, year, month, day);
-        }
 
-        public void onDateSet(DatePicker view, int year, int month, int day) {
-            // Do something with the date chosen by the user
-
-
-            String selectedDate = Integer.toString(month) + "/" + Integer.toString(day) + "/" + Integer.toString(year);
-            //date_text.setText(selectedDate);
-            System.out.println("selected date is:" + selectedDate);
-            onDateSet(selectedDate);
-            // startVal.setText(selectedDate);
+            Bundle bundle = this.getArguments();
+            if (bundle != null) {
+                mChosenDate = bundle.getInt("DATE", 1);
+            }
 
 
+            switch (mChosenDate) {
 
-           /* switch (view.getId()){
-                case R.id.addEvtStartDateVal:
-                    startVal.setText("");
-                    break;
-            }*/
+                case START_DATE:
+                    cur = START_DATE;
+                    return new DatePickerDialog(getActivity(), this, year, month, day);
 
+                case END_DATE:
+                    cur = END_DATE;
+                    return new DatePickerDialog(getActivity(), this, year, month, day);
 
-            //   Toast.makeText(getActivity(),"date :"+year+" "+month, Toast.LENGTH_LONG).show();
-
-        }
-
-        private void onDateSet(String selectedDate) {
-            ((EditText) getActivity().findViewById(R.id.addEvtStartDateVal)).setText(selectedDate);
-            //    startVal.setText(selectedDate);
+            }
+            return null;
         }
 
 
+        @Override
+        public void onDateSet(DatePicker datePicker, int year, int month, int day) {
 
+            if (cur == START_DATE) {
+                // set selected date into textview
+                Log.v("Date Début", "Date1 : " + new StringBuilder().append(month + 1)
+                        .append("-").append(day).append("-").append(year)
+                        .append(" "));
 
-        private void onLoadImageBanner(View view){
+                ((EditText) getActivity().findViewById(R.id.addEvtStartDateVal)).setText( new StringBuilder().append(month + 1)
+                        .append("-").append(day).append("-").append(year)
+                        .append(" "));
+            } else {
+                Log.v("Date fin", "Date2 : " + new StringBuilder().append(month + 1)
+                        .append("-").append(day).append("-").append(year)
+                        .append(" "));
 
+                ((EditText) getActivity().findViewById(R.id.addEvtEndDateVal)).setText(new StringBuilder().append(month + 1)
+                        .append("-").append(day).append("-").append(year)
+                        .append(" "));
 
+            }
         }
-
 
 
     }

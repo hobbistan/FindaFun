@@ -294,16 +294,21 @@
         android:background="@color/light_line_color"></View>
 
     <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/layout_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="visible"
+            >
 
             <LinearLayout
+
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
                 android:layout_gravity="left"
@@ -324,7 +329,7 @@
                     android:textColor="@color/text_color_event_add"
                     android:textSize="17sp"
                     android:typeface="serif"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
 
                 <EditText
                     android:id="@+id/addEvtStartDateVal"
@@ -338,10 +343,11 @@
                     android:paddingLeft="5dp"
                     android:paddingRight="8dp"
                     android:textColorHint="@color/text_gray"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
             </LinearLayout>
 
             <LinearLayout
+
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
                 android:layout_gravity="right"
@@ -360,7 +366,7 @@
                     android:textColor="@color/text_color_event_add"
                     android:textSize="17sp"
                     android:typeface="serif"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
 
                 <EditText
                     android:id="@+id/addEvtEndDateVal"
@@ -370,11 +376,11 @@
                     android:drawableRight="@drawable/calendar"
                     android:hint="end date"
                     android:inputType="date"
-                    android:onClick="showTimePickerDialog"
+                    android:onClick="showDatePickerDialog"
                     android:paddingLeft="5dp"
                     android:paddingRight="8dp"
                     android:textColorHint="@color/text_gray"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
             </LinearLayout>
         </LinearLayout>
         <View
@@ -384,9 +390,12 @@
             android:background="@color/light_line_color"></View>
 
         <LinearLayout
+            android:id="@+id/layout_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="visible"
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -395,7 +404,9 @@
                 android:layout_marginTop="1dp"
                 android:layout_weight="1"
                 android:background="@color/White"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="visible"
+                >
 
                 <TextView
                     android:id="@+id/addEvtTime"

@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.costum.android.widget.LoadMoreListView;
 import com.findafun.R;
@@ -35,8 +34,6 @@ import com.google.gson.Gson;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-
-import java.util.logging.LogRecord;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -282,7 +279,7 @@ public class LandingPagerFragment extends Fragment implements LoadMoreListView.O
 //        // getActivity().overridePendingTransition(R.anim.slide_left, R.anim.slide_right);
     }
 
-    public void onWindowFoucusChanged() {
+    public void onWindowFocusChanged() {
 
     }
 }

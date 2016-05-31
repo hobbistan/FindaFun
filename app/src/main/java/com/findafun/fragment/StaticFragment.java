@@ -299,7 +299,7 @@ public class StaticFragment extends LandingPagerFragment implements LoadMoreList
     }
 
     @Override
-    public void onWindowFoucusChanged() {
+    public void onWindowFocusChanged() {
         Log.d(TAG, "List view coordinates" + loadMoreListView.getX() + "yval" + loadMoreListView.getLeft() + "width" + loadMoreListView.getRight());
         mStartX_hp = loadMoreListView.getLeft();
         mEndX_hp = loadMoreListView.getRight();

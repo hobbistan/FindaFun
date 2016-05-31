@@ -546,7 +546,7 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
             LandingPagerFragment landingPagerFragment = (LandingPagerFragment)
                     landingPagerAdapter.getRegisteredFragment(viewPager.getCurrentItem());
             if(landingPagerFragment != null){
-                landingPagerFragment.onWindowFoucusChanged();
+                landingPagerFragment.onWindowFocusChanged();
             }
         }
     }
@@ -563,8 +563,8 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
     }
 
     private void doLogout(){
-        SharedPreferences sharedPreferences = PreferenceManager
-                .getDefaultSharedPreferences(this);
+        SharedPreferences sharedPreferences =
+                PreferenceManager.getDefaultSharedPreferences(this);
         sharedPreferences.edit().clear().commit();
         TwitterUtil.getInstance().resetTwitterRequestToken();
 
