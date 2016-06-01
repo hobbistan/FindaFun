@@ -1,13 +1,11 @@
 package com.findafun.activity;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
-import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -38,13 +36,10 @@ import org.json.JSONObject;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-import za.co.riggaroo.materialhelptutorial.TutorialItem;
-import za.co.riggaroo.materialhelptutorial.tutorial.MaterialTutorialActivity;
-
 public class SelectPreferenceActivity extends AppCompatActivity implements PreferenceListAdapter.OnItemClickListener, ICategoryServiceListener, DialogClickListener, View.OnClickListener {
 
     private static final String TAG = SelectPreferenceActivity.class.getName();
-    int REQUEST_CODE = 1234;
+
     private RecyclerView mRecyclerView;
     private PreferenceListAdapter preferenceAdatper;
     private ArrayList<Category> categoryArrayList, selectedList;
@@ -58,15 +53,6 @@ public class SelectPreferenceActivity extends AppCompatActivity implements Prefe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_preference);
-
-
-        FirstTimePreference prefFirstTime = new FirstTimePreference(getApplicationContext());
-
-        if (prefFirstTime.runTheFirstTime("FirstTimePermitDemo")) {
-            loadTutorial();
-        }
-
-
 
         txtGetStarted = (TextView) findViewById(R.id.text_getStarted);
         txtGetStarted.setOnClickListener(this);
@@ -104,43 +90,6 @@ public class SelectPreferenceActivity extends AppCompatActivity implements Prefe
 
         categoryServiceHelper.makeGetCategoryServiceCall(jsonObject);
     }
-
-    private void loadTutorial() {
-        Intent mainAct = new Intent(this, MaterialTutorialActivity.class);
-        mainAct.putParcelableArrayListExtra(MaterialTutorialActivity.MATERIAL_TUTORIAL_ARG_TUTORIAL_ITEMS, getTutorialItems(this));
-        startActivityForResult(mainAct, REQUEST_CODE);
-    }
-
-    private ArrayList<? extends Parcelable> getTutorialItems(Context context) {
-        TutorialItem tutorialItem1 = new TutorialItem(context.getString(R.string.navigate_user), context.getString(R.string.abt_event),
-                R.color.text_color, R.drawable.navigate_user,  R.drawable.navigate_user);
-
-        TutorialItem tutorialItem2 = new TutorialItem(context.getString(R.string.gami_board), context.getString(R.string.abt_event),
-                R.color.text_color, R.drawable.gami_board,  R.drawable.gami_board);
-
-        TutorialItem tutorialItem3 = new TutorialItem(context.getString(R.string.gami_points), context.getString(R.string.abt_event),
-                R.color.text_color, R.drawable.gami_points,  R.drawable.gami_points);
-
-        TutorialItem tutorialItem4 = new TutorialItem(context.getString(R.string.detail_events), context.getString(R.string.abt_event),
-                R.color.text_color, R.drawable.detail_event,  R.drawable.detail_event);
-
-        ArrayList<TutorialItem> tutorialItems = new ArrayList<>();
-        tutorialItems.add(tutorialItem1);
-        tutorialItems.add(tutorialItem2);
-        tutorialItems.add(tutorialItem3);
-        tutorialItems.add(tutorialItem4);
-        return tutorialItems;
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        //    super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE){
-            //  Toast.makeText(this, "Tutorial finished", Toast.LENGTH_LONG).show();
-
-        }
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

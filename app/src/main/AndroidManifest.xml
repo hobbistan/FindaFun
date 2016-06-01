@@ -202,6 +202,11 @@
             android:name=".activity.LoginNewActivity"
             android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
+        <activity
+            android:name=".activity.StaticEventDetailActivity"
+            android:label="@string/title_activity_event_detail"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeNoActionBarEventDetails" />
     </application>
 
 </manifest>
