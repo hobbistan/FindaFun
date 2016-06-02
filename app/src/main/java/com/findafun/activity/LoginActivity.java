@@ -143,7 +143,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }else {
             // Initialize Facebook SDK
             generateFacebookKeys();
-            FacebookSdk.sdkInitialize(this.getApplicationContext());
+            FacebookSdk.sdkInitialize(getApplicationContext());
             initFacebook();
 
             if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(this) == ConnectionResult.SUCCESS) {

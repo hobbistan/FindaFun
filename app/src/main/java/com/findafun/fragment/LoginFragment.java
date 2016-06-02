@@ -1,6 +1,5 @@
 package com.findafun.fragment;
 
-
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
@@ -8,6 +7,7 @@ import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -25,11 +25,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
 import com.findafun.R;
 import com.findafun.activity.LandingActivity;
 import com.findafun.activity.LoginActivity;
 import com.findafun.activity.SelectCityActivity;
 import com.findafun.activity.SelectPreferenceActivity;
+import com.findafun.activity.SignUpActivity;
 import com.findafun.bean.gamification.GamificationDataHolder;
 import com.findafun.helper.AlertDialogHelper;
 import com.findafun.helper.ProgressDialogHelper;
@@ -57,6 +65,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -116,8 +125,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener,Dial
 
 
 
-
-
      /*   mDecorView = getWindow().getDecorView();
         mDecorView.setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -172,6 +179,16 @@ public class LoginFragment extends Fragment implements View.OnClickListener,Dial
 
 
             viewResult = initializeViews(view);
+
+
+
+            FacebookSdk.sdkInitialize(getActivity());
+            initFacebook();
+            btnFacebook.setOnClickListener(this);
+            btnGPlus.setOnClickListener(this);
+            btnSignIn.setOnClickListener(this);
+
+
             signUpServiceHelper = new SignUpServiceHelper(getActivity());
             signUpServiceHelper.setSignUpServiceListener(this);
             progressDialogHelper = new ProgressDialogHelper(getActivity());
@@ -196,11 +213,15 @@ public class LoginFragment extends Fragment implements View.OnClickListener,Dial
 
     // Initialize Views
     private View initializeViews(View view) {
-        mLayout = view.findViewById(R.id.activity_login);
+       mLayout = view.findViewById(R.id.activity_login);
+
+        btnFacebook = (Button) view.findViewById(R.id.frag_login_fb);
+
+        btnGPlus = (Button) view.findViewById(R.id.frag_login_google);
 
 
         btnSignIn = (Button) view.findViewById(R.id.btn_sign_in);
-        btnSignIn.setOnClickListener(this);
+
         edtUserName = (EditText) view.findViewById(R.id.editText_email);
         edtPassword = (EditText) view.findViewById(R.id.editText_password);
         //  name = (EditText) findViewById(R.id.editText_name);
@@ -217,17 +238,91 @@ public class LoginFragment extends Fragment implements View.OnClickListener,Dial
     }
 
 
+    // Login with facebook
+    private void initFacebook() {
+        callbackManager = CallbackManager.Factory.create();
+        Log.d(TAG,"Initializing facebook");
+
+        LoginManager.getInstance().registerCallback(callbackManager,
+                new FacebookCallback<LoginResult>() {
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+                        Log.d(TAG,"facebook Login Registration success");
+                        // App code
+                        GraphRequest request = GraphRequest.newMeRequest(
+                                loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+                                    @Override
+                                    public void onCompleted(JSONObject me, GraphResponse response) {
+                                        if (response.getError() != null) {
+                                            // handle error
+                                        } else {
+                                            String email = me.optString("email");
+                                            String id = me.optString("id");
+                                            String name = me.optString("name");
+                                            String gender = me.optString("gender");
+                                            String birthday = me.optString("birthday");
+                                            Log.d(TAG,"facebook gender"+ gender+"birthday"+ birthday);
+                                            PreferenceStorage.saveUserEmail(getActivity(), email);
+                                            PreferenceStorage.saveUserName(getActivity(), name);
+                                            String url = "https://graph.facebook.com/"+id+"/picture?type=large";
+                                            Log.d(TAG,"facebook birthday"+ birthday);
+                                            PreferenceStorage.saveSocialNetworkProfilePic(getActivity(), url);
+                                            if(gender != null){
+                                                PreferenceStorage.saveUserGender(getActivity(),gender);
+                                            }
+                                            if(birthday != null){
+                                                PreferenceStorage.saveUserBirthday(getActivity(), birthday);
+                                            }
+                                            // send email and id to your web server
+                                            JSONObject jsonObject = new JSONObject();
+                                            Log.d(TAG,"Received Facebook profile"+ me.toString());
+                                            try {
+                                                jsonObject.put(FindAFunConstants.PARAMS_FUNC_NAME, "sign_in");
+                                                jsonObject.put(FindAFunConstants.PARAMS_USER_NAME, email);
+                                                jsonObject.put(FindAFunConstants.PARAMS_USER_PASSWORD, FindAFunConstants.DEFAULT_PASSWORD);
+                                                jsonObject.put(FindAFunConstants.PARAMS_SIGN_UP_TYPE, "1");
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                            progressDialogHelper.showProgressDialog(getString(R.string.progress_loading));
+                                            signUpServiceHelper.makeSignUpServiceCall(jsonObject.toString());
+                                        }
+                                    }
+                                });
+                        Bundle parameters = new Bundle();
+                        parameters.putString("fields", "id,email,name,link,birthday,gender");
+                        request.setParameters(parameters);
+                        request.executeAsync();
+
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        // App code
+                    }
+
+                    @Override
+                    public void onError(FacebookException exception) {
+                        // App code
+                        Log.e(TAG, "" + exception.toString());
+                    }
+                });
+    }
+
+
+
+
 
     @Override
     public void onClick(View view) {
         //check if network connection exists
         if(CommonUtils.isNetworkAvailable(getActivity())) {
-        /*    if (view == btnFacebook) {
+           if (view == btnFacebook) {
                 Log.d(TAG,"start Facebook for logging in");
                 LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "user_friends", "email"));
-                PreferenceStorage.saveLoginMode(getApplication(), FindAFunConstants.FACEBOOK);
+                PreferenceStorage.saveLoginMode(getActivity(), FindAFunConstants.FACEBOOK);
                 mSelectedLoginMode = FindAFunConstants.FACEBOOK;
-            } else*/ if (view == btnSignIn) {
+            } else if (view == btnSignIn) {
 
                 if (validateFields()) {
                     JSONObject jsonObject = new JSONObject();
@@ -247,15 +342,15 @@ public class LoginFragment extends Fragment implements View.OnClickListener,Dial
                     signUpServiceHelper.makeSignUpServiceCall(jsonObject.toString());
                     PreferenceStorage.saveLoginMode(getActivity(), 2);
                 }
-            } /*else if (view == txtSignUp) {
-                Intent signUpIntent = new Intent(getApplication(), SignUpActivity.class);
+            } else if (view == txtSignUp) {
+                Intent signUpIntent = new Intent(getActivity(), SignUpActivity.class);
                 startActivity(signUpIntent);
             } else if (view == btnGPlus) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    PreferenceStorage.saveLoginMode(getApplication(), FindAFunConstants.GOOGLE_PLUS);
+                    PreferenceStorage.saveLoginMode(getActivity(), FindAFunConstants.GOOGLE_PLUS);
                     // mSelectedLoginMode = FindAFunConstants.FACEBOOK;
                     mSelectedLoginMode = FindAFunConstants.GOOGLE_PLUS;
-                    if (ContextCompat.checkSelfPermission(getApplication(), Manifest.permission.GET_ACCOUNTS) == PackageManager.PERMISSION_GRANTED) {
+                    if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.GET_ACCOUNTS) == PackageManager.PERMISSION_GRANTED) {
                         Log.d(TAG, "initiate google plus sign up");
                         initiateGplusSignIn();
                     } else {
@@ -266,14 +361,14 @@ public class LoginFragment extends Fragment implements View.OnClickListener,Dial
                     Log.d(TAG, "initiate google plus Sign in");
                     initiateGplusSignIn();
                 }
-            }*/
+            }
         }else{
             AlertDialogHelper.showSimpleAlertDialog(getActivity(), "No Network connection");
         }
     }
 
 
-/*    private void initiateGplusSignIn() {
+   private void initiateGplusSignIn() {
         if (mGoogleApiClient != null && !mGoogleApiClient.isConnected()) {
             Log.d(TAG, "Not yet connected");
 //                Show the dialog as we are now signing in.
@@ -299,7 +394,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener,Dial
             Log.d(TAG,"Get profile information");
             getProfileInformation();
         }
-    }*/
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

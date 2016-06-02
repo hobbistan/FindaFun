@@ -76,6 +76,7 @@ public class SignupFragment extends Fragment  implements View.OnClickListener, I
 
     private static final String TAG = SignupFragment.class.getName();
 
+
     private static final int RC_SIGN_IN = 0;
     private static final int REQUEST_CODE_TOKEN_AUTH = 1;
     private static final int MY_PERMISSIONS_REQUEST_GET_ACCOUNTS = 100;
@@ -144,8 +145,8 @@ public class SignupFragment extends Fragment  implements View.OnClickListener, I
         return viewResult;
     }
 
+    // Login with facebook
     private void initFacebook() {
-
         callbackManager = CallbackManager.Factory.create();
         Log.d(TAG,"Initializing facebook");
 
@@ -153,6 +154,7 @@ public class SignupFragment extends Fragment  implements View.OnClickListener, I
                 new FacebookCallback<LoginResult>() {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
+                        Log.d(TAG,"facebook Login Registration success");
                         // App code
                         GraphRequest request = GraphRequest.newMeRequest(
                                 loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
@@ -164,19 +166,27 @@ public class SignupFragment extends Fragment  implements View.OnClickListener, I
                                             String email = me.optString("email");
                                             String id = me.optString("id");
                                             String name = me.optString("name");
+                                            String gender = me.optString("gender");
+                                            String birthday = me.optString("birthday");
+                                            Log.d(TAG,"facebook gender"+ gender+"birthday"+ birthday);
                                             PreferenceStorage.saveUserEmail(getActivity(), email);
                                             PreferenceStorage.saveUserName(getActivity(), name);
-                                            String url = "https://graph.facebook.com/" + id + "/picture?type=large";
-                                            Log.d(TAG, "facebook url" + url);
+                                            String url = "https://graph.facebook.com/"+id+"/picture?type=large";
+                                            Log.d(TAG,"facebook birthday"+ birthday);
                                             PreferenceStorage.saveSocialNetworkProfilePic(getActivity(), url);
+                                            if(gender != null){
+                                                PreferenceStorage.saveUserGender(getActivity(),gender);
+                                            }
+                                            if(birthday != null){
+                                                PreferenceStorage.saveUserBirthday(getActivity(), birthday);
+                                            }
                                             // send email and id to your web server
                                             JSONObject jsonObject = new JSONObject();
-                                            Log.d(TAG, "Received Facebook profile" + me.toString());
+                                            Log.d(TAG,"Received Facebook profile"+ me.toString());
                                             try {
-                                                jsonObject.put(FindAFunConstants.PARAMS_FUNC_NAME, "sign_up_latest");
+                                                jsonObject.put(FindAFunConstants.PARAMS_FUNC_NAME, "sign_in");
                                                 jsonObject.put(FindAFunConstants.PARAMS_USER_NAME, email);
-                                                jsonObject.put("user_password", FindAFunConstants.DEFAULT_PASSWORD);
-                                                jsonObject.put("user_name", name);
+                                                jsonObject.put(FindAFunConstants.PARAMS_USER_PASSWORD, FindAFunConstants.DEFAULT_PASSWORD);
                                                 jsonObject.put(FindAFunConstants.PARAMS_SIGN_UP_TYPE, "1");
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
@@ -187,7 +197,7 @@ public class SignupFragment extends Fragment  implements View.OnClickListener, I
                                     }
                                 });
                         Bundle parameters = new Bundle();
-                        parameters.putString("fields", "id,email,name,link");
+                        parameters.putString("fields", "id,email,name,link,birthday,gender");
                         request.setParameters(parameters);
                         request.executeAsync();
 
@@ -201,11 +211,14 @@ public class SignupFragment extends Fragment  implements View.OnClickListener, I
                     @Override
                     public void onError(FacebookException exception) {
                         // App code
-                        Log.e("Facebook", "" + exception.toString());
+                        Log.e(TAG, "" + exception.toString());
                     }
                 });
-
     }
+
+
+
+
 
 
     @Override
@@ -542,10 +555,10 @@ public class SignupFragment extends Fragment  implements View.OnClickListener, I
 
     // Initialize Views
     private View initializeViews(View view) {
-      //  btnFacebook = (Button) view.findViewById(R.id.btnFacebook);
-   //     btnFacebook.setOnClickListener(this);
-   //     btnGPlus = (Button) view.findViewById(R.id.btnGplus);
-   //     btnGPlus.setOnClickListener(this);
+        btnFacebook = (Button) view.findViewById(R.id.frag_signup_fb);
+        btnFacebook.setOnClickListener(this);
+        btnGPlus = (Button) view.findViewById(R.id.frag_signup_google);
+        btnGPlus.setOnClickListener(this);
         btnSignUp = (Button) view.findViewById(R.id.btn_sign_up);
         btnSignUp.setOnClickListener(this);
         edtUserName = (EditText) view.findViewById(R.id.editText_email);
@@ -565,7 +578,7 @@ public class SignupFragment extends Fragment  implements View.OnClickListener, I
             }
         });
 
-        TextView alreadyHaveaccount = (TextView) view.findViewById(R.id.text_account_exists);
+      /*  TextView alreadyHaveaccount = (TextView) view.findViewById(R.id.text_account_exists);
         alreadyHaveaccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -573,7 +586,7 @@ public class SignupFragment extends Fragment  implements View.OnClickListener, I
                 startActivity(intent);
                 getActivity().finish();
             }
-        });
+        });*/
 
         return view;
     }
