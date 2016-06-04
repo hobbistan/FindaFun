@@ -64,7 +64,6 @@ public class AddEventActivity extends AppCompatActivity implements DialogClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_add);
 
-
         mCityList.add("Select Your City");
         mCityList.add("Chennai");
         mCityList.add("Coimbatore");
@@ -233,10 +232,8 @@ public class AddEventActivity extends AppCompatActivity implements DialogClickLi
                 newFragment.show(getSupportFragmentManager(), "datePicker");
 
 
-
             }
         });
-
 
 
         eventCity.setOnClickListener(new View.OnClickListener() {
@@ -659,11 +656,11 @@ public class AddEventActivity extends AppCompatActivity implements DialogClickLi
             int minute = c.get(Calendar.MINUTE);
 
 
-
-            if (c.get(Calendar.AM_PM) == Calendar.AM){
-                am_pm = "AM";}
-            else if (c.get(Calendar.AM_PM) == Calendar.PM){
-                am_pm = "PM";}
+            if (c.get(Calendar.AM_PM) == Calendar.AM) {
+                am_pm = "AM";
+            } else if (c.get(Calendar.AM_PM) == Calendar.PM) {
+                am_pm = "PM";
+            }
 
 
             Bundle bundle = this.getArguments();
@@ -676,7 +673,7 @@ public class AddEventActivity extends AppCompatActivity implements DialogClickLi
 
                 case START_TIME:
                     cur = START_TIME;
-                    return new TimePickerDialog(getActivity(), this, hour, minute,true);
+                    return new TimePickerDialog(getActivity(), this, hour, minute, true);
 
                 case END_TIME:
                     cur = END_TIME;
@@ -689,15 +686,13 @@ public class AddEventActivity extends AppCompatActivity implements DialogClickLi
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
 
-
-
-              if (cur == START_TIME) {
+            if (cur == START_TIME) {
                 // set selected date into textview
                 Log.v("Date Début", "Date1 : " + new StringBuilder().append(hourOfDay)
                         .append(":").append(minute)
                         .append(" "));
 
-                ((EditText) getActivity().findViewById(R.id.addEvtTimeVal)).setText( new StringBuilder().append(hourOfDay)
+                ((EditText) getActivity().findViewById(R.id.addEvtTimeVal)).setText(new StringBuilder().append(hourOfDay)
                         .append(":").append(minute).append(" ").append(am_pm)
                         .append(" "));
             } else {
@@ -727,11 +722,6 @@ public class AddEventActivity extends AppCompatActivity implements DialogClickLi
     }
 
 
-
-
-
-
-
     public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
         static final int START_DATE = 1;
@@ -757,7 +747,6 @@ public class AddEventActivity extends AppCompatActivity implements DialogClickLi
                 mChosenDate = bundle.getInt("DATE", 1);
             }
 
-
             switch (mChosenDate) {
 
                 case START_DATE:
@@ -782,7 +771,7 @@ public class AddEventActivity extends AppCompatActivity implements DialogClickLi
                         .append("-").append(day).append("-").append(year)
                         .append(" "));
 
-                ((EditText) getActivity().findViewById(R.id.addEvtStartDateVal)).setText( new StringBuilder().append(month + 1)
+                ((EditText) getActivity().findViewById(R.id.addEvtStartDateVal)).setText(new StringBuilder().append(month + 1)
                         .append("-").append(day).append("-").append(year)
                         .append(" "));
             } else {
@@ -796,7 +785,5 @@ public class AddEventActivity extends AppCompatActivity implements DialogClickLi
 
             }
         }
-
-
     }
 }
