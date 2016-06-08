@@ -60,8 +60,8 @@ public class PreferenceListAdapter extends RecyclerView.Adapter<PreferenceListAd
 
     // Create new views (invoked by the layout manager)
     @Override
-    public PreferenceListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                               int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent,
+                                         int viewType) {
         // create a new view
         View parentView;
         //Log.d("CategoryAdapter","viewType is"+ viewType);
@@ -69,8 +69,7 @@ public class PreferenceListAdapter extends RecyclerView.Adapter<PreferenceListAd
             parentView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.preference_view_type1, parent, false);
 
-        }
-        else {
+        } else {
             parentView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.preference_view_type2, parent, false);
         }
@@ -117,8 +116,8 @@ public class PreferenceListAdapter extends RecyclerView.Adapter<PreferenceListAd
         } else {
             return 1;
         }*/
-        if(categoryArrayList.get(position)!=null || categoryArrayList.get(position).getSize()>0)
-        return categoryArrayList.get(position).getSize();
+        if (categoryArrayList.get(position) != null || categoryArrayList.get(position).getSize() > 0)
+            return categoryArrayList.get(position).getSize();
         else
             return 1;
     }
