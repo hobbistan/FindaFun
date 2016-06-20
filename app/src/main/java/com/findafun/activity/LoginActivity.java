@@ -102,7 +102,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
         FirstTimePreference prefFirstTime = new FirstTimePreference(getApplicationContext());
 
         if (prefFirstTime.runTheFirstTime("FirstTimePermit")) {
@@ -140,7 +139,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
                 this.finish();
             }
-        }else {
+        } else {
             // Initialize Facebook SDK
             generateFacebookKeys();
             FacebookSdk.sdkInitialize(getApplicationContext());
@@ -204,11 +203,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             ActivityCompat.requestPermissions(this, PERMISSIONS_ALL, REQUEST_PERMISSION_All);
 
         }
-
     }
-
-
-
 
     private void generateFacebookKeys(){
         Log.d(TAG, "Generating facebook has keys");

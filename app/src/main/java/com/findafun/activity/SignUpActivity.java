@@ -409,8 +409,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                         signInsuccess = true;
 
                     }
-
-
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
