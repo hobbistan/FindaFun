@@ -13,6 +13,8 @@ import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +27,7 @@ import android.widget.TextView;
 
 import com.costum.android.widget.LoadMoreListView;
 import com.findafun.R;
+import com.findafun.activity.AddEventActivity;
 import com.findafun.activity.EventDetailActivity;
 import com.findafun.activity.StaticEventDetailActivity;
 import com.findafun.adapter.EventsListAdapter;
@@ -164,6 +167,18 @@ public class StaticFragment extends LandingPagerFragment implements LoadMoreList
 
         initializeHotspotViews();
         initializeEventHelpersHotspot();
+
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+                Intent addEventIntent = new Intent(getActivity(), AddEventActivity.class);
+                //navigationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(addEventIntent);
+            }
+        });
 
         mAddddLocations_hp = true;
         mMapView_hp = (MapView) view.findViewById(R.id.mapview);

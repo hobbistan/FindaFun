@@ -15,33 +15,27 @@ import com.findafun.interfaces.DialogClickListener;
 import com.findafun.utils.PermissionUtil;
 
 public class LoginNewActivity extends AppCompatActivity implements DialogClickListener {
-    private  static final String TAG = LoginNewActivity.class.getName();
+    private static final String TAG = LoginNewActivity.class.getName();
     private static final int REQUEST_PERMISSION_All = 111;
     private static String[] PERMISSIONS_ALL = {Manifest.permission.READ_CONTACTS,
-            Manifest.permission.WRITE_CONTACTS,Manifest.permission.READ_CALENDAR,
-            Manifest.permission.WRITE_CALENDAR,Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.CALL_PHONE,
-            Manifest.permission.READ_PHONE_STATE,Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.CAMERA};
-
-
+            Manifest.permission.WRITE_CONTACTS, Manifest.permission.READ_CALENDAR,
+            Manifest.permission.WRITE_CALENDAR, Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.CALL_PHONE,
+            Manifest.permission.READ_PHONE_STATE, Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_new);
 
-
-
         FirstTimePreference prefFirstTime = new FirstTimePreference(getApplicationContext());
 
         if (prefFirstTime.runTheFirstTime("FirstTimePermit")) {
-            if (android.os.Build.VERSION.SDK_INT  > Build.VERSION_CODES.LOLLIPOP) {
+            if (android.os.Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
                 requestAllPermissions();
             }
         }
-
-
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Sign In"));
@@ -70,23 +64,14 @@ public class LoginNewActivity extends AppCompatActivity implements DialogClickLi
 
             }
         });
-
-
-
-
-
-
-
     }
-
 
 
     private void requestAllPermissions() {
 
-
         boolean requestPermission = PermissionUtil.requestAllPermissions(this);
 
-        if (requestPermission == true){
+        if (requestPermission == true) {
 
             Log.i(TAG,
                     "Displaying contacts permission rationale to provide additional context.");
@@ -104,17 +89,11 @@ public class LoginNewActivity extends AppCompatActivity implements DialogClickLi
                     })
                     .show();*/
 
-        }
-
-        else {
+        } else {
 
             ActivityCompat.requestPermissions(this, PERMISSIONS_ALL, REQUEST_PERMISSION_All);
-
         }
-
     }
-
-
 
 
     @Override

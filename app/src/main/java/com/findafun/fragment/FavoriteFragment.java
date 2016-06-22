@@ -12,6 +12,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +24,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.findafun.R;
+import com.findafun.activity.AddEventActivity;
 import com.findafun.activity.EventDetailActivity;
 import com.findafun.bean.events.Event;
 import com.findafun.bean.events.EventList;
@@ -130,6 +133,19 @@ public class FavoriteFragment extends LandingPagerFragment implements OnMapReady
 
         initializeViews();
         initializeEventHelpers();
+
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+                Intent addEventIntent = new Intent(getActivity(), AddEventActivity.class);
+                //navigationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(addEventIntent);
+            }
+        });
+
 
         listFlag = "Full";
 
