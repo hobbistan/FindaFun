@@ -7,7 +7,7 @@ import org.json.JSONObject;
  * Created by zahid.r on 10/30/2015.
  */
 public interface IEventServiceListener {
-    public void onEventResponse(JSONObject response);
+    void onEventResponse(JSONObject response);
 
-    public void onEventError(String error);
+    void onEventError(String error);
 }

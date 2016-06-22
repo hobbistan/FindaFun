@@ -13,7 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.findafun.R;
-import com.findafun.bean.gamification.Booking;
+
 import com.findafun.bean.gamification.GamificationDataHolder;
 import com.findafun.bean.gamification.PhotosBoard;
 import com.findafun.bean.gamification.Rewards;

@@ -1,6 +1,5 @@
 package com.findafun.twitter;
 
-import android.widget.Toast;
 
 import com.findafun.utils.FindAFunConstants;
 

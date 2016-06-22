@@ -218,9 +218,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
             Log.d(TAG,"Finished key hashing");
         } catch (PackageManager.NameNotFoundException e) {
-
+            e.printStackTrace();
         } catch (NoSuchAlgorithmException e) {
-
+            e.printStackTrace();
         }
     }
 

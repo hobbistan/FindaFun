@@ -1,6 +1,6 @@
 package com.findafun.activity;
 
-import android.annotation.SuppressLint;
+
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -639,7 +638,7 @@ public class AddEventActivity extends AppCompatActivity implements DialogClickLi
     }*/
 
 
-    class TimePickerFragment extends DialogFragment
+   public static class TimePickerFragment extends DialogFragment
             implements TimePickerDialog.OnTimeSetListener {
 
         static final int START_TIME = 1;

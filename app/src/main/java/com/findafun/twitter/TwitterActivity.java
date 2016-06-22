@@ -1,6 +1,6 @@
 package com.findafun.twitter;
 
-import android.app.Activity;
+
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;

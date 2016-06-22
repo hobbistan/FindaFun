@@ -1,23 +1,15 @@
 package com.findafun.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.findafun.R;
-import com.findafun.activity.ProfileActivity;
-import com.findafun.activity.SelectCityActivity;
-import com.findafun.activity.SelectPreferenceActivity;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by Shivam on 1/5/2016.

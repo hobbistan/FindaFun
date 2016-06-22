@@ -12,7 +12,7 @@ import com.findafun.R;
 import com.findafun.activity.SelectPreferenceActivity;
 import com.findafun.app.AppController;
 import com.findafun.serviceinterfaces.ICategoryServiceListener;
-import com.findafun.serviceinterfaces.ISignUpServiceListener;
+
 import com.findafun.utils.FindAFunConstants;
 
 import org.json.JSONArray;

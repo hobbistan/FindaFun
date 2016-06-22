@@ -7,7 +7,7 @@ import org.json.JSONObject;
  */
 public interface IStaticEventServiceListener {
 
-    public void onEventResponse(JSONObject response);
+    void onEventResponse(JSONObject response);
 
-    public void onEventError(String error);
+    void onEventError(String error);
 }

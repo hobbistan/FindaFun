@@ -1,14 +1,11 @@
 package com.findafun.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.findafun.R;
@@ -123,6 +120,6 @@ public class PreferenceListAdapter extends RecyclerView.Adapter<PreferenceListAd
     }
 
     public interface OnItemClickListener {
-        public void onItemClick(View view, int position);
+        void onItemClick(View view, int position);
     }
 }

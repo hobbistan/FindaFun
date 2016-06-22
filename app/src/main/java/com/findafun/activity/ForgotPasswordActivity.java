@@ -17,11 +17,11 @@ import com.findafun.helper.ProgressDialogHelper;
 import com.findafun.interfaces.DialogClickListener;
 import com.findafun.servicehelpers.SignUpServiceHelper;
 import com.findafun.serviceinterfaces.IForgotPasswordServiceListener;
-import com.findafun.serviceinterfaces.ISignUpServiceListener;
+
 import com.findafun.utils.CommonUtils;
 import com.findafun.utils.FindAFunConstants;
 import com.findafun.utils.FindAFunValidator;
-import com.findafun.utils.PreferenceStorage;
+
 
 import org.json.JSONException;
 import org.json.JSONObject;

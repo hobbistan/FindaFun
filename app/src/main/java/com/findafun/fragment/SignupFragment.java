@@ -128,7 +128,6 @@ public class SignupFragment extends Fragment  implements View.OnClickListener, I
         }
 
 
-
         viewResult = initializeViews(view);
         // Initialize Facebook SDK
         generateFacebookKeys();
@@ -547,9 +546,9 @@ public class SignupFragment extends Fragment  implements View.OnClickListener, I
             }
             Log.d(TAG,"Finished key hashing");
         } catch (PackageManager.NameNotFoundException e) {
-
+            e.printStackTrace();
         } catch (NoSuchAlgorithmException e) {
-
+            e.printStackTrace();
         }
     }
 

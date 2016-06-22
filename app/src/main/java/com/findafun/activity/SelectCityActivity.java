@@ -3,21 +3,20 @@ package com.findafun.activity;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
+
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.AsyncTask;
-import android.os.Build;
-import android.os.Handler;
-import android.os.Message;
+
+
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
+
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,23 +33,23 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 
 import org.json.JSONArray;
-import org.json.JSONException;
+
 import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.SocketTimeoutException;
+
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Scanner;
+
 import java.util.concurrent.ExecutionException;
 
 public class SelectCityActivity extends AppCompatActivity implements SimpleGestureFilter.OnSwipeListener, View.OnClickListener,

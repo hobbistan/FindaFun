@@ -16,7 +16,6 @@ import android.widget.TextView;
 import com.costum.android.widget.LoadMoreListView;
 import com.findafun.R;
 import com.findafun.activity.EventDetailActivity;
-import com.findafun.activity.StaticEventDetailActivity;
 import com.findafun.adapter.EventsListAdapter;
 import com.findafun.adapter.StaticEventListAdapter;
 import com.findafun.bean.events.Event;
@@ -24,7 +23,6 @@ import com.findafun.bean.events.EventList;
 import com.findafun.helper.AlertDialogHelper;
 import com.findafun.helper.ProgressDialogHelper;
 import com.findafun.servicehelpers.EventServiceHelper;
-import com.findafun.servicehelpers.StaticEventServiceHelper;
 import com.findafun.serviceinterfaces.IEventServiceListener;
 import com.findafun.utils.CommonUtils;
 import com.findafun.utils.FindAFunConstants;
@@ -74,6 +72,8 @@ public class LandingPagerFragment extends Fragment implements LoadMoreListView.O
 
         return view;
     }
+
+
 
     protected void initializeViews() {
         Log.d(TAG, "initialize pull to refresh view");

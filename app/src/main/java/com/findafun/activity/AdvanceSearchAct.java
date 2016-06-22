@@ -3,9 +3,9 @@ package com.findafun.activity;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,18 +13,15 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CheckedTextView;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.findafun.R;
 import com.findafun.bean.categories.Category;
-import com.findafun.helper.ProgressDialogHelper;
 import com.findafun.servicehelpers.CategoryServiceHelper;
 import com.findafun.serviceinterfaces.ICategoryServiceListener;
 import com.findafun.utils.FindAFunConstants;
@@ -37,13 +34,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 
 public class AdvanceSearchAct extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener , ICategoryServiceListener {
     private static final String TAG = AdvanceSearchAct.class.getName();
@@ -664,7 +657,7 @@ public class AdvanceSearchAct extends AppCompatActivity implements AdapterView.O
         Gson gson = new Gson();
         Type listType = new TypeToken<ArrayList<Category>>() {
         }.getType();
-        ArrayList<Category> arrayList = (ArrayList<Category>) gson.fromJson(response.toString(), listType);
+        ArrayList<Category> arrayList = gson.fromJson(response.toString(), listType);
         categoryArrayList.clear();
         mSelectedCategoryList.clear();
        // isSelectedArray.clear();

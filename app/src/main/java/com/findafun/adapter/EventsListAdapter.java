@@ -1,6 +1,6 @@
 package com.findafun.adapter;
 
-import android.animation.ObjectAnimator;
+
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
@@ -16,7 +16,6 @@ import com.findafun.R;
 import com.findafun.app.AppController;
 import com.findafun.bean.events.Event;
 import com.findafun.helper.FindAFunHelper;
-import com.findafun.utils.CommonUtils;
 import com.findafun.utils.FindAFunValidator;
 import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.nostra13.universalimageloader.core.ImageLoader;

@@ -10,7 +10,7 @@ android {
         }
     }
     compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    buildToolsVersion '23.0.3'
     defaultConfig {
         applicationId "world.of.fun"
         multiDexEnabled true
@@ -48,6 +48,8 @@ android {
 
     buildTypes {
         release {
+            println "running proguard"
+            shrinkResources true
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
@@ -63,6 +65,11 @@ android {
         flavor {
         }
     }
+
+    lintOptions {
+        abortOnError false
+    }
+
 }
 
 repositories {
@@ -75,15 +82,14 @@ dependencies {
     /*compile files('libs/universal-image-loader-1.9.3.jar')*/
     compile files('libs/twitter4j-core-4.0.4.jar')
     /*compile 'com.squareup.okhttp3:okhttp:3.1.2'
-                compile 'com.squareup.okio:okio:1.6.0'*/
+                        compile 'com.squareup.okio:okio:1.6.0'*/
 
     /*compile files('libs/httpclient-4.5.1.jar')
-            compile files('libs/httpmime-4.5.1.jar')*/
+                    compile files('libs/httpmime-4.5.1.jar')*/
     compile files('libs/apache-mime4j-0.6.jar')
     compile files('libs/httpclient-4.3.6.jar')
     compile files('libs/httpcore-4.3.3.jar')
     compile files('libs/httpmime-4.3.6.jar')
-
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.facebook.android:facebook-android-sdk:4.7.0'
     compile 'com.google.android.gms:play-services-identity:8.3.0'
@@ -91,7 +97,6 @@ dependencies {
     compile 'com.google.android.gms:play-services-location:8.3.0'
     compile 'com.google.code.gson:gson:2.2.4'
     compile 'com.mcxiaoke.volley:library:1.0.19'
-    compile 'com.android.support:cardview-v7:23.4.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.makeramen:roundedimageview:2.1.0'
     compile 'com.android.support:design:23.4.0'
@@ -103,4 +108,5 @@ dependencies {
     compile 'com.android.support:support-v4:23.4.0'
     compile 'com.google.android.gms:play-services-ads:8.4.0'
     compile 'com.google.android.gms:play-services-gcm:8.4.0'
+    /* compile 'com.android.support:cardview-v7:23.4.0'*/
 }

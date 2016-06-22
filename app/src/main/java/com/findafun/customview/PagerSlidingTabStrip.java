@@ -37,7 +37,7 @@ import android.view.View;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
-import android.widget.ImageView;
+
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -49,8 +49,8 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
     private static final String TAG = PagerSlidingTabStrip.class.getName();
 
     public interface IconTabProvider {
-        public int getPageIconResId(int position);
-        public int getCurrentPaeIconResId(int position);
+        int getPageIconResId(int position);
+        int getCurrentPaeIconResId(int position);
     }
 
     // @formatter:off

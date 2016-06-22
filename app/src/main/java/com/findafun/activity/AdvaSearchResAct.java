@@ -1,30 +1,21 @@
 package com.findafun.activity;
 
-import android.app.SearchManager;
-import android.content.Context;
+
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.SearchView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
-import android.widget.ImageView;
 
 import com.costum.android.widget.LoadMoreListView;
 import com.findafun.R;
 import com.findafun.adapter.EventsListAdapter;
 import com.findafun.bean.events.Event;
 import com.findafun.bean.events.EventList;
-import com.findafun.fragment.LandingPagerFragment;
 import com.findafun.helper.AlertDialogHelper;
 import com.findafun.helper.ProgressDialogHelper;
 import com.findafun.servicehelpers.EventServiceHelper;
@@ -36,7 +27,6 @@ import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 public class AdvaSearchResAct extends AppCompatActivity implements LoadMoreListView.OnLoadMoreListener, IEventServiceListener, AdapterView.OnItemClickListener {

@@ -95,7 +95,7 @@ public class SelectPreferenceActivity extends AppCompatActivity implements Prefe
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_select, menu);
-        menuSet = (MenuItem) menu.findItem(R.id.action_set);
+        menuSet = menu.findItem(R.id.action_set);
         return true;
     }
 
@@ -150,7 +150,7 @@ public class SelectPreferenceActivity extends AppCompatActivity implements Prefe
         Gson gson = new Gson();
         Type listType = new TypeToken<ArrayList<Category>>() {
         }.getType();
-        categoryArrayList = (ArrayList<Category>) gson.fromJson(response.toString(), listType);
+        categoryArrayList = gson.fromJson(response.toString(), listType);
         preferenceAdatper = new PreferenceListAdapter(this, categoryArrayList, this);
         mRecyclerView.setAdapter(preferenceAdatper);
     }
@@ -190,7 +190,7 @@ public class SelectPreferenceActivity extends AppCompatActivity implements Prefe
     public void onCategorySelected(int position) {
         Log.d(TAG,"selected category position"+ position);
         if (selectedList != null) {
-            Category category = (Category)preferenceAdatper.getItem(position);
+            Category category = preferenceAdatper.getItem(position);
             Log.d(TAG,"id"+ category.getId());
             selectedList.add( category);
         }

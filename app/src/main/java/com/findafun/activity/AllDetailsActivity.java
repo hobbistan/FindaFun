@@ -28,7 +28,7 @@ import com.findafun.bean.gamification.PhotoDetail;
 import com.findafun.bean.gamification.PhotosBoard;
 import com.findafun.bean.gamification.Rewards;
 import com.findafun.bean.gamification.alldetails.AllDetailsBoard;
-import com.findafun.bean.gamification.alldetails.DataArr__;
+
 import com.findafun.helper.AlertDialogHelper;
 import com.findafun.interfaces.DialogClickListener;
 import com.findafun.servicehelpers.GamificationServiceHelper;

@@ -1,6 +1,6 @@
 package com.findafun.fragment;
 
-import android.app.Fragment;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,7 +25,6 @@ import com.findafun.helper.AlertDialogHelper;
 import com.findafun.interfaces.DialogClickListener;
 import com.findafun.servicehelpers.GamificationServiceHelper;
 import com.findafun.serviceinterfaces.IGamificationServiceListener;
-import com.findafun.utils.CommonUtils;
 import com.findafun.utils.FindAFunConstants;
 import com.findafun.utils.PreferenceStorage;
 import com.makeramen.roundedimageview.RoundedTransformationBuilder;

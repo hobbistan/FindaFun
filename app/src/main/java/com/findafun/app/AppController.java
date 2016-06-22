@@ -113,7 +113,9 @@ public class AppController extends android.support.multidex.MultiDexApplication 
                         Base64.encodeToString(md.digest(), Base64.DEFAULT));
             }
         } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
         } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
         } }
 
 

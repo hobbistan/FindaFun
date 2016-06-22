@@ -35,43 +35,26 @@ public class FindAFunValidator {
     public static boolean checkContainsNumber(String password) {
         Pattern hasNumber = Pattern.compile("\\d");
 
-        if (hasNumber.matcher(password).find()) {
-            return true;
-        }
-        return false;
+        return hasNumber.matcher(password).find();
     }
 
     public static boolean checkContainsSpecialChar(String password) {
         Pattern hasSpecialChar = Pattern.compile("[^a-zA-Z0-9 ]");
-        if (!hasSpecialChar.matcher(password).find()) {
-            return true;
-        }
-        return false;
+        return !hasSpecialChar.matcher(password).find();
     }
 
     public static boolean checkContainsCharacter(String password) {
         Pattern hasCharacter = Pattern.compile("[a-zA-Z]");
-        if (hasCharacter.matcher(password).find()) {
-            return true;
-        }
-        return false;
+        return hasCharacter.matcher(password).find();
     }
 
     public static boolean withinPermittedLength(String password){
-        if( (password.length() > 6) && (password.length()<=200)){
-            return true;
-        }else{
-            return false;
-        }
+        return (password.length() > 6) && (password.length() <= 200);
     }
 
     public static boolean checkValidContact(String value){
         String MobilePattern = "[0-9]{10}";
-        if(value.matches(MobilePattern)){
-            return true;
-        } else {
-            return false;
-        }
+        return value.matches(MobilePattern);
     }
 
 

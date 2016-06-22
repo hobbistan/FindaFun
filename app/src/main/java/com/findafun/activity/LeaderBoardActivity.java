@@ -1,6 +1,6 @@
 package com.findafun.activity;
 
-import android.app.Activity;
+
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -27,8 +27,6 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
 import org.json.JSONArray;
-
-import java.util.logging.Handler;
 
 /**
  * Created by BXDC46 on 1/23/2016.

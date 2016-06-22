@@ -12,8 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.findafun.R;
-import com.findafun.bean.gamification.Booking;
-import com.findafun.bean.gamification.BookingsBoard;
+
 import com.findafun.bean.gamification.Checkins;
 import com.findafun.bean.gamification.CheckinsBoard;
 import com.findafun.bean.gamification.GamificationDataHolder;

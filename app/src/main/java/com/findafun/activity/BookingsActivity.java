@@ -14,8 +14,7 @@ import android.widget.TextView;
 import com.findafun.R;
 import com.findafun.bean.gamification.Booking;
 import com.findafun.bean.gamification.BookingsBoard;
-import com.findafun.bean.gamification.Engagement;
-import com.findafun.bean.gamification.EngagementBoard;
+
 import com.findafun.bean.gamification.GamificationDataHolder;
 import com.findafun.helper.AlertDialogHelper;
 import com.findafun.interfaces.DialogClickListener;

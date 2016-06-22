@@ -7,7 +7,7 @@ import org.json.JSONObject;
  */
 public interface IForgotPasswordServiceListener {
 
-    public void onForgotPassword(JSONObject response);
+    void onForgotPassword(JSONObject response);
 
-    public void onForgotPasswordError(String error);
+    void onForgotPasswordError(String error);
 }

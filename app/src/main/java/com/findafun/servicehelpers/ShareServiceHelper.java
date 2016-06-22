@@ -8,12 +8,9 @@ import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.findafun.R;
-import com.findafun.activity.LandingActivity;
 import com.findafun.app.AppController;
-import com.findafun.bean.gamification.Rewards;
 import com.findafun.serviceinterfaces.IGamificationServiceListener;
 import com.findafun.utils.FindAFunConstants;
-import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;

@@ -31,10 +31,7 @@ public class ReboundViewPager extends ReboundContainer<ViewPager> {
         ViewPager viewPager = getOverscrollView();
         PagerAdapter adapter = viewPager.getAdapter();
         if (null != adapter) {
-            if (viewPager.getCurrentItem() == 0) {
-                return true;
-            }
-            return false;
+            return viewPager.getCurrentItem() == 0;
         }
         return false;
     }
@@ -44,10 +41,7 @@ public class ReboundViewPager extends ReboundContainer<ViewPager> {
         ViewPager viewPager = getOverscrollView();
         PagerAdapter adapter = viewPager.getAdapter();
         if (null != adapter && adapter.getCount() > 0) {
-            if (viewPager.getCurrentItem() == adapter.getCount() - 1) {
-                return true;
-            }
-            return false;
+            return viewPager.getCurrentItem() == adapter.getCount() - 1;
         }
 
         return false;

@@ -23,11 +23,13 @@ public class LocationHelper {
         try {
             gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
         } catch (Exception ex) {
+            ex.printStackTrace();
         }
 
         try {
             network_enabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
         } catch (Exception ex) {
+            ex.printStackTrace();
         }
 
         if (!gps_enabled && !network_enabled) {

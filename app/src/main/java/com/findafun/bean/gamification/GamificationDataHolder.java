@@ -47,11 +47,7 @@ public class GamificationDataHolder {
     }
 
     public boolean isEventBookmarked(String id){
-        if(mBookmarkedEvents.contains(id)){
-            return true;
-        }else{
-            return false;
-        }
+        return mBookmarkedEvents.contains(id);
     }
 
     public void clearBookmarks(){

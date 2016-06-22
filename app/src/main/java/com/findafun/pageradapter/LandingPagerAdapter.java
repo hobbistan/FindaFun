@@ -1,7 +1,6 @@
 package com.findafun.pageradapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -10,14 +9,10 @@ import android.util.SparseArray;
 import android.view.ViewGroup;
 
 import com.findafun.R;
-import com.findafun.activity.MapsActivity;
 import com.findafun.customview.PagerSlidingTabStrip;
 import com.findafun.fragment.FavoriteFragment;
-import com.findafun.fragment.LandingPagerFragment;
-import com.findafun.fragment.NearbyFragment;
 import com.findafun.fragment.PopularFragment;
 import com.findafun.fragment.RewardsFragment;
-import com.findafun.fragment.StaticEventFragment;
 import com.findafun.fragment.StaticFragment;
 
 import java.util.ArrayList;
@@ -127,7 +122,7 @@ public class LandingPagerAdapter extends FragmentPagerAdapter implements PagerSl
     }
 
     public interface onFragmentsRegisteredListener {
-        public void onFragmentsRegistered();
+        void onFragmentsRegistered();
     }
 
     @Override

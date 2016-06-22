@@ -15,8 +15,7 @@ import com.findafun.R;
 import com.findafun.bean.gamification.Engagement;
 import com.findafun.bean.gamification.EngagementBoard;
 import com.findafun.bean.gamification.GamificationDataHolder;
-import com.findafun.bean.gamification.LeaderBoard;
-import com.findafun.bean.gamification.Rewards;
+
 import com.findafun.helper.AlertDialogHelper;
 import com.findafun.interfaces.DialogClickListener;
 import com.findafun.servicehelpers.GamificationServiceHelper;

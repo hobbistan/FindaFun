@@ -3,11 +3,15 @@ package com.findafun.activity;
 import android.Manifest;
 import android.animation.Animator;
 import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.ContentUris;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Typeface;
 import android.location.Location;
 import android.net.Uri;
@@ -16,6 +20,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
+import android.provider.CalendarContract;
+import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -23,18 +29,21 @@ import android.support.v7.widget.Toolbar;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -44,7 +53,6 @@ import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 import com.findafun.AppRate.AppRate;
 import com.findafun.R;
-import com.findafun.adapter.BannerAdapter;
 import com.findafun.app.AppController;
 import com.findafun.bean.events.Event;
 import com.findafun.bean.gamification.GamificationDataHolder;
@@ -66,12 +74,16 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.rampo.updatechecker.UpdateChecker;
+import com.rampo.updatechecker.store.Store;
 
 import org.json.JSONObject;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -80,20 +92,21 @@ import twitter4j.auth.AccessToken;
 
 public class EventDetailActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
         LocationListener, IGamificationServiceListener, IEventServiceListener {
-
-
+    private static final int SWIPE_MIN_DISTANCE = 120;
+    private static final int SWIPE_THRESHOLD_VELOCITY = 200;
+    private Animation.AnimationListener mAnimationListener;
     private Animator mCurrentAnimator;
     private static final String TAG = EventDetailActivity.class.getName();
     private Event event;
     private TextView txtEventName, txtEventCategory, txtEventDesc, txtEventVenue, txtEventStartDate, txtEventEndDate, txtEventStartTime, txtEventEndTime;
     private TextView txtEventTime, txtEventDate, txtEventEntry, txtEventContact, txtEventEmail, txtWebSite;
     private TextView txtViewMore,txtViewLess;
-    private ListView imgEventBanner;
+    private ViewFlipper imgEventBanner;
     LinearLayout count_layout;
     int count = 0;
     static TextView page_text[];
-
-
+    ImageView banner_image_one,banner_image_two,banner_image_three,banner_image_four,banner_image_five;
+    private final GestureDetector detector = new GestureDetector(new SwipeGestureDetector());
     ImageLoader uImageLoader = AppController.getInstance().getUniversalImageLoader();
     private GoogleApiClient mGoogleApiClient;
     private Location mLastLocation;
@@ -132,10 +145,6 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
 
 
 
-       /*   new AppRate(this)
-                    .setMinDaysUntilPrompt(2)
-                    .setMinLaunchesUntilPrompt(3)
-                    .init();*/
 
         initializeViews();
         event = (Event) getIntent().getSerializableExtra("eventObj");
@@ -146,7 +155,66 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
         }
 
 
+
+
+
+        int nVersion = getAppVersion(getApplication());
+        Log.d("test", String.valueOf(nVersion));
+
+        getAppUpdate(nVersion);
+
+
+
+
+
     }
+
+
+    public void getAppUpdate(int nVersion){
+
+       int versionCode = 32;
+        final SharedPreferences saving = getSharedPreferences("AppUpdate", Activity.MODE_PRIVATE);
+        final SharedPreferences.Editor editor = saving.edit();
+        editor.putInt("update",versionCode);
+        editor.commit();
+
+
+       int version = saving.getInt("update", 0);
+
+          if(version<nVersion){
+              version++;
+              //   Toast.makeText(this, "Hello There " + test, Toast.LENGTH_SHORT).show();
+              editor.putInt("update", version);
+              editor.commit();
+
+              UpdateChecker checker = new UpdateChecker(this);
+              UpdateChecker.setStore(Store.GOOGLE_PLAY);
+              checker.showDialog("test");
+              //checker.setSuccessfulChecksRequired(5);
+              UpdateChecker.start();
+
+              Log.d("version code", String.valueOf(version));
+          } else if(version==nVersion){
+              editor.putInt("update",version);
+              editor.commit();
+              Log.d("version code", String.valueOf(version));
+          }
+
+    }
+
+
+    public  int getAppVersion(Context context) {
+        try {
+            PackageInfo packageInfo = context.getPackageManager()
+                    .getPackageInfo(context.getPackageName(), 0);
+            return packageInfo.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            // should never happen
+            throw new RuntimeException("Could not get package name: " + e);
+        }
+    }
+
+
 
     private void fetchAppRate() {
 
@@ -391,9 +459,14 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
         }
         Log.d(TAG, "Image uri is" + event.getEventBanner());
       //  uImageLoader.displayImage((event.getEventLogo()), imgEventBanner);
+        uImageLoader.displayImage(event.getEventLogo(),banner_image_one);
+        uImageLoader.displayImage("http://placehold.it/120x120&text=image2",banner_image_two);
+        uImageLoader.displayImage("http://placehold.it/120x120&text=image3",banner_image_three);
+      //  uImageLoader.displayImage("http://placehold.it/120x120&text=image4",banner_image_four);
+     //   uImageLoader.displayImage("http://placehold.it/120x120&text=image5",banner_image_five);
         imgList.add(0, event.getEventLogo());
-     //   imgList.add(1,"http://placehold.it/120x120&text=image2");
-     //   imgList.add(2,"http://placehold.it/120x120&text=image3");
+        imgList.add(1,"http://placehold.it/120x120&text=image2");
+        imgList.add(2,"http://placehold.it/120x120&text=image3");
         initializeViews();
 
 
@@ -430,6 +503,13 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
 
 
     private void initializeViews() {
+
+        banner_image_one = (ImageView) findViewById(R.id.banner_image_one);
+       // banner_image_one.set
+        banner_image_two = (ImageView) findViewById(R.id.banner_image_two);
+        banner_image_three = (ImageView) findViewById(R.id.banner_image_three);
+        /*banner_image_four = (ImageView) findViewById(R.id.banner_image_four);
+        banner_image_five = (ImageView) findViewById(R.id.banner_image_five);*/
         count_layout = (LinearLayout) findViewById(R.id.image_count);
         txtViewMore = (TextView) findViewById(R.id.seemore);
 
@@ -455,6 +535,12 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Bookmark Button selected" + event.getId());
+
+
+        //        getCalender();
+
+
+
                 if (mServiceHelper == null) {
                     mServiceHelper = new EventServiceHelper(EventDetailActivity.this);
                     mServiceHelper.setEventServiceListener(EventDetailActivity.this);
@@ -498,18 +584,29 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
         txtEventEndDate = (TextView) findViewById(R.id.cal_to_val);
         txtEventStartTime = (TextView) findViewById(R.id.txt_clock_from_val);
         txtEventEndTime = (TextView) findViewById(R.id.clock_to_val);
-        imgEventBanner = (ListView) findViewById(R.id.banner_one);
-
+        imgEventBanner = (ViewFlipper) findViewById(R.id.banner_one);
+       // imgEventBanner.isAutoStart();
+        imgEventBanner.startFlipping();
 
         //  imgList.add(0, event.getEventLogo());
         ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(EventDetailActivity.this));
 
-        BannerAdapter adapter = new BannerAdapter(this, imgList);
+      //  BannerAdapter adapter = new BannerAdapter(this, imgList);
 
-        imgEventBanner.setAdapter(adapter);
+        imgEventBanner.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(final View view, final MotionEvent event) {
+              //  new BannerAdapter(getApplicationContext(), imgList);
 
 
-        count = imgEventBanner.getAdapter().getCount();
+                 detector.onTouchEvent(event);
+                return true;
+            }
+        });
+      //  imgEventBanner.setAdapter(adapter);
+
+
+        count =5; //imgEventBanner.getAdapter().getCount();
         page_text = new TextView[count];
         for (int i = 0; i < count; i++) {
             page_text[i] = new TextView(this);
@@ -520,7 +617,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
             count_layout.addView(page_text[i]);
 
 
-            imgEventBanner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+/*            imgEventBanner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
                 public void onItemSelected(AdapterView<?> arg0, View arg1,
                                            int position, long arg3) {
@@ -540,7 +637,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
                     // TODO Auto-generated method stub
 
                 }
-            });
+            });*/
 
 
             /*image banner item click*/
@@ -620,6 +717,123 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
 
 
     }
+
+    private void getCalender() {
+           String DEBUG_TAG = "EventDetailActivity";
+           String[] INSTANCE_PROJECTION = new String[] {
+                CalendarContract.Instances.EVENT_ID,      // 0
+                CalendarContract.Instances.BEGIN,         // 1
+                CalendarContract.Instances.TITLE          // 2
+        };
+
+// The indices for the projection array above.
+         int PROJECTION_ID_INDEX = 0;
+         int PROJECTION_BEGIN_INDEX = 1;
+         int PROJECTION_TITLE_INDEX = 2;
+
+
+// Specify the date range you want to search for recurring
+// event instances
+        Calendar beginTime = Calendar.getInstance();
+        beginTime.set(2011, 9, 23, 8, 0);
+        long startMillis = beginTime.getTimeInMillis();
+        Calendar endTime = Calendar.getInstance();
+        endTime.set(2011, 10, 24, 8, 0);
+        long endMillis = endTime.getTimeInMillis();
+
+        Cursor cur = null;
+        ContentResolver cr = getContentResolver();
+
+// The ID of the recurring event whose instances you are searching
+// for in the Instances table
+        String selection = CalendarContract.Instances.EVENT_ID + " = ?";
+        String[] selectionArgs = new String[] {"207"};
+
+// Construct the query with the desired date range.
+        Uri.Builder builder = CalendarContract.Instances.CONTENT_URI.buildUpon();
+        ContentUris.appendId(builder, startMillis);
+        ContentUris.appendId(builder, endMillis);
+
+// Submit the query
+        cur =  cr.query(builder.build(),
+                INSTANCE_PROJECTION,
+                selection,
+                selectionArgs,
+                null);
+try {
+    while (cur.moveToNext()) {
+        String title = null;
+        long eventID = 0;
+        long beginVal = 0;
+
+        // Get the field values
+        eventID = cur.getLong(PROJECTION_ID_INDEX);
+        beginVal = cur.getLong(PROJECTION_BEGIN_INDEX);
+        title = cur.getString(PROJECTION_TITLE_INDEX);
+
+        // Do something with the values.
+        Log.i(DEBUG_TAG, "Event:  " + title);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(beginVal);
+        DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+        Log.i(DEBUG_TAG, "Date: " + formatter.format(calendar.getTime()));
+    }
+    Log.d("test out","Test manoj");
+} catch (Exception e){
+    e.printStackTrace();
+}
+}
+
+
+
+    private void setCalender() {
+        Calendar beginTime = Calendar.getInstance();
+
+      //  beginTime.set(2016, 5, 4, 7, 30);
+
+        Date fullstartdate = null;
+        Date fullenddate = null;
+        Long sTime,eTime;
+        try {
+            Log.d("test date",event.getStartDate().toString());
+        fullstartdate = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss").parse(event.getStartDate());
+            Log.d("test date", String.valueOf(fullstartdate));
+            Log.d("test date",event.getEndDate().toString());
+        fullenddate = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss").parse(event.getEndDate().toString());
+            Log.d("test date", String.valueOf(fullenddate));
+            sTime = fullstartdate.getTime();
+            eTime = fullenddate.getTime();
+        beginTime.setTime(fullstartdate);
+        Calendar endTime = Calendar.getInstance();
+      //  endTime.set(2012, 0, 19, 8, 30);
+
+        endTime.setTime(fullenddate);
+
+
+
+
+
+
+        Intent intent = new Intent(Intent.ACTION_INSERT)
+                .setData(CalendarContract.Events.CONTENT_URI)
+                .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,sTime)
+                .putExtra(CalendarContract.EXTRA_EVENT_END_TIME,eTime)
+                .putExtra(CalendarContract.Events.TITLE,event.getEventName().toString())
+                .putExtra(CalendarContract.Events.DESCRIPTION,event.getDescription().toString())
+                .putExtra(CalendarContract.Events.EVENT_LOCATION,event.getEventVenue())
+                .putExtra(ContactsContract.Intents.Insert.PHONE, event.getContact())
+                .putExtra(CalendarContract.ACTION_EVENT_REMINDER, true)
+                .putExtra(Intent.EXTRA_EMAIL, "manojmca15@gmail.com")
+
+            .putExtra(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_BUSY)
+                .putExtra(Intent.EXTRA_EMAIL,event.getEventEmail());
+        startActivity(intent);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public String getThumbnailImageUrl(String imgUrl,int width,int height){
         String url="http://imgsize.ph.126.net/?imgurl=data1_data2xdata3x0x85.jpg&enlarge=true";
         width = (int) (getResources().getDisplayMetrics().density * 100);
@@ -779,7 +993,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
     public void onEventResponse(JSONObject response) {
         Toast.makeText(this,"Event boookmarked succesfully", Toast.LENGTH_SHORT).show();
         GamificationDataHolder.getInstance().addBookmarkedEvent(event.getId());
-
+        setCalender();
     }
 
     @Override
@@ -958,6 +1172,68 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
         }
     }
 
+
+    private class SwipeGestureDetector implements GestureDetector.OnGestureListener {
+        @Override
+        public boolean onDown(MotionEvent e) {
+            Log.d("swipe", "onDown: ");
+
+            Intent intent = new Intent(getApplicationContext(), imageGallery.class);
+            intent.putStringArrayListExtra("image_list",imgList);
+            startActivity(intent);
+            return false;
+        }
+
+        @Override
+        public void onShowPress(MotionEvent e) {
+            Log.d("swipe", "onShowPress: ");
+        }
+
+        @Override
+        public boolean onSingleTapUp(MotionEvent e) {
+            return false;
+        }
+
+        @Override
+        public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+            return false;
+        }
+
+        @Override
+        public void onLongPress(MotionEvent e) {
+
+        }
+
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            try {
+
+
+                // right to left swipe
+                if (e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+                    imgEventBanner.setInAnimation(AnimationUtils.loadAnimation(getApplication(), R.anim.left_in));
+                    imgEventBanner.setOutAnimation(AnimationUtils.loadAnimation(getApplication(), R.anim.left_out));
+                    // controlling animation
+
+                    imgEventBanner.getInAnimation().setAnimationListener(mAnimationListener);
+                    imgEventBanner.showNext();
+                    return true;
+                } else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+                    imgEventBanner.setInAnimation(AnimationUtils.loadAnimation(getApplication(), R.anim.right_in));
+                    imgEventBanner.setOutAnimation(AnimationUtils.loadAnimation(getApplication(), R.anim.right_out));
+                    // controlling animation
+                    imgEventBanner.getInAnimation().setAnimationListener(mAnimationListener);
+                    imgEventBanner.showPrevious();
+                    return true;
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return false;
+        }
+    }
 
 
 

@@ -41,9 +41,10 @@ public class FindAFunHelper {
             calendar.setTimeInMillis(timestamp * 1000);
             calendar.add(Calendar.MILLISECOND, tz.getOffset(calendar.getTimeInMillis()));
             SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMM dd");
-            Date currenTimeZone = (Date) calendar.getTime();
+            Date currenTimeZone = calendar.getTime();
             return sdf.format(currenTimeZone);
         } catch (Exception e) {
+            e.printStackTrace();
         }
         return "";
     }

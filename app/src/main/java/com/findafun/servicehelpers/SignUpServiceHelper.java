@@ -1,32 +1,23 @@
 package com.findafun.servicehelpers;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.findafun.R;
-import com.findafun.activity.LandingActivity;
 import com.findafun.activity.LoginActivity;
 import com.findafun.app.AppController;
-import com.findafun.bean.gamification.Rewards;
-import com.findafun.serviceinterfaces.IEventServiceListener;
 import com.findafun.serviceinterfaces.IForgotPasswordServiceListener;
 import com.findafun.serviceinterfaces.IServiceListener;
 import com.findafun.serviceinterfaces.ISignUpServiceListener;
 import com.findafun.utils.FindAFunConstants;
-import com.google.gson.Gson;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
