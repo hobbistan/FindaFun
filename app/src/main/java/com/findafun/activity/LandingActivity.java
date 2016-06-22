@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -27,6 +28,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.findafun.R;
 import com.findafun.adapter.NavDrawerAdapter;
@@ -75,12 +77,13 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
     private PagerSlidingTabStrip mPagerSlidingTabStrip;
     private LandingPagerAdapter landingPagerAdapter;
     private ListView navDrawerList;
+    boolean doubleBackToExitPressedOnce = false;
 
     private ImageView imgNavHeaderBg, imgNavProfileImage;
 
     public static final int TAG_FAVOURITES = 0, TAG_FEATURED = 1, TAG_ALL = 2;
     private ArrayAdapter<String> navListAdapter;
-    private String[] values = {"Change City", "Profile", "Edit Preferences","Wishlists","Add Event", "Log Out"};
+    private String[] values = {"Change City", "Profile", "Edit Preferences","Wishlists","Log Out"};
 
     private boolean mFragmentsLoaded = false;
     TextView navUserName = null;
@@ -110,6 +113,28 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
         eventServiceHelper.setEventServiceListener(this);
 
         fetchBookmarks();
+    }
+
+    @Override
+    public void onBackPressed() {
+        //Checking for fragment count on backstack
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStack();
+        } else if (!doubleBackToExitPressedOnce) {
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this,"Please click BACK again to exit.", Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce = false;
+                }
+            }, 2000);
+        } else {
+            super.onBackPressed();
+            return;
+        }
     }
 
     private void fetchBookmarks(){
@@ -337,11 +362,6 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
             startActivity(navigationIntent);
         }
         else if(position == 4){
-            Intent addEventIntent = new Intent(this, AddEventActivity.class);
-            //navigationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(addEventIntent);
-        }
-        else if(position == 5){
             Log.d(TAG,"Perform Logout");
             doLogout();
         }

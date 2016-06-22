@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
@@ -20,6 +21,7 @@ import android.view.ViewGroup;
 
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.findafun.R;
 import com.findafun.activity.AddEventActivity;
@@ -74,6 +76,7 @@ public class FavoriteFragment extends LandingPagerFragment implements OnMapReady
     private HashMap<LatLng, Event> mDisplayedEvents = new HashMap<LatLng, Event>();
     private boolean mAddddLocations = true;
     private TextView mTotalEventCount = null;
+
 
     private Drawable mNearbyTabUnselected = null;
     private Drawable mNearbyTabSelected = null;
@@ -248,6 +251,8 @@ public class FavoriteFragment extends LandingPagerFragment implements OnMapReady
         listAppearence.setImageDrawable(mselectedlisticon);
         return view;
     }
+
+
 
     protected void buildGoogleApiClient() {
         Log.d(TAG, "Initiate GoogleApi connection");
