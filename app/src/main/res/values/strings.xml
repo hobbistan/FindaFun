@@ -6,8 +6,9 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_forgot_password">Forgot Password</string>
 
-    <!--<string name="facebook_app_id">497425313771373</string>-->
-    <string name="facebook_app_id">210139769354530</string>
+   <!-- <string name="facebook_app_id">497425313771373</string>-->
+  <!--  <string name="facebook_app_id">210139769354530</string>-->
+    <string name="facebook_app_id">490051547856209</string>
 
     <!-- Login Screen -->
     <string name="hint_email">Enter Email</string>
@@ -68,8 +69,9 @@
     <string name="title_activity_profile">Profile</string>
     <string name="title_activity_addEvent">Add Events</string>
     <string name="title_activity_maps">Map</string>
-    <!--<string name="google_maps_key">AIzaSyAw8BodwUeiF0YNud7Kfm_D8QZexZf9Nh8</string>-->
-    <string name="google_maps_key">AIzaSyAzH0XCvT3Ae7XqFymrdCdiza80Y5HBsdE</string>
+  <!-- <string name="google_maps_key">AIzaSyAw8BodwUeiF0YNud7Kfm_D8QZexZf9Nh8</string>-->
+   <!-- <string name="google_maps_key">AIzaSyAzH0XCvT3Ae7XqFymrdCdiza80Y5HBsdE</string>-->
+    <string name="google_maps_key">AIzaSyAkOCf-Dk1RIAP7fmcfQdVzahmPHQJSpgk</string>
     <string name="gps_network_not_enabled">Enable GPS</string>
     <string name="open_location_settings">Open location manager</string>
     <string name="Cancel">Cancel</string>
@@ -113,25 +115,38 @@
 
     //AddEvent Page
     <string name="evntName">Name</string>
-    <string name="evntNameVal"></string>
+    <string name="evntNameVal">Enter name</string>
     <string name="evntCateName">Category</string>
-    <string name="evntCateVal"></string>
+    <string name="evntCateVal">Choose category</string>
     <string name="evntTypeName">Type</string>
+    <string name="evntTypeVal">Choose type</string>
     <string name="evntCityName">City</string>
+    <string name="evntCityVal">Choose city</string>
     <string name="evntVenueName">Venue</string>
+    <string name="evntVenueVal">Enter venue</string>
     <string name="evntDescName">Description</string>
+    <string name="evntDescVal">Enter description</string>
     <string name="evntStartDate">Start Date</string>
+    <string name="evntStartDateVal">Start Date</string>
     <string name="evntEndDate">End Date</string>
+    <string name="evntEndDateVal">End Date</string>
     <string name="eventContact">Contact</string>
+    <string name="eventContactVal">Contact</string>
     <string name="eventLat">Event Latitude</string>
+    <string name="eventLatVal">Latitude</string>
     <string name="eventLng">Event Longitude</string>
+    <string name="eventLngVal">Longitude</string>
     <string name="eventBanner">Banner</string>
     <string name="eventAddPhoto">Add Photos</string>
     <string name="eventSave">Save Event</string>
     <string name="eventDiscard">Discard</string>
     <string name="eventStrTime">Start Time</string>
+    <string name="eventStrTimeVal">Time</string>
     <string name="eventEndTime">End Time</string>
-
+    <string name="eventEndTimeVal">Time</string>
+    <string name="eventBannerNo">No file chosen</string>
+    <string name="buttonAddPic">Add file</string>
+    <string name="eventBannerNo">No file chosen</string>
     <string-array name="event_type">
         <item>Select Type</item>
         <item>Regular</item>
