@@ -146,7 +146,6 @@
     <string name="eventEndTimeVal">Time</string>
     <string name="eventBannerNo">No file chosen</string>
     <string name="buttonAddPic">Add file</string>
-    <string name="eventBannerNo">No file chosen</string>
     <string-array name="event_type">
         <item>Select Type</item>
         <item>Regular</item>

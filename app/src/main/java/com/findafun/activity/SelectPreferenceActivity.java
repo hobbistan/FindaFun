@@ -72,7 +72,6 @@ public class SelectPreferenceActivity extends AppCompatActivity implements Prefe
         });
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-
         //mRecyclerView.setOnItemClickListener(this);
         selectedList = new ArrayList<>();
 

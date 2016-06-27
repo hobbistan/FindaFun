@@ -244,6 +244,7 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
         mDateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
 
         citySpinnerAdapter = new CitySpinnerAdapter(this, R.layout.city_dropdown_item, cityList);
+
         city.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
