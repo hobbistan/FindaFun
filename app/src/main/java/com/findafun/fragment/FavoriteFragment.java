@@ -252,8 +252,6 @@ public class FavoriteFragment extends LandingPagerFragment implements OnMapReady
         return view;
     }
 
-
-
     protected void buildGoogleApiClient() {
         Log.d(TAG, "Initiate GoogleApi connection");
         mGoogleApiClient = new GoogleApiClient.Builder(getActivity())

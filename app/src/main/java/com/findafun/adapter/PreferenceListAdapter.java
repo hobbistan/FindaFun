@@ -1,11 +1,14 @@
 package com.findafun.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.findafun.R;
@@ -57,8 +60,8 @@ public class PreferenceListAdapter extends RecyclerView.Adapter<PreferenceListAd
 
     // Create new views (invoked by the layout manager)
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent,
-                                         int viewType) {
+    public PreferenceListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
+                                                               int viewType) {
         // create a new view
         View parentView;
         //Log.d("CategoryAdapter","viewType is"+ viewType);
@@ -66,7 +69,8 @@ public class PreferenceListAdapter extends RecyclerView.Adapter<PreferenceListAd
             parentView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.preference_view_type1, parent, false);
 
-        } else {
+        }
+        else {
             parentView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.preference_view_type2, parent, false);
         }
@@ -113,13 +117,13 @@ public class PreferenceListAdapter extends RecyclerView.Adapter<PreferenceListAd
         } else {
             return 1;
         }*/
-        if (categoryArrayList.get(position) != null || categoryArrayList.get(position).getSize() > 0)
+        if(categoryArrayList.get(position)!=null || categoryArrayList.get(position).getSize()>0)
             return categoryArrayList.get(position).getSize();
         else
             return 1;
     }
 
     public interface OnItemClickListener {
-        void onItemClick(View view, int position);
+        public void onItemClick(View view, int position);
     }
 }

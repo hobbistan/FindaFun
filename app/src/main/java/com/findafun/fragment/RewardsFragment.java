@@ -4,6 +4,7 @@ package com.findafun.fragment;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.findafun.R;
+import com.findafun.activity.AddEventActivity;
 import com.findafun.activity.AllDetailsActivity;
 import com.findafun.activity.BookingsActivity;
 import com.findafun.activity.CheckinsActivity;
@@ -188,6 +190,19 @@ public class RewardsFragment extends LandingPagerFragment implements IGamificati
        // Log.d(TAG, "Nearby fragment onCreateView called");
         View view = inflater.inflate(R.layout.rewards_layout, container, false);
         initializeRewardsViews(view);
+
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+////                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+////                        .setAction("Action", null).show();
+//                Intent addEventIntent = new Intent(getActivity(), AddEventActivity.class);
+//                //navigationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                startActivity(addEventIntent);
+                getActivity().finish();
+            }
+        });
 
         return  view;
     }
