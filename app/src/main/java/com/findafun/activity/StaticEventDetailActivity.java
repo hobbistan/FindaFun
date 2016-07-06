@@ -23,18 +23,21 @@ import android.support.v7.widget.Toolbar;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -83,13 +86,19 @@ import twitter4j.auth.AccessToken;
  */
 public class StaticEventDetailActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
         LocationListener, IGamificationServiceListener, IEventServiceListener {
+
+    private static final int SWIPE_MIN_DISTANCE = 120;
+    private static final int SWIPE_THRESHOLD_VELOCITY = 200;
+    private Animation.AnimationListener mAnimationListener;
+
     private Animator mCurrentAnimator;
     private static final String TAG = StaticEventDetailActivity.class.getName();
     private Event event;
     private TextView txtEventName, txtEventCategory, txtEventDesc, txtEventVenue, txtEventStartDate, txtEventEndDate, txtEventStartTime, txtEventEndTime;
     private TextView txtEventTime, txtEventDate, txtEventEntry, txtEventContact, txtEventEmail, txtWebSite;
     private TextView txtViewMore, txtViewLess;
-    private ListView imgEventBanner;
+    private ViewFlipper imgEventBanner;
+    private final GestureDetector detector = new GestureDetector(new SwipeGestureDetector());
     LinearLayout count_layout;
     int count = 0;
     static TextView page_text[];
@@ -112,6 +121,7 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
     private ArrayList<ImageInfo> imgImageInfos = new ArrayList<>();
     int curRate;
     private int mShortAnimationDuration;
+    ImageView banner_image_one,banner_image_two,banner_image_three,banner_image_four,banner_image_five;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -376,11 +386,26 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
         } else {
             txtEventEmail.setText("N/A");
         }
+
+        uImageLoader.displayImage(event.getEventLogo(),banner_image_one);
+        uImageLoader.displayImage("http://placehold.it/120x120&text=image2",banner_image_two);
+        uImageLoader.displayImage("http://placehold.it/120x120&text=image3",banner_image_three);
+
+
         Log.d(TAG, "Image uri is" + event.getEventBanner());
         //  uImageLoader.displayImage((event.getEventLogo()), imgEventBanner);
         imgList.add(0, event.getEventLogo());
         imgList.add(1, "http://placehold.it/120x120&text=image2");
         imgList.add(2, "http://placehold.it/120x120&text=image3");
+
+
+        mShareLIst.add("Facebook");
+        mShareLIst.add("Twitter");
+        mShareLIst.add("WhatsApp");
+        mShareResources.add(R.drawable.facebook);
+        mShareResources.add(R.drawable.twitter);
+        mShareResources.add(R.drawable.whatsapp);
+
         initializeViews();
 
 
@@ -417,6 +442,12 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
 
 
     private void initializeViews() {
+
+        banner_image_one = (ImageView) findViewById(R.id.banner_image_one);
+        // banner_image_one.set
+        banner_image_two = (ImageView) findViewById(R.id.banner_image_two);
+        banner_image_three = (ImageView) findViewById(R.id.banner_image_three);
+
         count_layout = (LinearLayout) findViewById(R.id.image_count);
         txtViewMore = (TextView) findViewById(R.id.seemore);
 
@@ -484,17 +515,30 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
         txtEventEndDate = (TextView) findViewById(R.id.cal_to_val);
         txtEventStartTime = (TextView) findViewById(R.id.txt_clock_from_val);
         txtEventEndTime = (TextView) findViewById(R.id.clock_to_val);
-        imgEventBanner = (ListView) findViewById(R.id.banner_one);
-
+        imgEventBanner = (ViewFlipper) findViewById(R.id.banner_one);
+        imgEventBanner.startFlipping();
 
         //  imgList.add(0, event.getEventLogo());
         ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(StaticEventDetailActivity.this));
 
         BannerAdapter adapter = new BannerAdapter(this, imgList);
 
-        imgEventBanner.setAdapter(adapter);
+      //  imgEventBanner.setAdapter(adapter);
 
-        count = imgEventBanner.getAdapter().getCount();
+        imgEventBanner.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(final View view, final MotionEvent event) {
+                //  new BannerAdapter(getApplicationContext(), imgList);
+
+
+                detector.onTouchEvent(event);
+                return true;
+            }
+        });
+
+
+
+        count = 3;// imgEventBanner.getAdapter().getCount();
         page_text = new TextView[count];
         for (int i = 0; i < count; i++) {
             page_text[i] = new TextView(this);
@@ -504,7 +548,7 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
             page_text[i].setTextColor(android.graphics.Color.GRAY);
             count_layout.addView(page_text[i]);
 
-            imgEventBanner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+       /*     imgEventBanner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
                 public void onItemSelected(AdapterView<?> arg0, View arg1,
                                            int position, long arg3) {
@@ -522,9 +566,9 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
                 public void onNothingSelected(AdapterView<?> arg0) {
                     // TODO Auto-generated method stub
                 }
-            });
+            });*/
 
-            imgEventBanner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+           /* imgEventBanner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
@@ -532,17 +576,12 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
                     intent.putExtra("eventObj", event);
                     startActivity(intent);
                 }
-            });
+            });*/
 
 
             callbackManager = CallbackManager.Factory.create();
 
-            mShareLIst.add("Facebook");
-            mShareLIst.add("Twitter");
-            mShareLIst.add("WhatsApp");
-            mShareResources.add(R.drawable.facebook);
-            mShareResources.add(R.drawable.twitter);
-            mShareResources.add(R.drawable.whatsapp);
+
             mShareBagroundResources.add(R.drawable.social_network_statlist);
             mShareBagroundResources.add(R.drawable.twitter_share_bg);
             mShareBagroundResources.add(R.drawable.whatsapp_selector);
@@ -918,4 +957,69 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
             // permissions this app might request
         }
     }
+
+
+    private class SwipeGestureDetector implements GestureDetector.OnGestureListener {
+        @Override
+        public boolean onDown(MotionEvent e) {
+            Log.d("swipe", "onDown: ");
+
+            Intent intent = new Intent(getApplicationContext(), imageGallery.class);
+            intent.putStringArrayListExtra("image_list",imgList);
+            startActivity(intent);
+            return false;
+        }
+
+        @Override
+        public void onShowPress(MotionEvent e) {
+            Log.d("swipe", "onShowPress: ");
+        }
+
+        @Override
+        public boolean onSingleTapUp(MotionEvent e) {
+            return false;
+        }
+
+        @Override
+        public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+            return false;
+        }
+
+        @Override
+        public void onLongPress(MotionEvent e) {
+
+        }
+
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            try {
+
+
+                // right to left swipe
+                if (e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+                    imgEventBanner.setInAnimation(AnimationUtils.loadAnimation(getApplication(), R.anim.left_in));
+                    imgEventBanner.setOutAnimation(AnimationUtils.loadAnimation(getApplication(), R.anim.left_out));
+                    // controlling animation
+
+                    imgEventBanner.getInAnimation().setAnimationListener(mAnimationListener);
+                    imgEventBanner.showNext();
+                    return true;
+                } else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+                    imgEventBanner.setInAnimation(AnimationUtils.loadAnimation(getApplication(), R.anim.right_in));
+                    imgEventBanner.setOutAnimation(AnimationUtils.loadAnimation(getApplication(), R.anim.right_out));
+                    // controlling animation
+                    imgEventBanner.getInAnimation().setAnimationListener(mAnimationListener);
+                    imgEventBanner.showPrevious();
+                    return true;
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return false;
+        }
+    }
+
+
 }

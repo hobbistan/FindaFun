@@ -33,6 +33,7 @@ import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.findafun.R;
+import com.findafun.activity.ForgotPasswordActivity;
 import com.findafun.activity.LandingActivity;
 import com.findafun.activity.LoginActivity;
 import com.findafun.activity.SelectCityActivity;
@@ -121,6 +122,10 @@ public class LoginFragment extends Fragment implements View.OnClickListener,Dial
 
         view = inflater.inflate(R.layout.fragment_login, container, false);
 
+
+
+
+
         //login
 
 
@@ -164,12 +169,12 @@ public class LoginFragment extends Fragment implements View.OnClickListener,Dial
                 // Initializing google plus api client
                 Log.d(TAG,"Initiating google plus connection");
                 mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
-                        .addConnectionCallbacks( this)
-                        .addOnConnectionFailedListener( this)
+                        .addConnectionCallbacks(this)
+                        .addOnConnectionFailedListener(this)
                         .addApi(Plus.API)
                         .addScope(Plus.SCOPE_PLUS_LOGIN)
                         .build();
-
+               // mGoogleApiClient.connect();
 
             } else {
                 GooglePlayServicesUtil.getErrorDialog(GooglePlayServicesUtil.isGooglePlayServicesAvailable(getActivity()),
@@ -193,6 +198,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener,Dial
             signUpServiceHelper.setSignUpServiceListener(this);
             progressDialogHelper = new ProgressDialogHelper(getActivity());
         }
+
 
 
 
@@ -230,7 +236,15 @@ public class LoginFragment extends Fragment implements View.OnClickListener,Dial
         SpannableString string = new SpannableString("Terms and conditions");
         string.setSpan(new UnderlineSpan(), 0, string.length(), 0);
 
-
+        TextView forgotPassword = (TextView) view.findViewById(R.id.text_forgot);
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ForgotPasswordActivity.class);
+                startActivity(intent);
+                getActivity().finish();
+            }
+        });
 
         // txtSignUp = (TextView) findViewById(R.id.txt_sign_up);
         //txtSignUp.setOnClickListener(this);
@@ -744,7 +758,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener,Dial
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
                     // permission was granted, yay! Do the
-                /*    initiateGplusSignIn();*/
+                   initiateGplusSignIn();
 
                 } else {
 
