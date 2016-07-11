@@ -414,7 +414,7 @@ public class NearbyFragment extends LandingPagerFragment implements OnMapReadyCa
         Log.d(TAG, "Received Nearby events");
        // super.onEventResponse(response);
         progressDialogHelper.hideProgressDialog();
-        loadMoreListView.onLoadMoreComplete();
+      //  loadMoreListView.onLoadMoreComplete();
         Gson gson = new Gson();
         EventList eventsList = gson.fromJson(response.toString(), EventList.class);
         if(eventsList != null){
@@ -506,7 +506,7 @@ public class NearbyFragment extends LandingPagerFragment implements OnMapReadyCa
         mAddddLocations = true;
     }
 
-    @Override
+   /* @Override
     public void onLoadMore() {
 
         if(mTotalReceivedEvents < totalCount){
@@ -520,7 +520,7 @@ public class NearbyFragment extends LandingPagerFragment implements OnMapReadyCa
            // }
         }
     }
-
+*/
     @Override
     public void callGetEventService(int position) {
         Log.d(TAG, "fetch event list" + position);

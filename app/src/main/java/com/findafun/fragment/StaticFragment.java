@@ -3,34 +3,29 @@ package com.findafun.fragment;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
-import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationSet;
+import android.view.Window;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.costum.android.widget.LoadMoreListView;
 import com.findafun.R;
 import com.findafun.activity.AddEventActivity;
-import com.findafun.activity.EventDetailActivity;
 import com.findafun.activity.StaticEventDetailActivity;
-import com.findafun.adapter.EventsListAdapter;
 import com.findafun.adapter.StaticEventListAdapter;
 import com.findafun.bean.events.Event;
 import com.findafun.bean.events.EventList;
@@ -42,13 +37,10 @@ import com.findafun.utils.CommonUtils;
 import com.findafun.utils.FindAFunConstants;
 import com.findafun.utils.PreferenceStorage;
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -69,7 +61,7 @@ import java.util.List;
 /**
  * Created by Data Crawl 6 on 14-05-2016.
  */
-public class StaticFragment extends LandingPagerFragment implements LoadMoreListView.OnLoadMoreListener, OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,AdapterView.OnItemClickListener {
+public class StaticFragment extends LandingPagerFragment implements  OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,AdapterView.OnItemClickListener {
 
     private static final String TAG = StaticFragment.class.getName();
     private MapView mMapView_hp = null;
@@ -110,7 +102,7 @@ public class StaticFragment extends LandingPagerFragment implements LoadMoreList
     private boolean mNearbySelected_hp = false;
     private int mTotalReceivedEvents_hp = 0;
 
-    protected LoadMoreListView loadMoreListView;
+    protected ListView loadMoreListView;
     protected View view;
     protected StaticEventListAdapter eventsListAdapter;
     protected EventServiceHelper eventServiceHelper;
@@ -143,11 +135,11 @@ public class StaticFragment extends LandingPagerFragment implements LoadMoreList
 
     protected void initializeHotspotViews() {
         Log.d(TAG, "initialize pull to refresh view");
-        loadMoreListView = (LoadMoreListView) view.findViewById(R.id.listView_events);
+        loadMoreListView = (ListView) view.findViewById(R.id.listView_events);
         mNoEventsFound = (TextView) view.findViewById(R.id.no_home_events);
         if (mNoEventsFound != null)
             mNoEventsFound.setVisibility(View.GONE);
-        loadMoreListView.setOnLoadMoreListener(this);
+       // loadMoreListView.setOnLoadMoreListener(this);
         loadMoreListView.setOnItemClickListener(this);
         eventsArrayList = new ArrayList<>();
     }
@@ -459,7 +451,7 @@ public class StaticFragment extends LandingPagerFragment implements LoadMoreList
         Log.d(TAG, "Received Nearby events");
         // super.onEventResponse(response);
         progressDialogHelperHot.hideProgressDialog();
-        loadMoreListView.onLoadMoreComplete();
+       // loadMoreListView.onLoadMoreComplete();
         Gson gson = new Gson();
         EventList eventsList = gson.fromJson(response.toString(), EventList.class);
         if (eventsList != null) {
@@ -525,23 +517,23 @@ public class StaticFragment extends LandingPagerFragment implements LoadMoreList
             mLocationBtn_hp.setEnabled(true);
         } else {
             mAddddLocations_hp = true;
-        }
+        }mTotalEventCount_hp.setText(Integer.toString(eventsArrayList.size()) + " Hotspot Events");
 
-        mTotalEventCount_hp.setText(Integer.toString(eventsArrayList.size()) + " Hotspot Events");
+
     }
 
     @Override
     public void onEventError(String error) {
         super.onEventError(error);
         progressDialogHelperHot.hideProgressDialog();
-        loadMoreListView.onLoadMoreComplete();
+      //  loadMoreListView.onLoadMoreComplete();
         if (totalCount > 0) {
             mLocationBtn_hp.setEnabled(true);
         }
         mAddddLocations_hp = true;
     }
 
-    @Override
+    /*@Override
     public void onLoadMore() {
 
         if (mTotalReceivedEvents_hp < totalCount) {
@@ -555,19 +547,31 @@ public class StaticFragment extends LandingPagerFragment implements LoadMoreList
             // }
             //eventServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.GET_STATIC_EVENTS, Integer.parseInt(PreferenceStorage.getUserId(getActivity())), pageNumber, PreferenceStorage.getUserCity(getActivity())));
         }
-    }
+    }*/
 
     public void makeEventListServiceCallHot(int pageNumber) {
         if ((pageNumber != -1) && (pageNumber >= 0 && pageNumber <= 6)) {
 
 //                    Log.d(TAG, "fetch Hotspot events");
             eventServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.GET_STATIC_EVENTS, Integer.parseInt(PreferenceStorage.getUserId(getActivity())), pageNumber, PreferenceStorage.getUserCity(getActivity())));
+          //  getTransparent();
 
         } else {
             Log.d(TAG, "ignoring this page");
-            loadMoreListView.onLoadMoreComplete();
+          //  loadMoreListView.onLoadMoreComplete();
             progressDialogHelperHot.hideProgressDialog();
         }
+    }
+
+    private void getTransparent() {
+
+        final Dialog dialog = new Dialog(getActivity());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.setContentView(R.layout.transparent_favourite);
+
+        dialog.show();
+
     }
 
     @Override

@@ -483,7 +483,7 @@ public class FavoriteFragment extends LandingPagerFragment implements OnMapReady
 
     private void LoadListView(JSONObject response){
         progressDialogHelper.hideProgressDialog();
-        loadMoreListView.onLoadMoreComplete();
+     //   loadMoreListView.onLoadMoreComplete();
         Gson gson = new Gson();
         EventList eventsList = gson.fromJson(response.toString(), EventList.class);
         if (eventsList != null) {
@@ -578,7 +578,7 @@ public class FavoriteFragment extends LandingPagerFragment implements OnMapReady
         mAddddLocations = true;
     }
 
-    @Override
+   /* @Override
     public void onLoadMore() {
 
         if (mTotalReceivedEvents < totalCount) {
@@ -592,7 +592,7 @@ public class FavoriteFragment extends LandingPagerFragment implements OnMapReady
             // }
         }
     }
-
+*/
     @Override
     public void callGetEventService(int position) {
         Log.d(TAG, "fetch event list" + position);
