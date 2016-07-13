@@ -72,7 +72,7 @@ import java.util.Arrays;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SignupFragment extends Fragment  implements View.OnClickListener, ISignUpServiceListener, DialogClickListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class SignupFragment extends Fragment implements View.OnClickListener, ISignUpServiceListener, DialogClickListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     private static final String TAG = SignupFragment.class.getName();
 
@@ -84,7 +84,7 @@ public class SignupFragment extends Fragment  implements View.OnClickListener, I
     private Button btnFacebook, btnGPlus;
     private Button btnSignUp;
     private SignUpServiceHelper signUpServiceHelper;
-    private EditText edtUserName, edtPassword,name,city;
+    private EditText edtUserName, edtPassword, name, city;
     private ProgressDialogHelper progressDialogHelper;
     private TextView txtSignUp;
     private GoogleApiClient mGoogleApiClient;
@@ -94,9 +94,10 @@ public class SignupFragment extends Fragment  implements View.OnClickListener, I
     private boolean mResolvingError = false;
     private SharedPreferences mSharedPreferences;
     private View mDecorView;
-    private int mSelectedLoginMode =0;
+    private int mSelectedLoginMode = 0;
     public View view;
     public View viewResult;
+
     public SignupFragment() {
         // Required empty public constructor
     }
@@ -112,7 +113,7 @@ public class SignupFragment extends Fragment  implements View.OnClickListener, I
         if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(getActivity()) == ConnectionResult.SUCCESS) {
             //We get a connection to the Google Play Service API
             // Initializing google plus api client
-            Log.d(TAG,"Initiating google plus connection");
+            Log.d(TAG, "Initiating google plus connection");
             mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
                     .addConnectionCallbacks(this)
                     .addOnConnectionFailedListener(this)
@@ -139,21 +140,19 @@ public class SignupFragment extends Fragment  implements View.OnClickListener, I
         progressDialogHelper = new ProgressDialogHelper(getActivity());
 
 
-
-
         return viewResult;
     }
 
     // Login with facebook
     private void initFacebook() {
         callbackManager = CallbackManager.Factory.create();
-        Log.d(TAG,"Initializing facebook");
+        Log.d(TAG, "Initializing facebook");
 
         LoginManager.getInstance().registerCallback(callbackManager,
                 new FacebookCallback<LoginResult>() {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
-                        Log.d(TAG,"facebook Login Registration success");
+                        Log.d(TAG, "facebook Login Registration success");
                         // App code
                         GraphRequest request = GraphRequest.newMeRequest(
                                 loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
@@ -167,21 +166,21 @@ public class SignupFragment extends Fragment  implements View.OnClickListener, I
                                             String name = me.optString("name");
                                             String gender = me.optString("gender");
                                             String birthday = me.optString("birthday");
-                                            Log.d(TAG,"facebook gender"+ gender+"birthday"+ birthday);
+                                            Log.d(TAG, "facebook gender" + gender + "birthday" + birthday);
                                             PreferenceStorage.saveUserEmail(getActivity(), email);
                                             PreferenceStorage.saveUserName(getActivity(), name);
-                                            String url = "https://graph.facebook.com/"+id+"/picture?type=large";
-                                            Log.d(TAG,"facebook birthday"+ birthday);
+                                            String url = "https://graph.facebook.com/" + id + "/picture?type=large";
+                                            Log.d(TAG, "facebook birthday" + birthday);
                                             PreferenceStorage.saveSocialNetworkProfilePic(getActivity(), url);
-                                            if(gender != null){
-                                                PreferenceStorage.saveUserGender(getActivity(),gender);
+                                            if (gender != null) {
+                                                PreferenceStorage.saveUserGender(getActivity(), gender);
                                             }
-                                            if(birthday != null){
+                                            if (birthday != null) {
                                                 PreferenceStorage.saveUserBirthday(getActivity(), birthday);
                                             }
                                             // send email and id to your web server
                                             JSONObject jsonObject = new JSONObject();
-                                            Log.d(TAG,"Received Facebook profile"+ me.toString());
+                                            Log.d(TAG, "Received Facebook profile" + me.toString());
                                             try {
                                                 jsonObject.put(FindAFunConstants.PARAMS_FUNC_NAME, "sign_in");
                                                 jsonObject.put(FindAFunConstants.PARAMS_USER_NAME, email);
@@ -216,14 +215,10 @@ public class SignupFragment extends Fragment  implements View.OnClickListener, I
     }
 
 
-
-
-
-
     @Override
     public void onClick(View view) {
 
-        if(CommonUtils.isNetworkAvailable(getActivity())) {
+        if (CommonUtils.isNetworkAvailable(getActivity())) {
             if (view == btnFacebook) {
                 LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "user_friends", "email"));
                 PreferenceStorage.saveLoginMode(getActivity(), FindAFunConstants.FACEBOOK);
@@ -268,8 +263,8 @@ public class SignupFragment extends Fragment  implements View.OnClickListener, I
                 }
 
             }
-        }else{
-            AlertDialogHelper.showSimpleAlertDialog(getActivity(),"No Network connection available");
+        } else {
+            AlertDialogHelper.showSimpleAlertDialog(getActivity(), "No Network connection available");
         }
     }
 
@@ -315,18 +310,18 @@ public class SignupFragment extends Fragment  implements View.OnClickListener, I
             // We should always have a connection result ready to resolve,
             // so we can start that process.
             if (mConnectionResult != null) {
-                Log.d(TAG,"resolving google plus SignIn error");
+                Log.d(TAG, "resolving google plus SignIn error");
                 resolveSignInError();
             } else {
-                Log.d(TAG,"No connection yet. connecting");
+                Log.d(TAG, "No connection yet. connecting");
                 // If we don't have one though, we can start connect in
                 // order to retrieve one.
                 mGoogleApiClient.connect();
             }
         } else {
-            Log.d(TAG,"Google plus signing in");
+            Log.d(TAG, "Google plus signing in");
             progressDialogHelper.showProgressDialog("Signing in...");
-            Log.d(TAG,"Get profile information");
+            Log.d(TAG, "Get profile information");
             getProfileInformation();
         }
     }
@@ -349,7 +344,6 @@ public class SignupFragment extends Fragment  implements View.OnClickListener, I
             }
         }
     }
-
 
 
     /**
@@ -423,7 +417,7 @@ public class SignupFragment extends Fragment  implements View.OnClickListener, I
                 String personGooglePlusProfile = currentPerson.getUrl();
                 String email = Plus.AccountApi.getAccountName(mGoogleApiClient);
 
-                Log.d(TAG,"fetching the details from gmail account");
+                Log.d(TAG, "fetching the details from gmail account");
                   /* Storing oAuth tokens to shared preferences */
 //                SharedPreferences.Editor e = mSharedPreferences.edit();
 //                e.putString(PREF_GPLUS_EMAIL_ID, email);
@@ -432,10 +426,10 @@ public class SignupFragment extends Fragment  implements View.OnClickListener, I
                 Log.e("", "Name: " + personName + ", plusProfile: "
                         + personGooglePlusProfile + ", email: " + email
                         + ", Image: " + personPhotoUrl);
-                if( email != null) {
+                if (email != null) {
                     PreferenceStorage.saveUserEmail(getActivity(), email);
                 }
-                if(personName != null) {
+                if (personName != null) {
                     PreferenceStorage.saveUserName(getActivity(), personName);
                 }
 
@@ -447,7 +441,7 @@ public class SignupFragment extends Fragment  implements View.OnClickListener, I
                     jsonObject.put(FindAFunConstants.PARAMS_FUNC_NAME, "sign_up_latest");
                     jsonObject.put(FindAFunConstants.PARAMS_USER_NAME, email);
                     jsonObject.put(FindAFunConstants.PARAMS_USER_PASSWORD, FindAFunConstants.DEFAULT_PASSWORD);
-                    jsonObject.put("user_name",personName);
+                    jsonObject.put("user_name", personName);
                     jsonObject.put(FindAFunConstants.PARAMS_SIGN_UP_TYPE, "1");
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -467,7 +461,6 @@ public class SignupFragment extends Fragment  implements View.OnClickListener, I
             e.printStackTrace();
         }
     }
-
 
 
     public void onStop() {
@@ -507,13 +500,11 @@ public class SignupFragment extends Fragment  implements View.OnClickListener, I
     }
 
 
-
     private boolean validateFields() {
         if (!FindAFunValidator.checkNullString(this.name.getText().toString().trim())) {
             AlertDialogHelper.showSimpleAlertDialog(getActivity(), this.getResources().getString(R.string.enter_user_name));
             return false;
-        }
-        else if (!FindAFunValidator.checkNullString(this.edtUserName.getText().toString().trim())) {
+        } else if (!FindAFunValidator.checkNullString(this.edtUserName.getText().toString().trim())) {
             AlertDialogHelper.showSimpleAlertDialog(getActivity(), this.getResources().getString(R.string.email_empty_str));
             return false;
         } else if (!FindAFunValidator.isEmailValid(this.edtUserName.getText().toString().trim())) {
@@ -522,15 +513,13 @@ public class SignupFragment extends Fragment  implements View.OnClickListener, I
         } else if (!FindAFunValidator.checkNullString(this.edtPassword.getText().toString())) {
             AlertDialogHelper.showSimpleAlertDialog(getActivity(), this.getResources().getString(R.string.enter_password));
             return false;
-        } else if( !FindAFunValidator.withinPermittedLength(this.edtPassword.getText().toString())){
+        } else if (!FindAFunValidator.withinPermittedLength(this.edtPassword.getText().toString())) {
             AlertDialogHelper.showSimpleAlertDialog(getActivity(), "Password length should be greater than 6 characters");
             return false;
-        }
-        else {
+        } else {
             return true;
         }
     }
-
 
 
     private void generateFacebookKeys() {
@@ -544,7 +533,7 @@ public class SignupFragment extends Fragment  implements View.OnClickListener, I
                 md.update(signature.toByteArray());
                 Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
             }
-            Log.d(TAG,"Finished key hashing");
+            Log.d(TAG, "Finished key hashing");
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         } catch (NoSuchAlgorithmException e) {
@@ -591,7 +580,6 @@ public class SignupFragment extends Fragment  implements View.OnClickListener, I
     }
 
 
-
     @Override
     public void onConnected(@Nullable Bundle bundle) {
 
@@ -616,7 +604,7 @@ public class SignupFragment extends Fragment  implements View.OnClickListener, I
     public void onSignUp(JSONObject response) {
 
         progressDialogHelper.hideProgressDialog();
-        if(validateSignInResponse(response)) {
+        if (validateSignInResponse(response)) {
 
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
             alertDialogBuilder.setTitle("Registration Successful");
@@ -628,7 +616,7 @@ public class SignupFragment extends Fragment  implements View.OnClickListener, I
 
                         @Override
                         public void onClick(DialogInterface arg0, int arg1) {
-                            Intent intent = new Intent(getActivity(),LoginActivity.class);
+                            Intent intent = new Intent(getActivity(), LoginActivity.class);
                             startActivity(intent);
                             getActivity().finish();
 
@@ -646,19 +634,19 @@ public class SignupFragment extends Fragment  implements View.OnClickListener, I
     }
 
 
-    private boolean validateSignInResponse(JSONObject response){
+    private boolean validateSignInResponse(JSONObject response) {
         boolean signInsuccess = false;
-        if( (response != null) ){
+        if ((response != null)) {
             try {
                 String status = response.getString("status");
                 String msg = response.getString(FindAFunConstants.PARAM_MESSAGE);
-                Log.d(TAG,"status val"+ status+ "msg"+ msg);
+                Log.d(TAG, "status val" + status + "msg" + msg);
 
-                if( (status != null)){
-                    if(( (status.equalsIgnoreCase("activationError")) || (status.equalsIgnoreCase("alreadyRegistered"))||
-                            (status.equalsIgnoreCase("notRegistered")) || (status.equalsIgnoreCase("error")))){
+                if ((status != null)) {
+                    if (((status.equalsIgnoreCase("activationError")) || (status.equalsIgnoreCase("alreadyRegistered")) ||
+                            (status.equalsIgnoreCase("notRegistered")) || (status.equalsIgnoreCase("error")))) {
                         signInsuccess = false;
-                        if(status.equalsIgnoreCase("activationError")){
+                        if (status.equalsIgnoreCase("activationError")) {
                             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
                             //alertDialogBuilder.setTitle("Registration Successful");
                             alertDialogBuilder.setMessage(msg);
@@ -667,7 +655,7 @@ public class SignupFragment extends Fragment  implements View.OnClickListener, I
 
                                         @Override
                                         public void onClick(DialogInterface arg0, int arg1) {
-                                            Intent intent = new Intent(getActivity(),LoginActivity.class);
+                                            Intent intent = new Intent(getActivity(), LoginActivity.class);
                                             startActivity(intent);
                                             getActivity().finish();
 
@@ -676,12 +664,12 @@ public class SignupFragment extends Fragment  implements View.OnClickListener, I
 
                             AlertDialog alertDialog = alertDialogBuilder.create();
                             alertDialog.show();
-                        }else {
+                        } else {
                             Log.d(TAG, "Show error dialog");
                             AlertDialogHelper.showSimpleAlertDialog(getActivity(), msg);
                         }
 
-                    }else{
+                    } else {
                         signInsuccess = true;
 
                     }
@@ -693,17 +681,14 @@ public class SignupFragment extends Fragment  implements View.OnClickListener, I
             }
         }
 
-        return  signInsuccess;
+        return signInsuccess;
     }
-
-
 
 
     @Override
     public void onSignUpError(String error) {
 
     }
-
 
 
     @Override
