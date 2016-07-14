@@ -171,7 +171,7 @@ public class PopularFragment extends LandingPagerFragment implements OnMapReadyC
         listAppearenceNearBy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                performSlideRightAnimation();
+               /* performSlideRightAnimation();
                 mLocationBtn.setBackgroundDrawable(mLocationUnselected);
                 listAppearence.setBackgroundDrawable(mListUnselected);
                 listAppearenceNearBy.setBackgroundDrawable(mNearbyTabSelected);
@@ -180,7 +180,20 @@ public class PopularFragment extends LandingPagerFragment implements OnMapReadyC
                 listAppearence.setImageDrawable(munselectedlisticon);
                 listAppearenceNearBy.setImageDrawable(mselectednearbyicon);
 
-                mTotalEventCount.setText(Integer.toString(eventsArrayList.size())+ " Nearby Events");
+                mTotalEventCount.setText(Integer.toString(eventsArrayList.size())+ " Nearby Events");*/
+                LocationHelper.FindLocationManager(getContext());
+
+                mMapView.setVisibility(View.VISIBLE);
+                performSlideLeftAnimation();
+                mLocationBtn.setBackgroundDrawable(mLocationUnselected);
+                listAppearence.setBackgroundDrawable(mListUnselected);
+                listAppearenceNearBy.setBackgroundDrawable(mNearbyTabSelected);
+
+                mLocationBtn.setImageDrawable(munselectedlocationicon);
+                listAppearence.setImageDrawable(munselectedlisticon);
+                listAppearenceNearBy.setImageDrawable(mselectednearbyicon);
+
+                mTotalEventCount.setText(Integer.toString(eventsArrayList.size()) + " Nearby Events");
             }
         });
 
