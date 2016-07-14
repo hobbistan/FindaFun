@@ -335,8 +335,6 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
                     mCurrentUserProfileUrl = url;
                     Picasso.with(LandingActivity.this).load(url).noPlaceholder().error(R.drawable.placeholder_small).into(imgNavProfileImage);
                 }
-
-
             }
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
