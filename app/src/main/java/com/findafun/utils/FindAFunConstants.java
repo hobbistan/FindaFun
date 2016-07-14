@@ -37,6 +37,7 @@ public class FindAFunConstants {
     public static final String DELETE_BOOKMARK_URL = BASE_URL + "api.php?func_name=remove_event_from_bookmark&user_id=%d&event_id=%d";
 
     public static final String SHARE_EVENT_URL = BASE_URL + "user_api.php?insertActivity=true&event=%d&user=%d&ruleid=%d&activity_detail=%s&image_url=%s&ticket_count=%d";
+    public static final String SHARE_EVENT_LOGIN_COUNT_URL = BASE_URL + "user_api.php?insertActivity=true&event=%d&user=%d&ruleid=%d&activity_detail=%s&ticket_count=%d";
     public static final String FROMDATE = "fromdate";
     public static final String TODATE = "todate";
     public static final String FILTERCITY = "filtercity";

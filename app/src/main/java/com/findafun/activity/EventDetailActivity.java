@@ -143,9 +143,6 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         curRate = getPreferCount();
 
-
-
-
         initializeViews();
         event = (Event) getIntent().getSerializableExtra("eventObj");
         populateData();
@@ -154,21 +151,12 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
            fetchAppRate();
         }
 
-
-
-
-
         int nVersion = getAppVersion(getApplication());
         Log.d("test", String.valueOf(nVersion));
 
         getAppUpdate(nVersion);
 
-
-
-
-
     }
-
 
     public void getAppUpdate(int nVersion){
 
@@ -215,7 +203,6 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
     }
 
 
-
     private void fetchAppRate() {
 
 
@@ -230,10 +217,6 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
         new AppRate(this)
                 .setCustomDialog(builder)
                 .init();
-
-
-
-
     }
 
 
@@ -264,8 +247,6 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
         super.onStart();
         /*if (mGoogleApiClient != null)
             mGoogleApiClient.connect();*/
-
-
     }
 
     @Override
@@ -289,7 +270,6 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
      }*/
     public void facebook(View v) {
         try {
-
 
             Intent intent = getPackageManager().getLaunchIntentForPackage("com.facebook.katana");
             if (intent != null) {

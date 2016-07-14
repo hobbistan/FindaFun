@@ -216,15 +216,14 @@ public class StaticFragment extends LandingPagerFragment implements  OnMapReadyC
 
                 mMapView_hp.setVisibility(View.VISIBLE);
                 performSlideLeftAnimation();
-                mLocationBtn_hp.setBackgroundDrawable(mLocationUnselected_hp);
+                mLocationBtn_hp.setBackgroundDrawable(mLocationSelected_hp);
                 listAppearence.setBackgroundDrawable(mListUnselected_hp);
-                listAppearenceNearBy.setBackgroundDrawable(mNearbyTabSelected);
-
-                mLocationBtn_hp.setImageDrawable(munselectedlocationicon_hp);
+                listAppearenceNearBy.setBackgroundDrawable(mNearbyTabUnselected);
+                mLocationBtn_hp.setImageDrawable(mselectedlocationicon_hp);
                 listAppearence.setImageDrawable(munselectedlisticon_hp);
-                listAppearenceNearBy.setImageDrawable(mselectednearbyicon);
+                listAppearenceNearBy.setImageDrawable(munselectednearbyicon);
 
-                mTotalEventCount_hp.setText(Integer.toString(eventsArrayList.size())+ " Nearby Events");
+                mTotalEventCount_hp.setText(Integer.toString(eventsArrayList.size()) + " Hotspot Events");
             }
         });
 
@@ -275,6 +274,23 @@ public class StaticFragment extends LandingPagerFragment implements  OnMapReadyC
         mLocationBtn_hp.setImageDrawable(munselectedlocationicon_hp);
         listAppearence.setImageDrawable(mselectedlisticon_hp);
         return view;
+    }
+
+    public void searchForEvent(String eventname) {
+        Log.d(TAG, "searchevent called");
+        if (eventsListAdapter != null) {
+            eventsListAdapter.startSearch(eventname);
+            eventsListAdapter.notifyDataSetChanged();
+            //loadMoreListView.invalidateViews();
+        }
+    }
+
+    public void exitSearch() {
+        Log.d(TAG, "exit event called");
+        if (eventsListAdapter != null) {
+            eventsListAdapter.exitSearch();
+            eventsListAdapter.notifyDataSetChanged();
+        }
     }
 
     protected void buildGoogleApiClient() {

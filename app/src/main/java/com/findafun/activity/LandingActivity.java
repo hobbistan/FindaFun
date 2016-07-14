@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -38,10 +39,13 @@ import com.findafun.bean.gamification.GamificationDataHolder;
 import com.findafun.customview.PagerSlidingTabStrip;
 import com.findafun.fragment.LandingPagerFragment;
 import com.findafun.fragment.StaticEventFragment;
+import com.findafun.fragment.StaticFragment;
 import com.findafun.interfaces.DialogClickListener;
 import com.findafun.pageradapter.LandingPagerAdapter;
 import com.findafun.servicehelpers.EventServiceHelper;
+import com.findafun.servicehelpers.ShareServiceHelper;
 import com.findafun.serviceinterfaces.IEventServiceListener;
+import com.findafun.serviceinterfaces.IGamificationServiceListener;
 import com.findafun.twitter.TwitterUtil;
 import com.findafun.utils.AndroidMultiPartEntity;
 import com.findafun.utils.CommonUtils;
@@ -67,7 +71,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 
-public class LandingActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener, LandingPagerAdapter.onFragmentsRegisteredListener, DialogClickListener, IEventServiceListener {
+public class LandingActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener, LandingPagerAdapter.onFragmentsRegisteredListener, DialogClickListener, IEventServiceListener, IGamificationServiceListener {
     private static final String TAG = LandingActivity.class.getName();
     private static final int TAG_LOGOUT = 100;
     Toolbar toolbar;
@@ -78,12 +82,13 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
     private LandingPagerAdapter landingPagerAdapter;
     private ListView navDrawerList;
     boolean doubleBackToExitPressedOnce = false;
+    int checkPointSearch = 0;
 
     private ImageView imgNavHeaderBg, imgNavProfileImage;
 
     public static final int TAG_FAVOURITES = 0, TAG_FEATURED = 1, TAG_ALL = 2;
     private ArrayAdapter<String> navListAdapter;
-    private String[] values = {"Change City", "Profile", "Edit Preferences","Wishlists","Log Out"};
+    private String[] values = {"Change City", "Profile", "Edit Preferences", "Wishlists", "Sign Out"};
 
     private boolean mFragmentsLoaded = false;
     TextView navUserName = null;
@@ -105,7 +110,7 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_navigation_drawer);
-       // getSupportActionBar().setLogo(R.drawable.ic_navigation_drawer);
+        // getSupportActionBar().setLogo(R.drawable.ic_navigation_drawer);
         //initialize navigation drawer
         initializeNavigationDrawer();
         initializeViews();
@@ -113,6 +118,17 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
         eventServiceHelper.setEventServiceListener(this);
 
         fetchBookmarks();
+        sendShareStatustoServer();
+    }
+
+    private void sendShareStatustoServer() {
+        ShareServiceHelper serviceHelper = new ShareServiceHelper(this);
+        int eventId = 0;
+        int ruleid = 1;
+        int ticketcount = 0;
+        String activitydetail = "Login Status";
+        serviceHelper.postShareDetails(String.format(FindAFunConstants.SHARE_EVENT_LOGIN_COUNT_URL, eventId, Integer.parseInt(PreferenceStorage.getUserId(this)),
+                ruleid, Uri.encode(activitydetail), ticketcount), this);
     }
 
     @Override
@@ -122,7 +138,7 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
             getSupportFragmentManager().popBackStack();
         } else if (!doubleBackToExitPressedOnce) {
             this.doubleBackToExitPressedOnce = true;
-            Toast.makeText(this,"Please click BACK again to exit.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please click BACK again to exit.", Toast.LENGTH_SHORT).show();
 
             new Handler().postDelayed(new Runnable() {
 
@@ -137,7 +153,7 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
         }
     }
 
-    private void fetchBookmarks(){
+    private void fetchBookmarks() {
         if (CommonUtils.isNetworkAvailable(this)) {
 
             eventServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.GET_EVENTS_BOOKMARK, Integer.parseInt(PreferenceStorage.getUserId(this))));
@@ -161,18 +177,21 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
             LandingPagerFragment landingPagerFragment = (LandingPagerFragment)
                     landingPagerAdapter.getRegisteredFragment(getTaskId());
             if (landingPagerFragment != null) {
+                checkPointSearch = 1;
                 landingPagerFragment.callGetFilterService();
             }
 
             LandingPagerFragment landingPagerFragment1 = (LandingPagerFragment)
                     landingPagerAdapter.getRegisteredFragment(getTaskId());
             if (landingPagerFragment1 != null) {
+                checkPointSearch = 1;
                 landingPagerFragment1.callGetFilterService();
             }
 
             StaticEventFragment staticEventFragment = (StaticEventFragment)
                     landingPagerAdapter.getRegisteredFragment(getTaskId());
             if (staticEventFragment != null) {
+                checkPointSearch = 2;
                 staticEventFragment.callGetFilterService();
             }
 
@@ -198,36 +217,36 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
         String userName = PreferenceStorage.getUserName(getApplicationContext());
         String userCity = PreferenceStorage.getUserCity(getApplicationContext());
         Log.d(TAG, "user name value" + userName);
-        if((userName != null) && !userName.isEmpty()){
+        if ((userName != null) && !userName.isEmpty()) {
             navUserName.setText(userName);
         }
 
-        if((userCity != null) && !userCity.isEmpty()){
+        if ((userCity != null) && !userCity.isEmpty()) {
             navUserCity.setText(userCity);
         }
 
         //fetch Facebook profile picture
         int loginMode = PreferenceStorage.getLoginMode(this);
         String url = PreferenceStorage.getProfileUrl(this);
-        if( (url == null) || (url.isEmpty())){
-            if((loginMode == 1) || (loginMode == 3)){
+        if ((url == null) || (url.isEmpty())) {
+            if ((loginMode == 1) || (loginMode == 3)) {
                 url = PreferenceStorage.getSocialNetworkProfileUrl(this);
             }
         }
         mCurrentUserProfileUrl = url;
-        Log.d(TAG,"Login Mode is"+ loginMode);
+        Log.d(TAG, "Login Mode is" + loginMode);
         /*if((loginMode == FindAFunConstants.FACEBOOK) || (loginMode == FindAFunConstants.GOOGLE_PLUS)){
 
             Log.d(TAG,"fetching the image url"+ url);
 
         }*/
-        if( ( (url != null) && !(url.isEmpty()))){
-            Log.d(TAG,"image url is "+ url);
+        if (((url != null) && !(url.isEmpty()))) {
+            Log.d(TAG, "image url is " + url);
             Picasso.with(this).load(url).placeholder(R.drawable.placeholder_small).error(R.drawable.placeholder_small).into(imgNavProfileImage,
                     new Callback() {
                         @Override
                         public void onSuccess() {
-                            Log.d(TAG,"Image uploaded successfully using picasso");
+                            Log.d(TAG, "Image uploaded successfully using picasso");
                             try {
                                 if (shouldUploadSocialNetworkPic()) {
                                     mUpdatedImageUrl = null;
@@ -235,7 +254,7 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
                                     new UploadFileToServer().execute();
 
                                 }
-                            }catch(Exception e){
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
                         }
@@ -247,28 +266,28 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
                     });
         }
         Log.d(TAG, "Set the selected page to 0");//default page
-       // makeGetEventListServiceCall(0);
+        // makeGetEventListServiceCall(0);
 
     }
 
-    private boolean shouldUploadSocialNetworkPic(){
+    private boolean shouldUploadSocialNetworkPic() {
         boolean upload = false;
         String url = PreferenceStorage.getSocialNetworkProfileUrl(LandingActivity.this);
         String userimageUrl = PreferenceStorage.getProfileUrl(LandingActivity.this);
         int loginMode = PreferenceStorage.getLoginMode(LandingActivity.this);
-        if( (userimageUrl == null) || (userimageUrl.isEmpty())){
-            if((loginMode == 1) || (loginMode == 3)){
-                if( (url != null) && !(url.isEmpty())){
-                    Bitmap imageBitmap = ((BitmapDrawable)imgNavProfileImage.getDrawable()).getBitmap();
-                    Log.d(TAG,"valid URL present");
-                    if(imageBitmap != null){
+        if ((userimageUrl == null) || (userimageUrl.isEmpty())) {
+            if ((loginMode == 1) || (loginMode == 3)) {
+                if ((url != null) && !(url.isEmpty())) {
+                    Bitmap imageBitmap = ((BitmapDrawable) imgNavProfileImage.getDrawable()).getBitmap();
+                    Log.d(TAG, "valid URL present");
+                    if (imageBitmap != null) {
                         upload = true;
-                    }else{
-                        Log.e(TAG,"No Bitmap present");
+                    } else {
+                        Log.e(TAG, "No Bitmap present");
                     }
 
-                }else{
-                    Log.e(TAG,"No image present for social network sites");
+                } else {
+                    Log.e(TAG, "No image present for social network sites");
                 }
             }
         }
@@ -295,24 +314,24 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
                 String userCity = PreferenceStorage.getUserCity(getApplicationContext());
                 String url = PreferenceStorage.getProfileUrl(LandingActivity.this);
                 int loginMode = PreferenceStorage.getLoginMode(LandingActivity.this);
-                if( (url == null) || (url.isEmpty())){
-                    if((loginMode == 1) || (loginMode == 3)){
+                if ((url == null) || (url.isEmpty())) {
+                    if ((loginMode == 1) || (loginMode == 3)) {
                         url = PreferenceStorage.getSocialNetworkProfileUrl(LandingActivity.this);
                     }
 
                 }
                 Log.d(TAG, "user name value" + userName);
-                if( (userName != null) && !userName.isEmpty()){
+                if ((userName != null) && !userName.isEmpty()) {
                     String[] splitStr = userName.split("\\s+");
                     navUserName.setText(splitStr[0]);
 
                 }
 
-                if((userCity != null) && !userCity.isEmpty()){
+                if ((userCity != null) && !userCity.isEmpty()) {
                     navUserCity.setText(userCity);
                 }
-                if( ( (url != null) && !(url.isEmpty())) && !(url.equalsIgnoreCase(mCurrentUserProfileUrl))){
-                    Log.d(TAG,"image url is "+ url);
+                if (((url != null) && !(url.isEmpty())) && !(url.equalsIgnoreCase(mCurrentUserProfileUrl))) {
+                    Log.d(TAG, "image url is " + url);
                     mCurrentUserProfileUrl = url;
                     Picasso.with(LandingActivity.this).load(url).noPlaceholder().error(R.drawable.placeholder_small).into(imgNavProfileImage);
                 }
@@ -322,16 +341,16 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         // enable ActionBar app icon to behave as action to toggle nav drawer
-       // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //getSupportActionBar().setHomeButtonEnabled(true);
 
         // Initialize header and listview
         navDrawerList = (ListView) findViewById(R.id.nav_drawer_options_list);
-        NavDrawerAdapter navDrawerAdapter = new NavDrawerAdapter(getApplicationContext(), R.layout.nav_list_item,values);
+        NavDrawerAdapter navDrawerAdapter = new NavDrawerAdapter(getApplicationContext(), R.layout.nav_list_item, values);
         navListAdapter = new ArrayAdapter<String>(this, R.layout.nav_list_item, values);
         navDrawerList.setAdapter(navDrawerAdapter);
 
-       // imgNavHeaderBg = (ImageView) findViewById(R.id.img_nav_header_background);
+        // imgNavHeaderBg = (ImageView) findViewById(R.id.img_nav_header_background);
         imgNavProfileImage = (ImageView) findViewById(R.id.img_profile_image);
         navDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -343,7 +362,7 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
         //populateNavDrawerHeaderView();
     }
 
-    private void onNavigationMenuSelected(int position){
+    private void onNavigationMenuSelected(int position) {
         if (position == 1) {
             Intent navigationIntent = new Intent(this, ProfileActivity.class);
             navigationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -356,13 +375,12 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
             Intent navigationIntent = new Intent(this, SelectPreferenceActivity.class);
             navigationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(navigationIntent);
-        }else if (position == 3) {
+        } else if (position == 3) {
             Intent navigationIntent = new Intent(this, BookmarksActivity.class);
             //navigationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(navigationIntent);
-        }
-        else if(position == 4){
-            Log.d(TAG,"Perform Logout");
+        } else if (position == 4) {
+            Log.d(TAG, "Perform Logout");
             doLogout();
         }
     }
@@ -375,23 +393,23 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
                 .into(imgNavHeaderBg);
     }
 
-  @Override
-   protected void onPostCreate(Bundle savedInstanceState) {
-      super.onPostCreate(savedInstanceState);
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
         // Sync the toggle state after onRestoreInstanceState has occurred.
         mDrawerToggle.syncState();
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
-       super.onConfigurationChanged(newConfig);
+        super.onConfigurationChanged(newConfig);
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-       // getMenuInflater().inflate(R.menu.menu_landi/*ng, menu);
+        // getMenuInflater().inflate(R.menu.menu_landi/*ng, menu);
         MenuInflater inflater = getMenuInflater();
         // Inflate menu to add items to action bar if it is present.
         inflater.inflate(R.menu.menu_landing, menu);
@@ -400,25 +418,6 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
                 (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         mSearchView =
                 (SearchView) menu.findItem(R.id.action_search_view).getActionView();
-       /* MenuItem menuitem = menu.findItem(R.id.action_search_view);
-
-        MenuItemCompat.setOnActionExpandListener(menuitem, new MenuItemCompat.OnActionExpandListener() {
-            @Override
-            public boolean onMenuItemActionExpand(MenuItem item) {
-                Log.d(TAG,"on Action expand");
-               // SearchView searchView = (SearchView) item;
-                //item.expandActionView();
-
-                return false;
-            }
-
-            @Override
-            public boolean onMenuItemActionCollapse(MenuItem item) {
-                Log.d(TAG,"OnAction close");
-               // item.collapseActionView();
-                return false;
-            }
-        });*/
 
         mSearchView.setIconifiedByDefault(true);
 
@@ -441,10 +440,18 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
                 Log.d(TAG, "Query submitted with String:" + s);
                 int currentpage = viewPager.getCurrentItem();
                 Log.d(TAG, "current item is" + currentpage);
-                LandingPagerFragment landingPagerFragment = (LandingPagerFragment)
-                        landingPagerAdapter.getRegisteredFragment(currentpage);
-                if (landingPagerFragment != null) {
-                    landingPagerFragment.searchForEvent(s);
+                if (checkPointSearch == 2) {
+                    StaticFragment staticFragment = (StaticFragment)
+                            landingPagerAdapter.getRegisteredFragment(currentpage);
+                    if (staticFragment != null) {
+                        staticFragment.searchForEvent(s);
+                    }
+                } else if (checkPointSearch == 1) {
+                    LandingPagerFragment landingPagerFragment = (LandingPagerFragment)
+                            landingPagerAdapter.getRegisteredFragment(currentpage);
+                    if (landingPagerFragment != null) {
+                        landingPagerFragment.searchForEvent(s);
+                    }
                 }
 
                 return false;
@@ -458,14 +465,14 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
                         landingPagerAdapter.getRegisteredFragment(currentpage);
 
                 if ((s != null) && (!s.isEmpty())) {
-                    if (landingPagerFragment != null) {
-                        landingPagerFragment.searchForEvent(s);
-                    }
-                }else{
-                    if (landingPagerFragment != null) {
-                        Log.d(TAG,"call exit search");
-                        landingPagerFragment.exitSearch();
-                    }
+                        if (landingPagerFragment != null) {
+                            landingPagerFragment.searchForEvent(s);
+                        }
+                } else {
+                        if (landingPagerFragment != null) {
+                            Log.d(TAG, "call exit search");
+                            landingPagerFragment.exitSearch();
+                        }
                 }
 
                 return false;
@@ -482,7 +489,7 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
                 LandingPagerFragment landingPagerFragment = (LandingPagerFragment)
                         landingPagerAdapter.getRegisteredFragment(currentpage);
                 if (landingPagerFragment != null) {
-                    Log.d(TAG,"call exit search");
+                    Log.d(TAG, "call exit search");
                     landingPagerFragment.exitSearch();
                 }
 
@@ -504,7 +511,7 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
         switch (item.getItemId()) {
             case R.id.action_filter:
                 //ajaz
-               // Toast.makeText(this, "advance filter clicked", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(this, "advance filter clicked", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(LandingActivity.this, AdvanceSearchAct.class));
                 return true;
 
@@ -515,7 +522,7 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
         // return super.onOptionsItemSelected(item);
     }
 
-    @       Override
+    @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
     }
@@ -523,17 +530,17 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
     @Override
     public void onPageSelected(int position) {
         Log.d(TAG, "page selected" + position);
-        if(landingPagerAdapter != null) {
+        if (landingPagerAdapter != null) {
             mPagerSlidingTabStrip.notifyDataSetChanged();
 
             getSupportActionBar().setTitle(landingPagerAdapter.getPageTitle(position));
-            if(position == 3){ //Rewards Fragment. So search bar is not needed
-                if(mSearchView != null){
+            if (position == 3) { //Rewards Fragment. So search bar is not needed
+                if (mSearchView != null) {
                     mSearchView.setVisibility(View.GONE);
                 }
 
-            }else {
-                if(mSearchView != null){
+            } else {
+                if (mSearchView != null) {
                     mSearchView.setVisibility(View.VISIBLE);
                 }
                 LandingPagerFragment landingPagerFragment = (LandingPagerFragment)
@@ -552,7 +559,7 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
     }
 
     private void makeGetEventListServiceCall(int position) {
-        Log.d(TAG,"Fetching the event list for pos"+ position);
+        Log.d(TAG, "Fetching the event list for pos" + position);
         LandingPagerFragment landingPagerFragment = (LandingPagerFragment)
                 landingPagerAdapter.getRegisteredFragment(position);
         if (landingPagerFragment != null) {
@@ -561,11 +568,11 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
     }
 
     @Override
-    public void onWindowFocusChanged(boolean focus){
-        if(focus){
+    public void onWindowFocusChanged(boolean focus) {
+        if (focus) {
             LandingPagerFragment landingPagerFragment = (LandingPagerFragment)
                     landingPagerAdapter.getRegisteredFragment(viewPager.getCurrentItem());
-            if(landingPagerFragment != null){
+            if (landingPagerFragment != null) {
                 landingPagerFragment.onWindowFocusChanged();
             }
         }
@@ -574,15 +581,15 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
     @Override
     public void onFragmentsRegistered() {
         Log.d(TAG, "Fragment registered called");
-       // makeGetEventListServiceCall(TAG_FAVOURITES);
-        if(!mFragmentsLoaded){
-            Log.d(TAG,"fetch for the first time");
+        // makeGetEventListServiceCall(TAG_FAVOURITES);
+        if (!mFragmentsLoaded) {
+            Log.d(TAG, "fetch for the first time");
             makeGetEventListServiceCall(TAG_FAVOURITES);
             mFragmentsLoaded = true;
         }
     }
 
-    private void doLogout(){
+    private void doLogout() {
         SharedPreferences sharedPreferences =
                 PreferenceManager.getDefaultSharedPreferences(this);
         sharedPreferences.edit().clear().commit();
@@ -614,7 +621,7 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
         if (eventsList.getEvents() != null && eventsList.getEvents().size() > 0) {
             // totalCount = eventsList.getCount();
             GamificationDataHolder.getInstance().clearBookmarks();
-            for(Event event: eventsList.getEvents()){
+            for (Event event : eventsList.getEvents()) {
                 GamificationDataHolder.getInstance().addBookmarkedEvent(event.getId());
             }
         }
@@ -625,11 +632,21 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
         GamificationDataHolder.getInstance().clearBookmarks();
     }
 
+    @Override
+    public void onSuccess(int resultCode, Object result) {
+
+    }
+
+    @Override
+    public void onError(String erorr) {
+
+    }
+
     private class UploadFileToServer extends AsyncTask<Void, Integer, String> {
         private static final String TAG = "UploadFileToServer";
         private HttpClient httpclient;
         HttpPost httppost;
-        public  boolean isTaskAborted = false;
+        public boolean isTaskAborted = false;
 
         @Override
         protected void onPreExecute() {
@@ -674,8 +691,8 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
                                 //  publishProgress((int) ((num / (float) totalSize) * 100));
                             }
                         });
-                Log.d(TAG,"upload image");
-                if(mBitmapToLoad != null) {
+                Log.d(TAG, "upload image");
+                if (mBitmapToLoad != null) {
 
                     String fileNameVal = PreferenceStorage.getUserId(LandingActivity.this) + ".png";
                     ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -735,9 +752,9 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
 
             super.onPostExecute(result);
 
-                if(mUpdatedImageUrl != null) {
-                    PreferenceStorage.saveProfilePic(LandingActivity.this, mUpdatedImageUrl);
-                }
+            if (mUpdatedImageUrl != null) {
+                PreferenceStorage.saveProfilePic(LandingActivity.this, mUpdatedImageUrl);
+            }
         }
 
         @Override
