@@ -242,7 +242,7 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
         }*/
         if (((url != null) && !(url.isEmpty()))) {
             Log.d(TAG, "image url is " + url);
-            Picasso.with(this).load(url).placeholder(R.drawable.placeholder_small).error(R.drawable.placeholder_small).into(imgNavProfileImage,
+            Picasso.with(this).load(url).placeholder(R.drawable.ab_hobbistan_logo).error(R.drawable.ab_hobbistan_logo).into(imgNavProfileImage,
                     new Callback() {
                         @Override
                         public void onSuccess() {
@@ -333,7 +333,7 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
                 if (((url != null) && !(url.isEmpty())) && !(url.equalsIgnoreCase(mCurrentUserProfileUrl))) {
                     Log.d(TAG, "image url is " + url);
                     mCurrentUserProfileUrl = url;
-                    Picasso.with(LandingActivity.this).load(url).noPlaceholder().error(R.drawable.placeholder_small).into(imgNavProfileImage);
+                    Picasso.with(LandingActivity.this).load(url).noPlaceholder().error(R.drawable.ab_hobbistan_logo).into(imgNavProfileImage);
                 }
             }
         };
