@@ -39,7 +39,7 @@ import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.findafun.R;
-import com.findafun.activity.LoginActivity;
+import com.findafun.activity.LoginNewActivity;
 import com.findafun.activity.TermsAndConditionsActivity;
 import com.findafun.helper.AlertDialogHelper;
 import com.findafun.helper.ProgressDialogHelper;
@@ -616,7 +616,7 @@ public class SignupFragment extends Fragment implements View.OnClickListener, IS
 
                         @Override
                         public void onClick(DialogInterface arg0, int arg1) {
-                            Intent intent = new Intent(getActivity(), LoginActivity.class);
+                            Intent intent = new Intent(getActivity(), LoginNewActivity.class);
                             startActivity(intent);
                             getActivity().finish();
 
@@ -655,7 +655,7 @@ public class SignupFragment extends Fragment implements View.OnClickListener, IS
 
                                         @Override
                                         public void onClick(DialogInterface arg0, int arg1) {
-                                            Intent intent = new Intent(getActivity(), LoginActivity.class);
+                                            Intent intent = new Intent(getActivity(), LoginNewActivity.class);
                                             startActivity(intent);
                                             getActivity().finish();
 

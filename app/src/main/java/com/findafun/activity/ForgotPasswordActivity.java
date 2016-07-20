@@ -126,7 +126,7 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
 
                                         @Override
                                         public void onClick(DialogInterface arg0, int arg1) {
-                                            Intent intent = new Intent(ForgotPasswordActivity.this, LoginActivity.class);
+                                            Intent intent = new Intent(ForgotPasswordActivity.this, LoginNewActivity.class);
                                             startActivity(intent);
                                             finish();
 
@@ -168,7 +168,7 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
 
                         @Override
                         public void onClick(DialogInterface arg0, int arg1) {
-                            Intent intent = new Intent(ForgotPasswordActivity.this, LoginActivity.class);
+                            Intent intent = new Intent(ForgotPasswordActivity.this, LoginNewActivity.class);
                             startActivity(intent);
                             finish();
 
