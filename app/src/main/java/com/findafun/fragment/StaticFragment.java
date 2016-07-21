@@ -212,18 +212,19 @@ public class StaticFragment extends LandingPagerFragment implements  OnMapReadyC
                 listAppearenceNearBy.setImageDrawable(mselectednearbyicon);
 
                 mTotalEventCount_hp.setText(Integer.toString(eventsArrayList.size())+ " Nearby Events");*/
-                LocationHelper.FindLocationManager(getContext());
 
+                LocationHelper.FindLocationManager(getContext());
                 mMapView_hp.setVisibility(View.VISIBLE);
                 performSlideLeftAnimation();
-                mLocationBtn_hp.setBackgroundDrawable(mLocationSelected_hp);
+                mLocationBtn_hp.setBackgroundDrawable(mLocationUnselected_hp);
                 listAppearence.setBackgroundDrawable(mListUnselected_hp);
-                listAppearenceNearBy.setBackgroundDrawable(mNearbyTabUnselected);
-                mLocationBtn_hp.setImageDrawable(mselectedlocationicon_hp);
-                listAppearence.setImageDrawable(munselectedlisticon_hp);
-                listAppearenceNearBy.setImageDrawable(munselectednearbyicon);
+                listAppearenceNearBy.setBackgroundDrawable(mNearbyTabSelected);
 
-                mTotalEventCount_hp.setText(Integer.toString(eventsArrayList.size()) + " Hotspot Events");
+                mLocationBtn_hp.setImageDrawable(munselectedlocationicon_hp);
+                listAppearence.setImageDrawable(munselectedlisticon_hp);
+                listAppearenceNearBy.setImageDrawable(mselectednearbyicon);
+
+                mTotalEventCount_hp.setText(Integer.toString(eventsArrayList.size()) + " Nearby Events");
             }
         });
 

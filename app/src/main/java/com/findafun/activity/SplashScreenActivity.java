@@ -1,6 +1,7 @@
 package com.findafun.activity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -19,8 +20,11 @@ public class SplashScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-        mExplosionField = ExplosionField.attach2Window(this);
-        addListener(findViewById(R.id.root));
+
+        if (android.os.Build.VERSION.SDK_INT  > Build.VERSION_CODES.LOLLIPOP) {
+            mExplosionField = ExplosionField.attach2Window(this);
+            addListener(findViewById(R.id.root));
+        }
 
         new Handler().postDelayed(new Runnable() {
 

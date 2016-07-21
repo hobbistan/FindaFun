@@ -181,8 +181,8 @@ public class PopularFragment extends LandingPagerFragment implements OnMapReadyC
                 listAppearenceNearBy.setImageDrawable(mselectednearbyicon);
 
                 mTotalEventCount.setText(Integer.toString(eventsArrayList.size())+ " Nearby Events");*/
-                LocationHelper.FindLocationManager(getContext());
 
+                LocationHelper.FindLocationManager(getContext());
                 mMapView.setVisibility(View.VISIBLE);
                 performSlideLeftAnimation();
                 mLocationBtn.setBackgroundDrawable(mLocationUnselected);
