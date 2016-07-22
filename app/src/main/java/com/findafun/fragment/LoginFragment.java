@@ -174,7 +174,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener,Dial
                         .addApi(Plus.API)
                         .addScope(Plus.SCOPE_PLUS_LOGIN)
                         .build();
-               // mGoogleApiClient.connect();
+
 
             } else {
                 GooglePlayServicesUtil.getErrorDialog(GooglePlayServicesUtil.isGooglePlayServicesAvailable(getActivity()),

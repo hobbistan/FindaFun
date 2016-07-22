@@ -9,6 +9,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 import com.findafun.R;
 import com.findafun.adapter.LoginNewAdapter;
 import com.findafun.interfaces.DialogClickListener;
@@ -28,7 +30,8 @@ public class LoginNewActivity extends AppCompatActivity implements DialogClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_new);
-
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
         FirstTimePreference prefFirstTime = new FirstTimePreference(getApplicationContext());
 
         if (prefFirstTime.runTheFirstTime("FirstTimePermit")) {

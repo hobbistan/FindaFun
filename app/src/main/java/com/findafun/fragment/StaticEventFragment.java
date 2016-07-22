@@ -155,7 +155,7 @@ public class StaticEventFragment extends Fragment implements LoadMoreListView.On
         }
     }
 
-    public void searchForEvent(String eventname) {
+    public  void searchForEvent(String eventname) {
         Log.d(TAG, "searchevent called");
         if (staticEventsListAdapter != null) {
             staticEventsListAdapter.startSearch(eventname);

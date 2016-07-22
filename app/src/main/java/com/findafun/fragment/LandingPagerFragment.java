@@ -1,6 +1,4 @@
 package com.findafun.fragment;
-
-
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,7 +17,6 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import com.findafun.R;
 import com.findafun.activity.EventDetailActivity;
 import com.findafun.adapter.EventsListAdapter;
@@ -34,9 +31,7 @@ import com.findafun.utils.CommonUtils;
 import com.findafun.utils.FindAFunConstants;
 import com.findafun.utils.PreferenceStorage;
 import com.google.gson.Gson;
-
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 
 /**
@@ -176,8 +171,9 @@ public class LandingPagerFragment extends Fragment implements  IEventServiceList
         if (eventsListAdapter != null) {
             eventsListAdapter.startSearch(eventname);
             eventsListAdapter.notifyDataSetChanged();
-            //loadMoreListView.invalidateViews();
+                        //loadMoreListView.invalidateViews();
         }
+
     }
 
     public void exitSearch() {
@@ -186,6 +182,12 @@ public class LandingPagerFragment extends Fragment implements  IEventServiceList
             eventsListAdapter.exitSearch();
             eventsListAdapter.notifyDataSetChanged();
         }
+
+        if(staticEventListAdapter!=null){
+            staticEventListAdapter.exitSearch();
+            staticEventListAdapter.notifyDataSetChanged();
+        }
+
     }
 
    /* @Override
@@ -232,8 +234,8 @@ public class LandingPagerFragment extends Fragment implements  IEventServiceList
                     Log.d(TAG, "fetch ALL events");
                     eventServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.GET_EVENTS_ALL_URL, pageNumber, PreferenceStorage.getUserCity(getActivity())));
                     break;
-//                case 2:
-//                    Log.d(TAG, "fetch Hotspot events");
+                case 2:
+                    Log.d(TAG, "fetch Hotspot events");
 //                    eventServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.GET_STATIC_EVENTS, Integer.parseInt(PreferenceStorage.getUserId(getActivity())), pageNumber, PreferenceStorage.getUserCity(getActivity())));
 //                    //eventServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.GET_EVENTS_NEARBY_URL, pageNumber));
 //                    break;
