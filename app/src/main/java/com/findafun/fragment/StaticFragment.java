@@ -202,7 +202,7 @@ public class StaticFragment extends LandingPagerFragment implements  OnMapReadyC
         listAppearenceNearBy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*performSlideRightAnimation();
+               /* performSlideRightAnimation();
                 mLocationBtn_hp.setBackgroundDrawable(mLocationUnselected_hp);
                 listAppearence.setBackgroundDrawable(mListUnselected_hp);
                 listAppearenceNearBy.setBackgroundDrawable(mNearbyTabSelected);
@@ -216,6 +216,7 @@ public class StaticFragment extends LandingPagerFragment implements  OnMapReadyC
 
                 mMapView_hp.setVisibility(View.VISIBLE);
                 performSlideLeftAnimation();
+
                 mLocationBtn_hp.setBackgroundDrawable(mLocationUnselected_hp);
                 listAppearence.setBackgroundDrawable(mListUnselected_hp);
                 listAppearenceNearBy.setBackgroundDrawable(mNearbyTabSelected);
