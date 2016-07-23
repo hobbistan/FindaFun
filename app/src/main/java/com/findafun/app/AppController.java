@@ -44,8 +44,8 @@ public class AppController extends android.support.multidex.MultiDexApplication 
     public com.nostra13.universalimageloader.core.ImageLoader getUniversalImageLoader() {
         if (universalImageLoader == null) {
             DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true)
-                    .cacheOnDisk(true).resetViewBeforeLoading(true).showImageOnLoading(R.drawable.placeholder)
-                    .showImageForEmptyUri(R.drawable.placeholder)
+                    .cacheOnDisk(true).resetViewBeforeLoading(true).showImageOnLoading(R.drawable.ac_logo_main)
+                    .showImageForEmptyUri(R.drawable.ac_logo_main)
                     .build();
             // Initialize ImageLoader with configuration.
             ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
@@ -64,9 +64,9 @@ public class AppController extends android.support.multidex.MultiDexApplication 
     public DisplayImageOptions getLogoDisplayOptions() {
         if (logoDisplayOptions == null) {
             logoDisplayOptions = new DisplayImageOptions.Builder().cacheInMemory(true)
-                    .cacheOnDisk(true).resetViewBeforeLoading(true).showImageOnLoading(R.drawable.placeholder_small)
-                    .showImageForEmptyUri(R.drawable.placeholder_small)
-                    .showImageOnFail(R.drawable.placeholder_small)
+                    .cacheOnDisk(true).resetViewBeforeLoading(true).showImageOnLoading(R.drawable.ab_hobbistan_logo)
+                    .showImageForEmptyUri(R.drawable.ab_hobbistan_logo)
+                    .showImageOnFail(R.drawable.ab_hobbistan_logo)
                     .build();
         }
         return logoDisplayOptions;

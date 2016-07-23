@@ -148,9 +148,9 @@ public class EventsListAdapter extends BaseAdapter {
 
         //imageLoader.displayImage(events.get(position).getEventLogo(), holder.imageView, AppController.getInstance().getLogoDisplayOptions());
         if(FindAFunValidator.checkNullString(events.get(position).getEventLogo())) {
-            Picasso.with(this.context).load(events.get(position).getEventLogo()).fit().transform(this.transformation).placeholder(R.drawable.placeholder_small).error(R.drawable.placeholder_small).into(holder.imageView);
+            Picasso.with(this.context).load(events.get(position).getEventLogo()).fit().transform(this.transformation).placeholder(R.drawable.ab_hobbistan_logo).error(R.drawable.ab_hobbistan_logo).into(holder.imageView);
         } else {
-            holder.imageView.setImageResource(R.drawable.placeholder_small);
+            holder.imageView.setImageResource(R.drawable.ab_hobbistan_logo);
         }
         String start = FindAFunHelper.getDate(events.get(position).getStartDate());
         String end = FindAFunHelper.getDate(events.get(position).getEndDate());
