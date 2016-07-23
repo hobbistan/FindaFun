@@ -2,7 +2,6 @@ package com.findafun.activity;
 
 import android.Manifest;
 import android.animation.Animator;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -101,13 +100,13 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
     private Event event;
     private TextView txtEventName, txtEventCategory, txtEventDesc, txtEventVenue, txtEventStartDate, txtEventEndDate, txtEventStartTime, txtEventEndTime;
     private TextView txtEventTime, txtEventDate, txtEventEntry, txtEventContact, txtEventEmail, txtWebSite;
-    private TextView txtViewMore,txtViewLess;
+    private TextView txtViewMore, txtViewLess;
     private ViewFlipper imgEventBanner;
     LinearLayout count_layout;
     int count = 0;
     static TextView page_text[];
-    ImageView banner_image_one,banner_image_two,banner_image_three,banner_image_four,banner_image_five;
-  //  private final GestureDetector detector = new GestureDetector(new SwipeGestureDetector());
+    ImageView banner_image_one, banner_image_two, banner_image_three, banner_image_four, banner_image_five;
+    //  private final GestureDetector detector = new GestureDetector(new SwipeGestureDetector());
     ImageLoader uImageLoader = AppController.getInstance().getUniversalImageLoader();
     private GoogleApiClient mGoogleApiClient;
     private Location mLastLocation;
@@ -126,6 +125,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
     private ArrayList<ImageInfo> imgImageInfos = new ArrayList<>();
     int curRate;
     private int mShortAnimationDuration;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -148,8 +148,8 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
         event = (Event) getIntent().getSerializableExtra("eventObj");
         populateData();
 
-        if(curRate==20) {
-           fetchAppRate();
+        if (curRate == 20) {
+            fetchAppRate();
         }
 
         int nVersion = getAppVersion(getApplication());
@@ -159,40 +159,40 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
 
     }
 
-    public void getAppUpdate(int nVersion){
+    public void getAppUpdate(int nVersion) {
 
-       int versionCode = nVersion;
+        int versionCode = nVersion;
         final SharedPreferences saving = getSharedPreferences("AppUpdate", Activity.MODE_PRIVATE);
         final SharedPreferences.Editor editor = saving.edit();
-        editor.putInt("update",versionCode);
+        editor.putInt("update", versionCode);
         editor.commit();
 
 
-       int version = saving.getInt("update", 0);
+        int version = saving.getInt("update", 0);
 
-          if(version<nVersion){
-              version++;
-              //   Toast.makeText(this, "Hello There " + test, Toast.LENGTH_SHORT).show();
-              editor.putInt("update", version);
-              editor.commit();
+        if (version < nVersion) {
+            version++;
+            //   Toast.makeText(this, "Hello There " + test, Toast.LENGTH_SHORT).show();
+            editor.putInt("update", version);
+            editor.commit();
 
-              UpdateChecker checker = new UpdateChecker(this);
-              UpdateChecker.setStore(Store.GOOGLE_PLAY);
-              checker.showDialog("test");
-              //checker.setSuccessfulChecksRequired(5);
-              UpdateChecker.start();
+            UpdateChecker checker = new UpdateChecker(this);
+            UpdateChecker.setStore(Store.GOOGLE_PLAY);
+            checker.showDialog("test");
+            //checker.setSuccessfulChecksRequired(5);
+            UpdateChecker.start();
 
-              Log.d("version code", String.valueOf(version));
-          } else if(version==nVersion){
-              editor.putInt("update",version);
-              editor.commit();
-              Log.d("version code", String.valueOf(version));
-          }
+            Log.d("version code", String.valueOf(version));
+        } else if (version == nVersion) {
+            editor.putInt("update", version);
+            editor.commit();
+            Log.d("version code", String.valueOf(version));
+        }
 
     }
 
 
-    public  int getAppVersion(Context context) {
+    public int getAppVersion(Context context) {
         try {
             PackageInfo packageInfo = context.getPackageManager()
                     .getPackageInfo(context.getPackageName(), 0);
@@ -208,7 +208,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
 
 
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this)
-                .setTitle("Rate " +getApplicationInfo().loadLabel(getPackageManager()).toString())
+                .setTitle("Rate " + getApplicationInfo().loadLabel(getPackageManager()).toString())
 
                 .setMessage("If You Enjoy Using Hobbistan, please take a moment to rate it. Thanks for Your Support!")
                 .setPositiveButton("Rate it! ", null)
@@ -229,13 +229,13 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
 
         test = saving.getInt("rate", 0);
 
-        if(test>20){
+        if (test > 20) {
             test = 0;
-            editor.putInt("rate",test);
+            editor.putInt("rate", test);
             editor.commit();
         } else {
             test++;
-         //   Toast.makeText(this, "Hello There " + test, Toast.LENGTH_SHORT).show();
+            //   Toast.makeText(this, "Hello There " + test, Toast.LENGTH_SHORT).show();
             editor.putInt("rate", test);
             editor.commit();
         }
@@ -352,7 +352,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
     private void populateData() {
         txtEventName.setText(event.getEventName());
         // txtEventDesc.setText(event.getDescription());
-        if(event.getDescription() != null) {
+        if (event.getDescription() != null) {
             txtEventCategory.setText(event.getDescription());
 
 
@@ -380,7 +380,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
         } else {
             txtViewMore.setVisibility(View.GONE);
 
-            }
+        }
         txtEventVenue.setText(event.getEventVenue());
         txtEventVenue.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -391,8 +391,8 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
                     Intent intent = new Intent(EventDetailActivity.this, MapsActivity.class);
                     intent.putExtra("eventObj", event);
                     startActivity(intent);
-                }else{
-                    Toast.makeText(EventDetailActivity.this,"Location information not available for this event", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(EventDetailActivity.this, "Location information not available for this event", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -406,7 +406,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
         if ((end != null)) {
             txtEventEndDate.setText(end);
         }
-        if(event.getEvent_cost() != null) {
+        if (event.getEvent_cost() != null) {
             txtEventEntry.setText(event.getEvent_cost());
         }
         //fetch timer values
@@ -433,21 +433,21 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
             txtEventEndTime.setText(endTime);
         }
 
-        if((event.getEventEmail() != null) && !(event.getEventEmail().isEmpty())){
+        if ((event.getEventEmail() != null) && !(event.getEventEmail().isEmpty())) {
             txtEventEmail.setText(event.getEventEmail());
-        }else{
+        } else {
             txtEventEmail.setText("N/A");
         }
         Log.d(TAG, "Image uri is" + event.getEventBanner());
-      //  uImageLoader.displayImage((event.getEventLogo()), imgEventBanner);
-        uImageLoader.displayImage(event.getEventLogo(),banner_image_one);
-        uImageLoader.displayImage("http://placehold.it/120x120&text=image2",banner_image_two);
-        uImageLoader.displayImage("http://placehold.it/120x120&text=image3",banner_image_three);
-      //  uImageLoader.displayImage("http://placehold.it/120x120&text=image4",banner_image_four);
-     //   uImageLoader.displayImage("http://placehold.it/120x120&text=image5",banner_image_five);
+        //  uImageLoader.displayImage((event.getEventLogo()), imgEventBanner);
+        uImageLoader.displayImage(event.getEventLogo(), banner_image_one);
+        uImageLoader.displayImage("http://placehold.it/120x120&text=image2", banner_image_two);
+        uImageLoader.displayImage("http://placehold.it/120x120&text=image3", banner_image_three);
+        //  uImageLoader.displayImage("http://placehold.it/120x120&text=image4",banner_image_four);
+        //   uImageLoader.displayImage("http://placehold.it/120x120&text=image5",banner_image_five);
         imgList.add(0, event.getEventLogo());
-        imgList.add(1,"http://placehold.it/120x120&text=image2");
-        imgList.add(2,"http://placehold.it/120x120&text=image3");
+        imgList.add(1, "http://placehold.it/120x120&text=image2");
+        imgList.add(2, "http://placehold.it/120x120&text=image3");
 
         mShareLIst.add("Facebook");
         mShareLIst.add("Twitter");
@@ -493,10 +493,8 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
     private void initializeViews() {
 
 
-
-
         banner_image_one = (ImageView) findViewById(R.id.banner_image_one);
-       // banner_image_one.set
+        // banner_image_one.set
         banner_image_two = (ImageView) findViewById(R.id.banner_image_two);
         banner_image_three = (ImageView) findViewById(R.id.banner_image_three);
         /*banner_image_four = (ImageView) findViewById(R.id.banner_image_four);
@@ -527,17 +525,20 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
             public void onClick(View v) {
                 Log.d(TAG, "Bookmark Button selected" + event.getId());
 
+
+                //        getCalender();
+
+
                 if (mServiceHelper == null) {
                     mServiceHelper = new EventServiceHelper(EventDetailActivity.this);
                     mServiceHelper.setEventServiceListener(EventDetailActivity.this);
 
                 }
                 if (GamificationDataHolder.getInstance().isEventBookmarked(event.getId())) {
-                    //Toast.makeText(EventDetailActivity.this, "Event already bookmarked", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EventDetailActivity.this, "Event already bookmarked", Toast.LENGTH_SHORT).show();
 
                 } else {
                     try {
-                        Toast.makeText(EventDetailActivity.this, "Wishlist added successfully", Toast.LENGTH_SHORT).show();
                         mServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.ADD_EVENT_BOOKMARK,
                                 Integer.parseInt(PreferenceStorage.getUserId(EventDetailActivity.this)), Integer.parseInt((event.getId()))));
                     } catch (Exception e) {
@@ -555,16 +556,26 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
             }
         });
         contactBtn.setOnClickListener(new View.OnClickListener() {
-            @TargetApi(Build.VERSION_CODES.M)
+
             @Override
             public void onClick(View v) {
                 String phoneNumber = event.getContact();
                 if ((phoneNumber != null) && !(phoneNumber.isEmpty())) {
-                    if (getApplicationContext().checkSelfPermission(Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
-                        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber));
 
-                        startActivity(intent);
+                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber));
+
+                    if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                        // TODO: Consider calling
+                        //    ActivityCompat#requestPermissions
+                        // here to request the missing permissions, and then overriding
+                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                        //                                          int[] grantResults)
+                        // to handle the case where the user grants the permission. See the documentation
+                        // for ActivityCompat#requestPermissions for more details.
+                        return;
                     }
+                    startActivity(intent);
+
                 }
 
             }

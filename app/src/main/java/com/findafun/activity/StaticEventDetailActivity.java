@@ -2,7 +2,6 @@ package com.findafun.activity;
 
 import android.Manifest;
 import android.animation.Animator;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -99,7 +98,7 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
     private TextView txtEventTime, txtEventDate, txtEventEntry, txtEventContact, txtEventEmail, txtWebSite;
     private TextView txtViewMore, txtViewLess;
     private ViewFlipper imgEventBanner;
-  //  private final GestureDetector detector = new GestureDetector(new SwipeGestureDetector());
+    //  private final GestureDetector detector = new GestureDetector(new SwipeGestureDetector());
     LinearLayout count_layout;
     int count = 0;
     static TextView page_text[];
@@ -122,7 +121,7 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
     private ArrayList<ImageInfo> imgImageInfos = new ArrayList<>();
     int curRate;
     private int mShortAnimationDuration;
-    ImageView banner_image_one,banner_image_two,banner_image_three,banner_image_four,banner_image_five;
+    ImageView banner_image_one, banner_image_two, banner_image_three, banner_image_four, banner_image_five;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -388,9 +387,9 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
             txtEventEmail.setText("N/A");
         }
 
-        uImageLoader.displayImage(event.getEventLogo(),banner_image_one);
-        uImageLoader.displayImage("http://placehold.it/120x120&text=image2",banner_image_two);
-        uImageLoader.displayImage("http://placehold.it/120x120&text=image3",banner_image_three);
+        uImageLoader.displayImage(event.getEventLogo(), banner_image_one);
+        uImageLoader.displayImage("http://placehold.it/120x120&text=image2", banner_image_two);
+        uImageLoader.displayImage("http://placehold.it/120x120&text=image3", banner_image_three);
 
 
         Log.d(TAG, "Image uri is" + event.getEventBanner());
@@ -501,16 +500,28 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
         });
 
         contactBtn.setOnClickListener(new View.OnClickListener() {
-            @TargetApi(Build.VERSION_CODES.M)
+
             @Override
             public void onClick(View v) {
                 String phoneNumber = event.getContact();
                 if ((phoneNumber != null) && !(phoneNumber.isEmpty())) {
-                    if (getApplicationContext().checkSelfPermission(Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
-                        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber));
 
-                        startActivity(intent);
+
+                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber));
+
+                    if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                        // TODO: Consider calling
+                        //    ActivityCompat#requestPermissions
+                        // here to request the missing permissions, and then overriding
+                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                        //                                          int[] grantResults)
+                        // to handle the case where the user grants the permission. See the documentation
+                        // for ActivityCompat#requestPermissions for more details.
+                        return;
                     }
+                    startActivity(intent);
+
+
                 }
             }
         });
