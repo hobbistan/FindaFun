@@ -2,6 +2,7 @@ package com.findafun.activity;
 
 import android.Manifest;
 import android.animation.Animator;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -500,13 +501,16 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
         });
 
         contactBtn.setOnClickListener(new View.OnClickListener() {
+            @TargetApi(Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
                 String phoneNumber = event.getContact();
                 if ((phoneNumber != null) && !(phoneNumber.isEmpty())) {
-                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber));
+                    if (getApplicationContext().checkSelfPermission(Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+                        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber));
 
-                    //startActivity(intent);
+                        startActivity(intent);
+                    }
                 }
             }
         });
