@@ -40,7 +40,7 @@
     <Button
         android:id="@+id/btn_sign_in"
         android:layout_width="140dp"
-        android:layout_height="wrap_content"
+        android:layout_height="33dp"
         android:layout_below="@+id/editText_password"
         android:text="Sign In"
         android:layout_centerHorizontal="true"
@@ -130,6 +130,7 @@
             android:background="@color/colorWhite"
             android:drawableLeft="@drawable/gplus_new"
             android:minWidth="30dp"
+            android:visibility="gone"
             android:minHeight="30dp"
             android:layout_marginLeft="30dp"
             android:drawablePadding="2dp"

@@ -13,83 +13,77 @@
         android:id="@+id/editText_name"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
-        android:hint="Name"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:backgroundTint="@color/colorWhite"
         android:drawableLeft="@drawable/login_name_icon"
         android:drawablePadding="8dp"
-        android:layout_gravity="center"
+        android:hint="Name"
         android:textColor="@color/colorWhite"
-        android:textColorHint="@color/colorWhite"
-        android:backgroundTint="@color/colorWhite"
-        android:layout_marginTop="30dp"
-        />
+        android:textColorHint="@color/colorWhite" />
 
     <EditText
         android:id="@+id/editText_email"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
-        android:hint="Email"
-        android:drawableLeft="@drawable/login_mail_icon"
-        android:drawablePadding="8dp"
         android:layout_below="@+id/editText_name"
         android:layout_gravity="center"
-        android:textColor="@color/colorWhite"
-        android:textColorHint="@color/colorWhite"
         android:backgroundTint="@color/colorWhite"
-        />
+        android:drawableLeft="@drawable/login_mail_icon"
+        android:drawablePadding="8dp"
+        android:hint="Email"
+        android:textColor="@color/colorWhite"
+        android:textColorHint="@color/colorWhite" />
 
     <EditText
         android:id="@+id/editText_password"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/editText_email"
-        android:hint="Password"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/colorWhite"
         android:drawableLeft="@drawable/login_pass_icon"
         android:drawablePadding="8dp"
-        android:layout_gravity="center"
-        android:textColor="@color/colorWhite"
-        android:textColorHint="@color/colorWhite"
+        android:hint="Password"
         android:inputType="textWebPassword"
-        android:backgroundTint="@color/colorWhite"
-        />
+        android:textColor="@color/colorWhite"
+        android:textColorHint="@color/colorWhite" />
 
     <TextView
         android:id="@+id/textView_agreeing_up"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:text="By signing up, I agree With Hobbistan's"
         android:layout_below="@+id/editText_password"
         android:layout_gravity="center"
-        android:textColor="@color/colorWhite"
         android:layout_marginTop="20dp"
-        />
+        android:text="By signing up, I agree With Hobbistan's"
+        android:textColor="@color/colorWhite" />
 
     <TextView
         android:id="@+id/textView_terms"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:text="Terms and Conditions"
         android:layout_below="@+id/textView_agreeing_up"
         android:layout_gravity="center"
-        android:gravity="center"
-        android:textColor="@color/colorWhite"
         android:layout_marginTop="16dp"
-        />
+        android:gravity="center"
+        android:text="Terms and Conditions"
+        android:textColor="@color/colorWhite" />
 
     <Button
         android:id="@+id/btn_sign_up"
         android:layout_width="120dp"
-        android:layout_height="wrap_content"
+        android:layout_height="33dp"
         android:layout_below="@+id/textView_terms"
-        android:text="Sign Up"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
-        android:textColor="@color/colorWhite"
-        android:background="@color/colorGreen"
         android:layout_marginTop="16dp"
-        android:textSize="16dp"
-        android:minWidth="0dp"
+        android:background="@color/colorGreen"
         android:minHeight="0dp"
-        />
+        android:minWidth="0dp"
+        android:text="Sign Up"
+        android:textColor="@color/colorWhite"
+        android:textSize="16dp" />
 
 
     <ImageView
@@ -97,77 +91,76 @@
         android:layout_width="140dp"
         android:layout_height="20dp"
         android:layout_below="@+id/btn_sign_up"
-        android:text="Sign In"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
-        android:textColor="@color/colorWhite"
-        android:background="@android:color/transparent"
         android:layout_marginTop="20dp"
-        android:minWidth="0dp"
+        android:background="@android:color/transparent"
         android:minHeight="0dp"
-        android:textSize="16dp"
-        android:src="@drawable/or_symbol"
-        />
-
-
-   <!-- <TextView
-        android:id="@+id/text_account_exists"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView_terms"
-        android:text="Already Have An Account"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
-        android:textColor="@color/colorWhite"
-        android:layout_marginTop="16dp"
-        android:textSize="16dp"
         android:minWidth="0dp"
-        android:minHeight="0dp" />-->
+        android:src="@drawable/or_symbol"
+        android:text="Sign In"
+        android:textColor="@color/colorWhite"
+        android:textSize="16dp" />
+
+
+    <!-- <TextView
+         android:id="@+id/text_account_exists"
+         android:layout_width="200dp"
+         android:layout_height="wrap_content"
+         android:layout_below="@+id/textView_terms"
+         android:text="Already Have An Account"
+         android:layout_centerHorizontal="true"
+         android:layout_gravity="center"
+         android:textColor="@color/colorWhite"
+         android:layout_marginTop="16dp"
+         android:textSize="16dp"
+         android:minWidth="0dp"
+         android:minHeight="0dp" />-->
 
 
     <LinearLayout
-        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
         android:gravity="center"
+        android:orientation="horizontal"
 
         >
+
         <Button
             android:id="@+id/frag_signup_fb"
             android:layout_width="160dp"
             android:layout_height="30dp"
             android:layout_below="@+id/editText_password"
-            android:text="Sign In with facebook"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
-            android:textColor="@color/colorPrimary"
             android:background="@color/colorWhite"
             android:drawableLeft="@drawable/fb"
-            android:minWidth="0dp"
-            android:minHeight="0dp"
             android:drawablePadding="5dp"
-            android:textSize="10dp"
-            />
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:text="Sign In with facebook"
+            android:textColor="@color/colorPrimary"
+            android:textSize="10dp" />
 
         <Button
             android:id="@+id/frag_signup_google"
             android:layout_width="160dp"
             android:layout_height="30dp"
             android:layout_below="@+id/editText_password"
-            android:text="Sign In with google+"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
-            android:textColor="@color/colorRed"
+            android:layout_marginLeft="30dp"
             android:background="@color/colorWhite"
             android:drawableLeft="@drawable/gplus_new"
-            android:minWidth="0dp"
-            android:minHeight="0dp"
-            android:layout_marginLeft="30dp"
             android:drawablePadding="5dp"
-            android:textSize="10dp"
-            />
+            android:visibility="gone"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:text="Sign In with google+"
+            android:textColor="@color/colorRed"
+            android:textSize="10dp" />
     </LinearLayout>
 
 

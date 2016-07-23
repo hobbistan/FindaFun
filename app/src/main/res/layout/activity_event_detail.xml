@@ -39,8 +39,8 @@
                     android:id="@+id/banner_gallery_paging"
                     android:layout_width="fill_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:layout_above="@+id/image_count">
+                    android:layout_above="@+id/image_count"
+                    android:orientation="vertical">
 
                     <ViewFlipper
                         android:id="@+id/banner_one"
@@ -60,46 +60,43 @@
                             android:id="@+id/banner_image_one"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_gravity="center_horizontal"
                             android:layout_alignParentLeft="true"
                             android:layout_alignParentRight="true"
-                            />
+                            android:layout_gravity="center_horizontal" />
 
                         <ImageView
                             android:id="@+id/banner_image_two"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_gravity="center_horizontal"
                             android:layout_alignParentLeft="true"
                             android:layout_alignParentRight="true"
-                            />
+                            android:layout_gravity="center_horizontal" />
 
                         <ImageView
                             android:id="@+id/banner_image_three"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_gravity="center_horizontal"
                             android:layout_alignParentLeft="true"
                             android:layout_alignParentRight="true"
-                            />
+                            android:layout_gravity="center_horizontal" />
 
-                    <!--    <ImageView
-                            android:id="@+id/banner_image_four"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentRight="true"
-                            />
+                        <!--    <ImageView
+                                android:id="@+id/banner_image_four"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentRight="true"
+                                />
 
-                        <ImageView
-                            android:id="@+id/banner_image_five"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentRight="true"
-                            />-->
+                            <ImageView
+                                android:id="@+id/banner_image_five"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentRight="true"
+                                />-->
 
                     </ViewFlipper>
 
@@ -110,12 +107,12 @@
                     android:id="@+id/image_count"
                     android:layout_width="fill_parent"
                     android:layout_height="30dp"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:background="@color/bg_gray"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"></LinearLayout>
+                    android:layout_alignParentStart="true"
+                    android:background="@color/bg_gray"
+                    android:gravity="center"
+                    android:orientation="vertical"></LinearLayout>
 
 
                 <!-- <TextView
@@ -229,8 +226,8 @@
                 android:drawablePadding="10dp"
                 android:paddingLeft="5dp"
                 android:text="Review"
-                android:visibility="gone"
-                android:textSize="10dp" />
+                android:textSize="10dp"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:layout_width="match_parent"

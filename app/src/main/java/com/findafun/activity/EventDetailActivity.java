@@ -527,21 +527,17 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
             public void onClick(View v) {
                 Log.d(TAG, "Bookmark Button selected" + event.getId());
 
-
-        //        getCalender();
-
-
-
                 if (mServiceHelper == null) {
                     mServiceHelper = new EventServiceHelper(EventDetailActivity.this);
                     mServiceHelper.setEventServiceListener(EventDetailActivity.this);
 
                 }
                 if (GamificationDataHolder.getInstance().isEventBookmarked(event.getId())) {
-                    Toast.makeText(EventDetailActivity.this, "Event already bookmarked", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(EventDetailActivity.this, "Event already bookmarked", Toast.LENGTH_SHORT).show();
 
                 } else {
                     try {
+                        Toast.makeText(EventDetailActivity.this, "Wishlist added successfully", Toast.LENGTH_SHORT).show();
                         mServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.ADD_EVENT_BOOKMARK,
                                 Integer.parseInt(PreferenceStorage.getUserId(EventDetailActivity.this)), Integer.parseInt((event.getId()))));
                     } catch (Exception e) {
