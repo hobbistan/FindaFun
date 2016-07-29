@@ -76,6 +76,7 @@ public class SignupFragment extends Fragment implements View.OnClickListener, IS
 
     private static final String TAG = SignupFragment.class.getName();
 
+    int signUpClick=1;
 
     private static final int RC_SIGN_IN = 0;
     private static final int REQUEST_CODE_TOKEN_AUTH = 1;
@@ -228,6 +229,7 @@ public class SignupFragment extends Fragment implements View.OnClickListener, IS
                 if (validateFields()) {
                     JSONObject jsonObject = new JSONObject();
                     try {
+                        signUpClick=2;
                         jsonObject.put(FindAFunConstants.PARAMS_FUNC_NAME, "sign_up_latest");
                         jsonObject.put(FindAFunConstants.PARAMS_USER_NAME, edtUserName.getText().toString());
                         jsonObject.put("user_password", edtPassword.getText().toString());
@@ -246,6 +248,8 @@ public class SignupFragment extends Fragment implements View.OnClickListener, IS
                 Intent signUpIntent = new Intent(getActivity(), SignupFragment.class);
                 startActivity(signUpIntent);
             } else if (view == btnGPlus) {
+
+
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     PreferenceStorage.saveLoginMode(getActivity(), FindAFunConstants.GOOGLE_PLUS);
                     mSelectedLoginMode = FindAFunConstants.FACEBOOK;
@@ -606,25 +610,50 @@ public class SignupFragment extends Fragment implements View.OnClickListener, IS
         progressDialogHelper.hideProgressDialog();
         if (validateSignInResponse(response)) {
 
-            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
-            alertDialogBuilder.setTitle("Registration Successful");
+
+            if(signUpClick==2){
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+                alertDialogBuilder.setTitle("Registration Successful");
 
 
-            alertDialogBuilder.setMessage("Activation Link sent to your email. Activate it and perform Sign In");
-            alertDialogBuilder.setPositiveButton("OK",
-                    new DialogInterface.OnClickListener() {
+                alertDialogBuilder.setMessage("Activation Link sent to your email. Activate it and perform Sign In");
+                alertDialogBuilder.setPositiveButton("OK",
+                        new DialogInterface.OnClickListener() {
 
-                        @Override
-                        public void onClick(DialogInterface arg0, int arg1) {
-                            Intent intent = new Intent(getActivity(), LoginNewActivity.class);
-                            startActivity(intent);
-                            getActivity().finish();
+                            @Override
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                Intent intent = new Intent(getActivity(), LoginNewActivity.class);
+                                startActivity(intent);
+                                getActivity().finish();
 
-                        }
-                    });
+                            }
+                        });
 
-            AlertDialog alertDialog = alertDialogBuilder.create();
-            alertDialog.show();
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+            } else{
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+                alertDialogBuilder.setTitle("Registration Successful");
+
+
+                alertDialogBuilder.setMessage("Please Sign In");
+                alertDialogBuilder.setPositiveButton("OK",
+                        new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                Intent intent = new Intent(getActivity(), LoginNewActivity.class);
+                                startActivity(intent);
+                                getActivity().finish();
+
+                            }
+                        });
+
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+            }
+
+
             /*Intent intent = new Intent(this, SelectCityActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
