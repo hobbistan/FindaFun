@@ -222,7 +222,7 @@ public class StaticFragment extends LandingPagerFragment implements  OnMapReadyC
                 listAppearenceNearBy.setBackgroundDrawable(mNearbyTabSelected);
                 mLocationBtn_hp.setImageDrawable(munselectedlocationicon_hp);
                 listAppearence.setImageDrawable(munselectedlisticon_hp);
-                listAppearenceNearBy.setImageDrawable(munselectednearbyicon);
+                listAppearenceNearBy.setImageDrawable(mselectednearbyicon);
 
                 mTotalEventCount_hp.setText(Integer.toString(eventsArrayList.size()) + " Hotspot Events");
             }

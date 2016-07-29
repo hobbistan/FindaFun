@@ -121,7 +121,6 @@ public class SignupFragment extends Fragment implements View.OnClickListener, IS
                     .addScope(Plus.SCOPE_PLUS_LOGIN)
                     .build();
 
-
         } else {
             GooglePlayServicesUtil.getErrorDialog(GooglePlayServicesUtil.isGooglePlayServicesAvailable(getActivity()),
                     getActivity(),
@@ -138,7 +137,6 @@ public class SignupFragment extends Fragment implements View.OnClickListener, IS
         signUpServiceHelper = new SignUpServiceHelper(getActivity());
         signUpServiceHelper.setSignUpServiceListener(this);
         progressDialogHelper = new ProgressDialogHelper(getActivity());
-
 
         return viewResult;
     }
@@ -182,7 +180,7 @@ public class SignupFragment extends Fragment implements View.OnClickListener, IS
                                             JSONObject jsonObject = new JSONObject();
                                             Log.d(TAG, "Received Facebook profile" + me.toString());
                                             try {
-                                                jsonObject.put(FindAFunConstants.PARAMS_FUNC_NAME, "sign_in");
+                                                jsonObject.put(FindAFunConstants.PARAMS_FUNC_NAME, "sign_up_latest");
                                                 jsonObject.put(FindAFunConstants.PARAMS_USER_NAME, email);
                                                 jsonObject.put(FindAFunConstants.PARAMS_USER_PASSWORD, FindAFunConstants.DEFAULT_PASSWORD);
                                                 jsonObject.put(FindAFunConstants.PARAMS_SIGN_UP_TYPE, "1");

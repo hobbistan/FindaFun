@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "553186088702",
+    "firebase_url": "https://hobbistan-1266.firebaseio.com",
+    "project_id": "hobbistan-1266",
+    "storage_bucket": "hobbistan-1266.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:553186088702:android:45e23566081342ad",
+        "android_client_info": {
+          "package_name": "com.findafun"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "553186088702-f47hevlhgtl8dlj7hu17f9f0vbpqv866.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.findafun",
+            "certificate_hash": "C42D74F91E655F77ACDF7F7175F4C95E340F13BF"
+          }
+        },
+        {
+          "client_id": "553186088702-8bo67k90tno35218rtmdngb54oapcu2h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.findafun",
+            "certificate_hash": "7EEFC60239C615F5723C4C1C1F301A5AFE51AEE8"
+          }
+        },
+        {
+          "client_id": "553186088702-l7c6jabof298ea5t6k4em38egup79pbe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.findafun",
+            "certificate_hash": "14DA3DA80A646C2FC4820FCEEE24E6E5DA0A317A"
+          }
+        },
+        {
+          "client_id": "553186088702-irjoo78mv1g5t6p56pdtu4p7kto7f177.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "553186088702-oaaf09bf6g9mhkr4pjt3863rpgsqrbm2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBX5wuBCSgPjxBDlW0FxhTHdKiHFQPm8zY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "553186088702-d389ictvhpesh98jomp51lo83f9008cr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.kptech.Hobbistan"
+              }
+            },
+            {
+              "client_id": "553186088702-irjoo78mv1g5t6p56pdtu4p7kto7f177.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

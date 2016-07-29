@@ -458,12 +458,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener,Dial
         }
     }
 
-
-
-
-
-
-
     @Override
     public void onConnected(Bundle bundle) {
         mSignInClicked = false;
@@ -790,19 +784,11 @@ public class LoginFragment extends Fragment implements View.OnClickListener,Dial
                 } else {
                     super.onRequestPermissionsResult(requestCode, permissions, grantResults);
                 }
-
-
             }
 
             // other 'case' lines to check for other
             // permissions this app might request
         }
-
-
-
-
-
-
     }
 
 

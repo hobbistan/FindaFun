@@ -124,7 +124,7 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
     private void sendShareStatustoServer() {
         ShareServiceHelper serviceHelper = new ShareServiceHelper(this);
         int eventId = 0;
-        int ruleid = 1;
+        int ruleid = 5;
         int ticketcount = 0;
         String activitydetail = "Login Status";
         serviceHelper.postShareDetails(String.format(FindAFunConstants.SHARE_EVENT_LOGIN_COUNT_URL, eventId, Integer.parseInt(PreferenceStorage.getUserId(this)),

@@ -404,7 +404,6 @@ public class AdvanceSearchAct extends AppCompatActivity implements AdapterView.O
 
                     datePressed = true;
 
-
                 } else {
                     findViewById(R.id.btnselectdate).setBackgroundColor(getResources().getColor(R.color.btngreybg));
                     findViewById(R.id.btntomorrow).setBackgroundColor(getResources().getColor(R.color.btngreybg));
@@ -413,7 +412,6 @@ public class AdvanceSearchAct extends AppCompatActivity implements AdapterView.O
                     datePressed = false;
                     todayPressed = false;
                     tomorrowPressed = false;
-
                 }
 
                 break;
@@ -445,7 +443,6 @@ public class AdvanceSearchAct extends AppCompatActivity implements AdapterView.O
                     tomorrowPressed = false;
                     datePressed = false;
                     todayPressed = false;
-
                 }
                 ((Button) findViewById(R.id.btnselectdate)).setText("DD-MM-YYYY");
                 break;
@@ -474,7 +471,6 @@ public class AdvanceSearchAct extends AppCompatActivity implements AdapterView.O
                     todayPressed = false;
                     datePressed = false;
                     tomorrowPressed = false;
-
                 }
                 break;
             case R.id.btnapply:
