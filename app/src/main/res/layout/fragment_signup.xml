@@ -2,11 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:background="@color/colorRed"
-    android:orientation="vertical"
-
-    >
+    android:orientation="vertical">
 
 
     <EditText
@@ -124,9 +121,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:orientation="horizontal"
-
-        >
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/frag_signup_fb"
@@ -140,7 +135,7 @@
             android:drawablePadding="5dp"
             android:minHeight="0dp"
             android:minWidth="0dp"
-            android:text="Sign In with facebook"
+            android:text="Sign Up with facebook"
             android:textColor="@color/colorPrimary"
             android:textSize="10dp" />
 
@@ -155,12 +150,12 @@
             android:background="@color/colorWhite"
             android:drawableLeft="@drawable/gplus_new"
             android:drawablePadding="5dp"
-            android:visibility="gone"
             android:minHeight="0dp"
             android:minWidth="0dp"
             android:text="Sign In with google+"
             android:textColor="@color/colorRed"
-            android:textSize="10dp" />
+            android:textSize="10dp"
+            android:visibility="gone" />
     </LinearLayout>
 
 

@@ -35,7 +35,7 @@ public class LoginNewActivity extends AppCompatActivity implements DialogClickLi
         FirstTimePreference prefFirstTime = new FirstTimePreference(getApplicationContext());
 
         if (prefFirstTime.runTheFirstTime("FirstTimePermit")) {
-            if (android.os.Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 requestAllPermissions();
             }
         }
