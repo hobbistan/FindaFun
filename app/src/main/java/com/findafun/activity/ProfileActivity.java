@@ -298,7 +298,7 @@ public class ProfileActivity extends AppCompatActivity implements DialogClickLis
         mOccupationList.add("Student");
         mOccupationList.add("Employed");
 
-        mOccupationList.add("Self Employed/Bussiness");
+        mOccupationList.add("Self Employed/Business");
         mOccupationList.add("Home Maker");
         mOccupationList.add("Other");
         mOccupationAdapter = new ArrayAdapter<String>(this, R.layout.gender_layout, R.id.gender_name, mOccupationList) { // The third parameter works around ugly Android legacy. http://stackoverflow.com/a/18529511/145173
