@@ -38,6 +38,7 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.findafun.R;
 import com.findafun.activity.LoginNewActivity;
 import com.findafun.activity.TermsAndConditionsActivity;
@@ -82,7 +83,8 @@ public class SignupFragment extends Fragment implements View.OnClickListener, IS
     private static final int REQUEST_CODE_TOKEN_AUTH = 1;
     private static final int MY_PERMISSIONS_REQUEST_GET_ACCOUNTS = 100;
     private CallbackManager callbackManager;
-    private Button btnFacebook, btnGPlus;
+    private Button btnFacebook,btnGPlus;
+//    LoginButton btnFacebook;
     private Button btnSignUp;
     private SignUpServiceHelper signUpServiceHelper;
     private EditText edtUserName, edtPassword, name, city;

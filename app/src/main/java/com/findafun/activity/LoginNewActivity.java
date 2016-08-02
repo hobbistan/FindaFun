@@ -1,12 +1,16 @@
 package com.findafun.activity;
 
 import android.Manifest;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.util.Log;
 
 import com.facebook.FacebookSdk;
@@ -15,6 +19,9 @@ import com.findafun.R;
 import com.findafun.adapter.LoginNewAdapter;
 import com.findafun.interfaces.DialogClickListener;
 import com.findafun.utils.PermissionUtil;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class LoginNewActivity extends AppCompatActivity implements DialogClickListener {
     private static final String TAG = LoginNewActivity.class.getName();
@@ -39,6 +46,24 @@ public class LoginNewActivity extends AppCompatActivity implements DialogClickLi
                 requestAllPermissions();
             }
         }
+
+        Log.i(TAG,
+                "Displaying contacts permission rationale to provide additional context.");
+
+        /*try {
+            PackageInfo info = getPackageManager().getPackageInfo(
+                    "world.of.fun",
+                    PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+
+        } catch (NoSuchAlgorithmException e) {
+
+        }*/
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Sign In"));
