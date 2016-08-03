@@ -110,7 +110,7 @@ public class EventsListAdapter extends BaseAdapter {
             //Log.d("Event List Adapter", "position is"+ position);
 
         }else{
-           // Log.d("Event List Adapter","getview pos called"+ position);
+            Log.d("Event List Adapter","getview pos called"+ position);
         }
 
         Event event = events.get(position);
