@@ -39,8 +39,9 @@
                     android:id="@+id/banner_gallery_paging"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-
-                    android:orientation="vertical">
+                    android:layout_above="@+id/image_count"
+                    android:orientation="vertical"
+                    android:layout_alignParentBottom="true">
 
                     <ViewFlipper
                         android:id="@+id/banner_one"
@@ -63,6 +64,8 @@
                             android:layout_gravity="center_horizontal"
                             android:layout_alignParentLeft="true"
                             android:layout_alignParentRight="true"
+                            android:layout_centerInParent="true"
+                            android:scaleType="centerCrop"
                             />
 
                         <ImageView
@@ -102,16 +105,22 @@
                                 />-->
 
                     </ViewFlipper>
-
+                </LinearLayout>
                     <LinearLayout
                         android:id="@+id/image_count"
                         android:layout_width="fill_parent"
-                        android:layout_height="25dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:background="@color/bg_gray"
                         android:gravity="center"
-                        android:orientation="vertical"></LinearLayout>
+                        android:orientation="vertical"
+                        android:visibility="gone"
+                        ></LinearLayout>
 
 
-                </LinearLayout>
+
 
 
                 <!-- <TextView
