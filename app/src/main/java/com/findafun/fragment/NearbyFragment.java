@@ -90,6 +90,8 @@ public class NearbyFragment extends LandingPagerFragment implements OnMapReadyCa
     private boolean mNearbySelected = false;
     private int mTotalReceivedEvents =0;
 
+    private int distanceFlag = 1;
+
     public static final CameraPosition COIMBATORE =
             new CameraPosition.Builder().target(new LatLng(11.00, 77.00))
                     .zoom(15.5f)
@@ -444,9 +446,13 @@ public class NearbyFragment extends LandingPagerFragment implements OnMapReadyCa
                         temEventLoc.setLongitude(Double.parseDouble(event.getEventLongitude()));
                         float distance = mLastLocation.distanceTo(temEventLoc);
                         Log.d(TAG,"calculated distance is"+ distance);
-                       if(distance < (35 * 1000)){
+                        if (distanceFlag==2){
+                            if(distance < (5 * 1000)) {
+                                mNearbyLIst.add(event);
+                            }
+                        } else {
                             mNearbyLIst.add(event);
-                       }
+                        }
                     }
                     i++;
 

@@ -140,20 +140,20 @@
             android:textSize="10dp" />-->
 
         <Button
-        android:id="@+id/frag_signup_fb"
-        android:layout_width="160dp"
-        android:layout_height="30dp"
-        android:layout_below="@+id/editText_password"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
-        android:background="@color/colorWhite"
-        android:drawableLeft="@drawable/fb"
-        android:drawablePadding="5dp"
-        android:minHeight="0dp"
-        android:minWidth="0dp"
-        android:text="Sign Up with facebook"
-        android:textColor="@color/colorPrimary"
-        android:textSize="10dp" />
+            android:id="@+id/frag_signup_fb"
+            android:layout_width="160dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/editText_password"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:background="@color/colorWhite"
+            android:drawableLeft="@drawable/fb"
+            android:drawablePadding="5dp"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:text="Sign Up with facebook"
+            android:textColor="@color/colorPrimary"
+            android:textSize="10dp" />
 
         <Button
             android:id="@+id/frag_signup_google"
@@ -170,8 +170,7 @@
             android:minWidth="0dp"
             android:text="Sign In with google+"
             android:textColor="@color/colorRed"
-            android:textSize="10dp"
-            android:visibility="gone" />
+            android:textSize="10dp" />
     </LinearLayout>
 
 

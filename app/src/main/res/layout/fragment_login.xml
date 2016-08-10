@@ -136,8 +136,7 @@
             android:minWidth="30dp"
             android:text="Sign In with google+"
             android:textColor="@color/colorRed"
-            android:textSize="10dp"
-            android:visibility="gone" />
+            android:textSize="10dp" />
     </LinearLayout>
 
 

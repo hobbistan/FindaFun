@@ -114,6 +114,8 @@ public class StaticFragment extends LandingPagerFragment implements  OnMapReadyC
     Handler mHandler = new Handler();
     private TextView mNoEventsFound = null;
 
+    private int distanceFlag = 1;
+
     public static final CameraPosition COIMBATORE =
             new CameraPosition.Builder().target(new LatLng(11.00, 77.00))
                     .zoom(15.5f)
@@ -212,6 +214,7 @@ public class StaticFragment extends LandingPagerFragment implements  OnMapReadyC
                 listAppearenceNearBy.setImageDrawable(mselectednearbyicon);
 
                 mTotalEventCount_hp.setText(Integer.toString(eventsArrayList.size())+ " Nearby Events");*/
+                distanceFlag = 2;
                 LocationHelper.FindLocationManager(getContext());
 
                 mMapView_hp.setVisibility(View.VISIBLE);
@@ -512,7 +515,14 @@ public class StaticFragment extends LandingPagerFragment implements  OnMapReadyC
                         float distance = mLastLocation_hp.distanceTo(temEventLoc);
                         Log.d(TAG, "calculated distance is" + distance);
                         //if(distance < (350 * 1000)){
-                        mNearbyLIst.add(event);
+                        if (distanceFlag==2){
+                            if(distance < (5 * 1000)) {
+                                mNearbyLIst.add(event);
+                            }
+                        } else {
+                            mNearbyLIst.add(event);
+                        }
+
                         //}
                     }
                     i++;
