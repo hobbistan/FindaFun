@@ -96,7 +96,6 @@ public class LandingPagerFragment extends Fragment implements  IEventServiceList
         eventServiceHelper = new EventServiceHelper(getActivity());
         eventServiceHelper.setEventServiceListener(this);
         progressDialogHelper = new ProgressDialogHelper(getActivity());
-
     }
 
     public void callGetEventService(int position) {
@@ -628,6 +627,8 @@ public class LandingPagerFragment extends Fragment implements  IEventServiceList
             }
         });
     }
+
+
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

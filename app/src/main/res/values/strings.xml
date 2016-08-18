@@ -11,8 +11,8 @@
   <!--  <string name="facebook_app_id">490051547856209</string>-->
     <string name="facebook_app_id">559741347567067</string>
     <!-- Login Screen -->
-    <string name="hint_email">Enter Email</string>
-    <string name="hint_password">Password</string>
+    <string name="hint_email">\tE-Mail ID</string>
+    <string name="hint_password">\tPassword</string>
     <string name="forgot_passwords">Forgot Your Password?</string>
     <string name="forgot_password"><u>Forgot Your Password?</u></string>
     <string name="dont_have_account">Don\'t Have an Account? Click Here</string>
@@ -58,7 +58,7 @@
     <string name="create_account">Create account</string>
     <string name="sign_up">Sign Up</string>
     <string name="sign_up_using">Sign up using</string>
-    <string name="hint_enter_name">Enter Full name</string>
+    <string name="hint_enter_name">\tName</string>
     <string name="by_agreeing">By Signing up, I agree to Hobbistan\'s</string>
     <string name="terms_and_conditions">Terms and conditions</string>
     <string name="wishlist">Wishlist</string>
@@ -71,7 +71,9 @@
     <string name="title_activity_addEvent">Add Events</string>
     <string name="title_activity_maps">Map</string>
   <!-- <string name="google_maps_key">AIzaSyAw8BodwUeiF0YNud7Kfm_D8QZexZf9Nh8</string>-->
+    <!--Working State-->
     <string name="google_maps_key">AIzaSyAzH0XCvT3Ae7XqFymrdCdiza80Y5HBsdE</string>
+    <!--End-->
     <!--<string name="google_maps_key">AIzaSyAkOCf-Dk1RIAP7fmcfQdVzahmPHQJSpgk</string>-->
     <string name="gps_network_not_enabled">Enable GPS</string>
     <string name="open_location_settings">Open location manager</string>

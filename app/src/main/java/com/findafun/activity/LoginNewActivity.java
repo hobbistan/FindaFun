@@ -94,7 +94,6 @@ public class LoginNewActivity extends AppCompatActivity implements DialogClickLi
         });
     }
 
-
     private void requestAllPermissions() {
 
         boolean requestPermission = PermissionUtil.requestAllPermissions(this);
@@ -105,24 +104,15 @@ public class LoginNewActivity extends AppCompatActivity implements DialogClickLi
                     "Displaying contacts permission rationale to provide additional context.");
 
             // Display a SnackBar with an explanation and a button to trigger the request.
-/*            Snackbar.make(mLayout, R.string.permission_contacts_rationale,
-                    Snackbar.LENGTH_INDEFINITE)
-                    .setAction(R.string.ok, new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {*/
+
             ActivityCompat
                     .requestPermissions(LoginNewActivity.this, PERMISSIONS_ALL,
                             REQUEST_PERMISSION_All);
-                    /*    }
-                    })
-                    .show();*/
-
         } else {
 
             ActivityCompat.requestPermissions(this, PERMISSIONS_ALL, REQUEST_PERMISSION_All);
         }
     }
-
 
     @Override
     public void onAlertPositiveClicked(int tag) {
