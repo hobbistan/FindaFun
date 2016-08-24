@@ -785,7 +785,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener,Dial
                     String phone = userData.getString("phone");
                     String gender = userData.getString("gender");
                     String birthday = userData.getString("birthday");
-                    String city = userData.getString("city");
+                    String city = userData.getString("city_name");
                     String occupation = userData.getString("occupation");
                     String userImageUrl = userData.getString("user_image");
                     if ((name != null) && !(name.isEmpty()) && !name.equalsIgnoreCase("null")) {

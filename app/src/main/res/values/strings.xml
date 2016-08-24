@@ -54,6 +54,7 @@
     <string name="title_activity_select_city">Select City</string>
     <string name="select_city">Select your city</string>
     <string name="swipe_up_to_continue">Swipe up to continue</string>
+    <string name="tab_to_continue">Tap to continue</string>
     <string name="title_activity_sample">SampleActivity</string>
     <string name="facebook">Facebook</string>
     <string name="gplus">Google+</string>

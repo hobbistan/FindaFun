@@ -381,7 +381,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
             txtViewMore.setVisibility(View.GONE);
 
         }
-        txtEventVenue.setText(event.getEventVenue());
+        txtEventVenue.setText(event.getEventAddress());
         txtEventVenue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -520,12 +520,15 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
         Button whishListBtn = (Button) findViewById(R.id.whishlist_btn);
         Button shareBtn = (Button) findViewById(R.id.share_btn);
         Button contactBtn = (Button) findViewById(R.id.contact_btn);
+
+        Button engageBtn = (Button) findViewById(R.id.engage_btn);
+        Button bookingBtn = (Button) findViewById(R.id.booking_btn);
+        Button checkinsBtn = (Button) findViewById(R.id.checkins_btn);
+
         whishListBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Bookmark Button selected" + event.getId());
-
-
                 //        getCalender();
 
 
@@ -548,6 +551,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
 
             }
         });
+
         shareBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -555,6 +559,31 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
 
             }
         });
+
+        engageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendShareStatusUserActivity(3);
+
+            }
+        });
+
+        bookingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendShareStatusUserActivity(4);
+
+            }
+        });
+
+        checkinsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendShareStatusUserActivity(2);
+
+            }
+        });
+
         contactBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -683,7 +712,6 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
                         img.setImageDrawable(getResources().getDrawable(mShareResources.get(position)));
                     }
 
-
                     // ... Fill in other views ...
                     return view;
                 }
@@ -712,9 +740,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
                 }
             });
 
-
         }
-
 
     }
 
@@ -784,8 +810,6 @@ try {
 }
 }
 
-
-
     private void setCalender() {
         Calendar beginTime = Calendar.getInstance();
 
@@ -808,11 +832,6 @@ try {
       //  endTime.set(2012, 0, 19, 8, 30);
 
         endTime.setTime(fullenddate);
-
-
-
-
-
 
         Intent intent = new Intent(Intent.ACTION_INSERT)
                 .setData(CalendarContract.Events.CONTENT_URI)
@@ -861,6 +880,50 @@ try {
         serviceHelper.postShareDetails(String.format(FindAFunConstants.SHARE_EVENT_URL,eventId, Integer.parseInt(PreferenceStorage.getUserId(this)),
                 ruleid,Uri.encode(activitydetail),event.getEventLogo(),ticketcount),this);
 
+    }
+
+    private void sendShareStatustoServerUserActivity(int RuleId){
+        ShareServiceHelper serviceHelper = new ShareServiceHelper(this);
+        int eventId = Integer.parseInt(event.getId());
+        int ruleid = 1;
+        int ticketcount = 0;
+        String activitydetail = "You have shared photo"+ event.getEventName();
+        serviceHelper.postShareDetails(String.format(FindAFunConstants.SHARE_EVENT_URL,eventId, Integer.parseInt(PreferenceStorage.getUserId(this)),
+                ruleid,Uri.encode(activitydetail),event.getEventLogo(),ticketcount),this);
+
+    }
+
+    private void sendShareStatusUserActivity(int RuleId){
+
+        long currentTime = System.currentTimeMillis();
+        long lastsharedTime = PreferenceStorage.getEventSharedTime(this);
+        int sharedCount = PreferenceStorage.getEventSharedcount(this);
+
+        if( (currentTime - lastsharedTime)  > FindAFunConstants.TWENTY4HOURS ){
+            Log.d(TAG,"event time elapsed more than 24hrs");
+            PreferenceStorage.saveEventSharedtime(this, currentTime);
+            PreferenceStorage.saveEventSharedcount(this, 1);
+
+            //testing
+            int ruleid = RuleId;
+            int ticketcount = 0;
+            String activitydetail = "You have shared photo"+ event.getEventName();
+            int eventId = Integer.parseInt(event.getId());
+            ShareServiceHelper serviceHelper = new ShareServiceHelper(this);
+            serviceHelper.postShareDetails(String.format(FindAFunConstants.SHARE_EVENT_URL,eventId, Integer.parseInt(PreferenceStorage.getUserId(this)),
+                    ruleid,Uri.encode(activitydetail),event.getEventLogo(),ticketcount),this);
+            //testing
+
+
+            sendShareStatustoServerUserActivity(RuleId);
+        }else{
+            if(sharedCount < 2){
+                Log.d(TAG,"event shared cout is"+ sharedCount);
+                sharedCount++;
+                PreferenceStorage.saveEventSharedcount(this, sharedCount);
+                sendShareStatustoServerUserActivity(RuleId);
+            }
+        }
     }
 
     private void sendShareStatus(){

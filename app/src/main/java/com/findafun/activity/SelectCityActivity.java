@@ -1,12 +1,14 @@
 package com.findafun.activity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.net.Uri;
 import android.os.AsyncTask;
 
 
@@ -26,6 +28,8 @@ import com.findafun.adapter.CitySpinnerAdapter;
 import com.findafun.helper.AlertDialogHelper;
 import com.findafun.helper.SimpleGestureFilter;
 import com.findafun.interfaces.DialogClickListener;
+import com.findafun.servicehelpers.SignUpServiceHelper;
+import com.findafun.serviceinterfaces.IServiceListener;
 import com.findafun.utils.FindAFunConstants;
 import com.findafun.utils.PreferenceStorage;
 import com.google.android.gms.common.ConnectionResult;
@@ -52,8 +56,8 @@ import java.util.Locale;
 
 import java.util.concurrent.ExecutionException;
 
-public class SelectCityActivity extends AppCompatActivity implements SimpleGestureFilter.OnSwipeListener, View.OnClickListener,
-        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener , DialogClickListener {
+public class SelectCityActivity extends AppCompatActivity implements View.OnClickListener,
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener , DialogClickListener,IServiceListener {
     private static final String TAG = SelectCityActivity.class.getName();
 
     private SimpleGestureFilter detector;
@@ -64,11 +68,15 @@ public class SelectCityActivity extends AppCompatActivity implements SimpleGestu
     private Activity activity;
     GoogleApiClient mGoogleApiClient = null;
     Location mLastLocation = null;
+    private TextView txtTaptoView;
+    private ProgressDialog mProgressDialog = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_city);
+
+        txtTaptoView = (TextView)findViewById(R.id.txt_swipe_up);
 
         mDecorView = getWindow().getDecorView();
         mDecorView.setSystemUiVisibility(
@@ -82,10 +90,11 @@ public class SelectCityActivity extends AppCompatActivity implements SimpleGestu
         //cityList.add("Coimbatore");
         new FetchCity().execute();
         activity=this;
-        detector = new SimpleGestureFilter(this, this);
+        //detector = new SimpleGestureFilter(this, this);
         txtCityDropDown = (EditText) findViewById(R.id.btn_city_drop_down);
         citySpinnerAdapter = new CitySpinnerAdapter(this, R.layout.city_dropdown_item, cityList);
         txtCityDropDown.setOnClickListener(this);
+        txtTaptoView.setOnClickListener(this);
         //check if user had previously selected city
         String cityName = PreferenceStorage.getUserCity(this);
         if( (cityName != null) && !cityName.isEmpty()){
@@ -93,6 +102,7 @@ public class SelectCityActivity extends AppCompatActivity implements SimpleGestu
         }
 
         TextView autoselectCity = (TextView) findViewById(R.id.auto_select_location);
+
         autoselectCity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,7 +148,7 @@ public class SelectCityActivity extends AppCompatActivity implements SimpleGestu
                 .build();
     }
 
-    @Override
+  /*  @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         // Call onTouchEvent of SimpleGestureFilter class
         this.detector.onTouchEvent(ev);
@@ -159,7 +169,7 @@ public class SelectCityActivity extends AppCompatActivity implements SimpleGestu
                 Toast.makeText(this, "Please select your city", Toast.LENGTH_SHORT).show();
             }
         }
-    }
+    }*/
 
     @Override
     public void onClick(View v) {
@@ -180,7 +190,40 @@ public class SelectCityActivity extends AppCompatActivity implements SimpleGestu
                             dialog.dismiss();
                         }
                     }).create().show();
+        } else if (v == txtTaptoView) {
+            Log.d(TAG,"Swipe up detected");
+            if (!txtCityDropDown.getText().toString().equalsIgnoreCase("Select your City")) {
+                updateUserCity();
+            } else {
+                Toast.makeText(this, "Please select your city", Toast.LENGTH_SHORT).show();
+            }
         }
+    }
+
+    private void updateUserCity() {
+        String userCity = txtCityDropDown.getText().toString();
+        if ((userCity == null) && !(userCity.isEmpty())) {
+            AlertDialogHelper.showSimpleAlertDialog(this, "Please select your city");
+        } else {
+            mProgressDialog = new ProgressDialog(this);
+            mProgressDialog.setIndeterminate(true);
+            mProgressDialog.setMessage("Updating City");
+            mProgressDialog.show();
+                saveCity();
+        }
+    }
+
+    private void saveCity() {
+
+        String cityVal = txtCityDropDown.getText().toString();
+
+
+        String url = String.format(FindAFunConstants.UPDATE_CITY,
+                Integer.parseInt(PreferenceStorage.getUserId(this)), cityVal);
+
+        SignUpServiceHelper mServiceHelper = new SignUpServiceHelper(this);
+        mServiceHelper.updateUserProfile(url, this);
+
     }
 
     @Override
@@ -232,6 +275,38 @@ public class SelectCityActivity extends AppCompatActivity implements SimpleGestu
 
     }
 
+    @Override
+    public void onSuccess(int resultCode, Object result) {
+
+        if (mProgressDialog != null) {
+            mProgressDialog.cancel();
+        }
+        Log.d(TAG, "received on success");
+
+        if (result instanceof JSONObject) {
+            Log.d(TAG, "City was saved successfully");
+
+            //AlertDialogHelper.showSimpleAlertDialog(this, "City updated succesfully");
+
+            Intent intent = new Intent(this, SelectPreferenceActivity.class);
+            intent.putExtra("selectedCity", txtCityDropDown.getText().toString());
+            PreferenceStorage.saveUserCity(this,txtCityDropDown.getText().toString());
+            startActivity(intent);
+            overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
+
+        }
+    }
+
+    @Override
+    public void onError(String erorr) {
+
+        if (mProgressDialog != null) {
+            mProgressDialog.cancel();
+        }
+        AlertDialogHelper.showSimpleAlertDialog(this, "Error saving your city. Try again");
+
+    }
+
     public class CityAsyncTask extends AsyncTask<String, String, String> {
         Activity act;
         double latitude;
@@ -280,10 +355,7 @@ public class SelectCityActivity extends AppCompatActivity implements SimpleGestu
             }else{
                 Toast.makeText(SelectCityActivity.this, "Unable to retrive current location", Toast.LENGTH_SHORT).show();
             }
-
         }
-
-
     }
 
     @Override

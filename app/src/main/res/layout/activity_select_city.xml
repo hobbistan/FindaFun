@@ -63,11 +63,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="10dp"
-        android:drawableBottom="@drawable/up_arrow"
+        android:drawableRight="@drawable/forward_red"
         android:drawablePadding="20dp"
         android:gravity="center"
         android:padding="10dp"
-        android:text="@string/swipe_up_to_continue"
+        android:text="@string/tab_to_continue"
         android:textColor="@color/text_gray"
         android:textSize="18sp" />
 

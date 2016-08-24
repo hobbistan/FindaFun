@@ -20,6 +20,9 @@ public class Event implements Serializable {
     @SerializedName("event_venue")
     @Expose
     private String eventVenue;
+    @SerializedName("event_address")
+    @Expose
+    private String eventAddress;
     @SerializedName("description")
     @Expose
     private String description;
@@ -153,6 +156,20 @@ public class Event implements Serializable {
      * @param eventVenue The event_venue
      */
     public void setEventVenue(String eventVenue) {
+        this.eventVenue = eventVenue;
+    }
+
+    /**
+     * @return The eventVenue
+     */
+    public String getEventAddress() {
+        return eventVenue;
+    }
+
+    /**
+     * @param eventVenue The event_venue
+     */
+    public void setEventAddress(String eventVenue) {
         this.eventVenue = eventVenue;
     }
 
