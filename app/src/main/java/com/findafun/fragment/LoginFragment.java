@@ -90,8 +90,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener,Dial
 
     private View mLayout;
     private CallbackManager callbackManager;
-    private Button  btnFacebook, btnGPlus;
-//    LoginButton btnFacebook;
+    private Button btnFacebook,  btnGPlus; //btnFacebook
+    //LoginButton btnFacebook;
     private Button btnSignIn;
     private SignUpServiceHelper signUpServiceHelper;
     private EditText edtUserName, edtPassword,name,city;

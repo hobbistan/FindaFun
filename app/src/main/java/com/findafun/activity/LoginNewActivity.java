@@ -50,7 +50,7 @@ public class LoginNewActivity extends AppCompatActivity implements DialogClickLi
         Log.i(TAG,
                 "Displaying contacts permission rationale to provide additional context.");
 
-        /*try {
+       /* try {
             PackageInfo info = getPackageManager().getPackageInfo(
                     "world.of.fun",
                     PackageManager.GET_SIGNATURES);
@@ -62,8 +62,24 @@ public class LoginNewActivity extends AppCompatActivity implements DialogClickLi
         } catch (PackageManager.NameNotFoundException e) {
 
         } catch (NoSuchAlgorithmException e) {
+K27vKtzxbAwqs0I1x0KbTZcKUeE=
+        } */
 
-        }*/
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo(
+                    "world.of.fun",  // replace with your unique package name
+                    PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.e("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+
+        } catch (NoSuchAlgorithmException e) {
+
+        }
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Sign In"));

@@ -9,7 +9,9 @@
    <!-- <string name="facebook_app_id">497425313771373</string>-->
   <!--  <string name="facebook_app_id">210139769354530</string>-->
   <!--  <string name="facebook_app_id">490051547856209</string>-->
-    <string name="facebook_app_id">559741347567067</string>
+    <!--<string name="facebook_app_id">559741347567067</string>-->
+    <string name="facebook_app_id">1097547633669382</string>
+
     <!-- Login Screen -->
     <string name="hint_email">\tE-Mail ID</string>
     <string name="hint_password">\tPassword</string>
@@ -71,10 +73,13 @@
     <string name="title_activity_addEvent">Add Events</string>
     <string name="title_activity_maps">Map</string>
   <!-- <string name="google_maps_key">AIzaSyAw8BodwUeiF0YNud7Kfm_D8QZexZf9Nh8</string>-->
+
     <!--Working State-->
-    <string name="google_maps_key">AIzaSyAzH0XCvT3Ae7XqFymrdCdiza80Y5HBsdE</string>
+    <!--<string name="google_maps_key">AIzaSyAzH0XCvT3Ae7XqFymrdCdiza80Y5HBsdE</string>-->
     <!--End-->
+
     <!--<string name="google_maps_key">AIzaSyAkOCf-Dk1RIAP7fmcfQdVzahmPHQJSpgk</string>-->
+    <string name="google_maps_key">AIzaSyA0Vw2ff23kV4S_DzA73tSsgDYV5t94xGw</string>
     <string name="gps_network_not_enabled">Enable GPS</string>
     <string name="open_location_settings">Open location manager</string>
     <string name="Cancel">Cancel</string>

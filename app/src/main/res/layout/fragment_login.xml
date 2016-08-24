@@ -17,20 +17,6 @@
         android:gravity="center"
         android:orientation="vertical">
 
-
-        <!--<EditText
-           android:id="@+id/editText_email"
-           android:layout_width="280dp"
-           android:layout_height="wrap_content"
-           android:layout_gravity="center"
-           android:layout_marginTop="30dp"
-           android:backgroundTint="@color/colorWhite"
-           android:drawableLeft="@drawable/login_mail_icon"
-           android:drawablePadding="8dp"
-           android:hint="Email"
-           android:textColor="@color/colorWhite"
-           android:textColorHint="@color/colorWhite" />-->
-
         <EditText
             android:id="@+id/editText_email"
             android:layout_width="match_parent"
@@ -42,20 +28,6 @@
             android:singleLine="true"
             android:textColorHint="@color/text_gray"
             android:textSize="14sp" />
-
-        <!--<EditText
-            android:id="@+id/editText_password"
-            android:layout_width="280dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/editText_email"
-            android:layout_gravity="center"
-            android:backgroundTint="@color/colorWhite"
-            android:drawableLeft="@drawable/login_pass_icon"
-            android:drawablePadding="8dp"
-            android:hint="Password"
-            android:inputType="textWebPassword"
-            android:textColor="@color/colorWhite"
-            android:textColorHint="@color/colorWhite" />-->
 
         <EditText
             android:id="@+id/editText_password"

@@ -15,18 +15,6 @@
         android:layout_weight="0.30"
         android:orientation="vertical">
 
-        <!--<EditText
-            android:id="@+id/editText_name"
-            android:layout_width="280dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="30dp"
-            android:backgroundTint="@color/colorWhite"
-            android:drawableLeft="@drawable/login_name_icon"
-            android:drawablePadding="8dp"
-            android:hint="Name"
-            android:textColor="@color/colorWhite"
-            android:textColorHint="@color/colorWhite" />-->
         <EditText
             android:id="@+id/editText_name"
             android:layout_width="match_parent"
@@ -39,20 +27,6 @@
             android:textColorHint="@color/text_gray"
             android:textSize="14sp" />
 
-
-        <!--  <EditText
-              android:id="@+id/editText_email"
-              android:layout_width="280dp"
-              android:layout_height="wrap_content"
-              android:layout_below="@+id/editText_name"
-              android:layout_gravity="center"
-              android:backgroundTint="@color/colorWhite"
-              android:drawableLeft="@drawable/login_mail_icon"
-              android:drawablePadding="8dp"
-              android:hint="Email"
-              android:textColor="@color/colorWhite"
-              android:textColorHint="@color/colorWhite" />-->
-
         <EditText
             android:id="@+id/editText_email"
             android:layout_width="match_parent"
@@ -64,20 +38,6 @@
             android:singleLine="true"
             android:textColorHint="@color/text_gray"
             android:textSize="14sp" />
-
-        <!--<EditText
-             android:id="@+id/editText_password"
-             android:layout_width="280dp"
-             android:layout_height="wrap_content"
-             android:layout_below="@+id/editText_email"
-             android:layout_gravity="center"
-             android:backgroundTint="@color/colorWhite"
-             android:drawableLeft="@drawable/login_pass_icon"
-             android:drawablePadding="8dp"
-             android:hint="Password"
-             android:inputType="textWebPassword"
-             android:textColor="@color/colorWhite"
-             android:textColorHint="@color/colorWhite" />-->
 
         <EditText
             android:id="@+id/editText_password"
@@ -160,6 +120,17 @@
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:orientation="horizontal">
+
+            <!--<com.facebook.login.widget.LoginButton
+                android:id="@+id/frag_signup_fb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />-->
+            <!--<com.facebook.login.widget.LoginButton-->
+                <!--android:id="@+id/login_button"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_centerInParent="true"-->
+                <!--/>-->
 
             <Button
                 android:id="@+id/frag_signup_fb"

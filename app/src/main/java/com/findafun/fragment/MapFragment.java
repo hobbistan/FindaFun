@@ -10,6 +10,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -18,10 +20,10 @@ import com.google.android.gms.maps.model.MarkerOptions;
 /**
  * A fragment that launches other parts of the demo application.
  */
-public class MapFragment extends Fragment {
+public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     private MapView mMapView;
-    private GoogleMap googleMap;
+    private GoogleMap mgoogleMap;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,7 +42,10 @@ public class MapFragment extends Fragment {
             e.printStackTrace();
         }
 
-        googleMap = mMapView.getMap();
+        //googleMap = mMapView.getMapAsync(this);
+        SupportMapFragment mapFragment = (SupportMapFragment)getChildFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
         // latitude and longitude
         double latitude = 10.9934;
         double longitude = 76.94325;
@@ -54,10 +59,10 @@ public class MapFragment extends Fragment {
                 .defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
 
         // adding marker
-        googleMap.addMarker(marker);
+            //googleMap.addMarker(marker);
 //        CameraPosition cameraPosition = new CameraPosition.Builder()
 //                .target(new LatLng(10.9934, 76.94325)).zoom(12).build();
-        googleMap.moveCamera( CameraUpdateFactory.newLatLngZoom(new LatLng(10.9934,76.94325) , 14.0f) );
+            //googleMap.moveCamera( CameraUpdateFactory.newLatLngZoom(new LatLng(10.9934,76.94325) , 14.0f) );
 //        googleMap.animateCamera(CameraUpdateFactory
 //                .newCameraPosition(cameraPosition));
 
@@ -87,5 +92,17 @@ public class MapFragment extends Fragment {
     public void onLowMemory() {
         super.onLowMemory();
         mMapView.onLowMemory();
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mgoogleMap = googleMap;
+        double latitude = 10.9934;
+        double longitude = 76.94325;
+        // Add a marker in Sydney and move the camera
+        LatLng sydney = new LatLng(latitude, longitude);
+        //googleMap.addMarker(new MarkerOptions().position(sydney).title(""));
+        //googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        googleMap.moveCamera( CameraUpdateFactory.newLatLngZoom(new LatLng(10.9934,76.94325) , 14.0f) );
     }
 }
