@@ -501,7 +501,7 @@ public class LandingPagerFragment extends Fragment implements  IEventServiceList
                 mapViewPointIcon.setVisibility(View.GONE);
                 srchPointIcon.setVisibility(View.GONE);
                 gamiPointIcon.setVisibility(View.GONE);
-                addEvntPointIcon.setVisibility(View.VISIBLE);
+               // addEvntPointIcon.setVisibility(View.VISIBLE);
 
                 txtNavigate.setVisibility(View.GONE);
                 txtFavorite.setVisibility(View.GONE);
@@ -512,12 +512,13 @@ public class LandingPagerFragment extends Fragment implements  IEventServiceList
                 txtNearby.setVisibility(View.GONE);
                 txtSearch.setVisibility(View.GONE);
                 txtGami.setVisibility(View.GONE);
-                txtAddEvnt.setVisibility(View.VISIBLE);
+              //  txtAddEvnt.setVisibility(View.VISIBLE);
+                dialog.dismiss();
             }
         });
 
 
-        addEvntPointIcon.setOnClickListener(new View.OnClickListener() {
+     /*   addEvntPointIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 navPointIcon.setVisibility(View.GONE);
@@ -544,7 +545,7 @@ public class LandingPagerFragment extends Fragment implements  IEventServiceList
 
                 dialog.dismiss();
             }
-        });
+        });*/
 
 
 

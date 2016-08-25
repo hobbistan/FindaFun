@@ -220,6 +220,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
                 .init();
     }
 
+
     private int getPreferCount() {
         int test = 0;
 
@@ -318,6 +319,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
     }
 
     public void whatsapp(View v) {
+
 
         PackageManager pm = getPackageManager();
         try {
@@ -522,16 +524,6 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
         Button engageBtn = (Button) findViewById(R.id.engage_btn);
         Button bookingBtn = (Button) findViewById(R.id.booking_btn);
         Button checkinsBtn = (Button) findViewById(R.id.checkins_btn);
-        LinearLayout reviewLayout = (LinearLayout) findViewById(R.id.review);
-
-        reviewLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(EventDetailActivity.this, ReviewActivity.class);
-                intent.putExtra("eventObj", event);
-                startActivity(intent);
-            }
-        });
 
         whishListBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -623,15 +615,15 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
         txtEventStartTime = (TextView) findViewById(R.id.txt_clock_from_val);
         txtEventEndTime = (TextView) findViewById(R.id.clock_to_val);
         imgEventBanner = (ViewFlipper) findViewById(R.id.banner_one);
-        // imgEventBanner.isAutoStart();
+       // imgEventBanner.isAutoStart();
 
         /*used for flipping banner*/
-        //  imgEventBanner.startFlipping();
+      //  imgEventBanner.startFlipping();
 
         //  imgList.add(0, event.getEventLogo());
         ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(EventDetailActivity.this));
 
-        //  BannerAdapter adapter = new BannerAdapter(this, imgList);
+      //  BannerAdapter adapter = new BannerAdapter(this, imgList);
 
 
         //*used for banner Touch Event*//*
@@ -645,10 +637,10 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
                 return true;
             }
         });*/
-        //  imgEventBanner.setAdapter(adapter);
+      //  imgEventBanner.setAdapter(adapter);
 
 
-        count = 5; //imgEventBanner.getAdapter().getCount();
+        count =5; //imgEventBanner.getAdapter().getCount();
         page_text = new TextView[count];
         for (int i = 0; i < count; i++) {
             page_text[i] = new TextView(this);
@@ -753,17 +745,17 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
     }
 
     private void getCalender() {
-        String DEBUG_TAG = "EventDetailActivity";
-        String[] INSTANCE_PROJECTION = new String[]{
+           String DEBUG_TAG = "EventDetailActivity";
+           String[] INSTANCE_PROJECTION = new String[] {
                 CalendarContract.Instances.EVENT_ID,      // 0
                 CalendarContract.Instances.BEGIN,         // 1
                 CalendarContract.Instances.TITLE          // 2
         };
 
 // The indices for the projection array above.
-        int PROJECTION_ID_INDEX = 0;
-        int PROJECTION_BEGIN_INDEX = 1;
-        int PROJECTION_TITLE_INDEX = 2;
+         int PROJECTION_ID_INDEX = 0;
+         int PROJECTION_BEGIN_INDEX = 1;
+         int PROJECTION_TITLE_INDEX = 2;
 
 
 // Specify the date range you want to search for recurring
@@ -781,7 +773,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
 // The ID of the recurring event whose instances you are searching
 // for in the Instances table
         String selection = CalendarContract.Instances.EVENT_ID + " = ?";
-        String[] selectionArgs = new String[]{"207"};
+        String[] selectionArgs = new String[] {"207"};
 
 // Construct the query with the desired date range.
         Uri.Builder builder = CalendarContract.Instances.CONTENT_URI.buildUpon();
@@ -789,83 +781,83 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
         ContentUris.appendId(builder, endMillis);
 
 // Submit the query
-        cur = cr.query(builder.build(),
+        cur =  cr.query(builder.build(),
                 INSTANCE_PROJECTION,
                 selection,
                 selectionArgs,
                 null);
-        try {
-            while (cur.moveToNext()) {
-                String title = null;
-                long eventID = 0;
-                long beginVal = 0;
+try {
+    while (cur.moveToNext()) {
+        String title = null;
+        long eventID = 0;
+        long beginVal = 0;
 
-                // Get the field values
-                eventID = cur.getLong(PROJECTION_ID_INDEX);
-                beginVal = cur.getLong(PROJECTION_BEGIN_INDEX);
-                title = cur.getString(PROJECTION_TITLE_INDEX);
+        // Get the field values
+        eventID = cur.getLong(PROJECTION_ID_INDEX);
+        beginVal = cur.getLong(PROJECTION_BEGIN_INDEX);
+        title = cur.getString(PROJECTION_TITLE_INDEX);
 
-                // Do something with the values.
-                Log.i(DEBUG_TAG, "Event:  " + title);
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTimeInMillis(beginVal);
-                DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
-                Log.i(DEBUG_TAG, "Date: " + formatter.format(calendar.getTime()));
-            }
-            Log.d("test out", "Test manoj");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        // Do something with the values.
+        Log.i(DEBUG_TAG, "Event:  " + title);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(beginVal);
+        DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+        Log.i(DEBUG_TAG, "Date: " + formatter.format(calendar.getTime()));
     }
+    Log.d("test out","Test manoj");
+} catch (Exception e){
+    e.printStackTrace();
+}
+}
 
     private void setCalender() {
         Calendar beginTime = Calendar.getInstance();
 
-        //  beginTime.set(2016, 5, 4, 7, 30);
+      //  beginTime.set(2016, 5, 4, 7, 30);
 
         Date fullstartdate = null;
         Date fullenddate = null;
-        Long sTime, eTime;
+        Long sTime,eTime;
         try {
-            Log.d("test date", event.getStartDate().toString());
-            fullstartdate = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss").parse(event.getStartDate());
+            Log.d("test date",event.getStartDate().toString());
+        fullstartdate = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss").parse(event.getStartDate());
             Log.d("test date", String.valueOf(fullstartdate));
-            Log.d("test date", event.getEndDate().toString());
-            fullenddate = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss").parse(event.getEndDate().toString());
+            Log.d("test date",event.getEndDate().toString());
+        fullenddate = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss").parse(event.getEndDate().toString());
             Log.d("test date", String.valueOf(fullenddate));
             sTime = fullstartdate.getTime();
             eTime = fullenddate.getTime();
-            beginTime.setTime(fullstartdate);
-            Calendar endTime = Calendar.getInstance();
-            //  endTime.set(2012, 0, 19, 8, 30);
+        beginTime.setTime(fullstartdate);
+        Calendar endTime = Calendar.getInstance();
+      //  endTime.set(2012, 0, 19, 8, 30);
 
-            endTime.setTime(fullenddate);
+        endTime.setTime(fullenddate);
 
-            Intent intent = new Intent(Intent.ACTION_INSERT)
-                    .setData(CalendarContract.Events.CONTENT_URI)
-                    .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, sTime)
-                    .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, eTime)
-                    .putExtra(CalendarContract.Events.TITLE, event.getEventName().toString())
-                    .putExtra(CalendarContract.Events.DESCRIPTION, event.getDescription().toString())
-                    .putExtra(CalendarContract.Events.EVENT_LOCATION, event.getEventVenue())
-                    .putExtra(ContactsContract.Intents.Insert.PHONE, event.getContact())
-                    .putExtra(CalendarContract.ACTION_EVENT_REMINDER, true)
-                    .putExtra(Intent.EXTRA_EMAIL, "manojmca15@gmail.com")
+        Intent intent = new Intent(Intent.ACTION_INSERT)
+                .setData(CalendarContract.Events.CONTENT_URI)
+                .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,sTime)
+                .putExtra(CalendarContract.EXTRA_EVENT_END_TIME,eTime)
+                .putExtra(CalendarContract.Events.TITLE,event.getEventName().toString())
+                .putExtra(CalendarContract.Events.DESCRIPTION,event.getDescription().toString())
+                .putExtra(CalendarContract.Events.EVENT_LOCATION,event.getEventVenue())
+                .putExtra(ContactsContract.Intents.Insert.PHONE, event.getContact())
+                .putExtra(CalendarContract.ACTION_EVENT_REMINDER, true)
+                .putExtra(Intent.EXTRA_EMAIL, "manojmca15@gmail.com")
 
-                    .putExtra(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_BUSY)
-                    .putExtra(Intent.EXTRA_EMAIL, event.getEventEmail());
-            startActivity(intent);
+            .putExtra(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_BUSY)
+                .putExtra(Intent.EXTRA_EMAIL,event.getEventEmail());
+        startActivity(intent);
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
     }
 
-    public String getThumbnailImageUrl(String imgUrl, int width, int height) {
-        String url = "http://imgsize.ph.126.net/?imgurl=data1_data2xdata3x0x85.jpg&enlarge=true";
+    public String getThumbnailImageUrl(String imgUrl,int width,int height){
+        String url="http://imgsize.ph.126.net/?imgurl=data1_data2xdata3x0x85.jpg&enlarge=true";
         width = (int) (getResources().getDisplayMetrics().density * 100);
         height = (int) (getResources().getDisplayMetrics().density * 100); //just for convenient
-        url = url.replaceAll("data1", imgUrl).replaceAll("data2", width + "").replaceAll("data3", height + "");
+        url=url.replaceAll("data1", imgUrl).replaceAll("data2", width+"").replaceAll("data3", height+"");
         return url;
     }
 
@@ -877,103 +869,106 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
         ImageLoader.getInstance().clearDiskCache();
     }
 
-    private void sendShareStatustoServer() {
+
+
+    private void sendShareStatustoServer(){
         ShareServiceHelper serviceHelper = new ShareServiceHelper(this);
         int eventId = Integer.parseInt(event.getId());
         int ruleid = 1;
         int ticketcount = 0;
-        String activitydetail = "You have shared photo" + event.getEventName();
-        serviceHelper.postShareDetails(String.format(FindAFunConstants.SHARE_EVENT_URL, eventId, Integer.parseInt(PreferenceStorage.getUserId(this)),
-                ruleid, Uri.encode(activitydetail), event.getEventLogo(), ticketcount), this);
+        String activitydetail = "You have shared photo"+ event.getEventName();
+        serviceHelper.postShareDetails(String.format(FindAFunConstants.SHARE_EVENT_URL,eventId, Integer.parseInt(PreferenceStorage.getUserId(this)),
+                ruleid,Uri.encode(activitydetail),event.getEventLogo(),ticketcount),this);
 
     }
 
-    private void sendShareStatus() {
-
-        //A user can only get points 3 times a day for photo sharing. So restrict beyond that
-        long currentTime = System.currentTimeMillis();
-        long lastsharedTime = PreferenceStorage.getEventSharedTime(this);
-        int sharedCount = PreferenceStorage.getEventSharedcount(this);
-
-        if ((currentTime - lastsharedTime) > FindAFunConstants.TWENTY4HOURS) {
-            Log.d(TAG, "event time elapsed more than 24hrs");
-            PreferenceStorage.saveEventSharedtime(this, currentTime);
-            PreferenceStorage.saveEventSharedcount(this, 1);
-
-
-            //testing
-            int ruleid = 1;
-            int ticketcount = 0;
-            String activitydetail = "You have shared photo" + event.getEventName();
-            int eventId = Integer.parseInt(event.getId());
-            ShareServiceHelper serviceHelper = new ShareServiceHelper(this);
-            serviceHelper.postShareDetails(String.format(FindAFunConstants.SHARE_EVENT_URL, eventId, Integer.parseInt(PreferenceStorage.getUserId(this)),
-                    ruleid, Uri.encode(activitydetail), event.getEventLogo(), ticketcount), this);
-            //testing
-
-
-            sendShareStatustoServer();
-        } else {
-            if (sharedCount < 3) {
-                Log.d(TAG, "event shared cout is" + sharedCount);
-                sharedCount++;
-                PreferenceStorage.saveEventSharedcount(this, sharedCount);
-                sendShareStatustoServer();
-            }
-        }
-    }
-
-    private void sendShareStatustoServerUserActivity(int RuleId) {
+    private void sendShareStatustoServerUserActivity(int RuleId){
         ShareServiceHelper serviceHelper = new ShareServiceHelper(this);
         int eventId = Integer.parseInt(event.getId());
-        int ruleid = RuleId;
+        int ruleid = 1;
         int ticketcount = 0;
-        String activitydetail = "You have shared photo" + event.getEventName();
-        serviceHelper.postShareDetails(String.format(FindAFunConstants.SHARE_EVENT_URL, eventId, Integer.parseInt(PreferenceStorage.getUserId(this)),
-                ruleid, Uri.encode(activitydetail), event.getEventLogo(), ticketcount), this);
+        String activitydetail = "You have shared photo"+ event.getEventName();
+        serviceHelper.postShareDetails(String.format(FindAFunConstants.SHARE_EVENT_URL,eventId, Integer.parseInt(PreferenceStorage.getUserId(this)),
+                ruleid,Uri.encode(activitydetail),event.getEventLogo(),ticketcount),this);
 
     }
 
-    private void sendShareStatusUserActivity(int RuleId) {
+    private void sendShareStatusUserActivity(int RuleId){
 
-        /*long currentTime = System.currentTimeMillis();
+        long currentTime = System.currentTimeMillis();
         long lastsharedTime = PreferenceStorage.getEventSharedTime(this);
         int sharedCount = PreferenceStorage.getEventSharedcount(this);
 
         if( (currentTime - lastsharedTime)  > FindAFunConstants.TWENTY4HOURS ){
             Log.d(TAG,"event time elapsed more than 24hrs");
             PreferenceStorage.saveEventSharedtime(this, currentTime);
-            PreferenceStorage.saveEventSharedcount(this, 1);*/
+            PreferenceStorage.saveEventSharedcount(this, 1);
 
-        //testing
-        int ruleid = RuleId;
-        int ticketcount = 0;
-        String activitydetail = "You have shared photo" + event.getEventName();
-        int eventId = Integer.parseInt(event.getId());
-        ShareServiceHelper serviceHelper = new ShareServiceHelper(this);
-        serviceHelper.postShareDetails(String.format(FindAFunConstants.SHARE_EVENT_URL, eventId, Integer.parseInt(PreferenceStorage.getUserId(this)),
-                ruleid, Uri.encode(activitydetail), event.getEventLogo(), ticketcount), this);
-        //testing
-        Toast.makeText(EventDetailActivity.this, "Successfully added", Toast.LENGTH_SHORT).show();
+            //testing
+            int ruleid = RuleId;
+            int ticketcount = 0;
+            String activitydetail = "You have shared photo"+ event.getEventName();
+            int eventId = Integer.parseInt(event.getId());
+            ShareServiceHelper serviceHelper = new ShareServiceHelper(this);
+            serviceHelper.postShareDetails(String.format(FindAFunConstants.SHARE_EVENT_URL,eventId, Integer.parseInt(PreferenceStorage.getUserId(this)),
+                    ruleid,Uri.encode(activitydetail),event.getEventLogo(),ticketcount),this);
+            //testing
 
-        sendShareStatustoServerUserActivity(RuleId);
-       /* }else{
+
+            sendShareStatustoServerUserActivity(RuleId);
+        }else{
             if(sharedCount < 2){
                 Log.d(TAG,"event shared cout is"+ sharedCount);
                 sharedCount++;
                 PreferenceStorage.saveEventSharedcount(this, sharedCount);
                 sendShareStatustoServerUserActivity(RuleId);
             }
-        }*/
+        }
     }
 
-    private void shareWithfacebook() {
+    private void sendShareStatus(){
+
+        //A user can only get points 3 times a day for photo sharing. So restrict beyond that
+        long currentTime = System.currentTimeMillis();
+        long lastsharedTime = PreferenceStorage.getEventSharedTime(this);
+        int sharedCount = PreferenceStorage.getEventSharedcount(this);
+
+        if( (currentTime - lastsharedTime)  > FindAFunConstants.TWENTY4HOURS ){
+            Log.d(TAG,"event time elapsed more than 24hrs");
+            PreferenceStorage.saveEventSharedtime(this, currentTime);
+            PreferenceStorage.saveEventSharedcount(this, 1);
+
+
+           //testing
+            int ruleid = 1;
+            int ticketcount = 0;
+            String activitydetail = "You have shared photo"+ event.getEventName();
+            int eventId = Integer.parseInt(event.getId());
+            ShareServiceHelper serviceHelper = new ShareServiceHelper(this);
+            serviceHelper.postShareDetails(String.format(FindAFunConstants.SHARE_EVENT_URL,eventId, Integer.parseInt(PreferenceStorage.getUserId(this)),
+                    ruleid,Uri.encode(activitydetail),event.getEventLogo(),ticketcount),this);
+            //testing
+
+
+            sendShareStatustoServer();
+        }else{
+            if(sharedCount < 3){
+                Log.d(TAG,"event shared cout is"+ sharedCount);
+                sharedCount++;
+                PreferenceStorage.saveEventSharedcount(this, sharedCount);
+                sendShareStatustoServer();
+            }
+        }
+
+    }
+
+    private void shareWithfacebook(){
         shareDialog = new ShareDialog(EventDetailActivity.this);
         shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
             @Override
             public void onSuccess(Sharer.Result result) {
                 Log.d(TAG, "Share success");
-                Toast.makeText(EventDetailActivity.this, "Shared event using facebook", Toast.LENGTH_SHORT).show();
+                Toast.makeText(EventDetailActivity.this,"Shared event using facebook", Toast.LENGTH_SHORT).show();
                 sendShareStatus();
             }
 
@@ -991,7 +986,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
             }
         });
         if (ShareDialog.canShow(ShareLinkContent.class)) {
-            Log.d(TAG, "Share can be done");
+            Log.d(TAG,"Share can be done");
             String title = event.getEventName();
             String description = event.getDescription();
             Uri uri = Uri.parse("android.resource://http://www.hobbistan.com/wp-content/uploads/2015/12/logo-ho.png");
@@ -1003,46 +998,45 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
                     .build();
 
             shareDialog.show(linkContent);
-        } else {
-            Log.d(TAG, "cant share content using facebook");
+        }else{
+            Log.d(TAG,"cant share content using facebook");
         }
 
     }
-
-    private boolean twitterLoggedIn() {
+    private boolean twitterLoggedIn(){
         boolean loggedin = PreferenceStorage.getTwitterLoggedIn(this);
         return loggedin;
     }
 
-    private void postUsingTwitter() {
-        if (!CommonUtils.isNetworkAvailable(getApplicationContext())) {
-            Log.d(TAG, "No Network connection");
+    private void postUsingTwitter(){
+        if( !CommonUtils.isNetworkAvailable(getApplicationContext())){
+            Log.d(TAG,"No Network connection");
             Toast.makeText(this, "No Networkconnection", Toast.LENGTH_SHORT).show();
             return;
 
         }
 
-        if ((FindAFunConstants.TWITTER_CONSUMER_KEY.trim().length() == 0) || (FindAFunConstants.TWITTER_CONSUMER_SECRET.trim().length() == 0)) {
-            Log.d(TAG, "Consumer key or secret key is bot set");
-            Toast.makeText(this, "Please set Twitter Consumer key and Consumer secret", Toast.LENGTH_SHORT).show();
+        if((FindAFunConstants.TWITTER_CONSUMER_KEY.trim().length() == 0) || (FindAFunConstants.TWITTER_CONSUMER_SECRET.trim().length() == 0)){
+            Log.d(TAG,"Consumer key or secret key is bot set");
+            Toast.makeText(this,"Please set Twitter Consumer key and Consumer secret", Toast.LENGTH_SHORT).show();
             return;
         }
 
 
-        if (twitterLoggedIn()) {
+        if(twitterLoggedIn()){
             Log.d(TAG, "Already Logged In to twitter");
             String text = event.getEventName();
 
             //  shareIntent.putExtra(android.content.Intent.EXTRA_TITLE, "www.Hobbistan.com");
             // shareIntent.putExtra(Intent.EXTRA_TEXT, text);
-            String message = "http://www.Hobbistan.com " + event.getEventName() + "\n" + event.getDescription();
+            String message = "http://www.Hobbistan.com "+event.getEventName()+ "\n"+ event.getDescription();
             String shortText = "";
-            if (message.length() >= 140) {
-                Log.d(TAG, "length greater than 140" + message.length());
-                shortText = message.substring(0, 139);
+            if(message.length() >= 140){
+                Log.d(TAG,"length greater than 140"+ message.length());
+                shortText = message.substring(0,139);
                 message = shortText;
             }
-            Log.d(TAG, "length greater than 140" + message.length());
+            Log.d(TAG,"length greater than 140"+ message.length());
             if ((message != null) && !message.isEmpty()) {
 
                 new TwitterUpdateStatusTask().execute(message);
@@ -1050,7 +1044,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
            /* Intent intent = new Intent(this, TwitterActivity.class);
             startActivity(intent);*/
 
-        } else {
+        }else{
             Log.d(TAG, "Start twitter oAuth");
             //Set the current event
             GamificationDataHolder.getInstance().setmCurrentEvent(event);
@@ -1061,7 +1055,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
 
     @Override
     public void onSuccess(int resultCode, Object result) {
-        Log.d(TAG, "Succesfully posted share status");
+        Log.d(TAG,"Succesfully posted share status");
 
     }
 
@@ -1073,7 +1067,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
 
     @Override
     public void onEventResponse(JSONObject response) {
-        Toast.makeText(this, "Event boookmarked succesfully", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,"Event boookmarked succesfully", Toast.LENGTH_SHORT).show();
         GamificationDataHolder.getInstance().addBookmarkedEvent(event.getId());
         setCalender();
     }
@@ -1081,7 +1075,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
     @Override
     public void onEventError(String error) {
         Log.e(TAG, "Error while bookmarking event");
-        Toast.makeText(this, "Error bookmarking event", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,"Error bookmarking event", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -1093,7 +1087,8 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
                 Toast.makeText(getApplicationContext(), "Event shared successfully using twitter", Toast.LENGTH_SHORT).show();
                 sendShareStatus();
                 // finish();
-            } else
+            }
+            else
                 Toast.makeText(getApplicationContext(), "Tweet failed", Toast.LENGTH_SHORT).show();
         }
 
@@ -1104,8 +1099,8 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
                 String accessTokenString = sharedPreferences.getString(FindAFunConstants.PREFERENCE_TWITTER_OAUTH_TOKEN, "");
                 String accessTokenSecret = sharedPreferences.getString(FindAFunConstants.PREFERENCE_TWITTER_OAUTH_TOKEN_SECRET, "");
 
-                if (((accessTokenString != null) && (accessTokenString.length() > 0))
-                        && ((accessTokenSecret != null) && (accessTokenSecret.length() > 0))) {
+                if ( ((accessTokenString != null) && (accessTokenString.length() > 0))
+                        && ( (accessTokenSecret != null) && (accessTokenSecret.length() > 0))) {
                     AccessToken accessToken = new AccessToken(accessTokenString, accessTokenSecret);
                     twitter4j.Status status = TwitterUtil.getInstance().getTwitterFactory().getInstance(accessToken).updateStatus(params[0]);
                     return true;
@@ -1118,6 +1113,8 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
 
         }
     }
+
+
 
     @Override
     protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
@@ -1149,13 +1146,14 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
                     Uri.parse("http://maps.google.com/maps?saddr=" + currentLatitude + "," + currentLongitude + "&daddr=" + event.getEventLatitude() + "," + event.getEventLongitude()));
             startActivity(intent);
             return true;
-        } else if (id == android.R.id.home) {
-            Log.d(TAG, "home up button selected");
+        }else if(id == android.R.id.home) {
+            Log.d(TAG,"home up button selected");
             finish();
         }
 
         return super.onOptionsItemSelected(item);
     }
+
 
     @Override
     public void onConnected(Bundle bundle) {
@@ -1257,7 +1255,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
             Log.d("swipe", "onDown: ");
 
             Intent intent = new Intent(getApplicationContext(), imageGallery.class);
-            intent.putStringArrayListExtra("image_list", imgList);
+            intent.putStringArrayListExtra("image_list",imgList);
             //startActivity(intent);
             return false;
         }
@@ -1312,4 +1310,12 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
             return false;
         }
     }
+
+
+
+
+
+
+
+
 }

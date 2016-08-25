@@ -98,7 +98,7 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
     private TextView txtEventTime, txtEventDate, txtEventEntry, txtEventContact, txtEventEmail, txtWebSite;
     private TextView txtViewMore, txtViewLess;
     private ViewFlipper imgEventBanner;
-    //  private final GestureDetector detector = new GestureDetector(new SwipeGestureDetector());
+      private final GestureDetector detector = new GestureDetector(new SwipeGestureDetector());
     LinearLayout count_layout;
     int count = 0;
     static TextView page_text[];
@@ -387,16 +387,41 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
             txtEventEmail.setText("N/A");
         }
 
-        uImageLoader.displayImage(event.getEventLogo(), banner_image_one);
-        uImageLoader.displayImage("http://placehold.it/120x120&text=image2", banner_image_two);
-        uImageLoader.displayImage("http://placehold.it/120x120&text=image3", banner_image_three);
 
+
+
+      //  "http://placehold.it/120x120&text=image2"
 
         Log.d(TAG, "Image uri is" + event.getEventBanner());
         //  uImageLoader.displayImage((event.getEventLogo()), imgEventBanner);
-        imgList.add(0, event.getEventLogo());
-        imgList.add(1, "http://placehold.it/120x120&text=image2");
-        imgList.add(2, "http://placehold.it/120x120&text=image3");
+
+
+        imgList.add(0,event.getEventLogo());
+        uImageLoader.displayImage(event.getEventLogo(), banner_image_one);
+
+        try {
+
+
+
+        if(!event.getEventLogo_1().isEmpty()){
+            uImageLoader.displayImage(event.getEventLogo_1(), banner_image_two);
+            imgList.add(1,event.getEventLogo_1());
+            imgEventBanner.startFlipping();
+
+            if(!event.getEventLogo_2().isEmpty()){
+                uImageLoader.displayImage(event.getEventLogo_2(), banner_image_three);
+                imgList.add(2,event.getEventLogo_2());
+
+            }
+
+
+
+        }
+
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
 
 
         mShareLIst.add("Facebook");
@@ -604,7 +629,7 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
         txtEventStartTime = (TextView) findViewById(R.id.txt_clock_from_val);
         txtEventEndTime = (TextView) findViewById(R.id.clock_to_val);
         imgEventBanner = (ViewFlipper) findViewById(R.id.banner_one);
-       // imgEventBanner.startFlipping();
+
 
         //  imgList.add(0, event.getEventLogo());
         ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(StaticEventDetailActivity.this));
@@ -616,10 +641,10 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
         imgEventBanner.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(final View view, final MotionEvent event) {
-                //  new BannerAdapter(getApplicationContext(), imgList);
+                  new BannerAdapter(getApplicationContext(), imgList);
 
 
-             //   detector.onTouchEvent(event);
+                detector.onTouchEvent(event);
                 return true;
             }
         });

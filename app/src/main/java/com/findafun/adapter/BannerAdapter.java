@@ -32,7 +32,8 @@ public class BannerAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return imgList.size();
+        return
+                imgList.size();
     }
 
     @Override
