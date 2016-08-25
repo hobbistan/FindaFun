@@ -440,6 +440,50 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
         builderSingle.show();
     }
 
+    private void sendShareStatustoServerUserActivity(int RuleId){
+        ShareServiceHelper serviceHelper = new ShareServiceHelper(this);
+        int eventId = Integer.parseInt(event.getId());
+        int ruleid = RuleId;
+        int ticketcount = 0;
+        String activitydetail = "You have shared photo"+ event.getEventName();
+        serviceHelper.postShareDetails(String.format(FindAFunConstants.SHARE_EVENT_URL,eventId, Integer.parseInt(PreferenceStorage.getUserId(this)),
+                ruleid,Uri.encode(activitydetail),event.getEventLogo(),ticketcount),this);
+
+    }
+
+    private void sendShareStatusUserActivity(int RuleId){
+
+        /*long currentTime = System.currentTimeMillis();
+        long lastsharedTime = PreferenceStorage.getEventSharedTime(this);
+        int sharedCount = PreferenceStorage.getEventSharedcount(this);
+
+        if( (currentTime - lastsharedTime)  > FindAFunConstants.TWENTY4HOURS ){
+            Log.d(TAG,"event time elapsed more than 24hrs");
+            PreferenceStorage.saveEventSharedtime(this, currentTime);
+            PreferenceStorage.saveEventSharedcount(this, 1);*/
+
+        //testing
+        int ruleid = RuleId;
+        int ticketcount = 0;
+        String activitydetail = "You have shared photo"+ event.getEventName();
+        int eventId = Integer.parseInt(event.getId());
+        ShareServiceHelper serviceHelper = new ShareServiceHelper(this);
+        serviceHelper.postShareDetails(String.format(FindAFunConstants.SHARE_EVENT_URL,eventId, Integer.parseInt(PreferenceStorage.getUserId(this)),
+                ruleid,Uri.encode(activitydetail),event.getEventLogo(),ticketcount),this);
+        //testing
+        Toast.makeText(StaticEventDetailActivity.this, "Successfully added", Toast.LENGTH_SHORT).show();
+
+        sendShareStatustoServerUserActivity(RuleId);
+       /* }else{
+            if(sharedCount < 2){
+                Log.d(TAG,"event shared cout is"+ sharedCount);
+                sharedCount++;
+                PreferenceStorage.saveEventSharedcount(this, sharedCount);
+                sendShareStatustoServerUserActivity(RuleId);
+            }
+        }*/
+    }
+
 
     private void initializeViews() {
 
@@ -469,6 +513,11 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
         Button whishListBtn = (Button) findViewById(R.id.whishlist_btn);
         Button shareBtn = (Button) findViewById(R.id.share_btn);
         Button contactBtn = (Button) findViewById(R.id.contact_btn);
+
+        Button engageBtn = (Button) findViewById(R.id.engage_btn);
+        Button bookingBtn = (Button) findViewById(R.id.booking_btn);
+        Button checkinsBtn = (Button) findViewById(R.id.checkins_btn);
+
         whishListBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -495,6 +544,30 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
             @Override
             public void onClick(View v) {
                 showShareList();
+
+            }
+        });
+
+        engageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendShareStatusUserActivity(3);
+
+            }
+        });
+
+        bookingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendShareStatusUserActivity(4);
+
+            }
+        });
+
+        checkinsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendShareStatusUserActivity(2);
 
             }
         });

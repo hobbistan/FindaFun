@@ -125,6 +125,22 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppFullScreenTheme" />
         <activity
+            android:name=".activity.ReviewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppFullScreenTheme" />
+        <activity
+            android:name=".activity.SubmitReviewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppFullScreenTheme" />
+        <activity
+            android:name=".activity.GlobalLeaderBoardActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppFullScreenTheme" />
+        <activity
+            android:name=".activity.LocalLeaderBoardActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppFullScreenTheme" />
+        <activity
             android:name=".activity.BookingsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppFullScreenTheme" />

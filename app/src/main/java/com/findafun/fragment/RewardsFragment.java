@@ -200,7 +200,7 @@ public class RewardsFragment extends LandingPagerFragment implements IGamificati
 //                Intent addEventIntent = new Intent(getActivity(), AddEventActivity.class);
 //                //navigationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //                startActivity(addEventIntent);
-                getActivity().finish();
+                //getActivity().finish();
             }
         });
 

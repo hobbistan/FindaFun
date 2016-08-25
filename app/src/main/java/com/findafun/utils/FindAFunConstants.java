@@ -27,9 +27,11 @@ public class FindAFunConstants {
     public static final String UPLOAD_PROFILE_IMAGE = BASE_URL + "upload.php?user_id=%d";
     public static final String GET_EVENTS_BOOKMARK = BASE_URL + "api.php?func_name=fetch_event_bookmark&user_id=%d";
     public static final String ADD_EVENT_BOOKMARK = BASE_URL + "api.php?func_name=add_event_bookmark&user_id=%d&event_id=%d";
+    public static final String SAVE_REVIEW = BASE_URL + "api.php?func_name=add_review&user_id=%d&event_id=%d&comments=%s&ratings=%d";
 
     public static final String GET_REWARDS =  BASE_URL + "fetchActivity.php?getUserPointsDetail=true&id=%d";
     public static final String GET_LEADER_BOARD = BASE_URL + "fetchActivity.php?getLeaderBoard=true";
+    public static final String GET_LOCAL_LEADER_BOARD = BASE_URL + "fetchActivity.php?getLeaderBoardcity=true&id=%s";
     public static final String GET_PHOTOS_URL = BASE_URL + "fetchActivity.php?getSharedPhotoList=true&id=%d";
     public static final String GET_ENGAGEMENTS_URL = BASE_URL + "fetchActivity.php?getEngagementsList=true&id=%d";
     public static final String GET_BOOKINGS_URL = BASE_URL + "fetchActivity.php?getBookingList=true&id=%d";

@@ -180,7 +180,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener,Dial
 
     // Initialize Views
     private View initializeViews(View view) {
-       mLayout = view.findViewById(R.id.activity_login);
+       mLayout = view.findViewById(R.id.activity_new_login);
 
         btnFacebook = (Button) view.findViewById(R.id.frag_login_fb);
 
@@ -283,10 +283,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener,Dial
                     }
                 });
     }
-
-
-
-
 
     @Override
     public void onClick(View view) {

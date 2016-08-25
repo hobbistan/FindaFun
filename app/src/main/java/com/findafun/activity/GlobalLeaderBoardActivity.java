@@ -1,27 +1,20 @@
 package com.findafun.activity;
 
-
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.findafun.R;
-import com.findafun.adapter.LeaderBoardAdapter;
-import com.findafun.adapter.LoginNewAdapter;
 import com.findafun.bean.gamification.GamificationDataHolder;
 import com.findafun.bean.gamification.LeaderBoard;
-import com.findafun.bean.gamification.Rewards;
 import com.findafun.helper.AlertDialogHelper;
 import com.findafun.interfaces.DialogClickListener;
 import com.findafun.servicehelpers.GamificationServiceHelper;
@@ -35,9 +28,10 @@ import com.squareup.picasso.Transformation;
 import org.json.JSONArray;
 
 /**
- * Created by BXDC46 on 1/23/2016.
+ * Created by Nandha on 25-08-2016.
  */
-public class LeaderBoardActivity extends AppCompatActivity implements IGamificationServiceListener, DialogClickListener {
+public class GlobalLeaderBoardActivity extends AppCompatActivity implements IGamificationServiceListener, DialogClickListener {
+
     private static final String TAG = LeaderBoardActivity.class.getName();
     private TextView mLeaderboardvalueView = null;
     private TextView mLeaderboardHobby = null;
@@ -45,10 +39,9 @@ public class LeaderBoardActivity extends AppCompatActivity implements IGamificat
     private final Transformation transformation;
     private DataAdapter mAdapter = null;
     private ProgressDialog mProgressDialog = null;
-    private LinearLayout globalLayout,localLayout;
     private android.os.Handler mHandler = new android.os.Handler();
 
-    public LeaderBoardActivity() {
+    public GlobalLeaderBoardActivity() {
         transformation = new RoundedTransformationBuilder()
                 .cornerRadiusDp(8)
                 .oval(false)
@@ -56,38 +49,14 @@ public class LeaderBoardActivity extends AppCompatActivity implements IGamificat
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         overridePendingTransition(R.anim.slide_right, 0);
-        setContentView(R.layout.leaderboard_layout);
-        mLeaderboardvalueView = (TextView) findViewById(R.id.leaderboard_value);
-        mLeaderboardHobby = (TextView) findViewById(R.id.leaderboard_hobby);
-        globalLayout = (LinearLayout)findViewById(R.id.global_fragment);
-        localLayout = (LinearLayout)findViewById(R.id.local_fragment);
-
-        ImageView backbtn = (ImageView) findViewById(R.id.bookings_back_btn);
-        backbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        setContentView(R.layout.fragment_leader_full_board);
 
         mLeaderboardList = (ListView) findViewById(R.id.leader_board_list);
         mAdapter = new DataAdapter();
         mLeaderboardList.setAdapter(mAdapter);
-
-        Rewards reward = GamificationDataHolder.getInstance().getmRewards();
-        if (reward != null) {
-            if (reward.getLevelName() != null) {
-                mLeaderboardHobby.setText(reward.getLevelName());
-            }
-            mLeaderboardvalueView.setText(Integer.toString(reward.getLeaderboardPosition()));
-        }
-
-
-        //check if leader board data is already loaded
-        //  if(!(GamificationDataHolder.getInstance().getLeaderboardCount() > 0)){
 
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setIndeterminate(true);
@@ -97,51 +66,23 @@ public class LeaderBoardActivity extends AppCompatActivity implements IGamificat
         GamificationServiceHelper helper = new GamificationServiceHelper(this);
         helper.fetchLeaderBoardDetails(String.format(FindAFunConstants.GET_LEADER_BOARD), this);
 
-        globalLayout.setOnClickListener(new View.OnClickListener() {
+        ImageView backbtn = (ImageView) findViewById(R.id.back_btn);
+        backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), GlobalLeaderBoardActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
+    }
 
-        localLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), LocalLeaderBoardActivity.class);
-                startActivity(intent);
-            }
-        });
+    @Override
+    public void onAlertPositiveClicked(int tag) {
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Global"));
-        tabLayout.addTab(tabLayout.newTab().setText("Local"));
+    }
 
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+    @Override
+    public void onAlertNegativeClicked(int tag) {
 
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        final LeaderBoardAdapter adapter = new LeaderBoardAdapter
-                (getSupportFragmentManager());
-        viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-
-        // }
     }
 
     @Override
@@ -169,17 +110,6 @@ public class LeaderBoardActivity extends AppCompatActivity implements IGamificat
             mProgressDialog.cancel();
         }
         AlertDialogHelper.showSimpleAlertDialog(this, erorr);
-
-    }
-
-    @Override
-    public void onAlertPositiveClicked(int tag) {
-
-    }
-
-    @Override
-    public void onAlertNegativeClicked(int tag) {
-
     }
 
     class DataAdapter extends BaseAdapter {
@@ -211,7 +141,7 @@ public class LeaderBoardActivity extends AppCompatActivity implements IGamificat
             ImageView userimage = (ImageView) convertView.findViewById(R.id.image);
 
             LeaderBoard board = GamificationDataHolder.getInstance().getLeaderBoardat(position);
-            Log.d(TAG, "username" + board.getUserName());
+            Log.d(TAG, "name" + board.getUserName());
             if (board.getUserName() != null) {
                 name.setText(board.getUserName());
             }
@@ -238,7 +168,7 @@ public class LeaderBoardActivity extends AppCompatActivity implements IGamificat
             }
 
             if (FindAFunValidator.checkNullString(board.getUserImageUrl())) {
-                Picasso.with(LeaderBoardActivity.this).load(board.getUserImageUrl()).fit().transform(LeaderBoardActivity.this.transformation).placeholder(R.drawable.placeholder_small_old).error(R.drawable.placeholder_small_old).into(userimage);
+                Picasso.with(GlobalLeaderBoardActivity.this).load(board.getUserImageUrl()).fit().transform(GlobalLeaderBoardActivity.this.transformation).placeholder(R.drawable.placeholder_small_old).error(R.drawable.placeholder_small_old).into(userimage);
             } else {
                 userimage.setImageResource(R.drawable.placeholder_small_old);
             }

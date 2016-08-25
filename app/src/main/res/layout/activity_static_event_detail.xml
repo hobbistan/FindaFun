@@ -226,6 +226,80 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/light_line_color"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:weightSum="1">
+
+
+                <Button
+                    android:id="@+id/engage_btn"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="0.33"
+                    android:background="@drawable/whishlist_selector"
+                    android:drawablePadding="10dp"
+                    android:paddingLeft="5dp"
+                    android:text="Engage"
+                    android:textSize="10dp" />
+
+                <Button
+                    android:id="@+id/booking_btn"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="0.33"
+                    android:background="@drawable/share_btn_selector"
+                    android:drawablePadding="10dp"
+                    android:paddingLeft="5dp"
+                    android:text="Booking"
+                    android:textSize="10dp" />
+
+                <Button
+                    android:id="@+id/checkins_btn"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="0.33"
+                    android:background="@drawable/contact_btn_selector"
+                    android:drawablePadding="10dp"
+                    android:paddingLeft="5dp"
+                    android:text="Checkins"
+                    android:textSize="10dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/light_line_color"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:weightSum="1">
+
+                <RatingBar
+                    android:id="@+id/ratingBar2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:numStars="5"
+                    android:stepSize="1.0"
+                    android:rating="2.0" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="0.63"
+                    android:drawableRight="@drawable/forward_red"
+                    android:text="Review"
+                    android:textColor="#000000"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:background="@color/White"
                 android:orientation="vertical">
