@@ -169,8 +169,8 @@ public class EventsListAdapter extends BaseAdapter {
             final Date startDateObj = sdf.parse(start);
             final Date endDateObj = sdf.parse(end);
             System.out.println(startDateObj);
-            startTime = (new SimpleDateFormat("KK:mm a").format(startDateObj));
-            endTime = (new SimpleDateFormat("KK:mm a").format(endDateObj));
+            startTime = (new SimpleDateFormat("hh:mm a").format(startDateObj));
+            endTime = (new SimpleDateFormat("hh:mm a").format(endDateObj));
         } catch (final ParseException e) {
             e.printStackTrace();
         }

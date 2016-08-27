@@ -18,8 +18,8 @@ android {
         multiDexEnabled true
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 38
-        versionName "1.0.38"
+        versionCode 40
+        versionName "1.0.40"
     }
 
     dexOptions {
