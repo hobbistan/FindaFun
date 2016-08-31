@@ -17,12 +17,15 @@ public class Event implements Serializable {
     @SerializedName("event_name")
     @Expose
     private String eventName;
+
     @SerializedName("event_venue")
     @Expose
     private String eventVenue;
+
     @SerializedName("event_address")
     @Expose
     private String eventAddress;
+
     @SerializedName("description")
     @Expose
     private String description;
@@ -173,14 +176,14 @@ public class Event implements Serializable {
      * @return The eventVenue
      */
     public String getEventAddress() {
-        return eventVenue;
+        return eventAddress;
     }
 
     /**
-     * @param eventVenue The event_venue
+     * @param eventAddress The event_venue
      */
-    public void setEventAddress(String eventVenue) {
-        this.eventVenue = eventVenue;
+    public void setEventAddress(String eventAddress) {
+        this.eventAddress = eventAddress;
     }
 
     /**

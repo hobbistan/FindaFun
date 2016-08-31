@@ -329,7 +329,7 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
             txtViewMore.setVisibility(View.GONE);
 
         }
-        txtEventVenue.setText(event.getEventVenue());
+        txtEventVenue.setText(event.getEventAddress());
         txtEventVenue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -839,7 +839,7 @@ try {
                 .putExtra(CalendarContract.EXTRA_EVENT_END_TIME,eTime)
                 .putExtra(CalendarContract.Events.TITLE,event.getEventName().toString())
                 .putExtra(CalendarContract.Events.DESCRIPTION,event.getDescription().toString())
-                .putExtra(CalendarContract.Events.EVENT_LOCATION,event.getEventVenue())
+                .putExtra(CalendarContract.Events.EVENT_LOCATION,event.getEventAddress())
                 .putExtra(ContactsContract.Intents.Insert.PHONE, event.getContact())
                 .putExtra(CalendarContract.ACTION_EVENT_REMINDER, true)
                 .putExtra(Intent.EXTRA_EMAIL, "manojmca15@gmail.com")
