@@ -259,6 +259,49 @@
             android:layout_height="34dp"
             android:gravity="center"
             android:padding="3dp"
+            android:text="@string/evntAddressName"
+            android:textColor="@color/text_color_event_add"
+            android:textSize="17sp"
+            android:typeface="serif" />
+
+        <EditText
+            android:id="@+id/addEvtAddressVal"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginRight="5dp"
+            android:background="@color/transparent"
+            android:ems="10"
+            android:hint="Enter Address"
+            android:inputType="textMultiLine"
+            android:padding="3dp"
+            android:text=""
+            android:textColor="@color/text_gray"
+            android:textSize="17sp"
+            android:typeface="serif" />
+    </LinearLayout>
+
+
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="2dp"
+        android:background="@color/light_line_color"></View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="134dp"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/White"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="34dp"
+            android:gravity="center"
+            android:padding="3dp"
             android:text="@string/evntDescName"
             android:textColor="@color/text_color_event_add"
             android:textSize="17sp"
@@ -279,6 +322,55 @@
             android:textSize="17sp"
             android:typeface="serif" />
     </LinearLayout>
+
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="2dp"
+        android:background="@color/light_line_color"></View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="134dp"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/White"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="34dp"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="@string/evntCostName"
+            android:textColor="@color/text_color_event_add"
+            android:textSize="17sp"
+            android:typeface="serif" />
+
+        <EditText
+            android:id="@+id/addEvtCostVal"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginRight="5dp"
+            android:background="@color/transparent"
+            android:clickable="true"
+            android:drawableRight="@drawable/event_down_arrow"
+            android:focusable="false"
+            android:hint="Choose cost"
+            android:padding="3dp"
+            android:text=""
+            android:textColor="@color/text_gray"
+            android:textSize="17sp"
+            android:typeface="serif" />
+    </LinearLayout>
+
+
+
+
+
+
 
     <View
         android:layout_width="match_parent"
@@ -329,12 +421,14 @@
                     android:background="@color/white"
                     android:drawableRight="@drawable/calendar"
                     android:hint="start date"
-                    android:inputType="date"
+                    android:inputType="none"
                     android:onClick="showDatePickerDialog"
                     android:paddingLeft="5dp"
                     android:paddingRight="8dp"
                     android:textColorHint="@color/text_gray"
-                    android:visibility="gone" />
+                    android:visibility="gone"
+                    android:focusable="false"
+                    />
             </LinearLayout>
 
             <LinearLayout
@@ -366,12 +460,14 @@
                     android:background="@color/white"
                     android:drawableRight="@drawable/calendar"
                     android:hint="end date"
-                    android:inputType="date"
+                    android:inputType="none"
                     android:onClick="showDatePickerDialog"
                     android:paddingLeft="5dp"
                     android:paddingRight="8dp"
                     android:textColorHint="@color/text_gray"
-                    android:visibility="gone" />
+                    android:visibility="gone"
+                    android:focusable="false"
+                    />
             </LinearLayout>
         </LinearLayout>
 
@@ -389,6 +485,7 @@
             android:visibility="gone">
 
             <LinearLayout
+
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
                 android:layout_marginLeft="6dp"
@@ -396,7 +493,9 @@
                 android:layout_weight="1"
                 android:background="@color/White"
                 android:orientation="vertical"
-                android:visibility="gone">
+
+                android:layout_gravity="left"
+                >
 
                 <TextView
                     android:id="@+id/addEvtStrTime"
@@ -422,7 +521,9 @@
                     android:paddingLeft="5dp"
                     android:paddingRight="8dp"
                     android:textColorHint="@color/text_gray"
-                    android:visibility="gone" />
+                    android:visibility="gone"
+                    android:focusable="false"
+                    />
             </LinearLayout>
 
             <LinearLayout
@@ -432,7 +533,9 @@
                 android:layout_marginTop="1dp"
                 android:layout_weight="1"
                 android:background="@color/White"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_gravity="right"
+                >
 
                 <TextView
                     android:id="@+id/addEvtEndTime"
@@ -458,10 +561,54 @@
                     android:paddingLeft="5dp"
                     android:paddingRight="8dp"
                     android:textColorHint="@color/text_gray"
-                    android:visibility="gone" />
+                    android:visibility="gone"
+                    android:focusable="false"
+                    />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="2dp"
+        android:background="@color/light_line_color"></View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="78dp"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/White"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="34dp"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="@string/eventContactName"
+            android:textColor="@color/text_color_event_add"
+            android:textSize="17sp"
+            android:typeface="serif" />
+
+        <EditText
+            android:id="@+id/addEvtContactPersonVal"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginRight="5dp"
+            android:background="@color/transparent"
+            android:hint=""
+            android:inputType="text"
+            android:padding="3dp"
+            android:text=""
+            android:textColor="@color/text_gray"
+            android:textSize="17sp"
+            android:typeface="serif" />
+    </LinearLayout>
+
+
 
     <View
         android:layout_width="match_parent"
@@ -501,6 +648,48 @@
             android:textSize="17sp"
             android:typeface="serif" />
     </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="2dp"
+        android:background="@color/light_line_color"></View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="78dp"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/White"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="34dp"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="@string/eventContactMail"
+            android:textColor="@color/text_color_event_add"
+            android:textSize="17sp"
+            android:typeface="serif" />
+
+        <EditText
+            android:id="@+id/addEvtContactEmailVal"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginRight="5dp"
+            android:background="@color/transparent"
+            android:hint=""
+            android:inputType="textEmailAddress"
+            android:padding="3dp"
+            android:text=""
+            android:textColor="@color/text_gray"
+            android:textSize="17sp"
+            android:typeface="serif" />
+    </LinearLayout>
+
+
 
     <View
         android:layout_width="match_parent"
@@ -580,6 +769,9 @@
             android:typeface="serif" />
     </LinearLayout>
 
+
+
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -595,17 +787,18 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/textPict1"
             android:layout_width="wrap_content"
             android:layout_height="34dp"
             android:gravity="center"
             android:padding="3dp"
-            android:text="Logo"
+            android:text="@string/eventPict1"
             android:textColor="@color/text_color_event_add"
             android:textSize="17sp"
             android:typeface="serif" />
 
-        <TextView
-            android:id="@+id/addEvtLogoNoFile"
+        <ImageView
+            android:id="@+id/addEvtPict1"
             android:layout_width="match_parent"
             android:layout_height="44dp"
             android:layout_marginRight="5dp"
@@ -618,8 +811,64 @@
             android:textSize="17sp"
             android:typeface="serif" />
 
-        <Button
-            android:id="@+id/buttonAddLogoPic"
+      <!--  <Button
+            android:id="@+id/buttonAddPic1"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/city_text_color"
+            android:onClick="onLoadImageBanner"
+            android:padding="5dp"
+            android:text="Add file"
+            android:textColor="@color/White"
+            android:textSize="22dp" />-->
+
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="2dp"
+        android:background="@color/light_line_color"></View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="138dp"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/White"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textPict2"
+            android:layout_width="wrap_content"
+            android:layout_height="34dp"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="@string/eventPict2"
+            android:textColor="@color/text_color_event_add"
+            android:textSize="17sp"
+            android:typeface="serif" />
+
+        <ImageView
+            android:id="@+id/addEvtPict2"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginRight="5dp"
+            android:background="@color/white"
+            android:hint=""
+            android:inputType="numberDecimal|numberSigned"
+            android:padding="3dp"
+            android:text="No file chosen"
+            android:textColor="@color/text_gray"
+            android:textSize="17sp"
+            android:typeface="serif" />
+
+    <!--    <Button
+            android:id="@+id/buttonAddPic2"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginLeft="20dp"
@@ -631,7 +880,7 @@
             android:text="Add file"
             android:textColor="@color/White"
             android:textSize="22dp" />
-
+-->
     </LinearLayout>
 
     <View
@@ -649,17 +898,18 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/textPict3"
             android:layout_width="wrap_content"
             android:layout_height="34dp"
             android:gravity="center"
             android:padding="3dp"
-            android:text="@string/eventBanner"
+            android:text="@string/eventPict3"
             android:textColor="@color/text_color_event_add"
             android:textSize="17sp"
             android:typeface="serif" />
 
-        <TextView
-            android:id="@+id/addEvtBannerNoFile"
+        <ImageView
+            android:id="@+id/addEvtPict3"
             android:layout_width="match_parent"
             android:layout_height="44dp"
             android:layout_marginRight="5dp"
@@ -672,8 +922,8 @@
             android:textSize="17sp"
             android:typeface="serif" />
 
-        <Button
-            android:id="@+id/buttonAddBannerPic"
+       <!-- <Button
+            android:id="@+id/buttonAddPic3"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginLeft="20dp"
@@ -684,63 +934,13 @@
             android:padding="5dp"
             android:text="Add file"
             android:textColor="@color/White"
-            android:textSize="22dp" />
+            android:textSize="22dp" />-->
 
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="2dp"
-        android:background="@color/light_line_color"></View>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="138dp"
-        android:layout_marginLeft="6dp"
-        android:layout_marginTop="1dp"
-        android:background="@color/White"
-        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="34dp"
-            android:gravity="center"
-            android:padding="3dp"
-            android:text="@string/eventAddPhoto"
-            android:textColor="@color/text_color_event_add"
-            android:textSize="17sp"
-            android:typeface="serif" />
 
-        <TextView
-            android:id="@+id/addEvtPhotoNoFile"
-            android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:layout_marginRight="5dp"
-            android:background="@color/white"
-            android:hint=""
-            android:inputType="numberDecimal|numberSigned"
-            android:padding="3dp"
-            android:text="No file chosen"
-            android:textColor="@color/text_gray"
-            android:textSize="17sp"
-            android:typeface="serif" />
-
-        <Button
-            android:id="@+id/buttonAddEventPic"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="20dp"
-            android:background="@color/city_text_color"
-            android:onClick="onLoadImageBanner"
-            android:padding="5dp"
-            android:text="Add file"
-            android:textColor="@color/White"
-            android:textSize="22dp" />
-
-    </LinearLayout>
 
     <View
         android:layout_width="match_parent"

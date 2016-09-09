@@ -165,7 +165,7 @@ public class EventsListAdapter extends BaseAdapter {
         end = FindAFunHelper.getTime(events.get(position).getEndDate());
         String startTime="", endTime="";
         try {
-            final SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+            final SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
             final Date startDateObj = sdf.parse(start);
             final Date endDateObj = sdf.parse(end);
             System.out.println(startDateObj);

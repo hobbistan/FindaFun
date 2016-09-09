@@ -23,6 +23,7 @@ public class FindAFunConstants {
     public static final String GET_CATEGORY_LIST_URL = BASE_URL + "api.php?func_name=getCategoryList";
     public static final String GET_CITY_URL = BASE_URL + "api.php?func_name=getCity";
     public static final String UPDATE_PROFILE_URL = "http://hobbistan.com/app/hobbistan/api.php?func_name=updateProfile&user_email=%s&user_name=%s&user_id=%d&user_password=%s&user_city=%s&user_gender=%s&user_birthday=%s&user_occupation=%s&user_phone=%s";
+    public static final String ADD_EVENT_URL = "http://hobbistan.com/app/hobbistan/api.php?func_name=user_add_event&event_type=%d&txtEvent=%s&cboCategory=%s&cboCity=%s&txtVenue=%s&txtAddress=%s&txtDescription=%s&cboCost=%s&txtSdate=%s&txtEdate=%s&cboStime=%s&cboEtime=%s&txtLatitude=%s&txtLongitude=%s&txtPhone=%s&txtPerson=%s&txtEmail=%s&txtpic1=%s&txtpic2=%s&txtpic3=%s";
     public static final String UPDATE_CITY = "http://hobbistan.com/app/hobbistan/api.php?func_name=update_usercity&user_id=%d&city=%s";
     public static final String UPLOAD_PROFILE_IMAGE = BASE_URL + "upload.php?user_id=%d";
     public static final String GET_EVENTS_BOOKMARK = BASE_URL + "api.php?func_name=fetch_event_bookmark&user_id=%d";

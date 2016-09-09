@@ -133,18 +133,27 @@
     <string name="evntCityVal">Choose city</string>
     <string name="evntVenueName">Venue</string>
     <string name="evntVenueVal">Enter venue</string>
+    <string name="evntAddressName">Address</string>
+    <string name="evntAddressVal">Enter Address</string>
     <string name="evntDescName">Description</string>
+    <string name="evntCostName">Enter Cost</string>
     <string name="evntDescVal">Enter description</string>
     <string name="evntStartDate">Start Date</string>
     <string name="evntStartDateVal">Start Date</string>
     <string name="evntEndDate">End Date</string>
     <string name="evntEndDateVal">End Date</string>
+    <string name="eventContactName">Contact Person</string>
     <string name="eventContact">Contact</string>
+    <string name="eventContactMail">Contact Email</string>
     <string name="eventContactVal">Contact</string>
     <string name="eventLat">Event Latitude</string>
     <string name="eventLatVal">Latitude</string>
     <string name="eventLng">Event Longitude</string>
     <string name="eventLngVal">Longitude</string>
+    <string name="eventPict">Event Picture</string>
+    <string name="eventPict1">Event Picture1</string>
+    <string name="eventPict2">Event Picture2</string>
+    <string name="eventPict3">Event Picture3</string>
     <string name="eventBanner">Banner</string>
     <string name="eventAddPhoto">Add Photos</string>
     <string name="eventSave">Save Event</string>
@@ -183,13 +192,15 @@
     <string name="event_type">Select any type</string>
     <string name="event_city">Select any City</string>
     <string name="event_venue">Select venue</string>
+    <string name="event_address">Select address</string>
     <string name="event_desc">Select Description</string>
     <string name="event_start_date">Select start date</string>
     <string name="event_end_date">Select end date</string>
     <string name="event_time">Select time</string>
     <string name="event_contact">Select phone number</string>
+    <string name="event_contact_person">Select contact person</string>
     <string name="event_lat">Select latitude</string>
     <string name="event_lng">Select longitude</string>
-    <string name="event_contact_valid">Enter Valid Phone Number</string>
+    <string name="event_mail_valid">Enter </string>
 
 </resources>
