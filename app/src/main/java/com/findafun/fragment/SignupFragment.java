@@ -95,7 +95,7 @@ public class SignupFragment extends Fragment implements View.OnClickListener, IS
         //LoginButton btnFacebook;
     private Button btnSignUp;
     private SignUpServiceHelper signUpServiceHelper;
-    private EditText edtUserName, edtPassword, name, city;
+    private EditText edtUserName, edtPassword, name, city,edtPromocode;
     private ProgressDialogHelper progressDialogHelper;
     private TextView txtSignUp;
     private static GoogleApiClient mGoogleApiClient;
@@ -265,6 +265,7 @@ public class SignupFragment extends Fragment implements View.OnClickListener, IS
                         jsonObject.put("user_password", edtPassword.getText().toString());
                         //jsonObject.put(FindAFunConstants.PARAMS_USER_CITY, edtPassword.getText().toString());
                         jsonObject.put("user_name", name.getText().toString());
+                        jsonObject.put("ex_promocode", edtPromocode.getText().toString());
                         jsonObject.put(FindAFunConstants.PARAMS_SIGN_UP_TYPE, "2");
                         mSelectedLoginMode = FindAFunConstants.NORMAL_SIGNUP;
                     } catch (JSONException e) {
@@ -580,6 +581,7 @@ public class SignupFragment extends Fragment implements View.OnClickListener, IS
         btnSignUp.setOnClickListener(this);
         edtUserName = (EditText) view.findViewById(R.id.editText_email);
         edtPassword = (EditText) view.findViewById(R.id.editText_password);
+        edtPromocode= (EditText) view.findViewById(R.id.editText_promocode);
         name = (EditText) view.findViewById(R.id.editText_name);
 
         TextView termsView = (TextView) view.findViewById(R.id.textView_terms);

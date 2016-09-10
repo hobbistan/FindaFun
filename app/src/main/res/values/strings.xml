@@ -15,6 +15,7 @@
     <!-- Login Screen -->
     <string name="hint_email">\tE-Mail ID</string>
     <string name="hint_password">\tPassword</string>
+    <string name="hint_promocode">\tPromocode (Optional)</string>
     <string name="forgot_passwords">Forgot Your Password?</string>
     <string name="forgot_password"><u>Forgot Your Password?</u></string>
     <string name="dont_have_account">Don\'t Have an Account? Click Here</string>

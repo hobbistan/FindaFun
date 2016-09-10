@@ -214,6 +214,23 @@ public class PreferenceStorage {
 
     }
 
+    public static void savePromoCode(Context context, String data){
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(FindAFunConstants.KEY_USER_PROMOCODE, data);
+        editor.commit();
+
+    }
+
+    public static String getPromoCode(Context context){
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        String url = sharedPreferences.getString(FindAFunConstants.KEY_USER_PROMOCODE, "");
+        return url;
+
+    }
+
     public static void saveUserOccupation(Context context, String data){
         SharedPreferences sharedPreferences = PreferenceManager
                 .getDefaultSharedPreferences(context);

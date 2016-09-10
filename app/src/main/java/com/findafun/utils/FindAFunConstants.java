@@ -79,6 +79,7 @@ public class FindAFunConstants {
     public static final String KEY_FACEBOOK_URL ="profileUrl";
     public static final String KEY_TWITTER_LOGGED_IN = "twitterLoggedIn";
     public static final String KEY_USER_GENDER ="gender";
+    public static final String KEY_USER_PROMOCODE ="promocode";
     public static final String KEY_USER_BIRTHDAY = "birthday";
     public static final String KEY_USER_OCCUPATION = "occupation";
     public static final String KEY_SOCIAL_NETWORK_URL = "socialNetworkPicUrl";

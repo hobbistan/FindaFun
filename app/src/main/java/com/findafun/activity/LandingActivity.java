@@ -88,7 +88,7 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
 
     public static final int TAG_FAVOURITES = 0, TAG_FEATURED = 1, TAG_ALL = 2;
     private ArrayAdapter<String> navListAdapter;
-    private String[] values = {"Change City", "Profile", "Edit Preferences", "Wishlists", "Sign Out"};
+    private String[] values = {"Change City", "Profile", "Edit Preferences", "Wishlists", "Refer & Earn", "Sign Out"};
 
     private boolean mFragmentsLoaded = false;
     TextView navUserName = null;
@@ -378,6 +378,12 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
             //navigationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(navigationIntent);
         } else if (position == 4) {
+            Intent i = new Intent(android.content.Intent.ACTION_SEND);
+            i.setType("text/plain");
+            i.putExtra(android.content.Intent.EXTRA_SUBJECT, "Share");
+            i.putExtra(android.content.Intent.EXTRA_TEXT, "Hey! Get the Hobbistan app and win some exciting rewards. Use my promo code "+PreferenceStorage.getPromoCode(LandingActivity.this)+" http://hobbistan.com/app/hobbistan/referral/click.php?id="+PreferenceStorage.getUserId(LandingActivity.this)+"");
+            startActivity(Intent.createChooser(i, "Share via"));
+        } else if (position == 5) {
             Log.d(TAG, "Perform Logout");
             doLogout();
         }
@@ -463,14 +469,14 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
                         landingPagerAdapter.getRegisteredFragment(currentpage);
 
                 if ((s != null) && (!s.isEmpty())) {
-                        if (landingPagerFragment != null) {
-                            landingPagerFragment.searchForEvent(s);
-                        }
+                    if (landingPagerFragment != null) {
+                        landingPagerFragment.searchForEvent(s);
+                    }
                 } else {
-                        if (landingPagerFragment != null) {
-                            Log.d(TAG, "call exit search");
-                            landingPagerFragment.exitSearch();
-                        }
+                    if (landingPagerFragment != null) {
+                        Log.d(TAG, "call exit search");
+                        landingPagerFragment.exitSearch();
+                    }
                 }
 
                 return false;

@@ -783,6 +783,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener,Dial
                     String birthday = userData.getString("birthday");
                     String city = userData.getString("city_name");
                     String occupation = userData.getString("occupation");
+                    String promocode = userData.getString("promocode");
                     String userImageUrl = userData.getString("user_image");
                     if ((name != null) && !(name.isEmpty()) && !name.equalsIgnoreCase("null")) {
                         PreferenceStorage.saveUserName(getActivity(), name);
@@ -809,6 +810,9 @@ public class LoginFragment extends Fragment implements View.OnClickListener,Dial
                     }
                     if((occupation != null) && !(occupation.isEmpty()) && !(occupation.equalsIgnoreCase("0")) && !occupation.equalsIgnoreCase("null")){
                         PreferenceStorage.saveUserOccupation(getActivity(), occupation);
+                    }
+                    if((promocode != null) && !(promocode.isEmpty()) && !promocode.equalsIgnoreCase("null")){
+                        PreferenceStorage.savePromoCode(getActivity(), promocode);
                     }
                     if( (userImageUrl != null) && !(userImageUrl.isEmpty()) && !userImageUrl.equalsIgnoreCase("null")){
                         PreferenceStorage.saveProfilePic(getActivity(), userImageUrl);
