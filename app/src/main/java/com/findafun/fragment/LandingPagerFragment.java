@@ -213,9 +213,9 @@ public class LandingPagerFragment extends Fragment implements  IEventServiceList
                     TransPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
                     isFirstRun = TransPrefs.getBoolean("isFirstRun", true);
 
-                    if(isFirstRun){
+                  /*  if(isFirstRun){*/
                         getTransparentFavour();
-                    }
+                   /* }*/
 
                     isFirstRun = false;
 
@@ -282,11 +282,11 @@ public class LandingPagerFragment extends Fragment implements  IEventServiceList
 
 
 
-        navPointIcon.setOnClickListener(new View.OnClickListener() {
+        txtNavigate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 navPointIcon.setVisibility(View.GONE);
-                favorPointIcon.setVisibility(View.VISIBLE);
+                favorPointIcon.setVisibility(View.GONE);
                 popularPointIcon.setVisibility(View.GONE);
                 hotspotPointIcon.setVisibility(View.GONE);
                 listViewPointIcon.setVisibility(View.GONE);
@@ -313,12 +313,12 @@ public class LandingPagerFragment extends Fragment implements  IEventServiceList
 
 
 
-        favorPointIcon.setOnClickListener(new View.OnClickListener() {
+        txtFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 navPointIcon.setVisibility(View.GONE);
                 favorPointIcon.setVisibility(View.GONE);
-                popularPointIcon.setVisibility(View.VISIBLE);
+                popularPointIcon.setVisibility(View.GONE);
                 hotspotPointIcon.setVisibility(View.GONE);
                 listViewPointIcon.setVisibility(View.GONE);
                 nearByPointIcon.setVisibility(View.GONE);
@@ -342,13 +342,13 @@ public class LandingPagerFragment extends Fragment implements  IEventServiceList
         });
 
 
-        popularPointIcon.setOnClickListener(new View.OnClickListener() {
+        txtPopular.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 navPointIcon.setVisibility(View.GONE);
                 favorPointIcon.setVisibility(View.GONE);
                 popularPointIcon.setVisibility(View.GONE);
-                hotspotPointIcon.setVisibility(View.VISIBLE);
+                hotspotPointIcon.setVisibility(View.GONE);
                 listViewPointIcon.setVisibility(View.GONE);
                 nearByPointIcon.setVisibility(View.GONE);
                 mapViewPointIcon.setVisibility(View.GONE);
@@ -372,14 +372,14 @@ public class LandingPagerFragment extends Fragment implements  IEventServiceList
 
 
 
-        hotspotPointIcon.setOnClickListener(new View.OnClickListener() {
+        txtHotspot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 navPointIcon.setVisibility(View.GONE);
                 favorPointIcon.setVisibility(View.GONE);
                 popularPointIcon.setVisibility(View.GONE);
                 hotspotPointIcon.setVisibility(View.GONE);
-                listViewPointIcon.setVisibility(View.VISIBLE);
+                listViewPointIcon.setVisibility(View.GONE);
                 nearByPointIcon.setVisibility(View.GONE);
                 mapViewPointIcon.setVisibility(View.GONE);
                 srchPointIcon.setVisibility(View.GONE);
@@ -401,7 +401,7 @@ public class LandingPagerFragment extends Fragment implements  IEventServiceList
         });
 
 
-        listViewPointIcon.setOnClickListener(new View.OnClickListener() {
+        txtlistView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 navPointIcon.setVisibility(View.GONE);
@@ -409,7 +409,7 @@ public class LandingPagerFragment extends Fragment implements  IEventServiceList
                 popularPointIcon.setVisibility(View.GONE);
                 hotspotPointIcon.setVisibility(View.GONE);
                 listViewPointIcon.setVisibility(View.GONE);
-                mapViewPointIcon.setVisibility(View.VISIBLE);
+                mapViewPointIcon.setVisibility(View.GONE);
                 nearByPointIcon.setVisibility(View.GONE);
 
                 srchPointIcon.setVisibility(View.GONE);
@@ -431,7 +431,7 @@ public class LandingPagerFragment extends Fragment implements  IEventServiceList
         });
 
 
-        mapViewPointIcon.setOnClickListener(new View.OnClickListener() {
+        txtMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 navPointIcon.setVisibility(View.GONE);
@@ -440,7 +440,7 @@ public class LandingPagerFragment extends Fragment implements  IEventServiceList
                 hotspotPointIcon.setVisibility(View.GONE);
                 listViewPointIcon.setVisibility(View.GONE);
                 mapViewPointIcon.setVisibility(View.GONE);
-                nearByPointIcon.setVisibility(View.VISIBLE);
+                nearByPointIcon.setVisibility(View.GONE);
                 srchPointIcon.setVisibility(View.GONE);
                 gamiPointIcon.setVisibility(View.GONE);
                 addEvntPointIcon.setVisibility(View.GONE);
@@ -461,7 +461,7 @@ public class LandingPagerFragment extends Fragment implements  IEventServiceList
 
 
 
-        nearByPointIcon.setOnClickListener(new View.OnClickListener() {
+        txtNearby.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 navPointIcon.setVisibility(View.GONE);
@@ -471,7 +471,7 @@ public class LandingPagerFragment extends Fragment implements  IEventServiceList
                 listViewPointIcon.setVisibility(View.GONE);
                 nearByPointIcon.setVisibility(View.GONE);
                 mapViewPointIcon.setVisibility(View.GONE);
-                srchPointIcon.setVisibility(View.VISIBLE);
+                srchPointIcon.setVisibility(View.GONE);
                 gamiPointIcon.setVisibility(View.GONE);
                 addEvntPointIcon.setVisibility(View.GONE);
 
@@ -489,7 +489,7 @@ public class LandingPagerFragment extends Fragment implements  IEventServiceList
             }
         });
 
-        srchPointIcon.setOnClickListener(new View.OnClickListener() {
+        txtSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 navPointIcon.setVisibility(View.GONE);
@@ -518,7 +518,7 @@ public class LandingPagerFragment extends Fragment implements  IEventServiceList
         });
 
 
-     /*   addEvntPointIcon.setOnClickListener(new View.OnClickListener() {
+     /*   txtAddEvnt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 navPointIcon.setVisibility(View.GONE);
@@ -549,7 +549,7 @@ public class LandingPagerFragment extends Fragment implements  IEventServiceList
 
 
 
-        gamiPointIcon.setOnClickListener(new View.OnClickListener() {
+        txtGami.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 navPointIcon.setVisibility(View.GONE);
@@ -560,7 +560,7 @@ public class LandingPagerFragment extends Fragment implements  IEventServiceList
                 nearByPointIcon.setVisibility(View.GONE);
                 mapViewPointIcon.setVisibility(View.GONE);
                 srchPointIcon.setVisibility(View.GONE);
-                gamiPointIcon.setVisibility(View.VISIBLE);
+                gamiPointIcon.setVisibility(View.GONE);
                 addEvntPointIcon.setVisibility(View.GONE);
 
                 txtNavigate.setVisibility(View.GONE);
@@ -571,7 +571,7 @@ public class LandingPagerFragment extends Fragment implements  IEventServiceList
                 txtMap.setVisibility(View.GONE);
                 txtNearby.setVisibility(View.GONE);
                 txtSearch.setVisibility(View.GONE);
-                txtGami.setVisibility(View.VISIBLE);
+                txtGami.setVisibility(View.GONE);
                 txtAddEvnt.setVisibility(View.GONE);
             }
         });

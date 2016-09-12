@@ -14,9 +14,35 @@
            android:visibility="gone"
            />-->
 
+
+
     <include
         android:id="@+id/activity_toolbar"
         layout="@layout/tool_bar"></include>
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal" android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:id="@+id/container_expanded_image"
+        android:visibility="gone"
+        android:background="@color/Black"
+        >
+
+        <ImageView
+            android:id="@+id/expanded_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible"
+            android:contentDescription="close"
+
+            android:layout_gravity="center_vertical"
+
+            />
+
+
+    </LinearLayout>
 
     <ScrollView
 
@@ -27,7 +53,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+
+            >
+
 
 
             <RelativeLayout
@@ -144,6 +173,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:weightSum="1">
+
 
                 <TextView
 
@@ -268,19 +298,21 @@
                     android:layout_height="wrap_content"
                     android:numStars="5"
                     android:stepSize="1.0"
-                    android:rating="2.0" />
+                    android:rating="5.0"
+                    style="?android:attr/ratingBarStyleIndicator"
+                    />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:gravity="center"
-                    android:layout_weight="0.63"
                     android:drawableRight="@drawable/forward_red"
                     android:text="Review"
                     android:textColor="#000000"
                     android:textSize="16dp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:layout_marginLeft="25dp"
+                    />
 
             </LinearLayout>
 
@@ -671,8 +703,15 @@
                 </RelativeLayout>
             </LinearLayout>
 
+
+
+
+
+
+
         </LinearLayout>
 
     </ScrollView>
+
 
 </LinearLayout>

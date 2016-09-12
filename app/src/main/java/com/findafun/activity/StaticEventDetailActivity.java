@@ -398,7 +398,10 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
 
         imgList.add(0,event.getEventLogo());
         uImageLoader.displayImage(event.getEventLogo(), banner_image_one);
-
+        uImageLoader.displayImage(event.getEventLogo_1(), banner_image_two);
+        imgList.add(1,"http://placehold.it/120x120&text=image2");
+        uImageLoader.displayImage(event.getEventLogo_2(), banner_image_three);
+        imgList.add(2,"http://placehold.it/120x120&text=image3");
         try {
 
 
@@ -576,6 +579,32 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
         engageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(
+                        StaticEventDetailActivity.this);
+                builder.setTitle("Events");
+                builder.setMessage("Engage Your Event");
+
+                builder.setPositiveButton("Interested",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                                Toast.makeText(getApplicationContext(),"Interested is clicked",Toast.LENGTH_LONG).show();
+                            }
+                        });
+                builder.setNegativeButton("Going on",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                                Toast.makeText(getApplicationContext(),"Going on is clicked",Toast.LENGTH_LONG).show();
+                            }
+                        });
+
+                builder.show();
+
+
                 sendShareStatusUserActivity(3);
 
             }
@@ -584,7 +613,12 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
         bookingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendShareStatusUserActivity(4);
+
+
+
+                Toast.makeText(getApplicationContext(),"Booking is currently not available for the event "+event.getEventName().toString(),Toast.LENGTH_LONG).show();
+
+                // sendShareStatusUserActivity(4);
 
             }
         });
@@ -592,6 +626,10 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
         checkinsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+                Toast.makeText(getApplicationContext(),"You have successfully checkin for the event "+event.getEventName().toString(),Toast.LENGTH_LONG).show();
+
                 sendShareStatusUserActivity(2);
 
             }
@@ -601,26 +639,57 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
 
             @Override
             public void onClick(View v) {
-                String phoneNumber = event.getContact();
+                final String phoneNumber = event.getContact();
+
+
+
                 if ((phoneNumber != null) && !(phoneNumber.isEmpty())) {
 
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(
+                            StaticEventDetailActivity.this);
+                    builder.setTitle("Contact");
+                    builder.setMessage(" "+phoneNumber+" ");
 
-                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber));
+                    builder.setPositiveButton("Cancel",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,
+                                                    int which) {
 
-                    if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                        // TODO: Consider calling
-                        //    ActivityCompat#requestPermissions
-                        // here to request the missing permissions, and then overriding
-                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                        //                                          int[] grantResults)
-                        // to handle the case where the user grants the permission. See the documentation
-                        // for ActivityCompat#requestPermissions for more details.
-                        return;
-                    }
-                    startActivity(intent);
+                                    dialog.dismiss();
+                                }
+                            });
+                    builder.setNegativeButton("Call",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,
+                                                    int which) {
+
+
+                                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber));
+
+                                    if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                                        // TODO: Consider calling
+                                        //    ActivityCompat#requestPermissions
+                                        // here to request the missing permissions, and then overriding
+                                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                        //                                          int[] grantResults)
+                                        // to handle the case where the user grants the permission. See the documentation
+                                        // for ActivityCompat#requestPermissions for more details.
+                                        return;
+                                    }
+                                    startActivity(intent);
+
+
+                                }
+                            });
+
+                    builder.show();
+
+
+
 
 
                 }
+
             }
         });
 
@@ -638,7 +707,7 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
 
       //  imgEventBanner.setAdapter(adapter);
 
-        imgEventBanner.setOnTouchListener(new View.OnTouchListener() {
+      /*  imgEventBanner.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(final View view, final MotionEvent event) {
                   new BannerAdapter(getApplicationContext(), imgList);
@@ -648,7 +717,7 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
                 return true;
             }
         });
-
+*/
 
 
         count = 3;// imgEventBanner.getAdapter().getCount();
@@ -681,15 +750,15 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
                 }
             });*/
 
-           /* imgEventBanner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+            imgEventBanner.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
                     Intent intent = new Intent(StaticEventDetailActivity.this, BannerList.class);
                     intent.putExtra("eventObj", event);
                     startActivity(intent);
                 }
-            });*/
+            });
 
 
             callbackManager = CallbackManager.Factory.create();
