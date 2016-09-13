@@ -59,15 +59,15 @@ public class BannerAdapter extends BaseAdapter {
 
         ImageView image = new ImageView(context);
 
-        String thumbnailUrl = getThumbnailImageUrl(imgList.get(position),200,200);
+        String thumbnailUrl = getThumbnailImageUrl(imgList.get(position),40,40);
           image.setScaleType(ImageView.ScaleType.FIT_XY);
-        image.setLayoutParams(new Gallery.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        image.setLayoutParams(new Gallery.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
 
         //  uImageLoader.destroy();
         uImageLoader.displayImage(thumbnailUrl, image,
                 new DisplayImageOptions.Builder()
-                        .showImageOnLoading(android.R.color.darker_gray)
+                        .showImageOnLoading(android.R.color.white)
                         .cacheInMemory(true).cacheOnDisk(true).build(), loadingListener);
 
         image.setAdjustViewBounds(true);

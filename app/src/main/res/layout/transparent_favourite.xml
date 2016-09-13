@@ -14,7 +14,7 @@
         android:textColor="@color/actionbar_color"
         android:src="@drawable/touch_image_up"
         android:layout_marginLeft="10dp"
-        android:visibility="visible"
+        android:visibility="gone"
 
         />
 
@@ -137,7 +137,7 @@
         android:id="@+id/gami_pt"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginTop="74dp"
+        android:layout_marginTop="80dp"
         android:layout_marginRight="24dp"
         android:src="@drawable/touch_image_up"
         android:layout_alignParentRight="true"
@@ -148,44 +148,44 @@
 
 
     <TextView
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="50dp"
         android:id="@+id/trans_navigation_drawer"
-        android:layout_below="@+id/navi_pnt_icon"
+
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="Menu: Customize Your City Profile and Preferences. "
         android:textColor="@color/Black"
-        android:background="#d3d3d3"
+        android:background="@drawable/popup_bg"
         android:padding="20dp"
         android:textSize="12dp"
         android:visibility="visible"
+
+        android:layout_marginTop="28dp"
+        android:layout_alignTop="@+id/trans_popular"
         android:layout_alignParentLeft="true"
-
-
-        />
+        android:layout_alignParentStart="true" />
 
 
     <TextView
-        android:layout_marginTop="25dp"
-        android:layout_marginLeft="70dp"
         android:id="@+id/trans_favorite"
-        android:layout_below="@+id/favorite_pnt_icon"
+
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="Favorite: Check the Favorites Around the Your City."
         android:maxLines="2"
         android:textColor="@color/Black"
-        android:background="#d3d3d3"
+        android:background="@drawable/popup_bg"
         android:padding="20dp"
         android:visibility="gone"
         android:textSize="12dp"
-        />
+        android:layout_below="@+id/gami_pt"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="85dp" />
 
 
     <TextView
-        android:layout_marginTop="25dp"
-        android:layout_marginLeft="140dp"
+        android:layout_marginTop="85dp"
+        android:layout_marginLeft="100dp"
         android:id="@+id/trans_popular"
         android:layout_below="@+id/popular_pnt_icon"
         android:layout_width="200dp"
@@ -193,16 +193,16 @@
         android:text="Popular: Trendy Events, You must Visit"
         android:maxLines="2"
         android:textColor="@color/Black"
-        android:background="#d3d3d3"
+        android:background="@drawable/popup_bg"
         android:padding="20dp"
         android:visibility="gone"
         android:textSize="12dp"
         />
 
     <TextView
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="85dp"
         android:layout_marginLeft="180dp"
-
+        android:background="@drawable/popup_bg"
 
         android:id="@+id/trans_hotspot"
         android:layout_below="@+id/hotspot_pnt_icon"
@@ -211,32 +211,32 @@
         android:text="Hotspot:            Malls,Hotels and Much More."
         android:maxLines="2"
         android:textColor="@color/Black"
-        android:background="#d3d3d3"
+
         android:padding="20dp"
         android:visibility="gone"
     />
 
 
     <TextView
-        android:layout_marginTop="25dp"
-        android:layout_marginRight="30dp"
         android:id="@+id/trans_evntlist"
-        android:layout_below="@+id/eventlst_pnt_icon"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="List of Events."
         android:maxLines="2"
         android:textColor="@color/Black"
-        android:background="#d3d3d3"
+        android:background="@drawable/popup_bg"
         android:padding="20dp"
         android:visibility="gone"
+        android:layout_alignTop="@+id/trans_map"
         android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="133dp"
         />
 
 
     <TextView
-        android:layout_marginTop="25dp"
-        android:layout_marginRight="85dp"
+        android:layout_marginTop="133dp"
+        android:layout_marginRight="35dp"
         android:id="@+id/trans_map"
         android:layout_below="@+id/map_pnt_icon"
         android:layout_width="200dp"
@@ -244,7 +244,7 @@
         android:text="Checkout Events in Map."
         android:maxLines="2"
         android:textColor="@color/Black"
-        android:background="#d3d3d3"
+        android:background="@drawable/popup_bg"
         android:padding="20dp"
         android:visibility="gone"
         android:layout_alignParentRight="true"
@@ -252,38 +252,38 @@
 
 
     <TextView
-        android:layout_marginTop="25dp"
-        android:layout_marginRight="105dp"
         android:id="@+id/trans_nearby_events"
-        android:layout_below="@+id/nearby_pnt_icon"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="Your Nearby Events."
         android:maxLines="2"
         android:textColor="@color/Black"
-        android:background="#d3d3d3"
+        android:background="@drawable/popup_bg"
         android:padding="20dp"
         android:visibility="gone"
-        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/trans_evntlist"
+        android:layout_alignRight="@+id/trans_map"
+        android:layout_alignEnd="@+id/trans_map"
+        android:layout_marginRight="30dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginTop="133dp"
         />
 
 
 
     <TextView
-        android:layout_marginTop="50dp"
-        android:layout_marginRight="20dp"
         android:id="@+id/trans_search"
-        android:layout_below="@+id/navi_pnt_icon"
+        android:layout_marginTop="28dp"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
         android:text="Advance Search"
         android:textColor="@color/Black"
-        android:background="#d3d3d3"
+        android:background="@drawable/popup_bg"
         android:padding="20dp"
         android:visibility="gone"
-        />
+        android:layout_alignTop="@+id/trans_add_event"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 
     <TextView
@@ -297,7 +297,7 @@
 
         android:text="Add Events Around You."
         android:textColor="@color/Black"
-        android:background="#d3d3d3"
+        android:background="@drawable/popup_bg"
         android:padding="20dp"
         android:visibility="gone"
         />
@@ -309,7 +309,7 @@
         android:layout_height="wrap_content"
         android:text="Gamification: The Real Game For Who Really Enthusiastic In Events."
         android:textColor="@color/Black"
-        android:background="#d3d3d3"
+        android:background="@drawable/popup_bg"
         android:padding="20dp"
         android:layout_marginTop="5dp"
         android:layout_marginRight="50dp"

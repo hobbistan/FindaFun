@@ -2,8 +2,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
-    android:orientation="vertical" >
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:id="@+id/banner_container"
+    >
 
 
 
@@ -12,13 +14,28 @@
         android:layout_width="300dp"
         android:layout_height="400dp"
 
-        android:background="#cfcfcf"
+        android:background="@color/white"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
+    <ImageView
+        android:id="@+id/banner_list_zoom"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:visibility="gone"
+        android:background="@color/white"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:scaleType="fitXY"
+        />
+
 
     <Gallery
         android:id="@+id/gallery_list"
