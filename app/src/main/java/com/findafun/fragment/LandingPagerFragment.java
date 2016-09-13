@@ -213,9 +213,11 @@ public class LandingPagerFragment extends Fragment implements  IEventServiceList
                     TransPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
                     isFirstRun = TransPrefs.getBoolean("isFirstRun", true);
 
-                  /*  if(isFirstRun){*/
+                 /*  if(isFirstRun){*/
                         getTransparentFavour();
-                   /* }*/
+
+                        getTransparent();
+                 /*  }*/
 
                     isFirstRun = false;
 
@@ -242,6 +244,13 @@ public class LandingPagerFragment extends Fragment implements  IEventServiceList
           //  loadMoreListView.onLoadMoreComplete();
             progressDialogHelper.hideProgressDialog();
         }
+    }
+
+    private void getTransparent() {
+
+
+
+
     }
 
     private void getTransparentFavour() {
@@ -482,8 +491,8 @@ public class LandingPagerFragment extends Fragment implements  IEventServiceList
                 txtlistView.setVisibility(View.GONE);
                 txtMap.setVisibility(View.GONE);
                 txtNearby.setVisibility(View.GONE);
-                txtSearch.setVisibility(View.VISIBLE);
-                txtGami.setVisibility(View.GONE);
+                txtSearch.setVisibility(View.GONE);
+                txtGami.setVisibility(View.VISIBLE);
                 txtAddEvnt.setVisibility(View.GONE);
 
             }
@@ -570,7 +579,7 @@ public class LandingPagerFragment extends Fragment implements  IEventServiceList
                 txtlistView.setVisibility(View.GONE);
                 txtMap.setVisibility(View.GONE);
                 txtNearby.setVisibility(View.GONE);
-                txtSearch.setVisibility(View.GONE);
+                txtSearch.setVisibility(View.VISIBLE);
                 txtGami.setVisibility(View.GONE);
                 txtAddEvnt.setVisibility(View.GONE);
             }

@@ -35,7 +35,7 @@ public class BannerList extends AppCompatActivity {
     ImageLoader uImageLoader = AppController.getInstance().getUniversalImageLoader();
     private Event event;
     private ArrayList<String> imgList = new ArrayList<>();
-    private int mShortAnimationDuration;
+    private int mShortAnimationDuration = 500;
     static int zoomVal=1;
 
 
@@ -119,11 +119,11 @@ public class BannerList extends AppCompatActivity {
       /*  final LinearLayout container_expandedImageView = (LinearLayout) findViewById(
                 R.id.container_expanded_image);*/
         //  expandedImageView.setImageResource(imageResId);
-        if(zoomVal==1){
+        if(zoomVal==0){
             uImageLoader.displayImage(event.getEventLogo(), expandedImageView);
-        }else if(zoomVal==2){
+        }else if(zoomVal==1){
             uImageLoader.displayImage(event.getEventLogo_1(), expandedImageView);
-        }else{
+        }if(zoomVal==2){
             uImageLoader.displayImage(event.getEventLogo_2(), expandedImageView);
         }
 
