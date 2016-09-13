@@ -267,7 +267,6 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
         }
         Log.d(TAG, "Set the selected page to 0");//default page
         // makeGetEventListServiceCall(0);
-
     }
 
     private boolean shouldUploadSocialNetworkPic() {
