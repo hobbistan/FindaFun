@@ -499,7 +499,7 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
         serviceHelper.postShareDetails(String.format(FindAFunConstants.SHARE_EVENT_URL,eventId, Integer.parseInt(PreferenceStorage.getUserId(this)),
                 ruleid,Uri.encode(activitydetail),event.getEventLogo(),ticketcount),this);
         //testing
-        Toast.makeText(StaticEventDetailActivity.this, "Successfully added", Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(StaticEventDetailActivity.this, "Successfully added", Toast.LENGTH_SHORT).show();
 
         sendShareStatustoServerUserActivity(RuleId);
        /* }else{
