@@ -484,7 +484,8 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
     private void showShareList() {
         AlertDialog.Builder builderSingle = new AlertDialog.Builder(this);
 
-        builderSingle.setTitle("Share Event Using");
+      //  builderSingle.setTitle("Share Event Using");
+        builderSingle.setTitle("Share the world using");
         /*View view = getLayoutInflater().inflate(R.layout.gender_header_layout, null);
         TextView header = (TextView) view.findViewById(R.id.gender_header);
         header.setText("Select Gender");
@@ -638,7 +639,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
                 AlertDialog.Builder builder = new AlertDialog.Builder(
                         EventDetailActivity.this);
                 builder.setTitle("Events");
-                builder.setMessage("Engage Your Event");
+  /*              builder.setMessage("Engage Your Event");
 
                 builder.setPositiveButton("Interested",
                         new DialogInterface.OnClickListener() {
@@ -654,6 +655,28 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
                                 Toast.makeText(getApplicationContext(),"Going on is clicked",Toast.LENGTH_LONG).show();
                             }
                         });
+*/
+                builder.setMessage("Making your presense for the event?");
+
+                builder.setPositiveButton("May Be",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                                Toast.makeText(getApplicationContext(),"May Be is clicked",Toast.LENGTH_LONG).show();
+                            }
+                        });
+                builder.setNegativeButton("Not Now",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                                Toast.makeText(getApplicationContext(),"Not Now is clicked",Toast.LENGTH_LONG).show();
+                            }
+                        });
+
+
+
+
+
 
                 builder.show();
 
@@ -669,8 +692,9 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
 
 
 
-                Toast.makeText(getApplicationContext(),"Booking is currently not available for this event"+event.getEventName().toString(),Toast.LENGTH_LONG).show();
+               // Toast.makeText(getApplicationContext(),"Booking is currently not available for this event"+event.getEventName().toString(),Toast.LENGTH_LONG).show();
 
+                Toast.makeText(getApplicationContext(),"Booking is currently not available for this event"+event.getEventName().toString()+"\nPlease try later.",Toast.LENGTH_LONG).show();
                // sendShareStatusUserActivity(4);
 
             }
@@ -681,7 +705,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
             public void onClick(View v) {
 
 
-                Toast.makeText(getApplicationContext(),"You have successfully checkin for the event"+event.getEventName().toString(),Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"You have successfully checkin for the event"+event.getEventName().toString()+"\nGet ready for the fun! ",Toast.LENGTH_LONG).show();
 
                 sendShareStatusUserActivity(2);
 
@@ -700,7 +724,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
 
                     final AlertDialog.Builder builder = new AlertDialog.Builder(
                             EventDetailActivity.this);
-                    builder.setTitle("Contact");
+                    builder.setTitle("Any queries? Feel free to call us.");
                     builder.setMessage(" "+phoneNumber+" ");
 
                     builder.setPositiveButton("Cancel",

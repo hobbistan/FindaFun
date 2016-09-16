@@ -441,8 +441,8 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
 
     private void showShareList() {
         AlertDialog.Builder builderSingle = new AlertDialog.Builder(this);
-
-        builderSingle.setTitle("Share Event Using");
+        builderSingle.setTitle("Share the world using");
+       // builderSingle.setTitle("Share Event Using");
         /*View view = getLayoutInflater().inflate(R.layout.gender_header_layout, null);
         TextView header = (TextView) view.findViewById(R.id.gender_header);
         header.setText("Select Gender");
@@ -585,7 +585,30 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
                 AlertDialog.Builder builder = new AlertDialog.Builder(
                         StaticEventDetailActivity.this);
                 builder.setTitle("Events");
-                builder.setMessage("Engage Your Event");
+
+                builder.setMessage("Making your presense for the event?");
+
+                builder.setPositiveButton("May Be",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                                Toast.makeText(getApplicationContext(),"May Be is clicked",Toast.LENGTH_LONG).show();
+                            }
+                        });
+                builder.setNegativeButton("Not Now",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                                Toast.makeText(getApplicationContext(),"Not Now is clicked",Toast.LENGTH_LONG).show();
+                            }
+                        });
+
+
+
+
+
+
+               /* builder.setMessage("Engage Your Event");
 
                 builder.setPositiveButton("Interested",
                         new DialogInterface.OnClickListener() {
@@ -601,7 +624,7 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
                                 Toast.makeText(getApplicationContext(),"Going on is clicked",Toast.LENGTH_LONG).show();
                             }
                         });
-
+*/
                 builder.show();
 
 
@@ -616,7 +639,7 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
 
 
 
-                Toast.makeText(getApplicationContext(),"Booking is currently not available for the event "+event.getEventName().toString(),Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"Booking is currently not available for the event "+event.getEventName().toString()+"\nPlease try later.",Toast.LENGTH_LONG).show();
 
                 // sendShareStatusUserActivity(4);
 
@@ -628,7 +651,7 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
             public void onClick(View v) {
 
 
-                Toast.makeText(getApplicationContext(),"You have successfully checkin for the event "+event.getEventName().toString(),Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"You have successfully checkin for the event "+event.getEventName().toString()+"\n Enjoy!",Toast.LENGTH_LONG).show();
 
                 sendShareStatusUserActivity(2);
 
@@ -647,7 +670,7 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
 
                     final AlertDialog.Builder builder = new AlertDialog.Builder(
                             StaticEventDetailActivity.this);
-                    builder.setTitle("Contact");
+                    builder.setTitle("Any queries? Feel free to call us.");
                     builder.setMessage(" "+phoneNumber+" ");
 
                     builder.setPositiveButton("Cancel",
