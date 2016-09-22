@@ -155,6 +155,7 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
 
     }
 
+
     private void fetchAppRate() {
 
 

@@ -9,6 +9,7 @@ public class FindAFunConstants {
     public static final String BASE_URL = "http://hobbistan.com/app/hobbistan/";
     public static final String BASE_URL_1 = "http://hobbistan.com/";
     public static final String GET_SIGN_UP_URL = "http://hobbistan.com/app/hobbistan/api.php";
+    //http://hobbistan.com/app/hobbistan/api.php?func_name=event_popular&event_id=530
     public static final String SET_CATEGORY_URL = BASE_URL + "api.php";
     public static final String GET_ADVANCE_SINGLE_SEARCH = BASE_URL + "api.php";
     public static final String GET_EVENTS_FAVOURITES_1 = BASE_URL_1 + "api.php?func_name=event_management&event_type=bars&city=chennai";
@@ -39,7 +40,7 @@ public class FindAFunConstants {
     public static final String GET_CHECKINS_URL = BASE_URL + "fetchActivity.php?getCheckedInList=true&id=%d";
     public static final String GET_ALL_REWARDS_URL = BASE_URL + "fetchActivity.php?fetchAll=set&id=%d";
     public static final String DELETE_BOOKMARK_URL = BASE_URL + "api.php?func_name=remove_event_from_bookmark&user_id=%d&event_id=%d";
-
+    public static final String CLICK_COUNT_EVENT_URL = BASE_URL + "api.php?func_name=event_popular&event_id=%d";
     public static final String SHARE_EVENT_URL = BASE_URL + "user_api.php?insertActivity=true&event=%d&user=%d&ruleid=%d&activity_detail=%s&image_url=%s&ticket_count=%d";
     public static final String SHARE_EVENT_LOGIN_COUNT_URL = BASE_URL + "user_api.php?insertActivity=true&event=%d&user=%d&ruleid=%d&activity_detail=%s&ticket_count=%d";
     public static final String FROMDATE = "fromdate";

@@ -32,6 +32,7 @@
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/aidl/flavor/debug" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/buildConfig/flavor/debug" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/rs/flavor/debug" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/apt/flavor/debug" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/res/google-services/flavor/debug" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/res/rs/flavor/debug" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/res/resValues/flavor/debug" type="java-resource" />
@@ -47,6 +48,7 @@
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/aidl/androidTest/flavor/debug" isTestSource="true" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/buildConfig/androidTest/flavor/debug" isTestSource="true" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/rs/androidTest/flavor/debug" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/apt/androidTest/flavor/debug" isTestSource="true" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/res/rs/androidTest/flavor/debug" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/res/resValues/androidTest/flavor/debug" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/testFlavorDebug/res" type="java-test-resource" />
@@ -105,14 +107,6 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/jni" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/rs" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/shaders" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/res" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/resources" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/assets" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/aidl" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/java" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/jni" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/rs" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/shaders" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/res" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/resources" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/assets" type="java-test-resource" />
@@ -121,11 +115,18 @@
       <sourceFolder url="file://$MODULE_DIR$/src/test/jni" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/rs" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/shaders" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/res" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/resources" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/assets" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/aidl" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/jni" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/rs" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/shaders" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/build/apk" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/assets" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/blame" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/builds" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/bundles" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/classes" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/dependency-cache" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/jars" />
@@ -171,10 +172,11 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental-runtime-classes" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental-safeguard" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental-verifier" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/instant-run-resources" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/instant-run-support" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/jniLibs" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/manifests" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/multi-dex" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/reload-dex" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/res" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/restart-dex" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/rs" />
@@ -237,5 +239,6 @@
     <orderEntry type="library" exported="" name="httpmime-4.3.6" level="project" />
     <orderEntry type="library" exported="" name="play-services-panorama-8.3.0" level="project" />
     <orderEntry type="module" module-name="pulltorefresh-and-loadmore" exported="" />
+    <orderEntry type="library" exported="" name="support-v4-13.0.0" level="project" />
   </component>
 </module>

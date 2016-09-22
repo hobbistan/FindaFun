@@ -162,11 +162,9 @@ public class LocalLeaderBoardActivity extends AppCompatActivity implements IGami
             if (board.getUserPointDetail() != null) {
                 subtextVal += board.getUserPointDetail();
                 subtextVal += " points";
-
             }
             if ((subtextVal != null) && !subtextVal.isEmpty()) {
                 subtitle.setText(subtextVal);
-
             } else {
                 subtitle.setText("N/A");
             }

@@ -99,18 +99,9 @@ import twitter4j.auth.AccessToken;
 public class EventDetailActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
         LocationListener, IGamificationServiceListener, IEventServiceListener {
 
-    //zoom in
-
-
-
-
     private Animator zoomCurrentAnimator;
 
     private int zoomShortAnimationDuration;
-
-
-
-
 
     private static final int SWIPE_MIN_DISTANCE = 120;
     private static final int SWIPE_THRESHOLD_VELOCITY = 200;
@@ -177,6 +168,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
         Log.d("test", String.valueOf(nVersion));
 
         getAppUpdate(nVersion);
+        clickCountEvent();
 
     }
 
@@ -634,28 +626,10 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
             @Override
             public void onClick(View v) {
 
-
-
                 AlertDialog.Builder builder = new AlertDialog.Builder(
                         EventDetailActivity.this);
                 builder.setTitle("Events");
-  /*              builder.setMessage("Engage Your Event");
 
-                builder.setPositiveButton("Interested",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,
-                                                int which) {
-                                Toast.makeText(getApplicationContext(),"Interested is clicked",Toast.LENGTH_LONG).show();
-                            }
-                        });
-                builder.setNegativeButton("Going on",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,
-                                                int which) {
-                                Toast.makeText(getApplicationContext(),"Going on is clicked",Toast.LENGTH_LONG).show();
-                            }
-                        });
-*/
                 builder.setMessage("Making your presense for the event?");
 
                 builder.setPositiveButton("May Be",
@@ -672,15 +646,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
                                 Toast.makeText(getApplicationContext(),"Not Now is clicked",Toast.LENGTH_LONG).show();
                             }
                         });
-
-
-
-
-
-
                 builder.show();
-
-
                 sendShareStatusUserActivity(3);
 
             }
@@ -1245,6 +1211,12 @@ try {
             }
         }
     } */
+
+    private void clickCountEvent(){
+        ShareServiceHelper serviceHelper = new ShareServiceHelper(this);
+        int eventId = Integer.parseInt(event.getId());
+        serviceHelper.postShareDetails(String.format(FindAFunConstants.CLICK_COUNT_EVENT_URL,eventId),this);
+    }
 
     private void sendShareStatustoServerUserActivity(int RuleId){
         ShareServiceHelper serviceHelper = new ShareServiceHelper(this);
