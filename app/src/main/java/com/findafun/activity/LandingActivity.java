@@ -1,5 +1,6 @@
 package com.findafun.activity;
 
+import android.app.Dialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -24,6 +25,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -83,12 +85,13 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
     private ListView navDrawerList;
     boolean doubleBackToExitPressedOnce = false;
     int checkPointSearch = 0;
-
+    private SharedPreferences TransPrefs;
+    private boolean isFirstRunAdvsearch = true;
     private ImageView imgNavHeaderBg, imgNavProfileImage;
 
     public static final int TAG_FAVOURITES = 0, TAG_FEATURED = 1, TAG_ALL = 2;
     private ArrayAdapter<String> navListAdapter;
-    private String[] values = {"Change City", "Profile", "Edit Preferences", "Wishlists", "Refer & Earn", "Sign Out"};
+    private String[] values = {"Change City", "Profile", "Edit Preferences", "Wishlists", "Refer & Earn","Rate Us", "Sign Out"};
 
     private boolean mFragmentsLoaded = false;
     TextView navUserName = null;
@@ -383,9 +386,18 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
             i.putExtra(android.content.Intent.EXTRA_TEXT, "Hey! Get the Hobbistan app and win some exciting rewards. Use my promo code "+PreferenceStorage.getPromoCode(LandingActivity.this)+" http://hobbistan.com/app/hobbistan/referral/click.php?id="+PreferenceStorage.getUserId(LandingActivity.this)+"");
             startActivity(Intent.createChooser(i, "Share via"));
         } else if (position == 5) {
+            Log.d(TAG, "Rate Us");
+            rateUs();
+        }  else if (position == 6) {
             Log.d(TAG, "Perform Logout");
             doLogout();
         }
+    }
+
+    private void rateUs() {
+        Uri uri = Uri.parse("https://play.google.com/store/apps/details?id=world.of.fun&hl=en");
+        Intent intent = new Intent (Intent.ACTION_VIEW, uri);
+        startActivity(intent);
     }
 
     private void populateNavDrawerHeaderView() {
@@ -515,8 +527,48 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
             case R.id.action_filter:
                 //ajaz
                 // Toast.makeText(this, "advance filter clicked", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(LandingActivity.this, AdvanceSearchAct.class));
-                return true;
+
+                Context appContext = this;
+                final Dialog dialog = new Dialog(appContext,android.R.style.Theme_Translucent);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.getWindow().setLayout(ViewPager.LayoutParams.MATCH_PARENT, ViewPager.LayoutParams.MATCH_PARENT);
+                dialog.setContentView(R.layout.transparent_favourite);
+
+
+                TransPrefs = PreferenceManager.getDefaultSharedPreferences(getApplication());
+                isFirstRunAdvsearch = TransPrefs.getBoolean("isFirstRunAdvsearch", true);
+
+
+
+                if (isFirstRunAdvsearch) {
+
+                    dialog.show();
+
+
+                    final TextView txtAdvsearch = (TextView) dialog.findViewById(R.id.trans_search);
+
+                    txtAdvsearch.setVisibility(View.VISIBLE);
+                    txtAdvsearch.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+
+                        }
+                    });
+
+                    isFirstRunAdvsearch=false;
+                    TransPrefs.edit().putBoolean("isFirstRunAdvsearch", isFirstRunAdvsearch).commit();
+
+
+                } else {
+                    dialog.dismiss();
+                    startActivity(new Intent(LandingActivity.this, AdvanceSearchAct.class));
+                    return true;
+
+                }
+
+
+
 
             default:
                 return super.onOptionsItemSelected(item);

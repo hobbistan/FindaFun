@@ -213,12 +213,12 @@ public class LandingPagerFragment extends Fragment implements  IEventServiceList
                     TransPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
                     isFirstRun = TransPrefs.getBoolean("isFirstRun", true);
 
-                   if(isFirstRun){
+                 /*  if(isFirstRun){
                         getTransparentFavour();
 
 
                  }
-
+*/
                     isFirstRun = false;
 
                     TransPrefs.edit().putBoolean("isFirstRun", isFirstRun).commit();

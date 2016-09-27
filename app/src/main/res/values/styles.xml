@@ -29,5 +29,17 @@
     </style>
 
 
+<!--
+    <style name="Tool">
+        <item name="android:text">@string/eventPict</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:lineSpacingExtra">5dp</item>
+        <item name="backgroundColor">@color/colorPrimary</item>
+        <item name="cornerRadius">10dp</item>
+    </style>
+-->
+
+
+
 
 </resources>

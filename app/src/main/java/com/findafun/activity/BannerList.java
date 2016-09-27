@@ -51,10 +51,15 @@ public class BannerList extends AppCompatActivity {
         imageView = (ImageView) findViewById(R.id.banner_list);
         imageView_zoom = (ImageView) findViewById(R.id.banner_list);
          gallery = (Gallery) findViewById(R.id.gallery_list);
-        imgList.add(0,event.getEventLogo());
-        imgList.add(1,event.getEventLogo_1());
-        imgList.add(2,event.getEventLogo_2());
-
+       if(event.getEventLogo().contains(".")){
+           imgList.add(0,event.getEventLogo());
+       }
+       if(event.getEventLogo_1().contains(".")){
+           imgList.add(1,event.getEventLogo_1());
+       }
+       if(event.getEventLogo_2().contains(".")) {
+           imgList.add(2, event.getEventLogo_2());
+       }
 
 
 

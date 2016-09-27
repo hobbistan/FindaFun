@@ -45,8 +45,10 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
@@ -453,9 +455,21 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
         }
         Log.d(TAG, "Image uri is" + event.getEventBanner());
         //  uImageLoader.displayImage((event.getEventLogo()), imgEventBanner);
-        uImageLoader.displayImage(event.getEventLogo(), banner_image_one);
-        uImageLoader.displayImage(event.getEventLogo_1(), banner_image_two);
-        uImageLoader.displayImage(event.getEventLogo_2(), banner_image_three);
+        if(event.getEventLogo().contains(".")) {
+            uImageLoader.displayImage(event.getEventLogo(), banner_image_one);
+        }
+        if(event.getEventLogo_1().contains(".")) {
+            uImageLoader.displayImage(event.getEventLogo_1(), banner_image_two);
+            imgEventBanner.startFlipping();
+        } else {
+            banner_image_two.setVisibility(View.GONE);
+            imgEventBanner.stopFlipping();
+        }
+        if(event.getEventLogo_2().contains(".")) {
+            uImageLoader.displayImage(event.getEventLogo_2(), banner_image_three);
+        } else {
+            banner_image_three.setVisibility(View.GONE);
+        }
         //  uImageLoader.displayImage("http://placehold.it/120x120&text=image4",banner_image_four);
         //   uImageLoader.displayImage("http://placehold.it/120x120&text=image5",banner_image_five);
         imgList.add(0, event.getEventLogo());
@@ -539,7 +553,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
 
         Button engageBtn = (Button) findViewById(R.id.engage_btn);
         Button bookingBtn = (Button) findViewById(R.id.booking_btn);
-        Button checkinsBtn = (Button) findViewById(R.id.checkins_btn);
+        Switch checkinsBtn = (Switch) findViewById(R.id.checkins_btn);
 
 
       /*  banner_zoom_image_one.setOnClickListener(new View.OnClickListener() {
@@ -666,17 +680,27 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
             }
         });
 
-        checkinsBtn.setOnClickListener(new View.OnClickListener() {
+        checkinsBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
             @Override
-            public void onClick(View v) {
+            public void onCheckedChanged(CompoundButton buttonView,
+                                         boolean isChecked) {
 
-
-                Toast.makeText(getApplicationContext(),"You have successfully checkin for the event"+event.getEventName().toString()+"\nGet ready for the fun! ",Toast.LENGTH_LONG).show();
+                if(isChecked){
+                    Toast.makeText(getApplicationContext(),"switch on ",Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(getApplicationContext(),"switch off",Toast.LENGTH_LONG).show();
+                }
 
                 sendShareStatusUserActivity(2);
 
+
             }
         });
+
+
+
+
 
         contactBtn.setOnClickListener(new View.OnClickListener() {
 
@@ -744,7 +768,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
         imgEventBanner.isAutoStart();
 
         /*used for flipping banner*/
-        imgEventBanner.startFlipping();
+
 
         //  imgList.add(0, event.getEventLogo());
         ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(EventDetailActivity.this));
@@ -889,6 +913,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
             uImageLoader.displayImage(event.getEventLogo(), expandedImageView);
         }else if(zoomVal==2){
             uImageLoader.displayImage(event.getEventLogo_1(), expandedImageView);
+
         }else{
             uImageLoader.displayImage(event.getEventLogo_2(), expandedImageView);
         }

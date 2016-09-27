@@ -17,7 +17,9 @@
 package com.findafun.customview;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -26,6 +28,7 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.AttributeSet;
@@ -35,9 +38,9 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
+import android.view.Window;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
-
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -47,6 +50,11 @@ import java.util.Locale;
 
 public class PagerSlidingTabStrip extends HorizontalScrollView {
     private static final String TAG = PagerSlidingTabStrip.class.getName();
+    private SharedPreferences TransPrefs;
+    private boolean isFirstRunFavourite = true;
+    private boolean isFirstRunPopular = true;
+    private boolean isFirstRunHotspot = true;
+    private boolean isFirstRunExplore = true;
 
     public interface IconTabProvider {
         int getPageIconResId(int position);
@@ -263,6 +271,170 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
                 pager.setCurrentItem(position);
 
 
+                TransPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+
+                isFirstRunFavourite = TransPrefs.getBoolean("isFirstRunFavourite", true);
+                isFirstRunPopular = TransPrefs.getBoolean("isFirstRunPopular", true);
+                isFirstRunHotspot = TransPrefs.getBoolean("isFirstRunHotspot", true);
+                isFirstRunExplore = TransPrefs.getBoolean("isFirstRunExplore", true);
+
+
+
+
+
+                final Dialog dialog = new Dialog(getContext(),android.R.style.Theme_Translucent);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.getWindow().setLayout(ViewPager.LayoutParams.MATCH_PARENT, ViewPager.LayoutParams.MATCH_PARENT);
+                dialog.setContentView(R.layout.transparent_favourite);
+
+
+        if(position==0) {
+            if (isFirstRunFavourite) {
+
+
+                dialog.show();
+
+
+                final TextView txtFavorite = (TextView) dialog.findViewById(R.id.trans_favorite);
+
+                txtFavorite.setVisibility(VISIBLE);
+                txtFavorite.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+
+                    }
+                });
+
+                isFirstRunFavourite=false;
+                TransPrefs.edit().putBoolean("isFirstRunFavourite", isFirstRunFavourite).commit();
+
+
+            } else {
+                dialog.dismiss();
+
+            }
+
+        }
+
+
+                if(position==1) {
+                    if (isFirstRunPopular) {
+
+
+                        dialog.show();
+
+
+                        final TextView txtPopular = (TextView) dialog.findViewById(R.id.trans_popular);
+
+                        txtPopular.setVisibility(VISIBLE);
+                        txtPopular.setOnClickListener(new OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+
+                            }
+                        });
+                        isFirstRunPopular=false;
+                        TransPrefs.edit().putBoolean("isFirstRunPopular", isFirstRunPopular).commit();
+
+
+                    } else {
+                        dialog.dismiss();
+
+                    }
+
+                }
+
+
+
+                if(position==2) {
+                    if (isFirstRunHotspot) {
+
+
+                        dialog.show();
+
+
+                        final TextView txtHotspot = (TextView) dialog.findViewById(R.id.trans_hotspot);
+
+                        txtHotspot.setVisibility(VISIBLE);
+                        txtHotspot.setOnClickListener(new OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+
+                            }
+                        });
+                        isFirstRunHotspot=false;
+                        TransPrefs.edit().putBoolean("isFirstRunHotspot", isFirstRunHotspot).commit();
+
+
+                    } else {
+                        dialog.dismiss();
+
+                    }
+
+                }
+
+
+                if(position==3) {
+                    if (isFirstRunExplore) {
+
+
+                        dialog.show();
+
+
+                        final TextView txtGami = (TextView) dialog.findViewById(R.id.trans_gami);
+
+                        txtGami.setVisibility(VISIBLE);
+                        txtGami.setOnClickListener(new OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+
+                            }
+                        });
+                        isFirstRunExplore=false;
+                        TransPrefs.edit().putBoolean("isFirstRunExplore", isFirstRunExplore).commit();
+
+
+                    } else {
+                        dialog.dismiss();
+
+                    }
+
+                }
+
+
+
+
+                /*final TextView txtPopular = (TextView) dialog.findViewById(R.id.trans_popular);
+                final TextView txtHotspot = (TextView) dialog.findViewById(R.id.trans_hotspot);
+                final TextView txtGami = (TextView) dialog.findViewById(R.id.trans_gami);*/
+
+
+
+
+
+
+
+
+/*                Tooltip.make(getContext(),
+                        new Tooltip.Builder(101)
+
+                                .closePolicy(new Tooltip.ClosePolicy()
+                                        .insidePolicy(true, false)
+                                        .outsidePolicy(true, false), 3000)
+                                .activateDelay(800)
+                                .showDelay(300)
+                                .text("hello")
+                                .maxWidth(500)
+                                .withArrow(true)
+                                .withOverlay(true)
+
+                                .floatingAnimation(Tooltip.AnimationBuilder.DEFAULT)
+                                .build()
+                ).show();*/
 
             }
         });

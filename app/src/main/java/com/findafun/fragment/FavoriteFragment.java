@@ -4,24 +4,24 @@ import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
-import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.findafun.R;
 import com.findafun.activity.AddEventActivity;
@@ -30,18 +30,14 @@ import com.findafun.bean.events.Event;
 import com.findafun.bean.events.EventList;
 import com.findafun.helper.AlertDialogHelper;
 import com.findafun.helper.LocationHelper;
-
 import com.findafun.utils.CommonUtils;
 import com.findafun.utils.FindAFunConstants;
 import com.findafun.utils.PreferenceStorage;
 import com.google.android.gms.common.ConnectionResult;
-
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
-
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -76,8 +72,10 @@ public class FavoriteFragment extends LandingPagerFragment implements OnMapReady
     private HashMap<LatLng, Event> mDisplayedEvents = new HashMap<LatLng, Event>();
     private boolean mAddddLocations = true;
     private TextView mTotalEventCount = null;
-
-
+    private boolean isFirstRunLocation = true;
+    private boolean isFirstRunNearby = true;
+    private boolean isFirstRunList = true;
+    private SharedPreferences TransPrefs;
     private Drawable mNearbyTabUnselected = null;
     private Drawable mNearbyTabSelected = null;
 
@@ -132,6 +130,10 @@ public class FavoriteFragment extends LandingPagerFragment implements OnMapReady
         // Inflate the layout for this fragment
         Log.d(TAG, "Nearby fragment onCreateView called");
         view = inflater.inflate(R.layout.favorite_layout, container, false);
+        TransPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        isFirstRunLocation = TransPrefs.getBoolean("isFirstRunLocation", true);
+        isFirstRunNearby = TransPrefs.getBoolean("isFirstRunNearby", true);
+        isFirstRunList = TransPrefs.getBoolean("isFirstRunList", true);
 
         initializeViews();
         initializeEventHelpers();
@@ -214,6 +216,34 @@ public class FavoriteFragment extends LandingPagerFragment implements OnMapReady
 
                 mTotalEventCount.setText(Integer.toString(eventsArrayList.size()) + " Nearby Events");
 
+                final Dialog dialog = new Dialog(getContext(),android.R.style.Theme_Translucent);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.getWindow().setLayout(ViewPager.LayoutParams.MATCH_PARENT, ViewPager.LayoutParams.MATCH_PARENT);
+                dialog.setContentView(R.layout.transparent_favourite);
+                dialog.show();
+
+                if (isFirstRunNearby) {
+
+                    final TextView txtNearby = (TextView) dialog.findViewById(R.id.trans_nearby_events);
+
+                    txtNearby.setVisibility(View.VISIBLE);
+                    txtNearby.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+
+                        }
+                    });
+
+                    isFirstRunNearby=false;
+                    TransPrefs.edit().putBoolean("isFirstRunNearby", isFirstRunNearby).commit();
+
+
+                } else {
+                    dialog.dismiss();
+
+                }
+
             }
         });
 
@@ -233,6 +263,39 @@ public class FavoriteFragment extends LandingPagerFragment implements OnMapReady
                 listAppearenceNearBy.setImageDrawable(munselectednearbyicon);
 
                 mTotalEventCount.setText(Integer.toString(eventsArrayList.size()) + " Favorite Events");
+
+
+
+                final Dialog dialog = new Dialog(getContext(),android.R.style.Theme_Translucent);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.getWindow().setLayout(ViewPager.LayoutParams.MATCH_PARENT, ViewPager.LayoutParams.MATCH_PARENT);
+                dialog.setContentView(R.layout.transparent_favourite);
+                dialog.show();
+
+                if (isFirstRunLocation) {
+
+                    final TextView txtMap = (TextView) dialog.findViewById(R.id.trans_map);
+
+                    txtMap.setVisibility(View.VISIBLE);
+                    txtMap.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+
+                        }
+                    });
+
+                    isFirstRunLocation=false;
+                    TransPrefs.edit().putBoolean("isFirstRunLocation", isFirstRunLocation).commit();
+
+
+                } else {
+                    dialog.dismiss();
+
+                }
+
+
+
             }
         });
 
@@ -255,6 +318,39 @@ public class FavoriteFragment extends LandingPagerFragment implements OnMapReady
                 listAppearenceNearBy.setImageDrawable(munselectednearbyicon);
 
                 mTotalEventCount.setText(Integer.toString(eventsArrayList.size()) + " Favorite Events");
+
+
+
+
+                final Dialog dialog = new Dialog(getContext(),android.R.style.Theme_Translucent);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.getWindow().setLayout(ViewPager.LayoutParams.MATCH_PARENT, ViewPager.LayoutParams.MATCH_PARENT);
+                dialog.setContentView(R.layout.transparent_favourite);
+                dialog.show();
+
+                if (isFirstRunList) {
+
+                    final TextView txtList = (TextView) dialog.findViewById(R.id.trans_evntlist);
+
+                    txtList.setVisibility(View.VISIBLE);
+                    txtList.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+
+                        }
+                    });
+
+                    isFirstRunList=false;
+                    TransPrefs.edit().putBoolean("isFirstRunList", isFirstRunList).commit();
+
+
+                } else {
+                    dialog.dismiss();
+
+                }
+
+
 
 
 

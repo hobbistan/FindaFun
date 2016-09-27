@@ -397,17 +397,39 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
         //  uImageLoader.displayImage((event.getEventLogo()), imgEventBanner);
 
 
+        if(event.getEventLogo().contains(".")) {
+            uImageLoader.displayImage(event.getEventLogo(), banner_image_one);
+        }
+        if(event.getEventLogo().contains(".")) {
+            uImageLoader.displayImage(event.getEventLogo_1(), banner_image_two);
+            imgEventBanner.startFlipping();
+        } else {
+
+                banner_image_two.setVisibility(View.GONE);
+                imgEventBanner.stopFlipping();
+
+        }
+
+        if(event.getEventLogo().contains(".")) {
+            uImageLoader.displayImage(event.getEventLogo_2(), banner_image_three);
+        } else {
+            banner_image_three.setVisibility(View.GONE);
+        }
+
+
+
+
+
+
         imgList.add(0,event.getEventLogo());
-        uImageLoader.displayImage(event.getEventLogo(), banner_image_one);
-        uImageLoader.displayImage(event.getEventLogo_1(), banner_image_two);
         imgList.add(1,"http://placehold.it/120x120&text=image2");
-        uImageLoader.displayImage(event.getEventLogo_2(), banner_image_three);
         imgList.add(2,"http://placehold.it/120x120&text=image3");
+
         try {
 
 
 
-        if(!event.getEventLogo_1().isEmpty()){
+       /* if(!event.getEventLogo_1().isEmpty()){
             uImageLoader.displayImage(event.getEventLogo_1(), banner_image_two);
             imgList.add(1,event.getEventLogo_1());
             imgEventBanner.startFlipping();
@@ -420,7 +442,7 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
 
 
 
-        }
+        }*/
 
 
         }catch(Exception e){
