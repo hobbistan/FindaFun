@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.findafun.R;
 import com.findafun.activity.AddEventActivity;
@@ -19,6 +20,7 @@ import com.findafun.activity.AllDetailsActivity;
 import com.findafun.activity.BookingsActivity;
 import com.findafun.activity.CheckinsActivity;
 import com.findafun.activity.EngagementActivity;
+import com.findafun.activity.EventDetailActivity;
 import com.findafun.activity.LeaderBoardActivity;
 import com.findafun.activity.PhotosActivity;
 import com.findafun.bean.gamification.GamificationDataHolder;
@@ -67,13 +69,15 @@ public class RewardsFragment extends LandingPagerFragment implements IGamificati
     private ImageView mBookingsImage = null;
     private TextView mBookingsCount = null;
 
+    private RelativeLayout mReferralLayout = null;
+    private ImageView mReferralImage = null;
+    private TextView mReferralCount = null;
+
     private boolean mLoadData = true;
     private Rewards mRewards = null;
     private ProgressDialog mProgressDialog = null;
     private  Transformation transformation;
     private ImageView mUserlevelImage = null;
-
-
 
     private void initializeRewardsViews(View view){
         transformation = new RoundedTransformationBuilder()
@@ -150,6 +154,19 @@ public class RewardsFragment extends LandingPagerFragment implements IGamificati
             }
         });
 
+        mReferralLayout = (RelativeLayout) view.findViewById(R.id.referral_points_layout);
+        mReferralCount = (TextView) view.findViewById(R.id.referral_points_total_count);
+        mReferralLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent intent = new Intent(getActivity(), BookingsActivity.class);
+//                startActivity(intent);
+                Toast.makeText(getActivity(), "Detailed information not available for this card", Toast.LENGTH_SHORT).show();
+
+
+            }
+        });
+
         int loginMode = PreferenceStorage.getLoginMode(getActivity());
        // if((loginmode == FindAFunConstants.FACEBOOK) || (loginmode == FindAFunConstants.GOOGLE_PLUS)){
         String url = PreferenceStorage.getProfileUrl(getActivity());
@@ -157,7 +174,6 @@ public class RewardsFragment extends LandingPagerFragment implements IGamificati
             if((loginMode == 1) || (loginMode == 3)){
                 url = PreferenceStorage.getSocialNetworkProfileUrl(getActivity());
             }
-
         }
         if((url != null) && !(url.isEmpty())){
             Picasso.with(getActivity()).load(url).fit().transform(this.transformation).placeholder(R.drawable.placeholder_small).error(R.drawable.placeholder_small).into(mUserImage);
@@ -172,7 +188,6 @@ public class RewardsFragment extends LandingPagerFragment implements IGamificati
                 startActivity(intent);
             }
         });
-
     }
 
     public static RewardsFragment newInstance(int position) {
@@ -266,6 +281,7 @@ public class RewardsFragment extends LandingPagerFragment implements IGamificati
             mpositionForNextLevel.setText("+ "+ mRewards.getPointsfornextrank()+" more points for next rank");
         }
 
+        mReferralCount.setText(Integer.toString(mRewards.getReferralPromoCount()));
         mPhotosCount.setText(Integer.toString(mRewards.getPhotoSharingCount()));
         mEngagementCount.setText(Integer.toString(mRewards.getEngagementsCount()));
         mCheckinCount.setText(Integer.toString(mRewards.getCheckInCount()));

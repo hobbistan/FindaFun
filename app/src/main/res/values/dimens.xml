@@ -10,5 +10,6 @@
     <dimen name="fab_margin">14dp</dimen>
     <dimen name="actionbarTextSize">20sp</dimen>
     <dimen name="mainmargin">10dp</dimen>
+    <dimen name="event_title_text_size">18dp</dimen>
 
 </resources>

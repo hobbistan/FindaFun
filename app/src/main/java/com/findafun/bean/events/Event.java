@@ -29,12 +29,15 @@ public class Event implements Serializable {
     @SerializedName("description")
     @Expose
     private String description;
+
     @SerializedName("start_date")
     @Expose
     private String startDate;
+
     @SerializedName("end_date")
     @Expose
     private String endDate;
+
     @SerializedName("contact")
     @Expose
     private String contact;

@@ -538,13 +538,8 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
                 TransPrefs = PreferenceManager.getDefaultSharedPreferences(getApplication());
                 isFirstRunAdvsearch = TransPrefs.getBoolean("isFirstRunAdvsearch", true);
 
-
-
                 if (isFirstRunAdvsearch) {
-
                     dialog.show();
-
-
                     final TextView txtAdvsearch = (TextView) dialog.findViewById(R.id.trans_search);
 
                     txtAdvsearch.setVisibility(View.VISIBLE);

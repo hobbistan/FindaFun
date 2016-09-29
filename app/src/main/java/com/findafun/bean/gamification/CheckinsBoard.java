@@ -12,9 +12,11 @@ public class CheckinsBoard {
     @SerializedName("checkin_count")
     @Expose
     private String checkinCount;
+
     @SerializedName("checkinPoints")
     @Expose
     private String checkinPoints;
+
     @SerializedName("dataArr")
     @Expose
     private List<Checkins> dataArr = new ArrayList<Checkins>();

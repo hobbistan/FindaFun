@@ -13,9 +13,11 @@ public class BookingsBoard {
     @SerializedName("booking_count")
     @Expose
     private String bookingCount;
+
     @SerializedName("bookingPoints")
     @Expose
     private String bookingPoints;
+
     @SerializedName("dataArr")
     @Expose
     private List<Booking> dataArr = new ArrayList<Booking>();

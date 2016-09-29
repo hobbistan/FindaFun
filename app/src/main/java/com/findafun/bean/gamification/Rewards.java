@@ -11,6 +11,7 @@ public class Rewards {
     private int visa_count;
     private int rank;
     private int photo_sharing_count;
+    private int promo_count;
     private int booking_count;
     private int checkin_count;
     private int engagements_count;
@@ -43,6 +44,10 @@ public class Rewards {
 
     public int getEventBookingCount() {
         return booking_count;
+    }
+
+    public int getReferralPromoCount() {
+        return promo_count;
     }
 
     public int getLeaderboardPosition() {
@@ -79,6 +84,10 @@ public class Rewards {
 
     public void setEventBookingCount(int eventBookingCount) {
         this.booking_count = eventBookingCount;
+    }
+
+    public void setReferralPromoCount(int referralPromoCount) {
+        this.promo_count = referralPromoCount;
     }
 
     public void setLeaderboardPosition(int leaderboardPosition) {

@@ -15,12 +15,15 @@ public class AllDetailsBoard {
     @SerializedName("photoList")
     @Expose
     private PhotosBoard photoList;
+
     @SerializedName("checkinList")
     @Expose
     private CheckinsBoard checkinList;
+
     @SerializedName("bookingList")
     @Expose
     private BookingsBoard bookingList;
+
     @SerializedName("engagementsList")
     @Expose
     private EngagementBoard engagementsList;

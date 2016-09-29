@@ -41,7 +41,7 @@
                     android:singleLine="true"
                     android:text=""
                     android:textColor="@color/title_red"
-                    android:textSize="16dp"
+                    android:textSize="14dp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -53,7 +53,7 @@
                     android:singleLine="true"
                     android:text=""
                     android:textColor="@color/text_gray"
-                    android:textSize="16dp"
+                    android:textSize="14dp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -66,8 +66,7 @@
                     android:singleLine="true"
                     android:text=""
                     android:textColor="@color/detail_color"
-                    android:textSize="14dp"
-                    android:textStyle="italic" />
+                    android:textSize="12dp" />
 
                 <ImageView
                     android:id="@+id/event_ad_image"
@@ -98,9 +97,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
         android:background="@color/event_time_row_color"
+        android:gravity="left"
         android:orientation="horizontal"
         android:paddingBottom="4dp"
-        android:gravity="left"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:paddingTop="4dp">
@@ -115,9 +114,9 @@
             android:ellipsize="end"
             android:paddingRight="5dp"
             android:singleLine="true"
-            android:visibility="gone"
             android:textColor="@android:color/black"
-            android:textSize="11dp" />
+            android:textSize="11dp"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/txt_event_time"

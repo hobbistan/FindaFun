@@ -273,14 +273,14 @@
                     android:layout_marginLeft="2dp"
                     android:layout_marginRight="2dp"
                     android:layout_marginTop="2dp"
-                    android:layout_weight="0.25"
+                    android:layout_weight="0.20"
                     android:background="@color/White">
 
                     <ImageView
                         android:id="@+id/rewards_photos_image"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="15dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginLeft="5dp"
                         android:layout_marginTop="30dp"
                         android:clickable="false"
                         android:focusable="false"
@@ -316,14 +316,14 @@
                     android:layout_marginLeft="2dp"
                     android:layout_marginRight="2dp"
                     android:layout_marginTop="2dp"
-                    android:layout_weight="0.25"
+                    android:layout_weight="0.20"
                     android:background="@color/White">
 
                     <ImageView
                         android:id="@+id/rewards_engagements_image"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="15dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginLeft="5dp"
                         android:layout_marginTop="30dp"
                         android:clickable="false"
                         android:focusable="false"
@@ -359,14 +359,14 @@
                     android:layout_marginLeft="2dp"
                     android:layout_marginRight="2dp"
                     android:layout_marginTop="2dp"
-                    android:layout_weight="0.25"
+                    android:layout_weight="0.20"
                     android:background="@color/White">
 
                     <ImageView
                         android:id="@+id/rewards_checkins_image"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="15dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginLeft="5dp"
                         android:layout_marginTop="30dp"
                         android:clickable="false"
                         android:focusable="false"
@@ -402,14 +402,14 @@
                     android:layout_marginLeft="2dp"
                     android:layout_marginRight="2dp"
                     android:layout_marginTop="2dp"
-                    android:layout_weight="0.25"
+                    android:layout_weight="0.20"
                     android:background="@color/White">
 
                     <ImageView
                         android:id="@+id/rewards_bookings_image"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="15dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginLeft="5dp"
                         android:layout_marginTop="30dp"
                         android:clickable="false"
                         android:focusable="false"
@@ -436,6 +436,47 @@
                         android:layout_below="@+id/rewards_bookings_image"
                         android:background="@color/White"></View>
 
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/referral_points_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_weight="0.20"
+                    android:background="@color/White">
+
+                    <ImageView
+                        android:id="@+id/referral_points_image"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="30dp"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:src="@drawable/referral" />
+
+                    <TextView
+                        android:id="@+id/referral_points_total_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="1dp"
+                        android:layout_marginTop="25dp"
+                        android:layout_toRightOf="@+id/referral_points_image"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:padding="5dp"
+                        android:singleLine="true"
+                        android:text="0"
+                        android:textSize="18dp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_below="@+id/referral_points_image"
+                        android:background="@color/White"></View>
 
                 </RelativeLayout>
             </LinearLayout>

@@ -13,9 +13,11 @@ public class PhotosBoard {
     @SerializedName("totalpoints")
     @Expose
     private String totalPoints;
+
     @SerializedName("photo_sharing_count")
     @Expose
     private String totalPhotos;
+
     @SerializedName("allPhotos")
     @Expose
     private List<PhotoDetail> allPhotos = new ArrayList<PhotoDetail>();

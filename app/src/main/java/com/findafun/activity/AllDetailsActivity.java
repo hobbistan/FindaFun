@@ -95,8 +95,6 @@ public class AllDetailsActivity extends AppCompatActivity implements IGamificati
         initializeViews();
 
 
-
-
        // if(GamificationDataHolder.getInstance().getmAllDetailsBoard().ismFetchData()) {
             mProgressDialog = new ProgressDialog(this);
             mProgressDialog.setIndeterminate(true);

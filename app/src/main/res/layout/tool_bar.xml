@@ -4,6 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:background="@color/apptheme_primary"
+    style="@style/ToolBarStyle.Event"
+    android:minHeight="@dimen/abc_action_bar_default_height_material"
     android:theme="@style/ThemeOverlay.MyApp.ActionBar">
 
 </android.support.v7.widget.Toolbar>

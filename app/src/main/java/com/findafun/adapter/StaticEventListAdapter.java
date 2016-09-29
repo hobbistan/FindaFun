@@ -45,7 +45,7 @@ public class StaticEventListAdapter extends BaseAdapter {
         this.events = events;
 
         transformation = new RoundedTransformationBuilder()
-                .cornerRadiusDp(100)
+                .cornerRadiusDp(5)
                 .oval(false)
                 .build();
         mSearching = false;
