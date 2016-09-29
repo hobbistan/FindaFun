@@ -33,8 +33,10 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
@@ -400,7 +402,7 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
         if(event.getEventLogo().contains(".")) {
             uImageLoader.displayImage(event.getEventLogo(), banner_image_one);
         }
-        if(event.getEventLogo().contains(".")) {
+        if(event.getEventLogo_1().contains(".")) {
             uImageLoader.displayImage(event.getEventLogo_1(), banner_image_two);
             imgEventBanner.startFlipping();
         } else {
@@ -410,7 +412,7 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
 
         }
 
-        if(event.getEventLogo().contains(".")) {
+        if(event.getEventLogo_2().contains(".")) {
             uImageLoader.displayImage(event.getEventLogo_2(), banner_image_three);
         } else {
             banner_image_three.setVisibility(View.GONE);
@@ -567,7 +569,7 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
 
         Button engageBtn = (Button) findViewById(R.id.engage_btn);
         Button bookingBtn = (Button) findViewById(R.id.booking_btn);
-        Button checkinsBtn = (Button) findViewById(R.id.checkins_btn);
+        Switch checkinsBtn = (Switch) findViewById(R.id.checkins_btn);
 
         whishListBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -669,6 +671,29 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
             }
         });
 
+
+
+        checkinsBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView,
+                                         boolean isChecked) {
+
+                if(isChecked){
+                    Toast.makeText(getApplicationContext(),"You have successfully checkin for the event"+event.getEventName().toString()+"\nGet ready for the fun! ",Toast.LENGTH_LONG).show();
+                    sendShareStatusUserActivity(2);
+                }else{
+
+                }
+
+
+
+
+            }
+        });
+
+
+/*
         checkinsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -680,6 +705,7 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
 
             }
         });
+*/
 
         contactBtn.setOnClickListener(new View.OnClickListener() {
 

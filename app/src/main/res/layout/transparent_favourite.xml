@@ -158,7 +158,7 @@
         android:background="@drawable/popup_bg_left"
         android:maxLines="2"
         android:padding="20dp"
-        android:text="Favorite: Check the Favorites Around the Your City."
+        android:text="Only those events matching your preferences."
         android:textColor="@color/Black"
         android:textSize="12dp"
         android:visibility="gone" />
@@ -174,7 +174,7 @@
         android:background="@drawable/popup_bg_left"
         android:maxLines="2"
         android:padding="20dp"
-        android:text="Popular: Trendy Events, You must Visit"
+        android:text="The most popular of the events around you."
         android:textColor="@color/Black"
         android:textSize="12dp"
         android:visibility="gone" />
@@ -189,7 +189,7 @@
         android:background="@drawable/popup_bg_center"
         android:maxLines="2"
         android:padding="20dp"
-        android:text="Hotspot:\nMalls,Hotels and Much More."
+        android:text="Regular happenings, those hotels, pubs, malls etc."
         android:textColor="@color/Black"
         android:visibility="gone" />
 
@@ -205,7 +205,7 @@
         android:background="@drawable/popup_bg_right"
         android:maxLines="2"
         android:padding="20dp"
-        android:text="List of Events."
+        android:text="List view"
         android:textColor="@color/Black"
         android:visibility="gone" />
 
@@ -221,7 +221,7 @@
         android:background="@drawable/popup_bg_center"
         android:maxLines="2"
         android:padding="20dp"
-        android:text="Checkout Events in Map."
+        android:text="Map view"
         android:textColor="@color/Black"
         android:visibility="gone" />
 
@@ -235,7 +235,7 @@
         android:background="@drawable/popup_bg_left"
         android:maxLines="2"
         android:padding="20dp"
-        android:text="Your Nearby Events."
+        android:text="Those splendid events happening near you."
         android:textColor="@color/Black"
         android:visibility="gone" />
 
@@ -248,7 +248,7 @@
         android:layout_marginTop="30dp"
         android:background="@drawable/popup_bg_right"
         android:padding="20dp"
-        android:text="Advance Search"
+        android:text="Search for any event."
         android:textColor="@color/Black"
         android:visibility="gone" />
 
@@ -278,7 +278,7 @@
         android:layout_marginTop="90dp"
         android:background="@drawable/popup_bg_right"
         android:padding="20dp"
-        android:text="Gamification: The Real Game For Who Really Enthusiastic In Events."
+        android:text="Amazing rewards program,adding to overall fun."
         android:textColor="@color/Black"
         android:visibility="gone" />
 

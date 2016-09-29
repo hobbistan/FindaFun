@@ -687,12 +687,13 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
                                          boolean isChecked) {
 
                 if(isChecked){
-                    Toast.makeText(getApplicationContext(),"switch on ",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"You have successfully checkin for the event"+event.getEventName().toString()+"\nGet ready for the fun! ",Toast.LENGTH_LONG).show();
+                    sendShareStatusUserActivity(2);
                 }else{
-                    Toast.makeText(getApplicationContext(),"switch off",Toast.LENGTH_LONG).show();
+
                 }
 
-                sendShareStatusUserActivity(2);
+
 
 
             }
