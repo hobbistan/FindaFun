@@ -8,10 +8,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:background="@android:color/white"
         android:orientation="horizontal"
         android:paddingBottom="2dp"
-        android:layout_marginTop="10dp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:paddingTop="2dp">
@@ -104,31 +104,38 @@
         android:paddingRight="10dp"
         android:paddingTop="4dp">
 
-        <TextView
-            android:id="@+id/txt_event_date"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableLeft="@drawable/ic_calendar"
-            android:drawablePadding="3dp"
-            android:ellipsize="end"
-            android:paddingRight="5dp"
-            android:singleLine="true"
-            android:textColor="@android:color/black"
-            android:textSize="11dp" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/txt_event_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/icon_time"
-            android:drawablePadding="3dp"
-            android:ellipsize="end"
-            android:gravity="right"
-            android:paddingLeft="5dp"
-            android:singleLine="true"
-            android:textColor="@android:color/black"
-            android:textSize="11dp" />
+            <TextView
+                android:id="@+id/txt_event_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:drawableLeft="@drawable/ic_calendar"
+                android:layout_alignParentLeft="true"
+                android:drawablePadding="3dp"
+                android:ellipsize="end"
+                android:paddingRight="5dp"
+                android:singleLine="true"
+                android:textColor="@android:color/black"
+                android:textSize="11dp" />
+
+            <TextView
+                android:id="@+id/txt_event_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:drawableLeft="@drawable/icon_time"
+                android:drawablePadding="3dp"
+                android:ellipsize="end"
+                android:layout_alignParentRight="true"
+                android:paddingLeft="5dp"
+                android:singleLine="true"
+                android:textColor="@android:color/black"
+                android:textSize="11dp" />
+        </RelativeLayout>
 
     </LinearLayout>
 

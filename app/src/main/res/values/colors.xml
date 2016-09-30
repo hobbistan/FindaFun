@@ -4,7 +4,8 @@
     <color name="apptheme_primary">#0f0e0e</color>
     <color name="apptheme_primary_dark">#3c3c3c</color>
     <color name="yellow_bg">#FECF05</color>
-    <color name="title_red">#E93A23</color>
+    <!--<color name="title_red">#E93A23</color>-->
+    <color name="title_red">#D9212C</color>
     <color name="title_red_semi_trans">#D9212C</color>
     <!--<color name="title_red_semi_trans">#CCE93A23</color>-->
     <color name="black_semi_trans">#A6000000</color>
@@ -52,9 +53,10 @@
     <color name="text_color_grey">#5C5B5C</color>
     <color name="title_text_color">#D44A2A</color>
     <color name="rounder_button">#CA2225</color>
-    <color name="event_time_row_color">#ebebeb</color>
+    <color name="event_time_row_color">#e6dede</color>
 
     <!-- navigation Drawer colo -->
+    <!---->
     <color name="nav_row_color">#1b1b1b</color>
     <color name="nav_back_ground_color">#202630</color>
     <color name="light_line_color">#f9f9f9</color>

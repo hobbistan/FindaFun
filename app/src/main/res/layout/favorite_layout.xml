@@ -45,7 +45,7 @@
             android:paddingLeft="10dp"
             android:paddingRight="5dp"
             android:paddingTop="10dp"
-            android:src="@drawable/list_white_unselected" />
+            android:src="@drawable/list_unselected" />
 
         <ImageButton
             android:id="@+id/nearby_list_btn"
@@ -57,7 +57,7 @@
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:paddingTop="8dp"
-            android:src="@drawable/nearby_tab_unselected" />
+            android:src="@drawable/nearby_unselected" />
 
         <ImageButton
             android:id="@+id/nearby_location_btn"
@@ -69,7 +69,7 @@
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:paddingTop="8dp"
-            android:src="@drawable/location_tab_unselected" />
+            android:src="@drawable/map_unselected" />
 
     </RelativeLayout>
 

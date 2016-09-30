@@ -187,13 +187,15 @@ public class StaticFragment extends LandingPagerFragment implements  OnMapReadyC
         mListUnselected_hp = getActivity().getResources().getDrawable(R.drawable.btn_rounded_white_right);
         mListSelected_hp = getActivity().getResources().getDrawable(R.drawable.btn_rounded_red_rightside);
 
-        mselectednearbyicon = getActivity().getResources().getDrawable(R.drawable.nearby_tab_selected);
-        munselectednearbyicon = getActivity().getResources().getDrawable(R.drawable.nearby_tab_unselected);
+        mselectednearbyicon = getActivity().getResources().getDrawable(R.drawable.nearby_selected);
+        munselectednearbyicon = getActivity().getResources().getDrawable(R.drawable.nearby_unselected);
 
-        mselectedlocationicon_hp = getActivity().getResources().getDrawable(R.drawable.location_tab_selected);
-        munselectedlocationicon_hp = getActivity().getResources().getDrawable(R.drawable.location_tab_unselected);
-        mselectedlisticon_hp = getActivity().getResources().getDrawable(R.drawable.list_white_selected);
-        munselectedlisticon_hp = getActivity().getResources().getDrawable(R.drawable.list_white_unselected);
+        mselectedlocationicon_hp = getActivity().getResources().getDrawable(R.drawable.map_selected);
+        munselectedlocationicon_hp = getActivity().getResources().getDrawable(R.drawable.map_unselected);
+
+        mselectedlisticon_hp = getActivity().getResources().getDrawable(R.drawable.list_selected);
+        munselectedlisticon_hp = getActivity().getResources().getDrawable(R.drawable.list_unselected);
+
         mMapIcon_hp = BitmapDescriptorFactory.fromResource(R.drawable.location_dot_img);
 
         mTotalEventCount_hp = (TextView) view.findViewById(R.id.nearby_totalevents);
