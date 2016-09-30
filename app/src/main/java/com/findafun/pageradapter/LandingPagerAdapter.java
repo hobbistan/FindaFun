@@ -37,7 +37,21 @@ public class LandingPagerAdapter extends FragmentPagerAdapter implements PagerSl
         this.onFragmentsRegisteredListener = onFragmentsRegisteredListener;
         instantiated = false;
         this.context = context;
-        mTabResources.add(R.drawable.home_tab_selected);
+
+        mTabResources.add(R.drawable.favorite_new_unselected);
+        mTabResources.add(R.drawable.popular_new_unselected);
+        mTabResources.add(R.drawable.hotspot_new_unselected);
+        mTabResources.add(R.drawable.leaderboard_new_unselected);
+
+        mUnselectedTabResources.add(R.drawable.favorite_new_selected);
+        mUnselectedTabResources.add(R.drawable.popular_new_selected);
+        mUnselectedTabResources.add(R.drawable.hotspot_new_selected);
+        mUnselectedTabResources.add(R.drawable.leaderboard_new_selected);
+
+
+
+
+        /*mTabResources.add(R.drawable.home_tab_selected);
         mTabResources.add(R.drawable.explore_white);
         mTabResources.add(R.drawable.hotspot_tab_selected);
         mTabResources.add(R.drawable.rewards_tab_selected);
@@ -45,7 +59,7 @@ public class LandingPagerAdapter extends FragmentPagerAdapter implements PagerSl
         mUnselectedTabResources.add(R.drawable.home_tab_unselected);
         mUnselectedTabResources.add(R.drawable.export_tab_unselected);
         mUnselectedTabResources.add(R.drawable.hotspot_tab_unselected);
-        mUnselectedTabResources.add(R.drawable.rewards_tab_unselected);
+        mUnselectedTabResources.add(R.drawable.rewards_tab_unselected);*/
     }
 
     @Override

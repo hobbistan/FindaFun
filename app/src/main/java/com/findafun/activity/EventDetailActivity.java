@@ -620,6 +620,8 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
                     try {
                         mServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.ADD_EVENT_BOOKMARK,
                                 Integer.parseInt(PreferenceStorage.getUserId(EventDetailActivity.this)), Integer.parseInt((event.getId()))));
+
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

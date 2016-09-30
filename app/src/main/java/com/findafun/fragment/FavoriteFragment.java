@@ -167,14 +167,14 @@ public class FavoriteFragment extends LandingPagerFragment implements OnMapReady
         mListUnselected = getActivity().getResources().getDrawable(R.drawable.btn_rounded_white_right);
         mListSelected = getActivity().getResources().getDrawable(R.drawable.btn_rounded_red_rightside);
 
-        mselectednearbyicon = getActivity().getResources().getDrawable(R.drawable.nearby_tab_selected);
-        munselectednearbyicon = getActivity().getResources().getDrawable(R.drawable.nearby_tab_unselected);
+        mselectednearbyicon = getActivity().getResources().getDrawable(R.drawable.nearby_selected);
+        munselectednearbyicon = getActivity().getResources().getDrawable(R.drawable.nearby_unselected);
 
-        mselectedlocationicon = getActivity().getResources().getDrawable(R.drawable.location_tab_selected);
-        munselectedlocationicon = getActivity().getResources().getDrawable(R.drawable.location_tab_unselected);
+        mselectedlocationicon = getActivity().getResources().getDrawable(R.drawable.map_selected);
+        munselectedlocationicon = getActivity().getResources().getDrawable(R.drawable.map_unselected);
 
-        mselectedlisticon = getActivity().getResources().getDrawable(R.drawable.list_white_selected);
-        munselectedlisticon = getActivity().getResources().getDrawable(R.drawable.list_white_unselected);
+        mselectedlisticon = getActivity().getResources().getDrawable(R.drawable.list_selected);
+        munselectedlisticon = getActivity().getResources().getDrawable(R.drawable.list_unselected);
 
         mMapIcon = BitmapDescriptorFactory.fromResource(R.drawable.location_dot_img);
 
