@@ -622,14 +622,14 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,
                                                 int which) {
-                                Toast.makeText(getApplicationContext(),"May Be is clicked",Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(),"Thanks for your interest.",Toast.LENGTH_LONG).show();
                             }
                         });
                 builder.setNegativeButton("Not Now",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,
                                                 int which) {
-                                Toast.makeText(getApplicationContext(),"Not Now is clicked",Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(),"Wish to see you soon.",Toast.LENGTH_LONG).show();
                             }
                         });
 
