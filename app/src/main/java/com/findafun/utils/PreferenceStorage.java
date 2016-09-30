@@ -344,6 +344,21 @@ public class PreferenceStorage {
         return userId;
     }
 
+    public static void saveFilterEventType(Context context, String singledate) {
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(FindAFunConstants.FILTEREVENTTYPE, singledate);
+        editor.commit();
+    }
+
+    public static String getFilterEventType(Context context) {
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        String userId = sharedPreferences.getString(FindAFunConstants.FILTEREVENTTYPE, "");
+        return userId;
+    }
+
     public static void saveFilterCity(Context context, String singledate) {
         SharedPreferences sharedPreferences = PreferenceManager
                 .getDefaultSharedPreferences(context);
@@ -358,6 +373,7 @@ public class PreferenceStorage {
         String userId = sharedPreferences.getString(FindAFunConstants.FILTERCITY, "");
         return userId;
     }
+
     public static void saveFilterCitySelection(Context context, int index) {
         SharedPreferences sharedPreferences = PreferenceManager
                 .getDefaultSharedPreferences(context);
@@ -366,10 +382,25 @@ public class PreferenceStorage {
         editor.commit();
     }
 
+    public static void saveFilterEventTypeSelection(Context context, int index) {
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(FindAFunConstants.FILTEREVENTTYPEINDEX, index);
+        editor.commit();
+    }
+
     public static int getFilterCityIndex(Context context) {
         SharedPreferences sharedPreferences = PreferenceManager
                 .getDefaultSharedPreferences(context);
         int userId = sharedPreferences.getInt(FindAFunConstants.FILTERCITYINDEX, -1);
+        return userId;
+    }
+
+    public static int getFilterEventTypeIndex(Context context) {
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        int userId = sharedPreferences.getInt(FindAFunConstants.FILTEREVENTTYPEINDEX, -1);
         return userId;
     }
 

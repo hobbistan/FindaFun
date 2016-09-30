@@ -25,6 +25,7 @@ import android.widget.TextView;
 import com.costum.android.widget.LoadMoreListView;
 import com.findafun.R;
 import com.findafun.activity.AddEventActivity;
+import com.findafun.activity.NearbyActivity;
 import com.findafun.activity.StaticEventDetailActivity;
 import com.findafun.adapter.StaticEventListAdapter;
 import com.findafun.bean.events.Event;
@@ -214,7 +215,7 @@ public class StaticFragment extends LandingPagerFragment implements  OnMapReadyC
                 listAppearenceNearBy.setImageDrawable(mselectednearbyicon);
 
                 mTotalEventCount_hp.setText(Integer.toString(eventsArrayList.size())+ " Nearby Events");*/
-                distanceFlag = 2;
+             /*   distanceFlag = 2;
                 LocationHelper.FindLocationManager(getContext());
 
                 mMapView_hp.setVisibility(View.VISIBLE);
@@ -227,7 +228,11 @@ public class StaticFragment extends LandingPagerFragment implements  OnMapReadyC
                 listAppearence.setImageDrawable(munselectedlisticon_hp);
                 listAppearenceNearBy.setImageDrawable(mselectednearbyicon);
 
-                mTotalEventCount_hp.setText(Integer.toString(eventsArrayList.size()) + " Hotspot Events");
+                mTotalEventCount_hp.setText(Integer.toString(eventsArrayList.size()) + " Hotspot Events"); */
+
+                Intent addEventIntent = new Intent(getActivity(), NearbyActivity.class);
+                //navigationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(addEventIntent);
             }
         });
 

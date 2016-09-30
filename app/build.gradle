@@ -106,6 +106,7 @@ dependencies {
 
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.makeramen:roundedimageview:2.1.0'
+    //compile 'io.github.yavski:fab-speed-dial:1.0.4'
 
 //    compile 'com.android.support:recyclerview-v7:23.4.0'
 //    compile 'com.android.support:design:23.4.0'
@@ -121,6 +122,7 @@ dependencies {
     compile 'za.co.riggaroo:materialhelptutorial:1.1.0'
     compile 'com.github.rampo.updatechecker:library:2.1.8'
     compile 'com.android.support:support-v4:23.4.0'
+
 
 //    compile 'com.google.android.gms:play-services-ads:9.0.2'
 //    compile 'com.google.android.gms:play-services-gcm:9.0.2'

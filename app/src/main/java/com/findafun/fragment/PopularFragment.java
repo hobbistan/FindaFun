@@ -25,6 +25,7 @@ import android.widget.TextView;
 import com.findafun.R;
 import com.findafun.activity.AddEventActivity;
 import com.findafun.activity.EventDetailActivity;
+import com.findafun.activity.NearbyActivity;
 import com.findafun.bean.events.Event;
 import com.findafun.bean.events.EventList;
 import com.findafun.helper.AlertDialogHelper;
@@ -184,7 +185,7 @@ public class PopularFragment extends LandingPagerFragment implements OnMapReadyC
 
                 mTotalEventCount.setText(Integer.toString(eventsArrayList.size())+ " Nearby Events");*/
 
-                distanceFlag = 2;
+             /*   distanceFlag = 2;
 
                 LocationHelper.FindLocationManager(getContext());
                 mMapView.setVisibility(View.VISIBLE);
@@ -197,7 +198,11 @@ public class PopularFragment extends LandingPagerFragment implements OnMapReadyC
                 listAppearence.setImageDrawable(munselectedlisticon);
                 listAppearenceNearBy.setImageDrawable(mselectednearbyicon);
 
-                mTotalEventCount.setText(Integer.toString(eventsArrayList.size()) + " Nearby Events");
+                mTotalEventCount.setText(Integer.toString(eventsArrayList.size()) + " Nearby Events"); */
+
+                Intent addEventIntent = new Intent(getActivity(), NearbyActivity.class);
+                //navigationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(addEventIntent);
             }
         });
 

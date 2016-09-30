@@ -17,6 +17,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -26,6 +27,7 @@ import android.widget.TextView;
 import com.findafun.R;
 import com.findafun.activity.AddEventActivity;
 import com.findafun.activity.EventDetailActivity;
+import com.findafun.activity.NearbyActivity;
 import com.findafun.bean.events.Event;
 import com.findafun.bean.events.EventList;
 import com.findafun.helper.AlertDialogHelper;
@@ -144,11 +146,22 @@ public class FavoriteFragment extends LandingPagerFragment implements OnMapReady
             public void onClick(View view) {
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
-                Intent addEventIntent = new Intent(getActivity(), AddEventActivity.class);
+                Intent addEventIntent = new Intent(getActivity(), NearbyActivity.class);
                 //navigationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(addEventIntent);
             }
+
+
         });
+
+     /*   FabSpeedDial fabSpeedDial = (FabSpeedDial) view.findViewById(R.id.fab_menu);
+        fabSpeedDial.setMenuListener(new SimpleMenuListenerAdapter() {
+            @Override
+            public boolean onMenuItemSelected(MenuItem menuItem) {
+                //TODO: Start some activity
+                return false;
+            }
+        }); */
 
 
         listFlag = "Full";
@@ -200,7 +213,7 @@ public class FavoriteFragment extends LandingPagerFragment implements OnMapReady
 
                 mTotalEventCount.setText(Integer.toString(eventsArrayList.size()) + " Nearby Events");*/
 
-                distanceFlag = 2;
+           /*     distanceFlag = 2;
 
                 LocationHelper.FindLocationManager(getContext());
 
@@ -242,9 +255,14 @@ public class FavoriteFragment extends LandingPagerFragment implements OnMapReady
                 } else {
                     dialog.dismiss();
 
-                }
+                }*/
+
+                Intent addEventIntent = new Intent(getActivity(), NearbyActivity.class);
+                //navigationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(addEventIntent);
 
             }
+
         });
 
         mLocationBtn.setOnClickListener(new View.OnClickListener() {

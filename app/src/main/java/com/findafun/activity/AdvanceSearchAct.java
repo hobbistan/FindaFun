@@ -43,7 +43,7 @@ public class AdvanceSearchAct extends AppCompatActivity implements AdapterView.O
 
     String singleDate = "";
     boolean todayPressed = false, tomorrowPressed = false, datePressed = false;
-    Spinner spincity;
+    Spinner spincity,spinEventType;
     private ArrayList<String> selecteditemIndexList;
     private Button spincat;
     AlertDialog.Builder builder;
@@ -91,12 +91,39 @@ public class AdvanceSearchAct extends AppCompatActivity implements AdapterView.O
         spincity = (Spinner) findViewById(R.id.cityspinner);
         spincity.setOnItemSelectedListener(this);
 
+
+
         ArrayAdapter<String> dataAdapter1 = new ArrayAdapter<String>(this, R.layout.spinner_item, getResources().getStringArray(R.array.india_top_places));
         spincity.setAdapter(dataAdapter1);
         int index = PreferenceStorage.getFilterCityIndex(this);
         if((index >=0) && index < (getResources().getStringArray(R.array.india_top_places).length)){
             spincity.setSelection(index);
         }
+
+        spinEventType = (Spinner)findViewById(R.id.eventtypespinner);
+
+        ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<String>(this, R.layout.spinner_item, getResources().getStringArray(R.array.events_type));
+        spinEventType.setAdapter(dataAdapter2);
+        int index1 = PreferenceStorage.getFilterEventTypeIndex(this);
+        if((index1 >=0) && index1 < (getResources().getStringArray(R.array.events_type).length)){
+            spinEventType.setSelection(index1);
+        }
+
+        spinEventType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String item = parent.getItemAtPosition(position).toString();
+                PreferenceStorage.saveFilterEventTypeSelection(getApplicationContext(), position);
+                //Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
         DatePickerSelection();
         findViewById(R.id.btnapply).setOnClickListener(this);
         findViewById(R.id.btncancel).setOnClickListener(this);
@@ -474,6 +501,7 @@ public class AdvanceSearchAct extends AppCompatActivity implements AdapterView.O
                 }
                 break;
             case R.id.btnapply:
+                String eventType = spinEventType.getSelectedItem().toString();
                 String city = spincity.getSelectedItem().toString();
                 String catgry = spincat.getText().toString();
                 String fromdate = ((Button) findViewById(R.id.btnfrom)).getText().toString();
@@ -487,6 +515,9 @@ public class AdvanceSearchAct extends AppCompatActivity implements AdapterView.O
                     if (!city.equalsIgnoreCase("Select Your City")) {
                         PreferenceStorage.saveFilterCity(this, city);
                     }
+                    //if (!eventType.equalsIgnoreCase("Select Your Event Type")) {
+                        PreferenceStorage.saveFilterEventType(this, eventType);
+                    //}
                     if (!catgry.equalsIgnoreCase("Select Category")) {
                         PreferenceStorage.saveFilterCatgry(this, catgry);
                     }
@@ -497,7 +528,6 @@ public class AdvanceSearchAct extends AppCompatActivity implements AdapterView.O
                     singleDate = "";
                     PreferenceStorage.saveFilterSingleDate(this, singleDate);
                     PreferenceStorage.IsFilterApply(this, true);
-
 
                     if (fromdate.equalsIgnoreCase("")) {
                         Toast.makeText(this, "Select From Date", Toast.LENGTH_SHORT).show();
@@ -510,6 +540,8 @@ public class AdvanceSearchAct extends AppCompatActivity implements AdapterView.O
                         if (!city.equalsIgnoreCase("Select Your City")) {
                             PreferenceStorage.saveFilterCity(this, city);
                         }
+                        PreferenceStorage.saveFilterEventType(this, eventType);
+
                         if (!catgry.equalsIgnoreCase("Select Category")) {
                             PreferenceStorage.saveFilterCatgry(this, catgry);
                         }
@@ -524,6 +556,9 @@ public class AdvanceSearchAct extends AppCompatActivity implements AdapterView.O
                     if (!city.equalsIgnoreCase("Select Your City")) {
                         PreferenceStorage.saveFilterCity(this, city);
                     }
+
+                    PreferenceStorage.saveFilterEventType(this, eventType);
+
                     if (!catgry.equalsIgnoreCase("Select Category")) {
                         PreferenceStorage.saveFilterCatgry(this, catgry);
                     }

@@ -124,6 +124,7 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
     int curRate;
     private int mShortAnimationDuration;
     ImageView banner_image_one, banner_image_two, banner_image_three, banner_image_four, banner_image_five;
+    Button whishListBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -563,7 +564,7 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
         mShortAnimationDuration = getResources().getInteger(
                 android.R.integer.config_shortAnimTime);
 
-        Button whishListBtn = (Button) findViewById(R.id.whishlist_btn);
+        whishListBtn = (Button) findViewById(R.id.whishlist_btn);
         Button shareBtn = (Button) findViewById(R.id.share_btn);
         Button contactBtn = (Button) findViewById(R.id.contact_btn);
 
@@ -582,11 +583,15 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
                 }
                 if (GamificationDataHolder.getInstance().isEventBookmarked(event.getId())) {
                     Toast.makeText(StaticEventDetailActivity.this, "Event already bookmarked", Toast.LENGTH_SHORT).show();
+                    int imgResource = R.drawable.ic_wishlist_selected;
+                    whishListBtn.setCompoundDrawablesWithIntrinsicBounds(imgResource, 0, 0, 0);
 
                 } else {
                     try {
                         mServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.ADD_EVENT_BOOKMARK,
                                 Integer.parseInt(PreferenceStorage.getUserId(StaticEventDetailActivity.this)), Integer.parseInt((event.getId()))));
+                        int imgResource = R.drawable.ic_wishlist_selected;
+                        whishListBtn.setCompoundDrawablesWithIntrinsicBounds(imgResource, 0, 0, 0);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

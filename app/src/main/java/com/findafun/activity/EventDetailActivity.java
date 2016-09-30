@@ -139,6 +139,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
     private ArrayList<ImageInfo> imgImageInfos = new ArrayList<>();
     int curRate;
     private int mShortAnimationDuration;
+    Button whishListBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -547,7 +548,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
         mShortAnimationDuration = getResources().getInteger(
                 android.R.integer.config_shortAnimTime);
 
-        Button whishListBtn = (Button) findViewById(R.id.whishlist_btn);
+        whishListBtn = (Button) findViewById(R.id.whishlist_btn);
         Button shareBtn = (Button) findViewById(R.id.share_btn);
         Button contactBtn = (Button) findViewById(R.id.contact_btn);
 
@@ -615,11 +616,16 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
                 }
                 if (GamificationDataHolder.getInstance().isEventBookmarked(event.getId())) {
                     Toast.makeText(EventDetailActivity.this, "Event already bookmarked", Toast.LENGTH_SHORT).show();
+                    int imgResource = R.drawable.ic_wishlist_selected;
+                    whishListBtn.setCompoundDrawablesWithIntrinsicBounds(imgResource, 0, 0, 0);
 
                 } else {
                     try {
                         mServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.ADD_EVENT_BOOKMARK,
                                 Integer.parseInt(PreferenceStorage.getUserId(EventDetailActivity.this)), Integer.parseInt((event.getId()))));
+
+                        int imgResource = R.drawable.ic_wishlist_selected;
+                        whishListBtn.setCompoundDrawablesWithIntrinsicBounds(imgResource, 0, 0, 0);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

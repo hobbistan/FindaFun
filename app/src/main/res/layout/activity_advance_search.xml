@@ -102,11 +102,33 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/tvsortbycategory"
+                android:id="@+id/tveventtype"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@id/threebtn"
+                android:layout_marginBottom="@dimen/mainmargin"
+                android:gravity="center"
+                android:text="Select Event Type"
+                android:textColor="@color/white"
+                android:textSize="@dimen/actionbarTextSize" />
+
+
+            <Spinner
+                android:id="@+id/eventtypespinner"
+                style="@style/spinner_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tveventtype"
+                android:layout_marginBottom="@dimen/mainmargin"
+                android:textSize="15sp"></Spinner>
+
+            <TextView
+                android:id="@+id/tvsortbycategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/eventtypespinner"
                 android:layout_marginBottom="@dimen/mainmargin"
                 android:gravity="center"
                 android:text="Select Category"

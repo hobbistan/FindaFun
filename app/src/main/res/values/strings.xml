@@ -109,6 +109,8 @@
     <string name="detail_events">Detailed Events</string>
     <string name="abt_event"></string>
 
+    <!--Floating Menu Name-->
+    <string name="menu_nearby">Nearby</string>
 
     <string-array name="india_top_places">
         <item>Select Your City</item>
@@ -118,6 +120,18 @@
         <item>Trivandrum</item>
         <item>Delhi</item>
         <item>Bangalore</item>
+    </string-array>
+
+    <string-array name="nearby_distance">
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>35</item>
+    </string-array>
+
+    <string-array name="events_type">
+        <item>Normal</item>
+        <item>Hotspot</item>
     </string-array>
 
     <string name="viewless"><u>View Less</u></string>

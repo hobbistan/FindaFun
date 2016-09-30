@@ -67,10 +67,7 @@ public class AdvaSearchResAct extends AppCompatActivity implements LoadMoreListV
             PreferenceStorage.IsFilterApply(this, false);
             callGetFilterService();
         }
-
-
     }
-
 
     public void callGetFilterService() {
         /*if(eventsListAdapter != null){

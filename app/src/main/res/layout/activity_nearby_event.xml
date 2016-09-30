@@ -1,11 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/event_detail_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.findafun.fragment.NearbyFragment">
+    android:background="#312725"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/activity_toolbar"
+        layout="@layout/tool_bar"></include>
+
+    <TextView
+        android:id="@+id/tveventtype"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/threebtn"
+        android:layout_marginBottom="@dimen/mainmargin"
+        android:gravity="center"
+        android:text="Select Nearby Distance"
+        android:textColor="@color/white"
+        android:textSize="@dimen/actionbarTextSize" />
+
+
+    <Spinner
+        android:id="@+id/nearbyspinner"
+        style="@style/spinner_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tveventtype"
+        android:layout_marginBottom="@dimen/mainmargin"
+        android:textSize="15sp"></Spinner>
 
     <RelativeLayout
         android:id="@+id/nearby_header_layout"
@@ -21,7 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"
-            android:text="Favorite events "
+            android:text="Nearby events "
             android:textSize="18dp" />
 
         <TextView
@@ -57,14 +84,15 @@
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:paddingTop="8dp"
-            android:src="@drawable/nearby_tab_unselected" />
+            android:src="@drawable/nearby_tab_unselected"
+            android:visibility="gone" />
 
         <ImageButton
             android:id="@+id/nearby_location_btn"
             android:layout_width="60dp"
             android:layout_height="40dp"
             android:layout_toLeftOf="@+id/nearby_grid_view_btn"
-            android:background="@drawable/nearby_icon_background"
+            android:background="@drawable/location_icon_background"
             android:paddingBottom="10dp"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
@@ -108,29 +136,4 @@
 
     </RelativeLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_margin="@dimen/fab_margin"
-        android:visibility="gone"
-        android:src="@android:drawable/ic_input_add" />
-
-
-    <!-- <io.github.yavski.fabspeeddial.FabSpeedDial
-         android:id="@+id/fab_menu"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_gravity="bottom|end"
-         app:fabGravity="bottom_end"
-         app:fabMenu="@menu/menu_floating"
-         android:layout_alignParentBottom="true"
-         android:layout_alignParentRight="true"
-         app:miniFabBackgroundTint="@android:color/white"
-         app:miniFabDrawableTint="?attr/colorPrimaryDark"
-         app:miniFabTitleTextColor="?attr/colorPrimaryDark" />-->
-
-</RelativeLayout>
+</LinearLayout>

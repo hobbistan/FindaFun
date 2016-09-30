@@ -46,8 +46,10 @@ public class FindAFunConstants {
     public static final String FROMDATE = "fromdate";
     public static final String TODATE = "todate";
     public static final String FILTERCITY = "filtercity";
+    public static final String FILTEREVENTTYPE = "filtereventtype";
     public static final String FILTERCAT = "filtercat";
     public static final String FILTERCITYINDEX = "filtercityindex";
+    public static final String FILTEREVENTTYPEINDEX = "filtereventtypeindex";
     //Service Params
     public static String PARAM_MESSAGE = "msg";
     public static final String DEFAULT_PASSWORD = "hobbistan123";

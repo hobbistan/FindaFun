@@ -110,6 +110,10 @@ public class EventServiceHelper {
             if (!singledate.equalsIgnoreCase("")) {
                 jsonObject.accumulate("single_date", singledate);
             }
+            String eventType = PreferenceStorage.getFilterEventType(context);
+            if (!eventType.equalsIgnoreCase("")) {
+                jsonObject.accumulate("event_type", eventType);
+            }
             String catgry = PreferenceStorage.getFilterCatgry(context);
             if (!catgry.equalsIgnoreCase("")) {
                 jsonObject.accumulate("selected_category", catgry);
@@ -126,6 +130,7 @@ public class EventServiceHelper {
             if (!todate.equalsIgnoreCase("")) {
                 jsonObject.accumulate("to_date", todate);
             }
+
 
 
             // jsonObject.accumulate("twitter", person.getTwitter());

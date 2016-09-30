@@ -87,7 +87,6 @@ public class StaticEventFragment extends Fragment implements LoadMoreListView.On
         eventServiceHelper = new EventServiceHelper(getActivity());
         eventServiceHelper.setEventServiceListener(this);
         progressDialogHelper = new ProgressDialogHelper(getActivity());
-
     }
 
     public void callGetEventService(int position) {
@@ -236,11 +235,8 @@ public class StaticEventFragment extends Fragment implements LoadMoreListView.On
                     if(mNoEventsFound != null)
                         mNoEventsFound.setVisibility(View.VISIBLE);
                 }
-
             }
         });
-
-
     }
 
     @Override
@@ -253,7 +249,6 @@ public class StaticEventFragment extends Fragment implements LoadMoreListView.On
                 AlertDialogHelper.showSimpleAlertDialog(getActivity(), error);
             }
         });
-
     }
 
     @Override
