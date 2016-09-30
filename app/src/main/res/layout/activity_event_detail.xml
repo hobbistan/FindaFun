@@ -250,7 +250,7 @@
                     android:background="@drawable/whishlist_selector"
                     android:drawablePadding="10dp"
                     android:paddingLeft="5dp"
-                    android:text="Engage"
+                    android:text="Interested"
                     android:textSize="10dp" />
 
                 <Button
