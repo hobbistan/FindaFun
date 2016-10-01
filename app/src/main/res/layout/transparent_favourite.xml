@@ -149,7 +149,7 @@
     <TextView
         android:id="@+id/trans_favorite"
         android:layout_width="200dp"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/gami_pt"
@@ -167,7 +167,7 @@
     <TextView
         android:id="@+id/trans_popular"
         android:layout_width="200dp"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/popular_pnt_icon"
         android:layout_marginLeft="100dp"
         android:layout_marginTop="90dp"
@@ -182,7 +182,7 @@
     <TextView
         android:id="@+id/trans_hotspot"
         android:layout_width="200dp"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/hotspot_pnt_icon"
         android:layout_marginLeft="132dp"
         android:layout_marginTop="90dp"
@@ -197,7 +197,7 @@
     <TextView
         android:id="@+id/trans_evntlist"
         android:layout_width="200dp"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/trans_map"
@@ -213,7 +213,7 @@
     <TextView
         android:id="@+id/trans_map"
         android:layout_width="200dp"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/map_pnt_icon"
         android:layout_marginRight="6dp"
@@ -229,7 +229,7 @@
     <TextView
         android:id="@+id/trans_nearby_events"
         android:layout_width="200dp"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="180dp"
         android:layout_marginTop="140dp"
         android:background="@drawable/popup_bg_left"
@@ -243,7 +243,7 @@
     <TextView
         android:id="@+id/trans_search"
         android:layout_width="200dp"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="180dp"
         android:layout_marginTop="30dp"
         android:background="@drawable/popup_bg_right"
@@ -256,7 +256,7 @@
     <TextView
         android:id="@+id/trans_add_event"
         android:layout_width="200dp"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:layout_above="@+id/add_event_pt"
         android:layout_alignParentRight="true"
         android:layout_marginRight="80dp"
@@ -271,7 +271,7 @@
     <TextView
         android:id="@+id/trans_gami"
         android:layout_width="200dp"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/gami_pt"
         android:layout_marginRight="6dp"
@@ -281,15 +281,6 @@
         android:text="Amazing rewards program,adding to overall fun."
         android:textColor="@color/Black"
         android:visibility="gone" />
-
-
-    <!-- <TextView
-         android:id="@+id/trans_gam"
-         android:layout_width="200dp"
-         android:layout_height="wrap_content"
-         android:text="Gamification: The Real Game For Who Really Enthusiastic In Events."
-         android:text
-         />-->
 
 
 </RelativeLayout>
