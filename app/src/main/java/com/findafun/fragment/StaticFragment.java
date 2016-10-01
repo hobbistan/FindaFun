@@ -151,7 +151,6 @@ public class StaticFragment extends LandingPagerFragment implements  OnMapReadyC
         eventServiceHelper = new EventServiceHelper(getActivity());
         eventServiceHelper.setEventServiceListener(this);
         progressDialogHelperHot = new ProgressDialogHelper(getActivity());
-
     }
 
     @Override

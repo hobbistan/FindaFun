@@ -215,8 +215,6 @@ public class LandingPagerFragment extends Fragment implements  IEventServiceList
 
                  /*  if(isFirstRun){
                         getTransparentFavour();
-
-
                  }
 */
                     isFirstRun = false;
@@ -226,7 +224,7 @@ public class LandingPagerFragment extends Fragment implements  IEventServiceList
                     break;
                 case 1:
                     Log.d(TAG, "fetch ALL events");
-                    eventServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.GET_EVENTS_FEATURED, pageNumber));
+                    eventServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.GET_EVENTS_FEATURED, pageNumber,PreferenceStorage.getUserCity(getActivity())));
                     //eventServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.GET_EVENTS_FEATURED, pageNumber, PreferenceStorage.getUserCity(getActivity())));
                     break;
                 case 2:

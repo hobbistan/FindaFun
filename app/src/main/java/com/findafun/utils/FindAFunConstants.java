@@ -15,7 +15,7 @@ public class FindAFunConstants {
     public static final String GET_EVENTS_FAVOURITES_1 = BASE_URL_1 + "api.php?func_name=event_management&event_type=bars&city=chennai";
     public static final String GET_EVENTS_FAVOURITES = BASE_URL + "api.php?func_name=event_management&event_type=preference&user_id=%d&page_id=%d&city=%s";
     public static final String GET_ADVANCE_SEARCH = BASE_URL + "api.php?func_name=advanced_event_management&from_date04-03-2015=preference&user_id=%d&page_id=%d&city=%s";
-    public static final String GET_EVENTS_FEATURED = BASE_URL + "api.php?func_name=event_management&event_type=popularity&page_id=%d";
+    public static final String GET_EVENTS_FEATURED = BASE_URL + "api.php?func_name=event_management&event_type=popularity&page_id=%d&city=%s";
     public static final String GET_EVENTS_NEARBY_URL = BASE_URL + "api.php?func_name=event_management&event_type=all&page_id=%d";
     public static final String GET_EVENTS_ALL_URL = BASE_URL + "api.php?func_name=event_management&event_type=all&page_id=%d&city=%s";
     public static final String GET_EVENTS_ALL_TEST_URL = BASE_URL + "api.php?func_name=event_management&event_type=all&user_id=%d&page_id=%d";

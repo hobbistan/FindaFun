@@ -28,7 +28,6 @@
         android:textColor="@color/actionbar_color"
         android:visibility="gone" />
 
-
     <ImageView
         android:id="@+id/popular_pnt_icon"
         android:layout_width="40dp"
@@ -65,7 +64,6 @@
         android:textColor="@color/actionbar_color"
         android:visibility="gone" />
 
-
     <ImageView
         android:id="@+id/map_pnt_icon"
         android:layout_width="40dp"
@@ -77,7 +75,6 @@
         android:src="@drawable/touch_image_up"
         android:textColor="@color/actionbar_color"
         android:visibility="gone" />
-
 
     <ImageView
         android:id="@+id/nearby_pnt_icon"
@@ -91,7 +88,6 @@
         android:textColor="@color/actionbar_color"
         android:visibility="gone" />
 
-
     <ImageView
         android:id="@+id/adv_screen_pt"
         android:layout_width="40dp"
@@ -102,7 +98,6 @@
         android:layout_marginTop="20dp"
         android:src="@drawable/touch_image_up"
         android:visibility="gone" />
-
 
     <ImageView
         android:id="@+id/add_event_pt"
@@ -116,7 +111,6 @@
         android:src="@drawable/touch_image_up"
         android:visibility="gone" />
 
-
     <ImageView
         android:id="@+id/gami_pt"
         android:layout_width="40dp"
@@ -128,7 +122,6 @@
         android:layout_marginTop="80dp"
         android:src="@drawable/touch_image_up"
         android:visibility="gone" />
-
 
     <TextView
         android:id="@+id/trans_navigation_drawer"
@@ -144,7 +137,6 @@
         android:textColor="@color/Black"
         android:textSize="12dp"
         android:visibility="gone" />
-
 
     <TextView
         android:id="@+id/trans_favorite"
@@ -162,7 +154,6 @@
         android:textColor="@color/Black"
         android:textSize="12dp"
         android:visibility="gone" />
-
 
     <TextView
         android:id="@+id/trans_popular"
@@ -193,7 +184,6 @@
         android:textColor="@color/Black"
         android:visibility="gone" />
 
-
     <TextView
         android:id="@+id/trans_evntlist"
         android:layout_width="200dp"
@@ -208,7 +198,6 @@
         android:text="List view"
         android:textColor="@color/Black"
         android:visibility="gone" />
-
 
     <TextView
         android:id="@+id/trans_map"
@@ -225,7 +214,6 @@
         android:textColor="@color/Black"
         android:visibility="gone" />
 
-
     <TextView
         android:id="@+id/trans_nearby_events"
         android:layout_width="200dp"
@@ -239,7 +227,6 @@
         android:textColor="@color/Black"
         android:visibility="gone" />
 
-
     <TextView
         android:id="@+id/trans_search"
         android:layout_width="200dp"
@@ -251,7 +238,6 @@
         android:text="Search for any event."
         android:textColor="@color/Black"
         android:visibility="gone" />
-
 
     <TextView
         android:id="@+id/trans_add_event"
@@ -267,7 +253,6 @@
         android:textColor="@color/Black"
         android:visibility="gone" />
 
-
     <TextView
         android:id="@+id/trans_gami"
         android:layout_width="200dp"
@@ -281,6 +266,5 @@
         android:text="Amazing rewards program,adding to overall fun."
         android:textColor="@color/Black"
         android:visibility="gone" />
-
 
 </RelativeLayout>
