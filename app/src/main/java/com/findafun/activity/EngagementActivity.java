@@ -15,7 +15,6 @@ import com.findafun.R;
 import com.findafun.bean.gamification.Engagement;
 import com.findafun.bean.gamification.EngagementBoard;
 import com.findafun.bean.gamification.GamificationDataHolder;
-
 import com.findafun.helper.AlertDialogHelper;
 import com.findafun.interfaces.DialogClickListener;
 import com.findafun.servicehelpers.GamificationServiceHelper;
@@ -43,8 +42,8 @@ public class EngagementActivity extends AppCompatActivity implements IGamificati
     private ProgressDialog mProgressDialog = null;
     private android.os.Handler mHandler = new android.os.Handler();
     private EngagementBoard mEngagementDetails = null;
-    private String mDateVal ="0";
-    private HashMap<String, Integer> mHeaderPos = new HashMap<String,Integer>();
+    private String mDateVal = "0";
+    private HashMap<String, Integer> mHeaderPos = new HashMap<String, Integer>();
 
     public EngagementActivity() {
         transformation = new RoundedTransformationBuilder()
@@ -62,33 +61,28 @@ public class EngagementActivity extends AppCompatActivity implements IGamificati
         initializeViews();
         mHeaderPos.clear();
 
-
         //check if leader board data is already loaded
-        if(!(mEngagementDetails.getAvailableEngagementCount() > 0)){
-
+        if (!(mEngagementDetails.getAvailableEngagementCount() > 0)) {
             mProgressDialog = new ProgressDialog(this);
             mProgressDialog.setIndeterminate(true);
             mProgressDialog.setMessage("Loading");
             mProgressDialog.show();
-
             GamificationServiceHelper helper = new GamificationServiceHelper(this);
             //Integer.parseInt(PreferenceStorage.getUserId(this)))
-            helper.fetchEngagementDetails(String.format(FindAFunConstants.GET_ENGAGEMENTS_URL,Integer.parseInt(PreferenceStorage.getUserId(this))) , this);
-
-        }else{
-            if(mEngagementDetails.getEngagementsPoints() != null) {
+            helper.fetchEngagementDetails(String.format(FindAFunConstants.GET_ENGAGEMENTS_URL, Integer.parseInt(PreferenceStorage.getUserId(this))), this);
+        } else {
+            if (mEngagementDetails.getEngagementsPoints() != null) {
                 mPointsView.setText(mEngagementDetails.getEngagementsPoints());
             }
-            if(mEngagementDetails.getEngagementsCount() != null){
+            if (mEngagementDetails.getEngagementsCount() != null) {
                 mTotalPointsView.setText(mEngagementDetails.getEngagementsCount());
             }
         }
     }
 
-    private void initializeViews(){
+    private void initializeViews() {
         mPointsView = (TextView) findViewById(R.id.engagements_star_value);
         mTotalPointsView = (TextView) findViewById(R.id.engagement_total_val);
-
         ImageView backbtn = (ImageView) findViewById(R.id.back_btn);
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,23 +91,22 @@ public class EngagementActivity extends AppCompatActivity implements IGamificati
             }
         });
         mBoardDetails = (ListView) findViewById(R.id.engagements_list);
-        mAdapter =  new DataAdapter();
+        mAdapter = new DataAdapter();
         mBoardDetails.setAdapter(mAdapter);
-
     }
 
     @Override
     public void onSuccess(int resultCode, Object result) {
-        if(mProgressDialog != null){
+        if (mProgressDialog != null) {
             mProgressDialog.cancel();
         }
-        if( (result != null) && (result instanceof EngagementBoard)){
-            Log.d(TAG,"Engagement success");
+        if ((result != null) && (result instanceof EngagementBoard)) {
+            Log.d(TAG, "Engagement success");
             Log.d(TAG, "Notify adapter");
-            if(mEngagementDetails.getEngagementsPoints() != null) {
+            if (mEngagementDetails.getEngagementsPoints() != null) {
                 mPointsView.setText(mEngagementDetails.getEngagementsPoints());
             }
-            if(mEngagementDetails.getEngagementsCount() != null){
+            if (mEngagementDetails.getEngagementsCount() != null) {
                 mTotalPointsView.setText(mEngagementDetails.getEngagementsCount());
             }
             mHeaderPos.clear();
@@ -124,11 +117,10 @@ public class EngagementActivity extends AppCompatActivity implements IGamificati
 
     @Override
     public void onError(String erorr) {
-        if(mProgressDialog != null){
+        if (mProgressDialog != null) {
             mProgressDialog.cancel();
         }
         AlertDialogHelper.showSimpleAlertDialog(this, erorr);
-
     }
 
     @Override
@@ -146,9 +138,8 @@ public class EngagementActivity extends AppCompatActivity implements IGamificati
         @Override
         public int getCount() {
             Log.d(TAG, "count is" + mEngagementDetails.getAvailableEngagementCount());
-            mDateVal ="0";
-            return  mEngagementDetails.getAvailableEngagementCount();
-
+            mDateVal = "0";
+            return mEngagementDetails.getAvailableEngagementCount();
         }
 
         @Override
@@ -166,48 +157,39 @@ public class EngagementActivity extends AppCompatActivity implements IGamificati
             if (convertView == null) {
                 convertView = getLayoutInflater().inflate(R.layout.gamification_row, parent, false);
             }
-            Log.d(TAG,"getview called"+position);
+            Log.d(TAG, "getview called" + position);
             TextView date = (TextView) convertView.findViewById(R.id.board_data_val);
             TextView eventname = (TextView) convertView.findViewById(R.id.board_event_name);
             ImageView image = (ImageView) convertView.findViewById(R.id.board_event_img);
-
             Engagement engagement = mEngagementDetails.getEngagementAtPos(position);
             String eventdate = engagement.getDate();
-            Log.d(TAG,"event date"+ eventdate+ "currentdate"+ mDateVal);
-            if(!mHeaderPos.containsKey(eventdate)){
-                Log.d(TAG,"setting date");
+            Log.d(TAG, "event date" + eventdate + "currentdate" + mDateVal);
+            if (!mHeaderPos.containsKey(eventdate)) {
+                Log.d(TAG, "setting date");
                 date.setVisibility(View.VISIBLE);
                 date.setText(eventdate);
                 mHeaderPos.put(eventdate, position);
                 // mDateVal = eventdate;
-
-            }else{
+            } else {
                 int headerpos = mHeaderPos.get(eventdate);
-                if(headerpos == position){
-                    Log.d(TAG,"setting date");
+                if (headerpos == position) {
+                    Log.d(TAG, "setting date");
                     date.setVisibility(View.VISIBLE);
                     date.setText(eventdate);
-
-                }else{
+                } else {
                     date.setVisibility(View.GONE);
                 }
             }
-
-            if(engagement.getEventName() != null){
+            if (engagement.getEventName() != null) {
                 eventname.setText(engagement.getEventName());
-            }else{
+            } else {
                 eventname.setText("N/A");
             }
-
-
-
-            if(FindAFunValidator.checkNullString(engagement.getImageUrl())) {
+            if (FindAFunValidator.checkNullString(engagement.getImageUrl())) {
                 Picasso.with(EngagementActivity.this).load(engagement.getImageUrl()).fit().transform(EngagementActivity.this.transformation).placeholder(R.drawable.placeholder_small).error(R.drawable.placeholder_small).into(image);
             } else {
                 image.setImageResource(R.drawable.placeholder_small);
             }
-
-
             return convertView;
         }
     }

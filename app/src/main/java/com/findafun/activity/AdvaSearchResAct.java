@@ -1,6 +1,5 @@
 package com.findafun.activity;
 
-
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -47,9 +46,6 @@ public class AdvaSearchResAct extends AppCompatActivity implements LoadMoreListV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adva_search_res);
         getSupportActionBar().hide();
-        //toolbar = (Toolbar) findViewById(R.id.toolbar);
-        // setSupportActionBar(toolbar);
-
         loadMoreListView = (LoadMoreListView) findViewById(R.id.listView_events);
         loadMoreListView.setOnLoadMoreListener(this);
         loadMoreListView.setOnItemClickListener(this);
@@ -73,7 +69,6 @@ public class AdvaSearchResAct extends AppCompatActivity implements LoadMoreListV
         /*if(eventsListAdapter != null){
             eventsListAdapter.clearSearchFlag();
         }*/
-
         if (eventsArrayList != null)
             eventsArrayList.clear();
 
@@ -91,7 +86,6 @@ public class AdvaSearchResAct extends AppCompatActivity implements LoadMoreListV
         @Override
         protected Void doInBackground(String... urls) {
             eventServiceHelper.makeRawRequest(FindAFunConstants.GET_ADVANCE_SINGLE_SEARCH);
-
             return null;
         }
 
@@ -101,7 +95,6 @@ public class AdvaSearchResAct extends AppCompatActivity implements LoadMoreListV
             progressDialogHelper.cancelProgressDialog();
         }
     }
-
 
     @Override
     public void onEventResponse(final JSONObject response) {
@@ -120,7 +113,6 @@ public class AdvaSearchResAct extends AppCompatActivity implements LoadMoreListV
                     isLoadingForFirstTime = false;
                     updateListAdapter(eventsList.getEvents());
                 }
-
             }
         });
     }
@@ -177,7 +169,6 @@ public class AdvaSearchResAct extends AppCompatActivity implements LoadMoreListV
             eventsListAdapter.notifyDataSetChanged();
             //loadMoreListView.invalidateViews();
         }
-
     }
 
     public void exitSearch() {

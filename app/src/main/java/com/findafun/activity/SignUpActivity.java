@@ -72,7 +72,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private Button btnFacebook, btnGPlus;
     private Button btnSignIn;
     private SignUpServiceHelper signUpServiceHelper;
-    private EditText edtUserName, edtPassword,name,city;
+    private EditText edtUserName, edtPassword, name, city;
     private ProgressDialogHelper progressDialogHelper;
     private TextView txtSignUp;
     private GoogleApiClient mGoogleApiClient;
@@ -82,7 +82,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private boolean mResolvingError = false;
     private SharedPreferences mSharedPreferences;
     private View mDecorView;
-    private int mSelectedLoginMode =0;
+    private int mSelectedLoginMode = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +92,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(this) == ConnectionResult.SUCCESS) {
             //We get a connection to the Google Play Service API
             // Initializing google plus api client
-            Log.d(TAG,"Initiating google plus connection");
+            Log.d(TAG, "Initiating google plus connection");
             mGoogleApiClient = new GoogleApiClient.Builder(this)
                     .addConnectionCallbacks(this)
                     .addOnConnectionFailedListener(this)
@@ -119,7 +119,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     }
 
-    private void generateFacebookKeys(){
+    private void generateFacebookKeys() {
         Log.d(TAG, "Generating facebook has keys");
         try {
             PackageInfo info = getPackageManager().getPackageInfo(
@@ -130,7 +130,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 md.update(signature.toByteArray());
                 Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
             }
-            Log.d(TAG,"Finished key hashing");
+            Log.d(TAG, "Finished key hashing");
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         } catch (NoSuchAlgorithmException e) {
@@ -167,7 +167,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         alreadyHaveaccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SignUpActivity.this,LoginActivity.class);
+                Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -177,7 +177,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     // Login with facebook
     private void initFacebook() {
         callbackManager = CallbackManager.Factory.create();
-        Log.d(TAG,"Initializing facebook");
+        Log.d(TAG, "Initializing facebook");
 
         LoginManager.getInstance().registerCallback(callbackManager,
                 new FacebookCallback<LoginResult>() {
@@ -240,7 +240,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View view) {
 
-        if(CommonUtils.isNetworkAvailable(this)) {
+        if (CommonUtils.isNetworkAvailable(this)) {
             if (view == btnFacebook) {
                 LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "user_friends", "email"));
                 PreferenceStorage.saveLoginMode(this, FindAFunConstants.FACEBOOK);
@@ -285,8 +285,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 }
 
             }
-        }else{
-            AlertDialogHelper.showSimpleAlertDialog(this,"No Network connection available");
+        } else {
+            AlertDialogHelper.showSimpleAlertDialog(this, "No Network connection available");
         }
     }
 
@@ -302,18 +302,18 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             // We should always have a connection result ready to resolve,
             // so we can start that process.
             if (mConnectionResult != null) {
-                Log.d(TAG,"resolving google plus SignIn error");
+                Log.d(TAG, "resolving google plus SignIn error");
                 resolveSignInError();
             } else {
-                Log.d(TAG,"No connection yet. connecting");
+                Log.d(TAG, "No connection yet. connecting");
                 // If we don't have one though, we can start connect in
                 // order to retrieve one.
                 mGoogleApiClient.connect();
             }
         } else {
-            Log.d(TAG,"Google plus signing in");
+            Log.d(TAG, "Google plus signing in");
             progressDialogHelper.showProgressDialog("Signing in...");
-            Log.d(TAG,"Get profile information");
+            Log.d(TAG, "Get profile information");
             getProfileInformation();
         }
     }
@@ -351,8 +351,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         if (!FindAFunValidator.checkNullString(this.name.getText().toString().trim())) {
             AlertDialogHelper.showSimpleAlertDialog(this, this.getResources().getString(R.string.enter_user_name));
             return false;
-        }
-        else if (!FindAFunValidator.checkNullString(this.edtUserName.getText().toString().trim())) {
+        } else if (!FindAFunValidator.checkNullString(this.edtUserName.getText().toString().trim())) {
             AlertDialogHelper.showSimpleAlertDialog(this, this.getResources().getString(R.string.email_empty_str));
             return false;
         } else if (!FindAFunValidator.isEmailValid(this.edtUserName.getText().toString().trim())) {
@@ -361,28 +360,27 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         } else if (!FindAFunValidator.checkNullString(this.edtPassword.getText().toString())) {
             AlertDialogHelper.showSimpleAlertDialog(this, this.getResources().getString(R.string.enter_password));
             return false;
-        } else if( !FindAFunValidator.withinPermittedLength(this.edtPassword.getText().toString())){
+        } else if (!FindAFunValidator.withinPermittedLength(this.edtPassword.getText().toString())) {
             AlertDialogHelper.showSimpleAlertDialog(this, "Password legth should be greater than 6 characters");
             return false;
-        }
-        else {
+        } else {
             return true;
         }
     }
 
-    private boolean validateSignInResponse(JSONObject response){
+    private boolean validateSignInResponse(JSONObject response) {
         boolean signInsuccess = false;
-        if( (response != null) ){
+        if ((response != null)) {
             try {
                 String status = response.getString("status");
                 String msg = response.getString(FindAFunConstants.PARAM_MESSAGE);
-                Log.d(TAG,"status val"+ status+ "msg"+ msg);
+                Log.d(TAG, "status val" + status + "msg" + msg);
 
-                if( (status != null)){
-                    if(( (status.equalsIgnoreCase("activationError")) || (status.equalsIgnoreCase("alreadyRegistered"))||
-                            (status.equalsIgnoreCase("notRegistered")) || (status.equalsIgnoreCase("error")))){
+                if ((status != null)) {
+                    if (((status.equalsIgnoreCase("activationError")) || (status.equalsIgnoreCase("alreadyRegistered")) ||
+                            (status.equalsIgnoreCase("notRegistered")) || (status.equalsIgnoreCase("error")))) {
                         signInsuccess = false;
-                        if(status.equalsIgnoreCase("activationError")){
+                        if (status.equalsIgnoreCase("activationError")) {
                             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
                             //alertDialogBuilder.setTitle("Registration Successful");
                             alertDialogBuilder.setMessage(msg);
@@ -391,7 +389,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
                                         @Override
                                         public void onClick(DialogInterface arg0, int arg1) {
-                                            Intent intent = new Intent(SignUpActivity.this,LoginActivity.class);
+                                            Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
                                             startActivity(intent);
                                             finish();
 
@@ -400,12 +398,12 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
                             AlertDialog alertDialog = alertDialogBuilder.create();
                             alertDialog.show();
-                        }else {
+                        } else {
                             Log.d(TAG, "Show error dialog");
                             AlertDialogHelper.showSimpleAlertDialog(this, msg);
                         }
 
-                    }else{
+                    } else {
                         signInsuccess = true;
 
                     }
@@ -415,14 +413,14 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             }
         }
 
-        return  signInsuccess;
+        return signInsuccess;
     }
 
 
     @Override
     public void onSignUp(JSONObject response) {
         progressDialogHelper.hideProgressDialog();
-        if(validateSignInResponse(response)) {
+        if (validateSignInResponse(response)) {
 
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setTitle("Registration Successful");
@@ -434,7 +432,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
                         @Override
                         public void onClick(DialogInterface arg0, int arg1) {
-                            Intent intent = new Intent(SignUpActivity.this,LoginActivity.class);
+                            Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
                             startActivity(intent);
                             finish();
 
@@ -469,7 +467,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onConnected(Bundle bundle) {
         mSignInClicked = false;
-        Log.d(TAG,"OnCOnnected");
+        Log.d(TAG, "OnCOnnected");
 
         // Hide the progress dialog if its showing.
         // Toast.makeText(this, "User is connected !", Toast.LENGTH_SHORT).show();
@@ -596,7 +594,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 String personGooglePlusProfile = currentPerson.getUrl();
                 String email = Plus.AccountApi.getAccountName(mGoogleApiClient);
 
-                Log.d(TAG,"fetching the details from gmail account");
+                Log.d(TAG, "fetching the details from gmail account");
                   /* Storing oAuth tokens to shared preferences */
 //                SharedPreferences.Editor e = mSharedPreferences.edit();
 //                e.putString(PREF_GPLUS_EMAIL_ID, email);
@@ -605,10 +603,10 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 Log.e("", "Name: " + personName + ", plusProfile: "
                         + personGooglePlusProfile + ", email: " + email
                         + ", Image: " + personPhotoUrl);
-                if( email != null) {
+                if (email != null) {
                     PreferenceStorage.saveUserEmail(SignUpActivity.this, email);
                 }
-                if(personName != null) {
+                if (personName != null) {
                     PreferenceStorage.saveUserName(SignUpActivity.this, personName);
                 }
 
@@ -620,7 +618,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     jsonObject.put(FindAFunConstants.PARAMS_FUNC_NAME, "sign_up_latest");
                     jsonObject.put(FindAFunConstants.PARAMS_USER_NAME, email);
                     jsonObject.put(FindAFunConstants.PARAMS_USER_PASSWORD, FindAFunConstants.DEFAULT_PASSWORD);
-                    jsonObject.put("user_name",personName);
+                    jsonObject.put("user_name", personName);
                     jsonObject.put(FindAFunConstants.PARAMS_SIGN_UP_TYPE, "1");
                 } catch (JSONException e) {
                     e.printStackTrace();

@@ -53,19 +53,15 @@ public class GlobalLeaderBoardActivity extends AppCompatActivity implements IGam
         super.onCreate(savedInstanceState);
         overridePendingTransition(R.anim.slide_right, 0);
         setContentView(R.layout.fragment_leader_full_board);
-
         mLeaderboardList = (ListView) findViewById(R.id.leader_board_list);
         mAdapter = new DataAdapter();
         mLeaderboardList.setAdapter(mAdapter);
-
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setMessage("Loading");
         mProgressDialog.show();
-
         GamificationServiceHelper helper = new GamificationServiceHelper(this);
         helper.fetchLeaderBoardDetails(String.format(FindAFunConstants.GET_LEADER_BOARD), this);
-
         ImageView backbtn = (ImageView) findViewById(R.id.back_btn);
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override

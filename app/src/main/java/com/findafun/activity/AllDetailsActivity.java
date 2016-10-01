@@ -50,7 +50,6 @@ public class AllDetailsActivity extends AppCompatActivity implements IGamificati
     private TextView mEngagementsCOunt = null;
     private TextView mCheckinCOunt = null;
     private TextView mBookingscount = null;
-
     private final Transformation transformation;
 
     //photos layout
@@ -85,25 +84,21 @@ public class AllDetailsActivity extends AppCompatActivity implements IGamificati
                 .build();
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // overridePendingTransition(R.anim.slide_right, 0);
+        // overridePendingTransition(R.anim.slide_right, 0);
         setContentView(R.layout.alldetails_layout);
         mdetailsBoard = GamificationDataHolder.getInstance().getmAllDetailsBoard();
         initializeViews();
-
-
-       // if(GamificationDataHolder.getInstance().getmAllDetailsBoard().ismFetchData()) {
-            mProgressDialog = new ProgressDialog(this);
-            mProgressDialog.setIndeterminate(true);
-            mProgressDialog.setMessage("Loading");
-            mProgressDialog.show();
-
-            GamificationServiceHelper helper = new GamificationServiceHelper(this);
-            //Integer.parseInt(PreferenceStorage.getUserId(this)))
-            helper.fetchAllRewardsDetails(String.format(FindAFunConstants.GET_ALL_REWARDS_URL, Integer.parseInt(PreferenceStorage.getUserId(this))), this);
+        // if(GamificationDataHolder.getInstance().getmAllDetailsBoard().ismFetchData()) {
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setMessage("Loading");
+        mProgressDialog.show();
+        GamificationServiceHelper helper = new GamificationServiceHelper(this);
+        //Integer.parseInt(PreferenceStorage.getUserId(this)))
+        helper.fetchAllRewardsDetails(String.format(FindAFunConstants.GET_ALL_REWARDS_URL, Integer.parseInt(PreferenceStorage.getUserId(this))), this);
         /*}else{
             Log.d(TAG,"retrive data");
             retriveData();
@@ -126,7 +121,7 @@ public class AllDetailsActivity extends AppCompatActivity implements IGamificati
         }*/
     }
 
-    private void initializeViews(){
+    private void initializeViews() {
         mTotalPointsView = (TextView) findViewById(R.id.points_value);
         mPhotoscount = (TextView) findViewById(R.id.rewards_photos_total_count);
         mEngagementsCOunt = (TextView) findViewById(R.id.rewards_engagements_total_count);
@@ -135,38 +130,33 @@ public class AllDetailsActivity extends AppCompatActivity implements IGamificati
 
         //Get Rwards
         Rewards rewards = GamificationDataHolder.getInstance().getmRewards();
-        if(rewards != null){
+        if (rewards != null) {
             mTotalPointsView.setText(Integer.toString(rewards.getTotalPoint()));
             //mPhotoscount.setText(Integer.toString(rewards.getPhotoSharingCount()));
             mEngagementsCOunt.setText(Integer.toString(rewards.getEngagementsCount()));
             mCheckinCOunt.setText(Integer.toString(rewards.getCheckInCount()));
-
         }
 
         mPhotosStarCount = (TextView) findViewById(R.id.photos_star_count);
         mPhotosGrid = (GridView) findViewById(R.id.photos_grid);
         mPhotosAdapter = new GridDataAdapter();
         mPhotosGrid.setAdapter(mPhotosAdapter);
-
         mEngagementstarCount = (TextView) findViewById(R.id.engagements_star_count);
         mEngagementList = (ListView) findViewById(R.id.engagements_list);
         mEngagementAdapter = new EngagementDataAdapter();
         mEngagementList.setAdapter(mEngagementAdapter);
         mEngagementtotalcount = (TextView) findViewById(R.id.engagements_total_count);
-
         //Checkins data
         mCheckinsstarCount = (TextView) findViewById(R.id.checkins_star_count);
         mCheckinsList = (ListView) findViewById(R.id.checkins_list);
         mCheckinsAdapter = new CheckinsDataAdapter();
         mCheckinsList.setAdapter(mCheckinsAdapter);
         mCHeckinstotalcount = (TextView) findViewById(R.id.checkins_total_count);
-
         mBookingsstarCount = (TextView) findViewById(R.id.bookings_star_count);
         mBookingsList = (ListView) findViewById(R.id.bookings_list);
         mBookingsAdapter = new BookingsDataAdapter();
         mBookingsList.setAdapter(mBookingsAdapter);
         mBookingstotalcount = (TextView) findViewById(R.id.bookings_total_count);
-
         ImageView backbtn = (ImageView) findViewById(R.id.bookings_back_btn);
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -174,47 +164,44 @@ public class AllDetailsActivity extends AppCompatActivity implements IGamificati
                 finish();
             }
         });
-
-
     }
 
-    private void retriveData(){
+    private void retriveData() {
         PhotosBoard board = GamificationDataHolder.getInstance().getmAllDetailsBoard().getPhotoList();
-        if(board != null){
-            if(board.getTotalPoints() != null){
-                Log.d(TAG,"photo points"+board.getTotalPoints() );
+        if (board != null) {
+            if (board.getTotalPoints() != null) {
+                Log.d(TAG, "photo points" + board.getTotalPoints());
                 mPhotoscount.setText(board.getTotalPoints());
                 mPhotosStarCount.setText(board.getTotalPoints());
             }
         }
         EngagementBoard enboard = GamificationDataHolder.getInstance().getmAllDetailsBoard().getEngagementsList();
-        if(board != null){
-            if(enboard.getEngagementsPoints() != null){
+        if (board != null) {
+            if (enboard.getEngagementsPoints() != null) {
                 mEngagementstarCount.setText(enboard.getEngagementsPoints());
             }
-            if(enboard.getEngagementsCount() != null){
-                mEngagementtotalcount.setText("("+enboard.getEngagementsCount()+")");
+            if (enboard.getEngagementsCount() != null) {
+                mEngagementtotalcount.setText("(" + enboard.getEngagementsCount() + ")");
             }
         }
         CheckinsBoard cboard = GamificationDataHolder.getInstance().getmAllDetailsBoard().getCheckinList();
-        if(cboard != null){
-            if(cboard.getCheckinPoints() != null){
+        if (cboard != null) {
+            if (cboard.getCheckinPoints() != null) {
                 mCheckinsstarCount.setText(cboard.getCheckinPoints());
             }
-            if(cboard.getCheckinCount() != null){
-                mCHeckinstotalcount.setText("("+cboard.getCheckinCount()+")");
+            if (cboard.getCheckinCount() != null) {
+                mCHeckinstotalcount.setText("(" + cboard.getCheckinCount() + ")");
             }
         }
         BookingsBoard bookboard = GamificationDataHolder.getInstance().getmAllDetailsBoard().getBookingList();
-        if(bookboard != null){
-            if(bookboard.getBookingPoints() != null){
+        if (bookboard != null) {
+            if (bookboard.getBookingPoints() != null) {
                 mBookingsstarCount.setText(bookboard.getBookingPoints());
             }
-            if(bookboard.getBookingCount() != null){
-                mBookingstotalcount.setText("("+bookboard.getBookingCount()+")");
+            if (bookboard.getBookingCount() != null) {
+                mBookingstotalcount.setText("(" + bookboard.getBookingCount() + ")");
             }
         }
-
         setListViewHeightBasedOnChildren(mEngagementList);
         setListViewHeightBasedOnChildren(mCheckinsList);
         setListViewHeightBasedOnChildren(mBookingsList);
@@ -238,11 +225,11 @@ public class AllDetailsActivity extends AppCompatActivity implements IGamificati
 
     @Override
     public void onSuccess(int resultCode, Object result) {
-        if(mProgressDialog != null){
+        if (mProgressDialog != null) {
             mProgressDialog.cancel();
         }
 
-        if( (result != null) && (result instanceof AllDetailsBoard)){
+        if ((result != null) && (result instanceof AllDetailsBoard)) {
             Log.d(TAG, "Received all details");
             retriveData();
 
@@ -252,7 +239,7 @@ public class AllDetailsActivity extends AppCompatActivity implements IGamificati
 
     @Override
     public void onError(String erorr) {
-        if(mProgressDialog != null){
+        if (mProgressDialog != null) {
             mProgressDialog.cancel();
         }
         AlertDialogHelper.showSimpleAlertDialog(this, erorr);
@@ -263,9 +250,9 @@ public class AllDetailsActivity extends AppCompatActivity implements IGamificati
 
         @Override
         public int getCount() {
-            if( (mdetailsBoard.getPhotoList() != null) && (mdetailsBoard.getPhotoList().getAllPhotos() != null)){
+            if ((mdetailsBoard.getPhotoList() != null) && (mdetailsBoard.getPhotoList().getAllPhotos() != null)) {
                 return mdetailsBoard.getPhotoList().getAllPhotos().size();
-            }else{
+            } else {
                 return 0;
             }
 
@@ -289,28 +276,25 @@ public class AllDetailsActivity extends AppCompatActivity implements IGamificati
             ImageView photo = (ImageView) convertView.findViewById(R.id.photo_image);
             String url = null;
 
-            if(mdetailsBoard.getPhotoList().getAllPhotos() != null){
+            if (mdetailsBoard.getPhotoList().getAllPhotos() != null) {
                 PhotoDetail photodetail = mdetailsBoard.getPhotoList().getAllPhotos().get(position);
-                if(photodetail.getImageUrl() != null){
+                if (photodetail.getImageUrl() != null) {
                     url = photodetail.getImageUrl();
                 }
 
             }
-
-            if(FindAFunValidator.checkNullString(url)) {
+            if (FindAFunValidator.checkNullString(url)) {
                 Picasso.with(AllDetailsActivity.this).load(url).fit().transform(AllDetailsActivity.this.transformation).placeholder(R.drawable.placeholder_small_old).error(R.drawable.placeholder_small_old).into(photo);
             } else {
                 photo.setImageResource(R.drawable.placeholder_small_old);
             }
-
-
             return convertView;
         }
     }
 
     public static void setListViewHeightBasedOnChildren(ListView listView) {
         ListAdapter listAdapter = listView.getAdapter();
-        Log.d(TAG,"Calculating the Listview height"+ listAdapter.getCount());
+        Log.d(TAG, "Calculating the Listview height" + listAdapter.getCount());
         if (listAdapter == null) {
             // pre-condition
             return;
@@ -318,7 +302,7 @@ public class AllDetailsActivity extends AppCompatActivity implements IGamificati
 
         int totalHeight = 0;
         for (int i = 0; i < listAdapter.getCount(); i++) {
-            if(i == 2){
+            if (i == 2) {
                 break;
             }
             View listItem = listAdapter.getView(i, null, listView);
@@ -336,12 +320,11 @@ public class AllDetailsActivity extends AppCompatActivity implements IGamificati
 
         @Override
         public int getCount() {
-            if( (mdetailsBoard.getEngagementsList() != null) && ( mdetailsBoard.getEngagementsList().getDataArr() != null)){
-                return  mdetailsBoard.getEngagementsList().getDataArr().size();
-            }else{
+            if ((mdetailsBoard.getEngagementsList() != null) && (mdetailsBoard.getEngagementsList().getDataArr() != null)) {
+                return mdetailsBoard.getEngagementsList().getDataArr().size();
+            } else {
                 return 0;
             }
-
         }
 
         @Override
@@ -364,30 +347,29 @@ public class AllDetailsActivity extends AppCompatActivity implements IGamificati
             TextView starcount = (TextView) convertView.findViewById(R.id.event_star_count);
             TextView timedetail = (TextView) convertView.findViewById(R.id.event_time);
             String url = null;
-            if(mdetailsBoard.getEngagementsList().getDataArr() != null) {
+            if (mdetailsBoard.getEngagementsList().getDataArr() != null) {
                 Engagement engagement = mdetailsBoard.getEngagementsList().getDataArr().get(position);
-                if(engagement.getEventName() != null){
-                    SpannableString ss1=  new SpannableString(engagement.getEventName());
+                if (engagement.getEventName() != null) {
+                    SpannableString ss1 = new SpannableString(engagement.getEventName());
                     ss1.setSpan(new StyleSpan(Typeface.BOLD), 0, ss1.length(), 0);
                     eventdetail.append("You reviewed event ");
                     eventdetail.append(ss1);
-                   // eventdetail.setText(engagement.getEventName());
+                    // eventdetail.setText(engagement.getEventName());
                 }
-                if(engagement.getDate() != null){
+                if (engagement.getDate() != null) {
                     timedetail.setText(engagement.getDate());
                 }
-                if(engagement.getImageUrl() != null){
+                if (engagement.getImageUrl() != null) {
                     url = engagement.getImageUrl();
                 }
 
             }
 
-            if(FindAFunValidator.checkNullString(url)) {
+            if (FindAFunValidator.checkNullString(url)) {
                 Picasso.with(AllDetailsActivity.this).load(url).fit().transform(AllDetailsActivity.this.transformation).placeholder(R.drawable.placeholder_small_old).error(R.drawable.placeholder_small_old).into(photo);
             } else {
                 photo.setImageResource(R.drawable.placeholder_small_old);
             }
-
 
             return convertView;
         }
@@ -398,9 +380,9 @@ public class AllDetailsActivity extends AppCompatActivity implements IGamificati
 
         @Override
         public int getCount() {
-            if( (mdetailsBoard.getCheckinList() != null) && ( mdetailsBoard.getCheckinList().getDataArr() != null)){
-                return  mdetailsBoard.getCheckinList().getDataArr().size();
-            }else{
+            if ((mdetailsBoard.getCheckinList() != null) && (mdetailsBoard.getCheckinList().getDataArr() != null)) {
+                return mdetailsBoard.getCheckinList().getDataArr().size();
+            } else {
                 return 0;
             }
 
@@ -426,31 +408,29 @@ public class AllDetailsActivity extends AppCompatActivity implements IGamificati
             TextView starcount = (TextView) convertView.findViewById(R.id.event_star_count);
             TextView timedetail = (TextView) convertView.findViewById(R.id.event_time);
             String url = null;
-            if(mdetailsBoard.getCheckinList().getDataArr() != null) {
+            if (mdetailsBoard.getCheckinList().getDataArr() != null) {
                 Checkins data = mdetailsBoard.getCheckinList().getDataArr().get(position);
-                if(data.getEventName() != null){
-                    SpannableString ss1=  new SpannableString(data.getEventName());
+                if (data.getEventName() != null) {
+                    SpannableString ss1 = new SpannableString(data.getEventName());
                     ss1.setSpan(new StyleSpan(Typeface.BOLD), 0, ss1.length(), 0);
                     eventdetail.append("You checked in at event ");
                     eventdetail.append(ss1);
                     // eventdetail.setText(engagement.getEventName());
                 }
-                if(data.getDate() != null){
+                if (data.getDate() != null) {
                     timedetail.setText(data.getDate());
                 }
-                if(data.getImageUrl() != null){
+                if (data.getImageUrl() != null) {
                     url = data.getImageUrl();
                 }
 
             }
 
-            if(FindAFunValidator.checkNullString(url)) {
+            if (FindAFunValidator.checkNullString(url)) {
                 Picasso.with(AllDetailsActivity.this).load(url).fit().transform(AllDetailsActivity.this.transformation).placeholder(R.drawable.placeholder_small_old).error(R.drawable.placeholder_small_old).into(photo);
             } else {
                 photo.setImageResource(R.drawable.placeholder_small_old);
             }
-
-
             return convertView;
         }
     }
@@ -460,9 +440,9 @@ public class AllDetailsActivity extends AppCompatActivity implements IGamificati
 
         @Override
         public int getCount() {
-            if( (mdetailsBoard.getBookingList() != null) && ( mdetailsBoard.getBookingList().getDataArr() != null)){
-                return  mdetailsBoard.getBookingList().getDataArr().size();
-            }else{
+            if ((mdetailsBoard.getBookingList() != null) && (mdetailsBoard.getBookingList().getDataArr() != null)) {
+                return mdetailsBoard.getBookingList().getDataArr().size();
+            } else {
                 return 0;
             }
 
@@ -488,31 +468,29 @@ public class AllDetailsActivity extends AppCompatActivity implements IGamificati
             TextView starcount = (TextView) convertView.findViewById(R.id.event_star_count);
             TextView timedetail = (TextView) convertView.findViewById(R.id.event_time);
             String url = null;
-            if(mdetailsBoard.getBookingList().getDataArr() != null) {
+            if (mdetailsBoard.getBookingList().getDataArr() != null) {
                 Booking data = mdetailsBoard.getBookingList().getDataArr().get(position);
-                if(data.getEventName() != null){
-                    SpannableString ss1=  new SpannableString(data.getEventName());
+                if (data.getEventName() != null) {
+                    SpannableString ss1 = new SpannableString(data.getEventName());
                     ss1.setSpan(new StyleSpan(Typeface.BOLD), 0, ss1.length(), 0);
                     eventdetail.append("You booked tickets for the event ");
                     eventdetail.append(ss1);
                     // eventdetail.setText(engagement.getEventName());
                 }
-                if(data.getDate() != null){
+                if (data.getDate() != null) {
                     timedetail.setText(data.getDate());
                 }
-                if(data.getImageUrl() != null){
+                if (data.getImageUrl() != null) {
                     url = data.getImageUrl();
                 }
 
             }
 
-            if(FindAFunValidator.checkNullString(url)) {
+            if (FindAFunValidator.checkNullString(url)) {
                 Picasso.with(AllDetailsActivity.this).load(url).fit().transform(AllDetailsActivity.this.transformation).placeholder(R.drawable.placeholder_small_old).error(R.drawable.placeholder_small_old).into(photo);
             } else {
                 photo.setImageResource(R.drawable.placeholder_small_old);
             }
-
-
             return convertView;
         }
     }

@@ -123,7 +123,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             LatLng pos = new LatLng(lat, longitude);
             if ((pos != null) && (mMap != null)) {
                 Log.d(TAG, "has lat lon" + "lat:" + mEvent.getEventLatitude() + "long:" + mEvent.getEventLongitude());
-              //  mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(pos, 15));
+                //  mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(pos, 15));
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(pos, 14), 1000, null);
                 // Zoom in, animating the camera.
                 //  mMap.animateCamera(CameraUpdateFactory.zoomIn());

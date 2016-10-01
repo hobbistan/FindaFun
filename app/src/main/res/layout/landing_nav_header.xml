@@ -5,8 +5,6 @@
     android:background="@drawable/user_background_find_fun"
     android:orientation="vertical">
 
-    <!--android:background="@color/actionbar_color"-->
-
     <View
         android:id="@+id/view_red_bg"
         android:layout_width="match_parent"
@@ -20,9 +18,7 @@
         android:layout_height="100dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="80dp"
-        android:src="@drawable/ic_profile">
-
-    </com.findafun.customview.CircleImageView>
+        android:src="@drawable/ic_profile"></com.findafun.customview.CircleImageView>
 
     <TextView
         android:id="@+id/user_profile_name"

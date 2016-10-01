@@ -1,11 +1,8 @@
 package com.findafun.activity;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,20 +19,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.costum.android.widget.LoadMoreListView;
 import com.findafun.R;
 import com.findafun.adapter.StaticEventListAdapter;
 import com.findafun.bean.events.Event;
-import com.findafun.fragment.StaticEventFragment;
-import com.findafun.helper.AlertDialogHelper;
 import com.findafun.helper.ProgressDialogHelper;
 import com.findafun.servicehelpers.EventServiceHelper;
 import com.findafun.serviceinterfaces.IEventServiceListener;
-import com.findafun.utils.CommonUtils;
-import com.findafun.utils.FindAFunConstants;
-import com.findafun.utils.PreferenceStorage;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -50,7 +41,7 @@ import java.util.ArrayList;
  * Created by Cube Reach 06 on 30-09-2016.
  */
 
-public class NearbyActivity extends AppCompatActivity implements IEventServiceListener,LoadMoreListView.OnLoadMoreListener,GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
+public class NearbyActivity extends AppCompatActivity implements IEventServiceListener, LoadMoreListView.OnLoadMoreListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
 
     Spinner spinnearby;
@@ -91,7 +82,7 @@ public class NearbyActivity extends AppCompatActivity implements IEventServiceLi
     private void iniView() {
         //getSupportActionBar().hide();
 
-        spinnearby = (Spinner)findViewById(R.id.nearbyspinner);
+        spinnearby = (Spinner) findViewById(R.id.nearbyspinner);
 
         ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<String>(this, R.layout.spinner_item, getResources().getStringArray(R.array.nearby_distance));
         spinnearby.setAdapter(dataAdapter2);
@@ -136,8 +127,8 @@ public class NearbyActivity extends AppCompatActivity implements IEventServiceLi
 //                    Uri.parse("http://maps.google.com/maps?saddr=" + currentLatitude + "," + currentLongitude + "&daddr=" + event.getEventLatitude() + "," + event.getEventLongitude()));
 //            startActivity(intent);
             return true;
-        }else if(id == android.R.id.home) {
-            Log.d(TAG,"home up button selected");
+        } else if (id == android.R.id.home) {
+            Log.d(TAG, "home up button selected");
             finish();
         }
 

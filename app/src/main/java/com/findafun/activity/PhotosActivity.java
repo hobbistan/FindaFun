@@ -40,8 +40,7 @@ public class PhotosActivity extends AppCompatActivity implements IGamificationSe
     private ListDataAdapter mMainAdapter = null;
     private final Transformation transformation;
     private ProgressDialog mProgressDialog = null;
-    private HashMap<Integer,GridDataAdapter> mIndividualAdapters = new HashMap<Integer,GridDataAdapter>();
-
+    private HashMap<Integer, GridDataAdapter> mIndividualAdapters = new HashMap<Integer, GridDataAdapter>();
 
     public PhotosActivity() {
         transformation = new RoundedTransformationBuilder()
@@ -55,12 +54,11 @@ public class PhotosActivity extends AppCompatActivity implements IGamificationSe
         super.onCreate(savedInstanceState);
         overridePendingTransition(R.anim.slide_right, 0);
         setContentView(R.layout.photos_layout);
-
         mPhotosCountView = (TextView) findViewById(R.id.photo_value);
         mTotalPhotosCountView = (TextView) findViewById(R.id.total_photos);
         Rewards reward = GamificationDataHolder.getInstance().getmRewards();
 
-        if(reward != null) {
+        if (reward != null) {
             mPhotosCountView.setText(Integer.toString(reward.getTotalPoint()));
             mTotalPhotosCountView.setText(Integer.toString(reward.getPhotoSharingCount()));
         }
@@ -72,23 +70,18 @@ public class PhotosActivity extends AppCompatActivity implements IGamificationSe
                 finish();
             }
         });
-
         ListView mPhotosList = (ListView) findViewById(R.id.photos_list);
         mMainAdapter = new ListDataAdapter();
         mPhotosList.setAdapter(mMainAdapter);
-
-
         //check if leader board data is already loaded
-       // if((GamificationDataHolder.getInstance().getmTotalPhotoPoints() == null)){
-
-            mProgressDialog = new ProgressDialog(this);
-            mProgressDialog.setIndeterminate(true);
-            mProgressDialog.setMessage("Loading");
-            mProgressDialog.show();
-
-            GamificationServiceHelper helper = new GamificationServiceHelper(this);
-            //Integer.parseInt(PreferenceStorage.getUserId(this)))
-            helper.fetchPhotoDetails(String.format(FindAFunConstants.GET_PHOTOS_URL, Integer.parseInt(PreferenceStorage.getUserId(this))), this);
+        // if((GamificationDataHolder.getInstance().getmTotalPhotoPoints() == null)){
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setMessage("Loading");
+        mProgressDialog.show();
+        GamificationServiceHelper helper = new GamificationServiceHelper(this);
+        //Integer.parseInt(PreferenceStorage.getUserId(this)))
+        helper.fetchPhotoDetails(String.format(FindAFunConstants.GET_PHOTOS_URL, Integer.parseInt(PreferenceStorage.getUserId(this))), this);
 
         /*}else{
             String totalPhotoPoints = GamificationDataHolder.getInstance().getmTotalPhotoPoints();
@@ -103,25 +96,24 @@ public class PhotosActivity extends AppCompatActivity implements IGamificationSe
         }*/
 
 
-
     }
 
     @Override
     public void onSuccess(int resultCode, Object result) {
 
-        if(mProgressDialog != null){
+        if (mProgressDialog != null) {
             mProgressDialog.cancel();
         }
-        if( (result != null) && (result instanceof PhotosBoard)){
+        if ((result != null) && (result instanceof PhotosBoard)) {
             String totalPhotoPoints = GamificationDataHolder.getInstance().getmTotalPhotoPoints();
             String totalPhotocount = GamificationDataHolder.getInstance().getmPhotosBoardTotalPhotos();
-            if(totalPhotoPoints != null) {
+            if (totalPhotoPoints != null) {
                 mPhotosCountView.setText(totalPhotoPoints);
             }
-            if(totalPhotocount != null){
+            if (totalPhotocount != null) {
                 mTotalPhotosCountView.setText(totalPhotocount);
             }
-            Log.d(TAG,"Succesfully received Photos Board");
+            Log.d(TAG, "Succesfully received Photos Board");
 
             mMainAdapter.notifyDataSetChanged();
 
@@ -131,7 +123,7 @@ public class PhotosActivity extends AppCompatActivity implements IGamificationSe
 
     @Override
     public void onError(String erorr) {
-        if(mProgressDialog != null){
+        if (mProgressDialog != null) {
             mProgressDialog.cancel();
         }
         AlertDialogHelper.showSimpleAlertDialog(this, erorr);
@@ -153,7 +145,7 @@ public class PhotosActivity extends AppCompatActivity implements IGamificationSe
 
         @Override
         public int getCount() {
-            return  GamificationDataHolder.getInstance().getTotalPhotDates();
+            return GamificationDataHolder.getInstance().getTotalPhotDates();
 
 
         }
@@ -177,12 +169,12 @@ public class PhotosActivity extends AppCompatActivity implements IGamificationSe
             GridView gridView = (GridView) convertView.findViewById(R.id.photos_grid);
 
             String dateval = GamificationDataHolder.getInstance().getPhotoDateat(position);
-            if(dateval != null){
+            if (dateval != null) {
                 dateview.setText(dateval);
             }
             GridDataAdapter adapter = mIndividualAdapters.get(position);
-            if(adapter == null){
-                Log.d(TAG,"New row. so adding grid adapter");
+            if (adapter == null) {
+                Log.d(TAG, "New row. so adding grid adapter");
                 adapter = new GridDataAdapter(position, dateval);
                 mIndividualAdapters.put(position, adapter);
             }
@@ -195,22 +187,22 @@ public class PhotosActivity extends AppCompatActivity implements IGamificationSe
 
     //Individual row Adapter for Grid View
     class GridDataAdapter extends BaseAdapter {
-        int mPosition =-1;
+        int mPosition = -1;
         String mDate = null;
 
-        public GridDataAdapter(int pos, String date){
+        public GridDataAdapter(int pos, String date) {
             super();
             mPosition = pos;
             mDate = date;
-            Log.d(TAG,"set position for this Grid is"+ pos);
+            Log.d(TAG, "set position for this Grid is" + pos);
 
         }
 
         @Override
         public int getCount() {
             int count = GamificationDataHolder.getInstance().getImageCountforDate(mDate);
-            Log.d(TAG,"image count for grid with date"+ mDate+"in pos"+ mPosition+"is"+ count);
-            return  count;
+            Log.d(TAG, "image count for grid with date" + mDate + "in pos" + mPosition + "is" + count);
+            return count;
 
         }
 
@@ -229,16 +221,14 @@ public class PhotosActivity extends AppCompatActivity implements IGamificationSe
             if (convertView == null) {
                 convertView = getLayoutInflater().inflate(R.layout.photos_grid_view, parent, false);
             }
-            Log.d(TAG,"getview called for date"+ mDate+ "position"+position);
+            Log.d(TAG, "getview called for date" + mDate + "position" + position);
             ImageView photo = (ImageView) convertView.findViewById(R.id.photo_image);
             String url = GamificationDataHolder.getInstance().getImageUrlforDateAt(mDate, position);
-            if(FindAFunValidator.checkNullString(url)) {
+            if (FindAFunValidator.checkNullString(url)) {
                 Picasso.with(PhotosActivity.this).load(url).fit().transform(PhotosActivity.this.transformation).placeholder(R.drawable.placeholder_small_old).error(R.drawable.placeholder_small_old).into(photo);
             } else {
                 photo.setImageResource(R.drawable.placeholder_small_old);
             }
-
-
             return convertView;
         }
     }

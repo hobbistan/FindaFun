@@ -13,7 +13,7 @@ import com.findafun.R;
 public class TermsAndConditionsActivity extends AppCompatActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         overridePendingTransition(R.anim.slide_right, 0);
         setContentView(R.layout.terms_layout);

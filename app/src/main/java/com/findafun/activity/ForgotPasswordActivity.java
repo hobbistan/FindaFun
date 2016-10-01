@@ -40,9 +40,7 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
-
         initializeViews();
-
         signUpServiceHelper = new SignUpServiceHelper(this);
         signUpServiceHelper.setForgotPasswordServiceListener(this);
         progressDialogHelper = new ProgressDialogHelper(this);
@@ -50,7 +48,6 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
 
     // Initialize Views
     private void initializeViews() {
-
         btnReset = (Button) findViewById(R.id.btn_reset);
         btnReset.setOnClickListener(this);
         edtEmailId = (EditText) findViewById(R.id.editText_EmailId);
@@ -129,7 +126,6 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
                                             Intent intent = new Intent(ForgotPasswordActivity.this, LoginNewActivity.class);
                                             startActivity(intent);
                                             finish();
-
                                         }
                                     });
 
@@ -157,11 +153,8 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
     public void onForgotPassword(JSONObject response) {
         progressDialogHelper.hideProgressDialog();
         if (validateForgotPasswordResponse(response)) {
-
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setTitle("Password reset successful");
-
-
             alertDialogBuilder.setMessage("Password reset successfully and perform Sign In");
             alertDialogBuilder.setPositiveButton("OK",
                     new DialogInterface.OnClickListener() {
@@ -171,10 +164,8 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
                             Intent intent = new Intent(ForgotPasswordActivity.this, LoginNewActivity.class);
                             startActivity(intent);
                             finish();
-
                         }
                     });
-
             AlertDialog alertDialog = alertDialogBuilder.create();
             alertDialog.show();
             /*Intent intent = new Intent(this, SelectCityActivity.class);

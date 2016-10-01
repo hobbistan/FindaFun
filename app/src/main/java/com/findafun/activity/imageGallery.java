@@ -25,7 +25,6 @@ import java.util.ArrayList;
 public class imageGallery extends AppCompatActivity {
 
     ImageLoader uImageLoader = AppController.getInstance().getUniversalImageLoader();
-
     Gallery galleryView;
     ImageView imgView;
     ArrayList<String> imgList = new ArrayList<>();
@@ -37,19 +36,13 @@ public class imageGallery extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_gallery);
-
         Intent i = getIntent();
-
         imgList = i.getStringArrayListExtra("image_list");
-
         imgView = (ImageView) findViewById(R.id.imageView);
         galleryView = (Gallery) findViewById(R.id.gallery);
-
         imgList.size();
         imgView.setImageURI(Uri.parse(imgList.get(0)));
-
         galleryView.setAdapter(new myImageAdapter(this));
-
 
         galleryView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -110,7 +103,6 @@ public class imageGallery extends AppCompatActivity {
                             .showImageOnLoading(android.R.color.darker_gray)
                             .cacheInMemory(true).cacheOnDisk(true).build(), loadingListener);
 
-
             return mgalleryView;
         }
 
@@ -131,15 +123,12 @@ public class imageGallery extends AppCompatActivity {
         }
     }
 
-
-
     private ImageLoadingListener loadingListener = new SimpleImageLoadingListener() {
         @Override
         public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
             view.setEnabled(true);//only loadedImage is available we can click item
         }
     };
-
 
     public String getThumbnailImageUrl(String imgUrl,int width,int height){
         String url="http://imgsize.ph.126.net/?imgurl=data1_data2xdata3x0x85.jpg&enlarge=true";
@@ -148,6 +137,5 @@ public class imageGallery extends AppCompatActivity {
         url=url.replaceAll("data1", imgUrl).replaceAll("data2", width+"").replaceAll("data3", height+"");
         return url;
     }
-
 
 }

@@ -4,21 +4,15 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
-import android.net.Uri;
 import android.os.AsyncTask;
-
-
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,9 +31,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 
 import org.json.JSONArray;
-
 import org.json.JSONObject;
-
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -47,17 +39,15 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
 import java.util.concurrent.ExecutionException;
 
 public class SelectCityActivity extends AppCompatActivity implements View.OnClickListener,
-        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener , DialogClickListener,IServiceListener {
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, DialogClickListener, IServiceListener {
     private static final String TAG = SelectCityActivity.class.getName();
 
     private SimpleGestureFilter detector;
@@ -76,7 +66,7 @@ public class SelectCityActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_city);
 
-        txtTaptoView = (TextView)findViewById(R.id.txt_swipe_up);
+        txtTaptoView = (TextView) findViewById(R.id.txt_swipe_up);
 
         mDecorView = getWindow().getDecorView();
         mDecorView.setSystemUiVisibility(
@@ -89,7 +79,7 @@ public class SelectCityActivity extends AppCompatActivity implements View.OnClic
         cityList = new ArrayList<>();
         //cityList.add("Coimbatore");
         new FetchCity().execute();
-        activity=this;
+        activity = this;
         //detector = new SimpleGestureFilter(this, this);
         txtCityDropDown = (EditText) findViewById(R.id.btn_city_drop_down);
         citySpinnerAdapter = new CitySpinnerAdapter(this, R.layout.city_dropdown_item, cityList);
@@ -97,7 +87,7 @@ public class SelectCityActivity extends AppCompatActivity implements View.OnClic
         txtTaptoView.setOnClickListener(this);
         //check if user had previously selected city
         String cityName = PreferenceStorage.getUserCity(this);
-        if( (cityName != null) && !cityName.isEmpty()){
+        if ((cityName != null) && !cityName.isEmpty()) {
             txtCityDropDown.setText(cityName);
         }
 
@@ -106,20 +96,20 @@ public class SelectCityActivity extends AppCompatActivity implements View.OnClic
         autoselectCity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG,"fetching the current city based on current location");
-                if((mLastLocation == null) && (mGoogleApiClient != null)){
+                Log.d(TAG, "fetching the current city based on current location");
+                if ((mLastLocation == null) && (mGoogleApiClient != null)) {
                     mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
                             mGoogleApiClient);
                 }
 
-                if(mLastLocation != null) {
+                if (mLastLocation != null) {
                     CityAsyncTask cst = new CityAsyncTask(SelectCityActivity.this,
                             mLastLocation.getLatitude(), mLastLocation.getLongitude());
                     cst.execute();
 
                     String lo = null;
                     try {
-                        if(cst.get() != null) {
+                        if (cst.get() != null) {
                             lo = cst.get().toString();
                         }
                     } catch (InterruptedException e) {
@@ -129,9 +119,9 @@ public class SelectCityActivity extends AppCompatActivity implements View.OnClic
                         // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
-                }else{
+                } else {
                     Log.e(TAG, "fetched location is Null");
-                    AlertDialogHelper.showSimpleAlertDialog(SelectCityActivity.this,"Current Location Not Available. Please check if Location services are turned ON");
+                    AlertDialogHelper.showSimpleAlertDialog(SelectCityActivity.this, "Current Location Not Available. Please check if Location services are turned ON");
                 }
 
             }
@@ -139,7 +129,7 @@ public class SelectCityActivity extends AppCompatActivity implements View.OnClic
 
     }
 
-    protected  void buildGoogleApiClient() {
+    protected void buildGoogleApiClient() {
         Log.d(TAG, "Initiate GoogleApi connection");
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(LocationServices.API)
@@ -183,15 +173,15 @@ public class SelectCityActivity extends AppCompatActivity implements View.OnClic
 
             builderSingle.setAdapter(citySpinnerAdapter, new DialogInterface.OnClickListener() {
 
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            txtCityDropDown.setText(citySpinnerAdapter.getItem(which).toString());
-                            txtCityDropDown.clearComposingText();
-                            dialog.dismiss();
-                        }
-                    }).create().show();
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    txtCityDropDown.setText(citySpinnerAdapter.getItem(which).toString());
+                    txtCityDropDown.clearComposingText();
+                    dialog.dismiss();
+                }
+            }).create().show();
         } else if (v == txtTaptoView) {
-            Log.d(TAG,"Swipe up detected");
+            Log.d(TAG, "Swipe up detected");
             if (!txtCityDropDown.getText().toString().equalsIgnoreCase("Select your City")) {
                 updateUserCity();
             } else {
@@ -209,7 +199,7 @@ public class SelectCityActivity extends AppCompatActivity implements View.OnClic
             mProgressDialog.setIndeterminate(true);
             mProgressDialog.setMessage("Updating City");
             mProgressDialog.show();
-                saveCity();
+            saveCity();
         }
     }
 
@@ -232,7 +222,7 @@ public class SelectCityActivity extends AppCompatActivity implements View.OnClic
         Log.d(TAG, "onResume called");
 
 
-        if((mGoogleApiClient != null)  && !mGoogleApiClient.isConnected()){
+        if ((mGoogleApiClient != null) && !mGoogleApiClient.isConnected()) {
             Log.d(TAG, "make api connect");
             mGoogleApiClient.connect();
 
@@ -244,8 +234,8 @@ public class SelectCityActivity extends AppCompatActivity implements View.OnClic
     public void onPause() {
         super.onPause();
 
-        if((mGoogleApiClient != null) && (mGoogleApiClient.isConnected())) {
-            Log.d(TAG,"make api disconnect");
+        if ((mGoogleApiClient != null) && (mGoogleApiClient.isConnected())) {
+            Log.d(TAG, "make api disconnect");
             mGoogleApiClient.disconnect();
         }
     }
@@ -259,7 +249,7 @@ public class SelectCityActivity extends AppCompatActivity implements View.OnClic
             // Log.e(TAG, "Current location is" + "Lat" + String.valueOf(mLastLocation.getLatitude()) + "Long" + String.valueOf(mLastLocation.getLongitude()));
 
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -290,7 +280,7 @@ public class SelectCityActivity extends AppCompatActivity implements View.OnClic
 
             Intent intent = new Intent(this, SelectPreferenceActivity.class);
             intent.putExtra("selectedCity", txtCityDropDown.getText().toString());
-            PreferenceStorage.saveUserCity(this,txtCityDropDown.getText().toString());
+            PreferenceStorage.saveUserCity(this, txtCityDropDown.getText().toString());
             startActivity(intent);
             overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
 
@@ -328,10 +318,10 @@ public class SelectCityActivity extends AppCompatActivity implements View.OnClic
                         longitude, 1);
                 Log.e("Addresses", "-->" + addresses);
                 Address address = addresses.get(0);
-                if(address != null){
+                if (address != null) {
                     result = address.getLocality();
 
-                }else {
+                } else {
                     result = null;
                 }
             } catch (IOException e) {
@@ -345,14 +335,14 @@ public class SelectCityActivity extends AppCompatActivity implements View.OnClic
         protected void onPostExecute(String result) {
             // TODO Auto-generated method stub
             super.onPostExecute(result);
-            Log.d(TAG,"received city is"+ result);
+            Log.d(TAG, "received city is" + result);
 
             String citytext = txtCityDropDown.getText().toString();
-            Log.d(TAG,"current city text is"+ citytext);
+            Log.d(TAG, "current city text is" + citytext);
 
-            if( (result != null) && !(result.isEmpty()) ) {
+            if ((result != null) && !(result.isEmpty())) {
                 txtCityDropDown.setText(result.toLowerCase());
-            }else{
+            } else {
                 Toast.makeText(SelectCityActivity.this, "Unable to retrive current location", Toast.LENGTH_SHORT).show();
             }
         }
@@ -372,23 +362,21 @@ public class SelectCityActivity extends AppCompatActivity implements View.OnClic
         @Override
         protected String doInBackground(String... params) {
             final String url = FindAFunConstants.GET_CITY_URL;
-            Log.d(TAG,"fetch city list URL");
+            Log.d(TAG, "fetch city list URL");
 
             new Thread() {
                 public void run() {
                     String in = null;
-                  try {
+                    try {
                         in = openHttpConnection(url);
-                      JSONArray jsonArray=new JSONArray(in);
+                        JSONArray jsonArray = new JSONArray(in);
 
-                      for(int i=0;i<jsonArray.length();i++) {
-                          JSONObject jsonObject =jsonArray.getJSONObject(i);
-                        cityList.add(jsonObject.getString("city_name"));
-                      }
-                      Log.d(TAG,"Received city list"+ jsonArray.length());
-                    }
-
-                    catch (Exception e1) {
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject jsonObject = jsonArray.getJSONObject(i);
+                            cityList.add(jsonObject.getString("city_name"));
+                        }
+                        Log.d(TAG, "Received city list" + jsonArray.length());
+                    } catch (Exception e1) {
                         e1.printStackTrace();
                     }
 
@@ -413,7 +401,7 @@ public class SelectCityActivity extends AppCompatActivity implements View.OnClic
 
     private String openHttpConnection(String urlStr) {
         InputStream in = null;
-        StringBuilder sb=new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         int resCode = -1;
 
         try {
@@ -436,21 +424,17 @@ public class SelectCityActivity extends AppCompatActivity implements View.OnClic
                 BufferedReader br = new BufferedReader(new InputStreamReader(in));
                 String read;
 
-                while((read=br.readLine()) != null) {
+                while ((read = br.readLine()) != null) {
                     //System.out.println(read);
                     sb.append(read);
                 }
 
             }
-        }
-
-        catch (MalformedURLException e) {
+        } catch (MalformedURLException e) {
             e.printStackTrace();
-        }
-
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return sb.toString();
     }
-    }
+}

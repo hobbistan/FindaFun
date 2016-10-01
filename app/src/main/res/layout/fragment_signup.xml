@@ -108,7 +108,6 @@
             android:textColor="@color/colorWhite"
             android:textSize="16dp" />
 
-
         <ImageView
             android:id="@+id/btn_sign_in_or"
             android:layout_width="140dp"
@@ -138,11 +137,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />-->
             <!--<com.facebook.login.widget.LoginButton-->
-                <!--android:id="@+id/login_button"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_centerInParent="true"-->
-                <!--/>-->
+            <!--android:id="@+id/login_button"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--/>-->
 
             <Button
                 android:id="@+id/frag_signup_fb"
@@ -155,7 +154,6 @@
                 android:background="@drawable/button_rounded_gray"
                 android:drawableLeft="@drawable/fb"
                 android:drawablePadding="5dp"
-
                 android:text="Facebook"
                 android:textAllCaps="false"
                 android:textColor="@color/colorPrimary"

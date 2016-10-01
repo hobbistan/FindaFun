@@ -113,7 +113,6 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/actionbarTextSize" />
 
-
             <Spinner
                 android:id="@+id/eventtypespinner"
                 style="@style/spinner_style"
@@ -135,7 +134,6 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/actionbarTextSize" />
 
-
             <Button
                 android:id="@+id/catgoryspinner"
                 style="@style/spinner_style"
@@ -152,7 +150,6 @@
                 android:textColor="@color/white"
                 android:textSize="15sp"></Button>
 
-
             <TextView
                 android:id="@+id/tvsortbycity"
                 android:layout_width="wrap_content"
@@ -164,7 +161,6 @@
                 android:text="Select City"
                 android:textColor="@color/white"
                 android:textSize="@dimen/actionbarTextSize" />
-
 
             <Spinner
                 android:id="@+id/cityspinner"
@@ -185,7 +181,6 @@
                 android:text="Select Date"
                 android:textColor="@color/white"
                 android:textSize="@dimen/actionbarTextSize" />
-
 
             <TextView
                 android:id="@+id/tvfrom"
