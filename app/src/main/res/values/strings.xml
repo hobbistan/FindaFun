@@ -123,10 +123,10 @@
     </string-array>
 
     <string-array name="nearby_distance">
-        <item>5</item>
-        <item>10</item>
-        <item>15</item>
-        <item>35</item>
+        <item>5 KM</item>
+        <item>10 KM</item>
+        <item>15 KM</item>
+        <item>35 KM</item>
     </string-array>
 
     <string-array name="events_type">

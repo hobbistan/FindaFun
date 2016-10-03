@@ -43,8 +43,6 @@ public class LandingPagerFragment extends Fragment implements  IEventServiceList
 
     private boolean isFirstRun = true;
     private SharedPreferences TransPrefs;
-
-
     protected ListView loadMoreListView;
     protected View view;
     protected EventsListAdapter eventsListAdapter;

@@ -1,34 +1,37 @@
 package com.findafun.activity;
 
-import android.Manifest;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
+import android.content.SharedPreferences;
 import android.location.Location;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.StrictMode;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.costum.android.widget.LoadMoreListView;
 import com.findafun.R;
+import com.findafun.adapter.EventsListAdapter;
 import com.findafun.adapter.StaticEventListAdapter;
 import com.findafun.bean.events.Event;
-import com.findafun.fragment.StaticEventFragment;
+import com.findafun.bean.events.EventList;
 import com.findafun.helper.AlertDialogHelper;
 import com.findafun.helper.ProgressDialogHelper;
 import com.findafun.servicehelpers.EventServiceHelper;
@@ -38,75 +41,118 @@ import com.findafun.utils.FindAFunConstants;
 import com.findafun.utils.PreferenceStorage;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by Cube Reach 06 on 30-09-2016.
  */
 
-public class NearbyActivity extends AppCompatActivity implements IEventServiceListener,LoadMoreListView.OnLoadMoreListener,GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
-        LocationListener {
-
-    Spinner spinnearby;
-    private double currentLatitude, currentLongitude;
+public class NearbyActivity extends AppCompatActivity implements LoadMoreListView.OnLoadMoreListener, IEventServiceListener,
+        AdapterView.OnItemClickListener{
     private static final String TAG = NearbyActivity.class.getName();
-    private GoogleApiClient mGoogleApiClient;
-    private Location mLastLocation;
-    private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 100;
-    protected StaticEventListAdapter staticEventsListAdapter;
-    protected EventServiceHelper eventServiceHelper;
-    protected ArrayList<Event> eventsArrayList;
+
+    Spinner spinNearby;LoadMoreListView loadMoreListView;
+    View view;
+    EventsListAdapter eventsListAdapter;
+    EventServiceHelper eventServiceHelper;
+    ArrayList<Event> eventsArrayList;
+    int pageNumber = 0, totalCount = 0;
     protected ProgressDialogHelper progressDialogHelper;
-    Handler mHandler = new Handler();
-    private TextView mNoEventsFound = null;
     protected boolean isLoadingForFirstTime = true;
-    protected LoadMoreListView loadMoreListView;
+    Handler mHandler = new Handler();
+    private SearchView mSearchView = null;
 
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         overridePendingTransition(R.anim.slide_right, 0);
         setContentView(R.layout.activity_nearby_event);
 
-        if (Build.VERSION.SDK_INT > 9) {
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-        }
-        Toolbar toolbar = (Toolbar) findViewById(R.id.activity_toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle("NEARBY");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        // initiate functions
+        loadMoreListView = (LoadMoreListView) findViewById(R.id.listView_events);
+        loadMoreListView.setOnLoadMoreListener(this);
+        loadMoreListView.setOnItemClickListener(this);
+        eventsArrayList = new ArrayList<>();
+        eventServiceHelper = new EventServiceHelper(this);
+        eventServiceHelper.setEventServiceListener(this);
+        progressDialogHelper = new ProgressDialogHelper(this);
+        findViewById(R.id.back_res).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         iniView();
+
+        //if (PreferenceStorage.getFilterApply(this)) {
+        //    PreferenceStorage.IsFilterApply(this, false);
+            callGetFilterService();
+       // }
+    }
+
+    public void callGetFilterService() {
+        /*if(eventsListAdapter != null){
+            eventsListAdapter.clearSearchFlag();
+        }*/
+
+        if (eventsArrayList != null)
+            eventsArrayList.clear();
+
+        if (CommonUtils.isNetworkAvailable(this)) {
+            progressDialogHelper.showProgressDialog(getString(R.string.progress_loading));
+            //    eventServiceHelper.makeRawRequest(FindAFunConstants.GET_ADVANCE_SINGLE_SEARCH);
+          new HttpAsyncTask().execute("");
+        } else {
+            AlertDialogHelper.showSimpleAlertDialog(this, getString(R.string.no_connectivity));
+        }
+    }
+
+    private class HttpAsyncTask extends AsyncTask<String, Void, Void> {
+        @Override
+        protected Void doInBackground(String... urls) {
+            eventServiceHelper.makeRawRequest(String.format(FindAFunConstants.GET_STATIC_EVENTS, Integer.parseInt(PreferenceStorage.getUserId(getApplicationContext())), pageNumber, PreferenceStorage.getUserCity(getApplicationContext())));
+
+            return null;
+        }
+
+        // onPostExecute displays the results of the AsyncTask.
+        @Override
+        protected void onPostExecute(Void result) {
+            progressDialogHelper.cancelProgressDialog();
+        }
     }
 
     private void iniView() {
-        //getSupportActionBar().hide();
 
-        spinnearby = (Spinner)findViewById(R.id.nearbyspinner);
+        spinNearby = (Spinner) findViewById(R.id.nearbyspinner);
 
         ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<String>(this, R.layout.spinner_item, getResources().getStringArray(R.array.nearby_distance));
-        spinnearby.setAdapter(dataAdapter2);
+        spinNearby.setAdapter(dataAdapter2);
         /*int index = PreferenceStorage.getFilterEventTypeIndex(this);
         if((index >=0) && index < (getResources().getStringArray(R.array.nearby_distance).length)){
             spinnearby.setSelection(index);
         }*/
 
-        spinnearby.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinNearby.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String item = parent.getItemAtPosition(position).toString();
                 //PreferenceStorage.saveFilterEventTypeSelection(getApplicationContext(), position);
                 //Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
-
             }
 
             @Override
@@ -119,7 +165,7 @@ public class NearbyActivity extends AppCompatActivity implements IEventServiceLi
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        // getMenuInflater().inflate(R.menu.menu_event_detail, menu);
+
         return true;
     }
 
@@ -132,12 +178,12 @@ public class NearbyActivity extends AppCompatActivity implements IEventServiceLi
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_directions) {
-//            Intent intent = new Intent(Intent.ACTION_VIEW,
-//                    Uri.parse("http://maps.google.com/maps?saddr=" + currentLatitude + "," + currentLongitude + "&daddr=" + event.getEventLatitude() + "," + event.getEventLongitude()));
-//            startActivity(intent);
+/*            Intent intent = new Intent(Intent.ACTION_VIEW,
+              Uri.parse("http://maps.google.com/maps?saddr=" + currentLatitude + "," + currentLongitude + "&daddr=" + event.getEventLatitude() + "," + event.getEventLongitude()));
+              startActivity(intent); */
             return true;
-        }else if(id == android.R.id.home) {
-            Log.d(TAG,"home up button selected");
+        } else if (id == android.R.id.home) {
+            Log.d(TAG, "home up button selected");
             finish();
         }
 
@@ -145,69 +191,55 @@ public class NearbyActivity extends AppCompatActivity implements IEventServiceLi
     }
 
     @Override
-    public void onConnected(Bundle bundle) {
-        getLocation();
+    public void onEventResponse(final JSONObject response) {
+        Log.d("ajazFilterresponse : ", response.toString());
+
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                progressDialogHelper.hideProgressDialog();
+                loadMoreListView.onLoadMoreComplete();
+
+                Gson gson = new Gson();
+                EventList eventsList = gson.fromJson(response.toString(), EventList.class);
+                if (eventsList.getEvents() != null && eventsList.getEvents().size() > 0) {
+                    totalCount = eventsList.getCount();
+                    isLoadingForFirstTime = false;
+                    updateListAdapter(eventsList.getEvents());
+                }
+
+            }
+        });
     }
 
     @Override
-    public void onConnectionSuspended(int i) {
-
+    public void onEventError(final String error) {
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                progressDialogHelper.hideProgressDialog();
+                loadMoreListView.onLoadMoreComplete();
+                AlertDialogHelper.showSimpleAlertDialog(NearbyActivity.this, error);
+            }
+        });
     }
 
     @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
-        Log.e("Google connection", "" + connectionResult.getErrorMessage());
-    }
-
-    @Override
-    public void onLocationChanged(Location location) {
-        if (location != null) {
-            currentLatitude = location.getLatitude();
-            currentLongitude = location.getLongitude();
-            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
-        }
-    }
-
-    private void getLocation() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            checkPermissions();
-            return;
-        }
-        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
-                mGoogleApiClient);
-        if (mLastLocation != null) {
-            currentLatitude = mLastLocation.getLatitude();
-            currentLongitude = mLastLocation.getLongitude();
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Log.d(TAG, "onEvent list item clicked" + position);
+        Event event = null;
+        if ((eventsListAdapter != null) && (eventsListAdapter.ismSearching())) {
+            Log.d(TAG, "while searching");
+            int actualindex = eventsListAdapter.getActualEventPos(position);
+            Log.d(TAG, "actual index" + actualindex);
+            event = eventsArrayList.get(actualindex);
         } else {
-            LocationRequest mLocationRequest = new LocationRequest();
-            mLocationRequest.setInterval(10000);
-            mLocationRequest.setFastestInterval(5000);
-            mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+            event = eventsArrayList.get(position);
         }
-    }
-
-    private void checkPermissions() {
-        // Should we show an explanation?
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                Manifest.permission.ACCESS_FINE_LOCATION)) {
-
-            // Show an expanation to the user *asynchronously* -- don't block
-            // this thread waiting for the user's response! After the user
-            // sees the explanation, try again to request the permission.
-
-        } else {
-
-            // No explanation needed, we can request the permission.
-
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                    MY_PERMISSIONS_REQUEST_FINE_LOCATION);
-
-            // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-            // app-defined int constant. The callback method gets the
-            // result of the request.
-        }
+        Intent intent = new Intent(this, EventDetailActivity.class);
+        intent.putExtra("eventObj", event);
+        // intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(intent);
     }
 
     @Override
@@ -215,13 +247,13 @@ public class NearbyActivity extends AppCompatActivity implements IEventServiceLi
 
     }
 
-    @Override
-    public void onEventResponse(JSONObject response) {
-
-    }
-
-    @Override
-    public void onEventError(String error) {
-
+    protected void updateListAdapter(ArrayList<Event> eventsArrayList) {
+        this.eventsArrayList.addAll(eventsArrayList);
+        if (eventsListAdapter == null) {
+            eventsListAdapter = new EventsListAdapter(this, this.eventsArrayList);
+            loadMoreListView.setAdapter(eventsListAdapter);
+        } else {
+            eventsListAdapter.notifyDataSetChanged();
+        }
     }
 }

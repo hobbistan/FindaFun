@@ -213,7 +213,6 @@ public class HotspotFragment extends StaticEventFragment implements OnMapReadyCa
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
@@ -221,7 +220,6 @@ public class HotspotFragment extends StaticEventFragment implements OnMapReadyCa
         Log.d(TAG, "List view coordinates" + loadMoreListView.getX() + "yval" + loadMoreListView.getLeft() + "width" + loadMoreListView.getRight());
         mStartX_hp = loadMoreListView.getLeft();
         mEndX_hp = loadMoreListView.getRight();
-
     }
 
     private void performSlideLeftAnimation(){

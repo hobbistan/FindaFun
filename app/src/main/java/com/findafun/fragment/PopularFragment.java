@@ -762,7 +762,7 @@ public class PopularFragment extends LandingPagerFragment implements OnMapReadyC
                                 if(eventname.length() > 15){
                                     Log.d(TAG,"length more that 15");
                                     String substr = eventname.substring(0,14);
-                                    Log.d(TAG,"title is"+ substr);
+                                    Log.d(TAG,"popular  title is "+ substr);
                                     title.setText(substr + "..");
                                 }else{
                                     Log.d(TAG,"title less that 15 is"+ eventname);
@@ -797,6 +797,7 @@ public class PopularFragment extends LandingPagerFragment implements OnMapReadyC
                 }
             }
         });
+
         mGoogleMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
             @Override
             public void onMapLoaded() {

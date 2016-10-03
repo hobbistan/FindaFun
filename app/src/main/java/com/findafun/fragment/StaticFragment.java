@@ -62,7 +62,8 @@ import java.util.List;
 /**
  * Created by Data Crawl 6 on 14-05-2016.
  */
-public class StaticFragment extends LandingPagerFragment implements  OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,AdapterView.OnItemClickListener {
+public class StaticFragment extends LandingPagerFragment implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener, AdapterView.OnItemClickListener {
 
     private static final String TAG = StaticFragment.class.getName();
     private MapView mMapView_hp = null;
@@ -76,8 +77,8 @@ public class StaticFragment extends LandingPagerFragment implements  OnMapReadyC
     private boolean mAddddLocations_hp = true;
     private TextView mTotalEventCount_hp = null;
 
-    private Drawable  mNearbyTabUnselected = null;
-    private Drawable  mNearbyTabSelected = null;
+    private Drawable mNearbyTabUnselected = null;
+    private Drawable mNearbyTabSelected = null;
 
     private Drawable mLocationUnselected_hp = null;
     private Drawable mLocationSelected_hp = null;
@@ -142,7 +143,7 @@ public class StaticFragment extends LandingPagerFragment implements  OnMapReadyC
         mNoEventsFound = (TextView) view.findViewById(R.id.no_home_events);
         if (mNoEventsFound != null)
             mNoEventsFound.setVisibility(View.GONE);
-       // loadMoreListView.setOnLoadMoreListener(this);
+        // loadMoreListView.setOnLoadMoreListener(this);
         loadMoreListView.setOnItemClickListener(this);
         eventsArrayList = new ArrayList<>();
     }
@@ -178,6 +179,7 @@ public class StaticFragment extends LandingPagerFragment implements  OnMapReadyC
         mMapView_hp = (MapView) view.findViewById(R.id.mapview);
         mMapView_hp.onCreate(savedInstanceState);
         setUpGoogleMaps();
+
         mNearbyTabUnselected = getActivity().getResources().getDrawable(R.drawable.btn_rounded_white);
         mNearbyTabSelected = getActivity().getResources().getDrawable(R.drawable.btn_rounded_red);
 
@@ -199,6 +201,7 @@ public class StaticFragment extends LandingPagerFragment implements  OnMapReadyC
 
         mTotalEventCount_hp = (TextView) view.findViewById(R.id.nearby_totalevents);
         mLocationBtn_hp = (ImageButton) view.findViewById(R.id.nearby_location_btn);
+
         final ImageButton listAppearence = (ImageButton) view.findViewById(R.id.nearby_grid_view_btn);
 
         final ImageButton listAppearenceNearBy = (ImageButton) view.findViewById(R.id.nearby_list_btn);
@@ -279,6 +282,7 @@ public class StaticFragment extends LandingPagerFragment implements  OnMapReadyC
                 }*/
             }
         });
+
         mLocationBtn_hp.setBackgroundDrawable(mLocationUnselected_hp);
         listAppearence.setBackgroundDrawable(mListSelected_hp);
         mLocationBtn_hp.setImageDrawable(munselectedlocationicon_hp);
@@ -473,6 +477,7 @@ public class StaticFragment extends LandingPagerFragment implements  OnMapReadyC
                     }
                 }
             }
+
             //zoom the camera to current location
             if (mLastLocation_hp != null) {
                 LatLng pos = new LatLng(mLastLocation_hp.getLatitude(), mLastLocation_hp.getLongitude());
@@ -490,7 +495,7 @@ public class StaticFragment extends LandingPagerFragment implements  OnMapReadyC
         Log.d(TAG, "Received Nearby events");
         // super.onEventResponse(response);
         progressDialogHelperHot.hideProgressDialog();
-       // loadMoreListView.onLoadMoreComplete();
+        // loadMoreListView.onLoadMoreComplete();
         Gson gson = new Gson();
         EventList eventsList = gson.fromJson(response.toString(), EventList.class);
         if (eventsList != null) {
@@ -521,14 +526,13 @@ public class StaticFragment extends LandingPagerFragment implements  OnMapReadyC
                         float distance = mLastLocation_hp.distanceTo(temEventLoc);
                         Log.d(TAG, "calculated distance is" + distance);
                         //if(distance < (350 * 1000)){
-                        if (distanceFlag==2){
-                            if(distance < (5 * 1000)) {
+                        if (distanceFlag == 2) {
+                            if (distance < (5 * 1000)) {
                                 mNearbyLIst.add(event);
                             }
                         } else {
                             mNearbyLIst.add(event);
                         }
-
                         //}
                     }
                     i++;
@@ -563,16 +567,15 @@ public class StaticFragment extends LandingPagerFragment implements  OnMapReadyC
             mLocationBtn_hp.setEnabled(true);
         } else {
             mAddddLocations_hp = true;
-        }mTotalEventCount_hp.setText(Integer.toString(eventsArrayList.size()) + " Hotspot Events");
-
-
+        }
+        mTotalEventCount_hp.setText(Integer.toString(eventsArrayList.size()) + " Hotspot Events");
     }
 
     @Override
     public void onEventError(String error) {
         super.onEventError(error);
         progressDialogHelperHot.hideProgressDialog();
-      //  loadMoreListView.onLoadMoreComplete();
+        //  loadMoreListView.onLoadMoreComplete();
         if (totalCount > 0) {
             mLocationBtn_hp.setEnabled(true);
         }
@@ -600,24 +603,21 @@ public class StaticFragment extends LandingPagerFragment implements  OnMapReadyC
 
 //                    Log.d(TAG, "fetch Hotspot events");
             eventServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.GET_STATIC_EVENTS, Integer.parseInt(PreferenceStorage.getUserId(getActivity())), pageNumber, PreferenceStorage.getUserCity(getActivity())));
-          //  getTransparent();
+            //  getTransparent();
 
         } else {
             Log.d(TAG, "ignoring this page");
-          //  loadMoreListView.onLoadMoreComplete();
+            //  loadMoreListView.onLoadMoreComplete();
             progressDialogHelperHot.hideProgressDialog();
         }
     }
 
     private void getTransparent() {
-
         final Dialog dialog = new Dialog(getActivity());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.setContentView(R.layout.transparent_favourite);
-
         dialog.show();
-
     }
 
     @Override
@@ -640,42 +640,6 @@ public class StaticFragment extends LandingPagerFragment implements  OnMapReadyC
             Log.d(TAG, "Do nothing");
         }
 
-//        if (mLastLocation_hp != null) {
-//            Log.d(TAG, "Location present");
-//            mTotalReceivedEvents_hp = 0;
-//            super.callGetEventService(position);
-//            // getNearbyLIst(position);
-//        } else {
-//            if (mGoogleApiClient_hp.isConnected()) {
-//                fetchCurrentLocation();
-//                if (mLastLocation_hp == null) {
-//                    // AlertDialogHelper.showSimpleAlertDialog(getActivity(), "Enable Location services in settings");
-//                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
-//                    alertDialogBuilder.setMessage("Enable Location services in settings");
-//                    alertDialogBuilder.setPositiveButton("OK",
-//                            new DialogInterface.OnClickListener() {
-//
-//                                @Override
-//                                public void onClick(DialogInterface arg0, int arg1) {
-//                                    // getActivity().getFragmentManager().popBackStack();
-//                                    // endOfCalibration();
-//                                    //add pause button
-//                                    Intent viewIntent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-//                                    startActivity(viewIntent);
-//                                }
-//                            });
-//
-//                    AlertDialog alertDialog = alertDialogBuilder.create();
-//                    alertDialog.show();
-//                }
-//
-//            } else {
-//                mLocationProgress_hp = new ProgressDialog(getActivity());
-//                mLocationProgress_hp.setIndeterminate(true);
-//                mLocationProgress_hp.setMessage("Loading");
-//                mLocationProgress_hp.show();
-//            }
-//        }
     }
 
     protected void updateListAdapter(ArrayList<Event> eventsArrayList) {
@@ -807,6 +771,7 @@ public class StaticFragment extends LandingPagerFragment implements  OnMapReadyC
                 }
             });
         }
+
         mGoogleMap_hp.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
@@ -822,6 +787,7 @@ public class StaticFragment extends LandingPagerFragment implements  OnMapReadyC
                 }
             }
         });
+
         mGoogleMap_hp.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
             @Override
             public void onMapLoaded() {
