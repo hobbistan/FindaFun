@@ -66,26 +66,26 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener, ISignUpServiceListener, DialogClickListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,OnRequestPermissionsResultCallback {
-    private  static final String TAG = LoginActivity.class.getName();
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener, ISignUpServiceListener, DialogClickListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, OnRequestPermissionsResultCallback {
+    private static final String TAG = LoginActivity.class.getName();
 
     private static final int RC_SIGN_IN = 0;
     private static final int REQUEST_CODE_TOKEN_AUTH = 1;
     private static final int MY_PERMISSIONS_REQUEST_GET_ACCOUNTS = 100;
     private static final int REQUEST_PERMISSION_All = 111;
     private static String[] PERMISSIONS_ALL = {Manifest.permission.READ_CONTACTS,
-            Manifest.permission.WRITE_CONTACTS,Manifest.permission.READ_CALENDAR,
-            Manifest.permission.WRITE_CALENDAR,Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.CALL_PHONE,
-            Manifest.permission.READ_PHONE_STATE,Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.CAMERA};
+            Manifest.permission.WRITE_CONTACTS, Manifest.permission.READ_CALENDAR,
+            Manifest.permission.WRITE_CALENDAR, Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.CALL_PHONE,
+            Manifest.permission.READ_PHONE_STATE, Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA};
 
     private View mLayout;
     private CallbackManager callbackManager;
     private Button btnFacebook, btnGPlus;
     private Button btnSignIn;
     private SignUpServiceHelper signUpServiceHelper;
-    private EditText edtUserName, edtPassword,name,city;
+    private EditText edtUserName, edtPassword, name, city;
     private ProgressDialogHelper progressDialogHelper;
     private TextView txtSignUp;
     private GoogleApiClient mGoogleApiClient;
@@ -95,7 +95,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private boolean mResolvingError = false;
     private SharedPreferences mSharedPreferences;
     private View mDecorView;
-    private int mSelectedLoginMode =0;
+    private int mSelectedLoginMode = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,12 +105,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         FirstTimePreference prefFirstTime = new FirstTimePreference(getApplicationContext());
 
         if (prefFirstTime.runTheFirstTime("FirstTimePermit")) {
-            if (android.os.Build.VERSION.SDK_INT  > Build.VERSION_CODES.LOLLIPOP) {
+            if (android.os.Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
                 requestAllPermissions();
             }
         }
 
-            mDecorView = getWindow().getDecorView();
+        mDecorView = getWindow().getDecorView();
         mDecorView.setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
@@ -120,19 +120,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (PreferenceStorage.getUserId(this) != null && FindAFunValidator.checkNullString(PreferenceStorage.getUserId(this))) {
             String city = PreferenceStorage.getUserCity(this);
             boolean haspreferences = PreferenceStorage.isPreferencesPresent(this);
-            if( FindAFunValidator.checkNullString(city) && haspreferences) {
+            if (FindAFunValidator.checkNullString(city) && haspreferences) {
                 Intent intent = new Intent(this, LandingActivity.class);
                 startActivity(intent);
                 this.finish();
-            }else if(!FindAFunValidator.checkNullString(city)){
-                Log.d(TAG,"No city yet, show city activity");
+            } else if (!FindAFunValidator.checkNullString(city)) {
+                Log.d(TAG, "No city yet, show city activity");
                 Intent intent = new Intent(this, SelectCityActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 this.finish();
 
-            }else if(!haspreferences){
-                Log.d(TAG,"No preferences, so launch preferences activity");
+            } else if (!haspreferences) {
+                Log.d(TAG, "No preferences, so launch preferences activity");
                 Intent intent = new Intent(this, SelectPreferenceActivity.class);
                 intent.putExtra("selectedCity", city);
                 startActivity(intent);
@@ -148,8 +148,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(this) == ConnectionResult.SUCCESS) {
                 //We get a connection to the Google Play Service API
                 // Initializing google plus api client
-                Log.d(TAG,"Initiating google plus connection");
-              mGoogleApiClient = new GoogleApiClient.Builder(this)
+                Log.d(TAG, "Initiating google plus connection");
+                mGoogleApiClient = new GoogleApiClient.Builder(this)
                         .addConnectionCallbacks(this)
                         .addOnConnectionFailedListener(this)
                         .addApi(Plus.API)
@@ -178,7 +178,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         boolean requestPermission = PermissionUtil.requestAllPermissions(this);
 
-        if (requestPermission == true){
+        if (requestPermission == true) {
 
             Log.i(TAG,
                     "Displaying contacts permission rationale to provide additional context.");
@@ -196,16 +196,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     })
                     .show();*/
 
-        }
-
-        else {
+        } else {
 
             ActivityCompat.requestPermissions(this, PERMISSIONS_ALL, REQUEST_PERMISSION_All);
 
         }
     }
 
-    private void generateFacebookKeys(){
+    private void generateFacebookKeys() {
         Log.d(TAG, "Generating facebook has keys");
         try {
             PackageInfo info = getPackageManager().getPackageInfo(
@@ -216,7 +214,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 md.update(signature.toByteArray());
                 Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
             }
-            Log.d(TAG,"Finished key hashing");
+            Log.d(TAG, "Finished key hashing");
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         } catch (NoSuchAlgorithmException e) {
@@ -235,7 +233,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         btnSignIn.setOnClickListener(this);
         edtUserName = (EditText) findViewById(R.id.editText_email);
         edtPassword = (EditText) findViewById(R.id.editText_password);
-      //  name = (EditText) findViewById(R.id.editText_name);
+        //  name = (EditText) findViewById(R.id.editText_name);
 
         TextView termsView = (TextView) findViewById(R.id.txt_terms_and_conditions);
         SpannableString string = new SpannableString("Terms and conditions");
@@ -270,20 +268,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         });
 
-       // txtSignUp = (TextView) findViewById(R.id.txt_sign_up);
+        // txtSignUp = (TextView) findViewById(R.id.txt_sign_up);
         //txtSignUp.setOnClickListener(this);
     }
 
     // Login with facebook
     private void initFacebook() {
         callbackManager = CallbackManager.Factory.create();
-        Log.d(TAG,"Initializing facebook");
+        Log.d(TAG, "Initializing facebook");
 
         LoginManager.getInstance().registerCallback(callbackManager,
                 new FacebookCallback<LoginResult>() {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
-                        Log.d(TAG,"facebook Login Registration success");
+                        Log.d(TAG, "facebook Login Registration success");
                         // App code
                         GraphRequest request = GraphRequest.newMeRequest(
                                 loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
@@ -297,21 +295,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                             String name = me.optString("name");
                                             String gender = me.optString("gender");
                                             String birthday = me.optString("birthday");
-                                            Log.d(TAG,"facebook gender"+ gender+"birthday"+ birthday);
+                                            Log.d(TAG, "facebook gender" + gender + "birthday" + birthday);
                                             PreferenceStorage.saveUserEmail(LoginActivity.this, email);
                                             PreferenceStorage.saveUserName(LoginActivity.this, name);
-                                            String url = "https://graph.facebook.com/"+id+"/picture?type=large";
-                                            Log.d(TAG,"facebook birthday"+ birthday);
+                                            String url = "https://graph.facebook.com/" + id + "/picture?type=large";
+                                            Log.d(TAG, "facebook birthday" + birthday);
                                             PreferenceStorage.saveSocialNetworkProfilePic(LoginActivity.this, url);
-                                            if(gender != null){
-                                                PreferenceStorage.saveUserGender(LoginActivity.this,gender);
+                                            if (gender != null) {
+                                                PreferenceStorage.saveUserGender(LoginActivity.this, gender);
                                             }
-                                            if(birthday != null){
+                                            if (birthday != null) {
                                                 PreferenceStorage.saveUserBirthday(LoginActivity.this, birthday);
                                             }
                                             // send email and id to your web server
                                             JSONObject jsonObject = new JSONObject();
-                                            Log.d(TAG,"Received Facebook profile"+ me.toString());
+                                            Log.d(TAG, "Received Facebook profile" + me.toString());
                                             try {
                                                 jsonObject.put(FindAFunConstants.PARAMS_FUNC_NAME, "sign_in");
                                                 jsonObject.put(FindAFunConstants.PARAMS_USER_NAME, email);
@@ -343,14 +341,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         Log.e(TAG, "" + exception.toString());
                     }
                 });
-           }
+    }
 
     @Override
     public void onClick(View view) {
         //check if network connection exists
-        if(CommonUtils.isNetworkAvailable(this)) {
+        if (CommonUtils.isNetworkAvailable(this)) {
             if (view == btnFacebook) {
-                Log.d(TAG,"start Facebook for logging in");
+                Log.d(TAG, "start Facebook for logging in");
                 LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "user_friends", "email"));
                 PreferenceStorage.saveLoginMode(this, FindAFunConstants.FACEBOOK);
                 mSelectedLoginMode = FindAFunConstants.FACEBOOK;
@@ -366,7 +364,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         // jsonObject.put(FindAFunConstants.PARAMS_NAME, name.getText().toString());
                         jsonObject.put(FindAFunConstants.PARAMS_SIGN_UP_TYPE, "2");
                         mSelectedLoginMode = FindAFunConstants.NORMAL_SIGNUP;
-                        PreferenceStorage.savePassword(this,edtPassword.getText().toString());
+                        PreferenceStorage.savePassword(this, edtPassword.getText().toString());
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -380,7 +378,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             } else if (view == btnGPlus) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     PreferenceStorage.saveLoginMode(this, FindAFunConstants.GOOGLE_PLUS);
-                   // mSelectedLoginMode = FindAFunConstants.FACEBOOK;
+                    // mSelectedLoginMode = FindAFunConstants.FACEBOOK;
                     mSelectedLoginMode = FindAFunConstants.GOOGLE_PLUS;
                     if (ContextCompat.checkSelfPermission(this, Manifest.permission.GET_ACCOUNTS) == PackageManager.PERMISSION_GRANTED) {
                         Log.d(TAG, "initiate google plus sign up");
@@ -394,7 +392,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     initiateGplusSignIn();
                 }
             }
-        }else{
+        } else {
             AlertDialogHelper.showSimpleAlertDialog(this, "No Network connection");
         }
     }
@@ -412,18 +410,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             // We should always have a connection result ready to resolve,
             // so we can start that process.
             if (mConnectionResult != null) {
-                Log.d(TAG,"resolving google plus SignIn error");
+                Log.d(TAG, "resolving google plus SignIn error");
                 resolveSignInError();
             } else {
-                Log.d(TAG,"No connection yet. connecting");
+                Log.d(TAG, "No connection yet. connecting");
                 // If we don't have one though, we can start connect in
                 // order to retrieve one.
                 mGoogleApiClient.connect();
             }
         } else {
-            Log.d(TAG,"Google plus signing in");
+            Log.d(TAG, "Google plus signing in");
             progressDialogHelper.showProgressDialog("Signing in...");
-            Log.d(TAG,"Get profile information");
+            Log.d(TAG, "Get profile information");
             getProfileInformation();
         }
     }
@@ -467,11 +465,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         } else if (!FindAFunValidator.checkNullString(this.edtPassword.getText().toString())) {
             AlertDialogHelper.showSimpleAlertDialog(this, this.getResources().getString(R.string.enter_password));
             return false;
-        }else if( !FindAFunValidator.withinPermittedLength(this.edtPassword.getText().toString())){
+        } else if (!FindAFunValidator.withinPermittedLength(this.edtPassword.getText().toString())) {
             AlertDialogHelper.showSimpleAlertDialog(this, "Incorrect password");
             return false;
-        }
-        else {
+        } else {
             return true;
         }
     }
@@ -480,12 +477,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onSignUp(JSONObject response) {
         progressDialogHelper.hideProgressDialog();
-        if(validateSignInResponse(response)) {
+        if (validateSignInResponse(response)) {
             try {
                 JSONObject userData = response.getJSONObject("userData");
                 String user_id = null;
-                Log.d(TAG,"userData dictionary"+ userData.toString());
-                if(userData != null) {
+                Log.d(TAG, "userData dictionary" + userData.toString());
+                if (userData != null) {
                     user_id = userData.getString("id");
                     PreferenceStorage.saveUserId(this, userData.getString("id"));
 
@@ -495,7 +492,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Log.d(TAG, "sign in response is" + response.toString());
                     String name = userData.getString("name");
                     String userEmail = userData.getString("user_name");
-                   // String pwd = userData.getString(FindAFunConstants.PARAMS_USER_PASSWORD);
+                    // String pwd = userData.getString(FindAFunConstants.PARAMS_USER_PASSWORD);
                     String phone = userData.getString("phone");
                     String gender = userData.getString("gender");
                     String birthday = userData.getString("birthday");
@@ -505,7 +502,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     if ((name != null) && !(name.isEmpty()) && !name.equalsIgnoreCase("null")) {
                         PreferenceStorage.saveUserName(this, name);
                     }
-                    if((userEmail != null) && !(userEmail.isEmpty()) && !userEmail.equalsIgnoreCase("null") ){
+                    if ((userEmail != null) && !(userEmail.isEmpty()) && !userEmail.equalsIgnoreCase("null")) {
                         PreferenceStorage.saveUserEmail(this, userEmail);
 
                     }
@@ -513,26 +510,26 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         PreferenceStorage.savePassword(this, pwd);
 
                     }*/
-                    if((phone != null) && !(phone.isEmpty()) && !phone.equalsIgnoreCase("null")){
+                    if ((phone != null) && !(phone.isEmpty()) && !phone.equalsIgnoreCase("null")) {
                         PreferenceStorage.saveUserPhone(this, phone);
                     }
-                    if((gender != null) && !(gender.isEmpty()) && !gender.equalsIgnoreCase("null")){
+                    if ((gender != null) && !(gender.isEmpty()) && !gender.equalsIgnoreCase("null")) {
                         PreferenceStorage.saveUserGender(this, gender);
                     }
-                    if((birthday != null) && !(birthday.isEmpty()) && !birthday.equalsIgnoreCase("null") ){
+                    if ((birthday != null) && !(birthday.isEmpty()) && !birthday.equalsIgnoreCase("null")) {
                         PreferenceStorage.saveUserBirthday(this, birthday);
                     }
-                    if((city != null) && !(city.isEmpty()) && !(city.equalsIgnoreCase("0")) && !city.equalsIgnoreCase("null")){
+                    if ((city != null) && !(city.isEmpty()) && !(city.equalsIgnoreCase("0")) && !city.equalsIgnoreCase("null")) {
                         PreferenceStorage.saveUserCity(this, city);
                     }
-                    if((occupation != null) && !(occupation.isEmpty()) && !(occupation.equalsIgnoreCase("0")) && !occupation.equalsIgnoreCase("null")){
+                    if ((occupation != null) && !(occupation.isEmpty()) && !(occupation.equalsIgnoreCase("0")) && !occupation.equalsIgnoreCase("null")) {
                         PreferenceStorage.saveUserOccupation(this, occupation);
                     }
-                    if( (userImageUrl != null) && !(userImageUrl.isEmpty()) && !userImageUrl.equalsIgnoreCase("null")){
+                    if ((userImageUrl != null) && !(userImageUrl.isEmpty()) && !userImageUrl.equalsIgnoreCase("null")) {
                         PreferenceStorage.saveProfilePic(this, userImageUrl);
 
                     }
-                   //
+                    //
 
                 }
             } catch (JSONException e) {
@@ -545,8 +542,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             this.finish();
-        }else{
-            Log.d(TAG,"Error while sign In");
+        } else {
+            Log.d(TAG, "Error while sign In");
         }
     }
 
@@ -569,7 +566,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onConnected(Bundle bundle) {
         mSignInClicked = false;
-        Log.d(TAG,"OnCOnnected");
+        Log.d(TAG, "OnCOnnected");
 
         // Hide the progress dialog if its showing.
         // Toast.makeText(this, "User is connected !", Toast.LENGTH_SHORT).show();
@@ -625,22 +622,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    private boolean validateSignInResponse(JSONObject response){
+    private boolean validateSignInResponse(JSONObject response) {
         boolean signInsuccess = false;
-        if( (response != null) ){
+        if ((response != null)) {
             try {
                 String status = response.getString("status");
                 String msg = response.getString(FindAFunConstants.PARAM_MESSAGE);
-                Log.d(TAG,"status val"+ status+ "msg"+ msg);
+                Log.d(TAG, "status val" + status + "msg" + msg);
 
-                if( (status != null)){
-                    if(( (status.equalsIgnoreCase("activationError")) || (status.equalsIgnoreCase("alreadyRegistered"))||
-                            (status.equalsIgnoreCase("notRegistered")) || (status.equalsIgnoreCase("error")))){
+                if ((status != null)) {
+                    if (((status.equalsIgnoreCase("activationError")) || (status.equalsIgnoreCase("alreadyRegistered")) ||
+                            (status.equalsIgnoreCase("notRegistered")) || (status.equalsIgnoreCase("error")))) {
                         signInsuccess = false;
-                        Log.d(TAG,"Show error dialog");
+                        Log.d(TAG, "Show error dialog");
                         AlertDialogHelper.showSimpleAlertDialog(this, msg);
 
-                    }else{
+                    } else {
                         signInsuccess = true;
 
                     }
@@ -652,7 +649,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         }
 
-        return  signInsuccess;
+        return signInsuccess;
     }
 
     /**
@@ -709,7 +706,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             protected void onPostExecute(String token) {
                 Log.i("", "Access token retrieved:" + token);
-               // makeSignUpServiceCall(getResources().getString(R.string.provider_google));
+                // makeSignUpServiceCall(getResources().getString(R.string.provider_google));
             }
 
             @Override
@@ -726,7 +723,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 String personGooglePlusProfile = currentPerson.getUrl();
                 String email = Plus.AccountApi.getAccountName(mGoogleApiClient);
 
-                Log.d(TAG,"fetching the details from gmail account");
+                Log.d(TAG, "fetching the details from gmail account");
                   /* Storing oAuth tokens to shared preferences */
 //                SharedPreferences.Editor e = mSharedPreferences.edit();
 //                e.putString(PREF_GPLUS_EMAIL_ID, email);
@@ -735,10 +732,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Log.e("", "Name: " + personName + ", plusProfile: "
                         + personGooglePlusProfile + ", email: " + email
                         + ", Image: " + personPhotoUrl);
-                if( email != null) {
+                if (email != null) {
                     PreferenceStorage.saveUserEmail(LoginActivity.this, email);
                 }
-                if(personName != null) {
+                if (personName != null) {
                     PreferenceStorage.saveUserName(LoginActivity.this, personName);
                 }
 
@@ -746,18 +743,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 PreferenceStorage.saveLoginMode(LoginActivity.this, FindAFunConstants.GOOGLE_PLUS);
 
                 //gender
-                if(currentPerson.hasGender()){
+                if (currentPerson.hasGender()) {
                     int gender = currentPerson.getGender();
-                    Log.d(TAG,"gender value of gmail user"+ gender);
-                    if(gender == 0){
-                        PreferenceStorage.saveUserGender(LoginActivity.this,"male");
-                    }else{
-                        PreferenceStorage.saveUserGender(LoginActivity.this,"female");
+                    Log.d(TAG, "gender value of gmail user" + gender);
+                    if (gender == 0) {
+                        PreferenceStorage.saveUserGender(LoginActivity.this, "male");
+                    } else {
+                        PreferenceStorage.saveUserGender(LoginActivity.this, "female");
                     }
                 }
                 //birthday
-                if(currentPerson.hasBirthday()){
-                    Log.d(TAG,"gmail user birthday is"+ currentPerson.getBirthday());
+                if (currentPerson.hasBirthday()) {
+                    Log.d(TAG, "gmail user birthday is" + currentPerson.getBirthday());
                 }
 
                 JSONObject jsonObject = new JSONObject();
@@ -769,7 +766,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-              //  progressDialogHelper.showProgressDialog(getString(R.string.progress_loading));
+                //  progressDialogHelper.showProgressDialog(getString(R.string.progress_loading));
                 signUpServiceHelper.makeSignUpServiceCall(jsonObject.toString());
                 // by default the profile url gives 50x50 px image only
                 // we can replace the value with whatever dimension we want by
@@ -870,7 +867,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 return;
             }
 
-            case REQUEST_PERMISSION_All:{
+            case REQUEST_PERMISSION_All: {
 
                 if (requestCode == REQUEST_PERMISSION_All) {
                     Log.i(TAG, "Received response for contact permissions request.");

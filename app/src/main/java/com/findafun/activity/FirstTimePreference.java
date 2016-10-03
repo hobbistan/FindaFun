@@ -2,7 +2,6 @@ package com.findafun.activity;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-
 /**
  * Created by DataCrawl on 4/28/2016.
  */

@@ -281,8 +281,6 @@
     </LinearLayout>
 
 
-
-
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -322,7 +320,6 @@
             android:textSize="17sp"
             android:typeface="serif" />
     </LinearLayout>
-
 
 
     <View
@@ -365,12 +362,6 @@
             android:textSize="17sp"
             android:typeface="serif" />
     </LinearLayout>
-
-
-
-
-
-
 
     <View
         android:layout_width="match_parent"
@@ -420,19 +411,17 @@
                     android:layout_height="30dp"
                     android:background="@color/white"
                     android:drawableRight="@drawable/calendar"
+                    android:focusable="false"
                     android:hint="start date"
                     android:inputType="none"
                     android:onClick="showDatePickerDialog"
                     android:paddingLeft="5dp"
                     android:paddingRight="8dp"
                     android:textColorHint="@color/text_gray"
-                    android:visibility="gone"
-                    android:focusable="false"
-                    />
+                    android:visibility="gone" />
             </LinearLayout>
 
             <LinearLayout
-
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
                 android:layout_gravity="right"
@@ -459,15 +448,14 @@
                     android:layout_height="30dp"
                     android:background="@color/white"
                     android:drawableRight="@drawable/calendar"
+                    android:focusable="false"
                     android:hint="end date"
                     android:inputType="none"
                     android:onClick="showDatePickerDialog"
                     android:paddingLeft="5dp"
                     android:paddingRight="8dp"
                     android:textColorHint="@color/text_gray"
-                    android:visibility="gone"
-                    android:focusable="false"
-                    />
+                    android:visibility="gone" />
             </LinearLayout>
         </LinearLayout>
 
@@ -488,14 +476,12 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
+                android:layout_gravity="left"
                 android:layout_marginLeft="6dp"
                 android:layout_marginTop="1dp"
                 android:layout_weight="1"
                 android:background="@color/White"
-                android:orientation="vertical"
-
-                android:layout_gravity="left"
-                >
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/addEvtStrTime"
@@ -515,27 +501,25 @@
                     android:layout_height="30dp"
                     android:background="@color/white"
                     android:drawableRight="@drawable/accesstime"
+                    android:focusable="false"
                     android:hint="Time"
                     android:inputType="time"
                     android:onClick="showTimePickerDialog"
                     android:paddingLeft="5dp"
                     android:paddingRight="8dp"
                     android:textColorHint="@color/text_gray"
-                    android:visibility="gone"
-                    android:focusable="false"
-                    />
+                    android:visibility="gone" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
+                android:layout_gravity="right"
                 android:layout_marginLeft="6dp"
                 android:layout_marginTop="1dp"
                 android:layout_weight="1"
                 android:background="@color/White"
-                android:orientation="vertical"
-                android:layout_gravity="right"
-                >
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/addEvtEndTime"
@@ -555,15 +539,14 @@
                     android:layout_height="30dp"
                     android:background="@color/white"
                     android:drawableRight="@drawable/accesstime"
+                    android:focusable="false"
                     android:hint="Time"
                     android:inputType="time"
                     android:onClick="showTimePickerDialog"
                     android:paddingLeft="5dp"
                     android:paddingRight="8dp"
                     android:textColorHint="@color/text_gray"
-                    android:visibility="gone"
-                    android:focusable="false"
-                    />
+                    android:visibility="gone" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
@@ -607,7 +590,6 @@
             android:textSize="17sp"
             android:typeface="serif" />
     </LinearLayout>
-
 
 
     <View
@@ -690,7 +672,6 @@
     </LinearLayout>
 
 
-
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -770,8 +751,6 @@
     </LinearLayout>
 
 
-
-
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -811,19 +790,19 @@
             android:textSize="17sp"
             android:typeface="serif" />
 
-      <!--  <Button
-            android:id="@+id/buttonAddPic1"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="20dp"
-            android:background="@color/city_text_color"
-            android:onClick="onLoadImageBanner"
-            android:padding="5dp"
-            android:text="Add file"
-            android:textColor="@color/White"
-            android:textSize="22dp" />-->
+        <!--  <Button
+              android:id="@+id/buttonAddPic1"
+              android:layout_width="match_parent"
+              android:layout_height="40dp"
+              android:layout_marginLeft="20dp"
+              android:layout_marginRight="20dp"
+              android:layout_marginTop="20dp"
+              android:background="@color/city_text_color"
+              android:onClick="onLoadImageBanner"
+              android:padding="5dp"
+              android:text="Add file"
+              android:textColor="@color/White"
+              android:textSize="22dp" />-->
 
     </LinearLayout>
 
@@ -867,20 +846,20 @@
             android:textSize="17sp"
             android:typeface="serif" />
 
-    <!--    <Button
-            android:id="@+id/buttonAddPic2"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="20dp"
-            android:background="@color/city_text_color"
-            android:onClick="onLoadImageBanner"
-            android:padding="5dp"
-            android:text="Add file"
-            android:textColor="@color/White"
-            android:textSize="22dp" />
--->
+        <!--    <Button
+                android:id="@+id/buttonAddPic2"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/city_text_color"
+                android:onClick="onLoadImageBanner"
+                android:padding="5dp"
+                android:text="Add file"
+                android:textColor="@color/White"
+                android:textSize="22dp" />
+    -->
     </LinearLayout>
 
     <View
@@ -922,24 +901,21 @@
             android:textSize="17sp"
             android:typeface="serif" />
 
-       <!-- <Button
-            android:id="@+id/buttonAddPic3"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="20dp"
-            android:background="@color/city_text_color"
-            android:onClick="onLoadImageBanner"
-            android:padding="5dp"
-            android:text="Add file"
-            android:textColor="@color/White"
-            android:textSize="22dp" />-->
+        <!-- <Button
+             android:id="@+id/buttonAddPic3"
+             android:layout_width="match_parent"
+             android:layout_height="40dp"
+             android:layout_marginLeft="20dp"
+             android:layout_marginRight="20dp"
+             android:layout_marginTop="20dp"
+             android:background="@color/city_text_color"
+             android:onClick="onLoadImageBanner"
+             android:padding="5dp"
+             android:text="Add file"
+             android:textColor="@color/White"
+             android:textSize="22dp" />-->
 
     </LinearLayout>
-
-
-
 
 
     <View

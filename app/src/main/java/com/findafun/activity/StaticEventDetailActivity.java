@@ -100,7 +100,7 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
     private TextView txtEventTime, txtEventDate, txtEventEntry, txtEventContact, txtEventEmail, txtWebSite;
     private TextView txtViewMore, txtViewLess;
     private ViewFlipper imgEventBanner;
-      private final GestureDetector detector = new GestureDetector(new SwipeGestureDetector());
+    private final GestureDetector detector = new GestureDetector(new SwipeGestureDetector());
     LinearLayout count_layout;
     int count = 0;
     static TextView page_text[];
@@ -392,41 +392,35 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
         }
 
 
-
-
-      //  "http://placehold.it/120x120&text=image2"
+        //  "http://placehold.it/120x120&text=image2"
 
         Log.d(TAG, "Image uri is" + event.getEventBanner());
         //  uImageLoader.displayImage((event.getEventLogo()), imgEventBanner);
 
 
-        if(event.getEventLogo().contains(".")) {
+        if (event.getEventLogo().contains(".")) {
             uImageLoader.displayImage(event.getEventLogo(), banner_image_one);
         }
-        if(event.getEventLogo_1().contains(".")) {
+        if (event.getEventLogo_1().contains(".")) {
             uImageLoader.displayImage(event.getEventLogo_1(), banner_image_two);
             imgEventBanner.startFlipping();
         } else {
 
-                banner_image_two.setVisibility(View.GONE);
-                imgEventBanner.stopFlipping();
+            banner_image_two.setVisibility(View.GONE);
+            imgEventBanner.stopFlipping();
 
         }
 
-        if(event.getEventLogo_2().contains(".")) {
+        if (event.getEventLogo_2().contains(".")) {
             uImageLoader.displayImage(event.getEventLogo_2(), banner_image_three);
         } else {
             banner_image_three.setVisibility(View.GONE);
         }
 
 
-
-
-
-
-        imgList.add(0,event.getEventLogo());
-        imgList.add(1,"http://placehold.it/120x120&text=image2");
-        imgList.add(2,"http://placehold.it/120x120&text=image3");
+        imgList.add(0, event.getEventLogo());
+        imgList.add(1, "http://placehold.it/120x120&text=image2");
+        imgList.add(2, "http://placehold.it/120x120&text=image3");
 
         try {
 
@@ -448,7 +442,7 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
         }*/
 
 
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -468,7 +462,7 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
     private void showShareList() {
         AlertDialog.Builder builderSingle = new AlertDialog.Builder(this);
         builderSingle.setTitle("Share the world using");
-       // builderSingle.setTitle("Share Event Using");
+        // builderSingle.setTitle("Share Event Using");
         /*View view = getLayoutInflater().inflate(R.layout.gender_header_layout, null);
         TextView header = (TextView) view.findViewById(R.id.gender_header);
         header.setText("Select Gender");
@@ -494,18 +488,18 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
         builderSingle.show();
     }
 
-    private void sendShareStatustoServerUserActivity(int RuleId){
+    private void sendShareStatustoServerUserActivity(int RuleId) {
         ShareServiceHelper serviceHelper = new ShareServiceHelper(this);
         int eventId = Integer.parseInt(event.getId());
         int ruleid = RuleId;
         int ticketcount = 0;
-        String activitydetail = "You have shared photo"+ event.getEventName();
-        serviceHelper.postShareDetails(String.format(FindAFunConstants.SHARE_EVENT_URL,eventId, Integer.parseInt(PreferenceStorage.getUserId(this)),
-                ruleid,Uri.encode(activitydetail),event.getEventLogo(),ticketcount),this);
+        String activitydetail = "You have shared photo" + event.getEventName();
+        serviceHelper.postShareDetails(String.format(FindAFunConstants.SHARE_EVENT_URL, eventId, Integer.parseInt(PreferenceStorage.getUserId(this)),
+                ruleid, Uri.encode(activitydetail), event.getEventLogo(), ticketcount), this);
 
     }
 
-    private void sendShareStatusUserActivity(int RuleId){
+    private void sendShareStatusUserActivity(int RuleId) {
 
         /*long currentTime = System.currentTimeMillis();
         long lastsharedTime = PreferenceStorage.getEventSharedTime(this);
@@ -519,13 +513,13 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
         //testing
         int ruleid = RuleId;
         int ticketcount = 0;
-        String activitydetail = "You have shared photo"+ event.getEventName();
+        String activitydetail = "You have shared photo" + event.getEventName();
         int eventId = Integer.parseInt(event.getId());
         ShareServiceHelper serviceHelper = new ShareServiceHelper(this);
-        serviceHelper.postShareDetails(String.format(FindAFunConstants.SHARE_EVENT_URL,eventId, Integer.parseInt(PreferenceStorage.getUserId(this)),
-                ruleid,Uri.encode(activitydetail),event.getEventLogo(),ticketcount),this);
+        serviceHelper.postShareDetails(String.format(FindAFunConstants.SHARE_EVENT_URL, eventId, Integer.parseInt(PreferenceStorage.getUserId(this)),
+                ruleid, Uri.encode(activitydetail), event.getEventLogo(), ticketcount), this);
         //testing
-      //  Toast.makeText(StaticEventDetailActivity.this, "Successfully added", Toast.LENGTH_SHORT).show();
+        //  Toast.makeText(StaticEventDetailActivity.this, "Successfully added", Toast.LENGTH_SHORT).show();
 
         sendShareStatustoServerUserActivity(RuleId);
        /* }else{
@@ -611,7 +605,6 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
             public void onClick(View v) {
 
 
-
                 AlertDialog.Builder builder = new AlertDialog.Builder(
                         StaticEventDetailActivity.this);
                 builder.setTitle("Events");
@@ -622,14 +615,14 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,
                                                 int which) {
-                                Toast.makeText(getApplicationContext(),"Thanks for your interest.",Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), "Thanks for your interest.", Toast.LENGTH_LONG).show();
                             }
                         });
                 builder.setNegativeButton("Not Now",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,
                                                 int which) {
-                                Toast.makeText(getApplicationContext(),"Wish to see you soon.",Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), "Wish to see you soon.", Toast.LENGTH_LONG).show();
                             }
                         });
 
@@ -668,14 +661,12 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
             public void onClick(View v) {
 
 
-
-                Toast.makeText(getApplicationContext(),"Booking is currently not available for the event "+event.getEventName().toString()+"\nPlease try later.",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Booking is currently not available for the event " + event.getEventName().toString() + "\nPlease try later.", Toast.LENGTH_LONG).show();
 
                 // sendShareStatusUserActivity(4);
 
             }
         });
-
 
 
         checkinsBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -684,14 +675,12 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
             public void onCheckedChanged(CompoundButton buttonView,
                                          boolean isChecked) {
 
-                if(isChecked){
-                    Toast.makeText(getApplicationContext(),"You have successfully checkin for the event"+event.getEventName().toString()+"\nGet ready for the fun! ",Toast.LENGTH_LONG).show();
+                if (isChecked) {
+                    Toast.makeText(getApplicationContext(), "You have successfully checkin for the event" + event.getEventName().toString() + "\nGet ready for the fun! ", Toast.LENGTH_LONG).show();
                     sendShareStatusUserActivity(2);
-                }else{
+                } else {
 
                 }
-
-
 
 
             }
@@ -719,13 +708,12 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
                 final String phoneNumber = event.getContact();
 
 
-
                 if ((phoneNumber != null) && !(phoneNumber.isEmpty())) {
 
                     final AlertDialog.Builder builder = new AlertDialog.Builder(
                             StaticEventDetailActivity.this);
                     builder.setTitle("Any queries? Feel free to call us.");
-                    builder.setMessage(" "+phoneNumber+" ");
+                    builder.setMessage(" " + phoneNumber + " ");
 
                     builder.setPositiveButton("Cancel",
                             new DialogInterface.OnClickListener() {
@@ -762,9 +750,6 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
                     builder.show();
 
 
-
-
-
                 }
 
             }
@@ -782,7 +767,7 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
 
         BannerAdapter adapter = new BannerAdapter(this, imgList);
 
-      //  imgEventBanner.setAdapter(adapter);
+        //  imgEventBanner.setAdapter(adapter);
 
       /*  imgEventBanner.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -1224,7 +1209,7 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
             Log.d("swipe", "onDown: ");
 
             Intent intent = new Intent(getApplicationContext(), imageGallery.class);
-            intent.putStringArrayListExtra("image_list",imgList);
+            intent.putStringArrayListExtra("image_list", imgList);
             startActivity(intent);
             return false;
         }

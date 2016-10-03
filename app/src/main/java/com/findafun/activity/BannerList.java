@@ -19,7 +19,6 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Gallery;
 import android.widget.ImageView;
-
 import com.findafun.R;
 import com.findafun.app.AppController;
 import com.findafun.bean.events.Event;
@@ -27,7 +26,6 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
-
 import java.util.ArrayList;
 
 public class BannerList extends AppCompatActivity {
@@ -36,12 +34,11 @@ public class BannerList extends AppCompatActivity {
     private Event event;
     private ArrayList<String> imgList = new ArrayList<>();
     private int mShortAnimationDuration = 500;
-    static int zoomVal=1;
-
-
+    static int zoomVal = 1;
     Gallery gallery;
     ImageView imageView;
     View imageView_zoom;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,43 +47,31 @@ public class BannerList extends AppCompatActivity {
 
         imageView = (ImageView) findViewById(R.id.banner_list);
         imageView_zoom = (ImageView) findViewById(R.id.banner_list);
-         gallery = (Gallery) findViewById(R.id.gallery_list);
-       if(event.getEventLogo().contains(".")){
-           imgList.add(0,event.getEventLogo());
-       }
-       if(event.getEventLogo_1().contains(".")){
-           imgList.add(1,event.getEventLogo_1());
-       }
-       if(event.getEventLogo_2().contains(".")) {
-           imgList.add(2, event.getEventLogo_2());
-       }
-
-
+        gallery = (Gallery) findViewById(R.id.gallery_list);
+        if (event.getEventLogo().contains(".")) {
+            imgList.add(0, event.getEventLogo());
+        }
+        if (event.getEventLogo_1().contains(".")) {
+            imgList.add(1, event.getEventLogo_1());
+        }
+        if (event.getEventLogo_2().contains(".")) {
+            imgList.add(2, event.getEventLogo_2());
+        }
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                zoomImageFromThumb(imageView_zoom,zoomVal);
+                zoomImageFromThumb(imageView_zoom, zoomVal);
             }
         });
 
 
-
-
-
-
-
-
         gallery.setAdapter(new ImageAdapter(this));
-
         gallery.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-
-              //  imageView.setImageResource(imgList[position]);
-
-                String thumbnailUrl = getThumbnailImageUrl(imgList.get(position),0,0);
+                //  imageView.setImageResource(imgList[position]);
+                String thumbnailUrl = getThumbnailImageUrl(imgList.get(position), 0, 0);
                 zoomVal = position;
                 uImageLoader.displayImage(thumbnailUrl, imageView,
                         new DisplayImageOptions.Builder()
@@ -94,7 +79,6 @@ public class BannerList extends AppCompatActivity {
                                 .cacheInMemory(true).cacheOnDisk(true).build(), loadingListener);
 
                 imageView.setAdjustViewBounds(true);
-
 
             }
 
@@ -104,35 +88,29 @@ public class BannerList extends AppCompatActivity {
             }
         });
 
-
-
     }
 
 
-
-
-    private void zoomImageFromThumb(final View thumbView,int zoomVal) {
+    private void zoomImageFromThumb(final View thumbView, int zoomVal) {
         // If there's an animation in progress, cancel it
         // immediately and proceed with this one.
         if (mCurrentAnimator != null) {
             mCurrentAnimator.cancel();
         }
-
         // Load the high-resolution "zoomed-in" image.
         final ImageView expandedImageView = (ImageView) findViewById(
                 R.id.banner_list_zoom);
       /*  final LinearLayout container_expandedImageView = (LinearLayout) findViewById(
                 R.id.container_expanded_image);*/
         //  expandedImageView.setImageResource(imageResId);
-        if(zoomVal==0){
+        if (zoomVal == 0) {
             uImageLoader.displayImage(event.getEventLogo(), expandedImageView);
-        }else if(zoomVal==1){
+        } else if (zoomVal == 1) {
             uImageLoader.displayImage(event.getEventLogo_1(), expandedImageView);
-        }if(zoomVal==2){
+        }
+        if (zoomVal == 2) {
             uImageLoader.displayImage(event.getEventLogo_2(), expandedImageView);
         }
-
-
         // Calculate the starting and ending bounds for the zoomed-in image.
         // This step involves lots of math. Yay, math.
         final Rect startBounds = new Rect();
@@ -171,7 +149,6 @@ public class BannerList extends AppCompatActivity {
             startBounds.top -= deltaHeight;
             startBounds.bottom += deltaHeight;
         }
-
         // Hide the thumbnail and show the zoomed-in view. When the animation
         // begins, it will position the zoomed-in view in the place of the
         // thumbnail.
@@ -230,7 +207,7 @@ public class BannerList extends AppCompatActivity {
                         .ofFloat(expandedImageView, View.X, startBounds.left))
                         .with(ObjectAnimator
                                 .ofFloat(expandedImageView,
-                                        View.Y,startBounds.top))
+                                        View.Y, startBounds.top))
                         .with(ObjectAnimator
                                 .ofFloat(expandedImageView,
                                         View.SCALE_X, startScaleFinal))
@@ -244,7 +221,7 @@ public class BannerList extends AppCompatActivity {
                     public void onAnimationEnd(Animator animation) {
                         thumbView.setAlpha(1f);
                         expandedImageView.setVisibility(View.GONE);
-                    //    container_expandedImageView.setVisibility(View.GONE);
+                        //    container_expandedImageView.setVisibility(View.GONE);
                         mCurrentAnimator = null;
                     }
 
@@ -262,67 +239,59 @@ public class BannerList extends AppCompatActivity {
     }
 
 
-
-
     public class ImageAdapter extends BaseAdapter {
         private Context context;
         private int itemBackground;
-        public ImageAdapter(Context c)
-        {
+
+        public ImageAdapter(Context c) {
             context = c;
             // sets a grey background; wraps around the images
           /*  TypedArray a =obtainStyledAttributes(R.styleable.MyGallery);
             itemBackground = a.getResourceId(R.styleable.MyGallery_android_galleryItemBackground, 0);
             a.recycle();*/
         }
+
         // returns the number of images
         public int getCount() {
             return imgList.size();
         }
+
         // returns the ID of an item
         public Object getItem(int position) {
             return position;
         }
+
         // returns the ID of an item
         public long getItemId(int position) {
             return position;
         }
+
         // returns an ImageView view
         public View getView(int position, View convertView, ViewGroup parent) {
           /*  ImageView imageView = new ImageView(context);
            // imageView.setImageResource(imgList[position]);
             imageView.setLayoutParams(new Gallery.LayoutParams(100, 100));
             imageView.setBackgroundResource(R.color.bg_gray);
-
-
-
-
             imageView.setPadding(5,2,5,2);*/
-
             LayoutInflater inflater = ((Activity) context).getLayoutInflater();
             convertView = inflater.inflate(R.layout.image_banner, parent, false);
-
             ImageView imageView = (ImageView) convertView.findViewById(R.id.banner);
-
-            String thumbnailUrl = getThumbnailImageUrl(imgList.get(position),0,0);
-
+            String thumbnailUrl = getThumbnailImageUrl(imgList.get(position), 0, 0);
             uImageLoader.displayImage(thumbnailUrl, imageView,
                     new DisplayImageOptions.Builder()
                             .showImageOnLoading(android.R.color.darker_gray)
                             .cacheInMemory(true).cacheOnDisk(true).build(), loadingListener);
-
             imageView.setAdjustViewBounds(true);
 
             return convertView;
         }
     }
 
-
-    public String getThumbnailImageUrl(String imgUrl,int width,int height){
-        String url="http://imgsize.ph.126.net/?imgurl=data1_data2xdata3x0x85.jpg&enlarge=true";
+    public String getThumbnailImageUrl(String imgUrl, int width, int height) {
+        String url = "http://imgsize.ph.126.net/?imgurl=data1_data2xdata3x0x85.jpg&enlarge=true";
         width = (int) (getResources().getDisplayMetrics().density * 100);
         height = (int) (getResources().getDisplayMetrics().density * 100); //just for convenient
-        url=url.replaceAll("data1", imgUrl).replaceAll("data2", width+"").replaceAll("data3", height+"");
+        url = url.replaceAll("data1", imgUrl).replaceAll("data2", width + "").replaceAll("data3", height + "");
         return url;
     }
 

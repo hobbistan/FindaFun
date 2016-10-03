@@ -106,7 +106,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:background="@color/White"
-
         android:orientation="horizontal">
 
         <ImageView

@@ -63,7 +63,6 @@ public class AdvanceSearchAct extends AppCompatActivity implements AdapterView.O
     private String mFromDateVal = null;
     private String mTodateVal = null;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,36 +71,27 @@ public class AdvanceSearchAct extends AppCompatActivity implements AdapterView.O
         iniView();
     }
 
-
     private void iniView() {
         getSupportActionBar().hide();
-
         findViewById(R.id.btnselectdate).setOnClickListener(this);
         findViewById(R.id.btntomorrow).setOnClickListener(this);
         findViewById(R.id.btntoday).setOnClickListener(this);
         spincat = (Button) findViewById(R.id.catgoryspinner);
-
         spincat.setOnClickListener(this);
         String storedCategory = PreferenceStorage.getFilterCatgry(this);
         if( (storedCategory != null) && !(storedCategory.isEmpty())){
             spincat.setText(storedCategory);
         }
 
-
         spincity = (Spinner) findViewById(R.id.cityspinner);
         spincity.setOnItemSelectedListener(this);
-
-
-
         ArrayAdapter<String> dataAdapter1 = new ArrayAdapter<String>(this, R.layout.spinner_item, getResources().getStringArray(R.array.india_top_places));
         spincity.setAdapter(dataAdapter1);
         int index = PreferenceStorage.getFilterCityIndex(this);
         if((index >=0) && index < (getResources().getStringArray(R.array.india_top_places).length)){
             spincity.setSelection(index);
         }
-
         spinEventType = (Spinner)findViewById(R.id.eventtypespinner);
-
         ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<String>(this, R.layout.spinner_item, getResources().getStringArray(R.array.events_type));
         spinEventType.setAdapter(dataAdapter2);
         int index1 = PreferenceStorage.getFilterEventTypeIndex(this);
@@ -122,7 +112,6 @@ public class AdvanceSearchAct extends AppCompatActivity implements AdapterView.O
 
             }
         });
-
 
         DatePickerSelection();
         findViewById(R.id.btnapply).setOnClickListener(this);
@@ -174,7 +163,6 @@ public class AdvanceSearchAct extends AppCompatActivity implements AdapterView.O
     private void fetchCategoryValues(){
         categoryServiceHelper = new CategoryServiceHelper(this);
         categoryServiceHelper.setCategoryServiceListener(this);
-
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put(FindAFunConstants.PARAMS_FUNC_NAME, "category_list");
@@ -182,10 +170,8 @@ public class AdvanceSearchAct extends AppCompatActivity implements AdapterView.O
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         categoryServiceHelper.makeGetCategoryServiceCall(jsonObject);
     }
-
 
     private void DatePickerSelection() {
         final Calendar c = Calendar.getInstance();
@@ -198,13 +184,11 @@ public class AdvanceSearchAct extends AppCompatActivity implements AdapterView.O
             ((Button)findViewById(R.id.btnselectdate)).setText(singleDateVal);
         }*/
 
-
         final DatePickerDialog.OnDateSetListener fromdate = new DatePickerDialog.OnDateSetListener() {
 
             public void onDateSet(DatePicker view, int year, int month, int day) {
                 Log.d(TAG,"From selected");
                // isdoneclick = true;
-
                 if (isdoneclick) {
                     ((Button) findViewById(R.id.btnfrom)).setText(formatDate(year, month , day));
                     mFromDateVal = formatDateServer(year, month , day);
@@ -231,7 +215,6 @@ public class AdvanceSearchAct extends AppCompatActivity implements AdapterView.O
                 tomorrowPressed = false;
                 mFromDatePickerDialog = new DatePickerDialog(AdvanceSearchAct.this, fromdate, currentYear,
                         currentMonth, currentDay);
-
 
                 mFromDatePickerDialog.setButton(DatePickerDialog.BUTTON_POSITIVE, "Done", new DialogInterface.OnClickListener() {
                     @Override
@@ -306,7 +289,6 @@ public class AdvanceSearchAct extends AppCompatActivity implements AdapterView.O
             }
         });
 
-
     }
 
 
@@ -315,7 +297,6 @@ public class AdvanceSearchAct extends AppCompatActivity implements AdapterView.O
         String item = parent.getItemAtPosition(position).toString();
         PreferenceStorage.saveFilterCitySelection(this, position);
         //Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
-
 
     }
 
@@ -331,7 +312,6 @@ public class AdvanceSearchAct extends AppCompatActivity implements AdapterView.O
             cal.set(year, month, day);
             Date date = cal.getTime();
             SimpleDateFormat sdf = new SimpleDateFormat("dd-mmm-yyyy");
-
             return sdf.format(date);*/
         String formattedDay = "", formattedMonth = "";
         month = month +1;
@@ -357,7 +337,6 @@ public class AdvanceSearchAct extends AppCompatActivity implements AdapterView.O
             cal.set(year, month, day);
             Date date = cal.getTime();
             SimpleDateFormat sdf = new SimpleDateFormat("dd-mmm-yyyy");
-
             return sdf.format(date);*/
         String formattedDay = "", formattedMonth = "";
         month = month +1;
@@ -376,7 +355,6 @@ public class AdvanceSearchAct extends AppCompatActivity implements AdapterView.O
         return formattedDay +"-" + formattedMonth + "-" + year;
     }
 
-
     @Override
     public void onClick(View v) {
 
@@ -391,8 +369,6 @@ public class AdvanceSearchAct extends AppCompatActivity implements AdapterView.O
                     final DatePickerDialog.OnDateSetListener singledate = new DatePickerDialog.OnDateSetListener() {
 
                         public void onDateSet(DatePicker view, int year, int month, int day) {
-
-
                             //Log.e("Singledate", "singleDate : " + singleDate);
                             if (isdoneclick) {
                                 ((Button) findViewById(R.id.btnselectdate)).setText(formatDate(year, month , day));
@@ -607,19 +583,11 @@ public class AdvanceSearchAct extends AppCompatActivity implements AdapterView.O
                     public void onItemClick(AdapterView<?> parent, View view,
                                             int position, long id) {
                         Log.d(TAG, "Item clicked");
-                        // Manage selected items here//*System.out.println("clicked" + position);
-                        /*CheckedTextView textView = (CheckedTextView) view;
-                        if(textView.isChecked()) {
-                            Log.d(TAG,"checked state is"+ textView.isChecked());
 
-                        } else {
-
-                        }*/
                     }
                 });
 
                 dialog.show();
-
 
                 /*// Convert the color array to list
                 final List<String> colorsList = Arrays.asList(categoryarray);
@@ -675,9 +643,7 @@ public class AdvanceSearchAct extends AppCompatActivity implements AdapterView.O
                 AlertDialog dialog = builder.create();
                 // Display the alert dialog on interface
                 dialog.show();*/
-
                 break;
-
 
         }
 

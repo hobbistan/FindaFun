@@ -1,6 +1,5 @@
 package com.findafun.activity;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -9,13 +8,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.findafun.R;
 import com.findafun.bean.events.Event;
-import com.findafun.utils.FindAFunConstants;
-import com.findafun.utils.PreferenceStorage;
 
 /**
  * Created by Nandha on 25-08-2016.
@@ -80,8 +76,7 @@ public class SubmitReviewActivity extends AppCompatActivity {
         });
     }
 
-    private void saveReview()
-    {
+    private void saveReview() {
 
         int UserId = 0;
         int EventId = 0;

@@ -61,8 +61,6 @@ public class BookingsActivity extends AppCompatActivity implements IGamification
         mDetailsData = GamificationDataHolder.getInstance().getmBookingBoard();
         initializeViews();
         mHeaderPos.clear();
-
-
         //check if leader board data is already loaded
        // if(!(mDetailsData.getAvailableCount() > 0)){
 
@@ -70,7 +68,6 @@ public class BookingsActivity extends AppCompatActivity implements IGamification
             mProgressDialog.setIndeterminate(true);
             mProgressDialog.setMessage("Loading");
             mProgressDialog.show();
-
             GamificationServiceHelper helper = new GamificationServiceHelper(this);
             //Integer.parseInt(PreferenceStorage.getUserId(this)))
             helper.fetchBookingDetails(String.format(FindAFunConstants.GET_BOOKINGS_URL, Integer.parseInt(PreferenceStorage.getUserId(this))), this);
@@ -89,7 +86,6 @@ public class BookingsActivity extends AppCompatActivity implements IGamification
     private void initializeViews(){
         mPointsView = (TextView) findViewById(R.id.bookings_star_value);
         mTotalPointsView = (TextView) findViewById(R.id.bookings_total_val);
-
         ImageView backbtn = (ImageView) findViewById(R.id.bookings_back_btn);
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -196,13 +192,11 @@ public class BookingsActivity extends AppCompatActivity implements IGamification
                     date.setVisibility(View.GONE);
                 }
             }
-
             if(booking.getEventName() != null){
                 eventname.setText(booking.getEventName());
             }else{
                 eventname.setText("N/A");
             }
-
             if(FindAFunValidator.checkNullString(booking.getImageUrl())) {
                 Picasso.with(BookingsActivity.this).load(booking.getImageUrl()).fit().transform(BookingsActivity.this.transformation).placeholder(R.drawable.placeholder_small).error(R.drawable.placeholder_small).into(image);
             } else {
@@ -212,8 +206,6 @@ public class BookingsActivity extends AppCompatActivity implements IGamification
                 String ticketdata = booking.getTicketCount()+"  "+"Tickets";
                 ticketcount.setText(ticketdata);
             }
-
-
             return convertView;
         }
     }

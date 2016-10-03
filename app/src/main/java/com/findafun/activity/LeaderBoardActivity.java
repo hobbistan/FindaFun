@@ -18,7 +18,6 @@ import android.widget.TextView;
 
 import com.findafun.R;
 import com.findafun.adapter.LeaderBoardAdapter;
-import com.findafun.adapter.LoginNewAdapter;
 import com.findafun.bean.gamification.GamificationDataHolder;
 import com.findafun.bean.gamification.LeaderBoard;
 import com.findafun.bean.gamification.Rewards;
@@ -45,7 +44,7 @@ public class LeaderBoardActivity extends AppCompatActivity implements IGamificat
     private final Transformation transformation;
     private DataAdapter mAdapter = null;
     private ProgressDialog mProgressDialog = null;
-    private LinearLayout globalLayout,localLayout;
+    private LinearLayout globalLayout, localLayout;
     private android.os.Handler mHandler = new android.os.Handler();
 
     public LeaderBoardActivity() {
@@ -62,9 +61,8 @@ public class LeaderBoardActivity extends AppCompatActivity implements IGamificat
         setContentView(R.layout.leaderboard_layout);
         mLeaderboardvalueView = (TextView) findViewById(R.id.leaderboard_value);
         mLeaderboardHobby = (TextView) findViewById(R.id.leaderboard_hobby);
-        globalLayout = (LinearLayout)findViewById(R.id.global_fragment);
-        localLayout = (LinearLayout)findViewById(R.id.local_fragment);
-
+        globalLayout = (LinearLayout) findViewById(R.id.global_fragment);
+        localLayout = (LinearLayout) findViewById(R.id.local_fragment);
         ImageView backbtn = (ImageView) findViewById(R.id.bookings_back_btn);
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,11 +70,9 @@ public class LeaderBoardActivity extends AppCompatActivity implements IGamificat
                 finish();
             }
         });
-
         mLeaderboardList = (ListView) findViewById(R.id.leader_board_list);
         mAdapter = new DataAdapter();
         mLeaderboardList.setAdapter(mAdapter);
-
         Rewards reward = GamificationDataHolder.getInstance().getmRewards();
         if (reward != null) {
             if (reward.getLevelName() != null) {
@@ -85,7 +81,6 @@ public class LeaderBoardActivity extends AppCompatActivity implements IGamificat
             mLeaderboardvalueView.setText(Integer.toString(reward.getLeaderboardPosition()));
         }
 
-
         //check if leader board data is already loaded
         //  if(!(GamificationDataHolder.getInstance().getLeaderboardCount() > 0)){
 
@@ -93,10 +88,8 @@ public class LeaderBoardActivity extends AppCompatActivity implements IGamificat
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setMessage("Loading");
         mProgressDialog.show();
-
         GamificationServiceHelper helper = new GamificationServiceHelper(this);
         helper.fetchLeaderBoardDetails(String.format(FindAFunConstants.GET_LEADER_BOARD), this);
-
         globalLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,9 +109,7 @@ public class LeaderBoardActivity extends AppCompatActivity implements IGamificat
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Global"));
         tabLayout.addTab(tabLayout.newTab().setText("Local"));
-
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         final LeaderBoardAdapter adapter = new LeaderBoardAdapter
                 (getSupportFragmentManager());
@@ -169,7 +160,6 @@ public class LeaderBoardActivity extends AppCompatActivity implements IGamificat
             mProgressDialog.cancel();
         }
         AlertDialogHelper.showSimpleAlertDialog(this, erorr);
-
     }
 
     @Override

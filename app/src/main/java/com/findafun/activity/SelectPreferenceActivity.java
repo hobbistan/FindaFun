@@ -62,7 +62,7 @@ public class SelectPreferenceActivity extends AppCompatActivity implements Prefe
         mLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                if (preferenceAdatper.getItemViewType(position) >0) {
+                if (preferenceAdatper.getItemViewType(position) > 0) {
                     return preferenceAdatper.getItemViewType(position);
                 } else {
                     return 4;
@@ -123,12 +123,12 @@ public class SelectPreferenceActivity extends AppCompatActivity implements Prefe
 
     private void setPreferences() {
         //save preferences selected
-        Log.d(TAG,"size of selected preferences"+ selectedList.size());
+        Log.d(TAG, "size of selected preferences" + selectedList.size());
         PreferenceStorage.savePreferencesSelected(this, true);
         ArrayList<Preference> preferences = new ArrayList<>();
         for (Category category : selectedList) {
             Preference preference = new Preference();
-            Log.d(TAG,"add category id"+ category.getId());
+            Log.d(TAG, "add category id" + category.getId());
             preference.setCategoryId(category.getId());
 
             preferences.add(preference);
@@ -188,11 +188,11 @@ public class SelectPreferenceActivity extends AppCompatActivity implements Prefe
     }
 
     public void onCategorySelected(int position) {
-        Log.d(TAG,"selected category position"+ position);
+        Log.d(TAG, "selected category position" + position);
         if (selectedList != null) {
-            Category category = (Category)preferenceAdatper.getItem(position);
-            Log.d(TAG,"id"+ category.getId());
-            selectedList.add( category);
+            Category category = (Category) preferenceAdatper.getItem(position);
+            Log.d(TAG, "id" + category.getId());
+            selectedList.add(category);
         }
     }
 
@@ -230,9 +230,9 @@ public class SelectPreferenceActivity extends AppCompatActivity implements Prefe
     @Override
     public void onClick(View v) {
         if (v == txtGetStarted) {
-            if(selectedList.size() > 0) {
+            if (selectedList.size() > 0) {
                 setPreferences();
-            }else{
+            } else {
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
                 //alertDialogBuilder.setTitle("Registration Successful");
                 alertDialogBuilder.setTitle("No Preference selected");

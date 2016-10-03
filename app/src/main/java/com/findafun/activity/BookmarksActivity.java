@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import com.findafun.R;
 import com.findafun.adapter.EventsListAdapter;
 import com.findafun.bean.events.Event;
@@ -28,9 +27,7 @@ import com.findafun.utils.CommonUtils;
 import com.findafun.utils.FindAFunConstants;
 import com.findafun.utils.PreferenceStorage;
 import com.google.gson.Gson;
-
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 
 /**
@@ -83,12 +80,11 @@ public class BookmarksActivity extends AppCompatActivity implements IEventServic
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_directions) {
             return true;
-        }else if(id == android.R.id.home) {
-            Log.d(TAG,"home up button selected");
+        } else if (id == android.R.id.home) {
+            Log.d(TAG, "home up button selected");
             finish();
         }
 
@@ -96,28 +92,24 @@ public class BookmarksActivity extends AppCompatActivity implements IEventServic
     }
 
     public void callGetEventService() {
-        Log.d(TAG, "fetch event list" );
+        Log.d(TAG, "fetch event list");
         /*if(eventsListAdapter != null){
             eventsListAdapter.clearSearchFlag();
         }*/
 
         if (isLoadingForFirstTime) {
-            Log.d(TAG,"Loading for the first time");
+            Log.d(TAG, "Loading for the first time");
             if (eventsArrayList != null)
                 eventsArrayList.clear();
-
             if (CommonUtils.isNetworkAvailable(this)) {
-
                 progressDialogHelper.showProgressDialog(getString(R.string.progress_loading));
                 eventServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.GET_EVENTS_BOOKMARK, Integer.parseInt(PreferenceStorage.getUserId(this))));
-
             } else {
                 AlertDialogHelper.showSimpleAlertDialog(this, getString(R.string.no_connectivity));
             }
-        }else{
+        } else {
             Log.d(TAG, "Do nothing");
         }
-
     }
 
     protected void updateListAdapter(ArrayList<Event> eventsArrayList) {
@@ -130,44 +122,40 @@ public class BookmarksActivity extends AppCompatActivity implements IEventServic
         }
     }
 
-
     @Override
     public void onEventResponse(JSONObject response) {
         progressDialogHelper.hideProgressDialog();
-
         Gson gson = new Gson();
         EventList eventsList = gson.fromJson(response.toString(), EventList.class);
         if (eventsList.getEvents() != null && eventsList.getEvents().size() > 0) {
-           // totalCount = eventsList.getCount();
+            // totalCount = eventsList.getCount();
             isLoadingForFirstTime = false;
             GamificationDataHolder.getInstance().clearBookmarks();
-            for(Event event: eventsList.getEvents()){
+            for (Event event : eventsList.getEvents()) {
                 GamificationDataHolder.getInstance().addBookmarkedEvent(event.getId());
             }
             updateListAdapter(eventsList.getEvents());
             mNoBookmarkEvents.setVisibility(View.GONE);
-        }else{
+        } else {
             mNoBookmarkEvents.setVisibility(View.VISIBLE);
         }
-
     }
 
     @Override
     public void onEventError(String error) {
         progressDialogHelper.hideProgressDialog();
-       // AlertDialogHelper.showSimpleAlertDialog(this, error);
-
+        // AlertDialogHelper.showSimpleAlertDialog(this, error);
     }
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
                                     ContextMenu.ContextMenuInfo menuInfo) {
-        if (v.getId()==R.id.bookmark_list) {
-            AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
-           // menu.setHeaderTitle(Countries[info.position]);
+        if (v.getId() == R.id.bookmark_list) {
+            AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+            // menu.setHeaderTitle(Countries[info.position]);
             //menu.add("Delete");
             //String[] menuItems = getResources().getStringArray(R.array.menu);
-            for (int i = 0; i< 1; i++) {
+            for (int i = 0; i < 1; i++) {
                 menu.add(Menu.NONE, i, i, "Delete");
             }
         }
@@ -175,7 +163,7 @@ public class BookmarksActivity extends AppCompatActivity implements IEventServic
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         int menuItemIndex = item.getItemId();
         Log.d(TAG, "delete the item at index" + info.position);
         Event event = eventsArrayList.get(info.position);

@@ -32,7 +32,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.findafun.R;
 import com.findafun.adapter.NavDrawerAdapter;
 import com.findafun.bean.events.Event;
@@ -56,7 +55,6 @@ import com.findafun.utils.PreferenceStorage;
 import com.google.gson.Gson;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -68,7 +66,6 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
@@ -88,27 +85,22 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
     private SharedPreferences TransPrefs;
     private boolean isFirstRunAdvsearch = true;
     private ImageView imgNavHeaderBg, imgNavProfileImage;
-
     public static final int TAG_FAVOURITES = 0, TAG_FEATURED = 1, TAG_ALL = 2;
     private ArrayAdapter<String> navListAdapter;
     private String[] values = {"Change City", "Profile", "Edit Preferences", "Wishlists", "Refer & Earn","Rate Us", "Sign Out"};
-
     private boolean mFragmentsLoaded = false;
     TextView navUserName = null;
     TextView navUserCity = null;
-
     private SearchView mSearchView = null;
     private String mCurrentUserProfileUrl = "";
     private Bitmap mBitmapToLoad = null;
     private String mUpdatedImageUrl = null;
-
     protected EventServiceHelper eventServiceHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing);
-
         toolbar = (Toolbar) findViewById(R.id.activity_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -119,7 +111,6 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
         initializeViews();
         eventServiceHelper = new EventServiceHelper(this);
         eventServiceHelper.setEventServiceListener(this);
-
         fetchBookmarks();
         sendShareStatustoServer();
     }
@@ -142,7 +133,6 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
         } else if (!doubleBackToExitPressedOnce) {
             this.doubleBackToExitPressedOnce = true;
             Toast.makeText(this, "Please click BACK again to exit.", Toast.LENGTH_SHORT).show();
-
             new Handler().postDelayed(new Runnable() {
 
                 @Override
@@ -158,7 +148,6 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
 
     private void fetchBookmarks() {
         if (CommonUtils.isNetworkAvailable(this)) {
-
             eventServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.GET_EVENTS_BOOKMARK, Integer.parseInt(PreferenceStorage.getUserId(this))));
         }
     }
@@ -211,10 +200,8 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
         viewPager.setAdapter(landingPagerAdapter);
         viewPager.setOffscreenPageLimit(3);
         Log.d(TAG, "initializing view pager");
-
         mPagerSlidingTabStrip.setViewPager(viewPager);
         mPagerSlidingTabStrip.setOnPageChangeListener(this);
-
         navUserName = (TextView) findViewById(R.id.user_profile_name);
         navUserCity = (TextView) findViewById(R.id.txt_city_name);
         String userName = PreferenceStorage.getUserName(getApplicationContext());
@@ -223,11 +210,9 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
         if ((userName != null) && !userName.isEmpty()) {
             navUserName.setText(userName);
         }
-
         if ((userCity != null) && !userCity.isEmpty()) {
             navUserCity.setText(userCity);
         }
-
         //fetch Facebook profile picture
         int loginMode = PreferenceStorage.getLoginMode(this);
         String url = PreferenceStorage.getProfileUrl(this);
@@ -255,7 +240,6 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
                                     mUpdatedImageUrl = null;
                                     mBitmapToLoad = ((BitmapDrawable) imgNavProfileImage.getDrawable()).getBitmap();
                                     new UploadFileToServer().execute();
-
                                 }
                             } catch (Exception e) {
                                 e.printStackTrace();
@@ -293,7 +277,6 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
                 }
             }
         }
-
         return upload;
     }
 
@@ -343,13 +326,11 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
         // enable ActionBar app icon to behave as action to toggle nav drawer
         // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //getSupportActionBar().setHomeButtonEnabled(true);
-
         // Initialize header and listview
         navDrawerList = (ListView) findViewById(R.id.nav_drawer_options_list);
         NavDrawerAdapter navDrawerAdapter = new NavDrawerAdapter(getApplicationContext(), R.layout.nav_list_item, values);
         navListAdapter = new ArrayAdapter<String>(this, R.layout.nav_list_item, values);
         navDrawerList.setAdapter(navDrawerAdapter);
-
         // imgNavHeaderBg = (ImageView) findViewById(R.id.img_nav_header_background);
         imgNavProfileImage = (ImageView) findViewById(R.id.img_profile_image);
         navDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -433,19 +414,15 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
                 (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         mSearchView =
                 (SearchView) menu.findItem(R.id.action_search_view).getActionView();
-
         mSearchView.setIconifiedByDefault(true);
-
         mSearchView.setSearchableInfo(
                 searchManager.getSearchableInfo(getComponentName()));
-
         mSearchView.setOnSearchClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Search button clicked");
             }
         });
-
 
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
@@ -527,14 +504,11 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
             case R.id.action_filter:
                 //ajaz
                 // Toast.makeText(this, "advance filter clicked", Toast.LENGTH_SHORT).show();
-
                 Context appContext = this;
                 final Dialog dialog = new Dialog(appContext,android.R.style.Theme_Translucent);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.getWindow().setLayout(ViewPager.LayoutParams.MATCH_PARENT, ViewPager.LayoutParams.MATCH_PARENT);
                 dialog.setContentView(R.layout.transparent_favourite);
-
-
                 TransPrefs = PreferenceManager.getDefaultSharedPreferences(getApplication());
                 isFirstRunAdvsearch = TransPrefs.getBoolean("isFirstRunAdvsearch", true);
 
@@ -554,16 +528,12 @@ public class LandingActivity extends AppCompatActivity implements ViewPager.OnPa
                     isFirstRunAdvsearch=false;
                     TransPrefs.edit().putBoolean("isFirstRunAdvsearch", isFirstRunAdvsearch).commit();
 
-
                 } else {
                     dialog.dismiss();
                     startActivity(new Intent(LandingActivity.this, AdvanceSearchAct.class));
                     return true;
 
                 }
-
-
-
 
             default:
                 return super.onOptionsItemSelected(item);

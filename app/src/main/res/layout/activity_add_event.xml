@@ -20,10 +20,7 @@
             android:layout_marginLeft="20dp"
             android:text="@string/evntName"
             android:textSize="20dp"
-            android:textStyle="bold"
-
-
-            />
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/addEvtNameVal"
@@ -58,9 +55,7 @@
             android:layout_below="@+id/addEvtCatgryName"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:drawableRight="@drawable/event_down_arrow"
-
-            />
+            android:drawableRight="@drawable/event_down_arrow" />
 
         <TextView
             android:id="@+id/addEvtTypeName"
@@ -83,7 +78,6 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:drawableRight="@drawable/event_down_arrow" />
-
 
         <TextView
             android:id="@+id/addEvtCityName"
@@ -118,9 +112,7 @@
             android:layout_marginTop="4dp"
             android:text="@string/evntVenueName"
             android:textSize="20dp"
-            android:textStyle="bold"
-
-            />
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/addEvtVenueVal"
@@ -143,9 +135,7 @@
             android:layout_marginTop="4dp"
             android:text="@string/evntDescName"
             android:textSize="20dp"
-            android:textStyle="bold"
-
-            />
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/addEvtDescVal"
@@ -161,7 +151,6 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="120dp">
-
 
             <TextView
                 android:id="@+id/addEvtStartDate"
@@ -210,9 +199,7 @@
 
                 android:textSize="20dp"
                 android:textStyle="bold"
-                android:visibility="visible"
-
-                />
+                android:visibility="visible" />
 
             <EditText
                 android:id="@+id/addEvtEndDateVal"
@@ -230,7 +217,6 @@
                 android:paddingRight="8dp"
                 android:textColorHint="@color/text_gray"
                 android:visibility="visible" />
-
 
             <TextView
                 android:id="@+id/addEvtTime"
@@ -344,9 +330,7 @@
             android:layout_marginTop="4dp"
             android:text="@string/eventBanner"
             android:textSize="20dp"
-            android:textStyle="bold"
-
-            />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/addEvtBanNoFile"
@@ -413,18 +397,13 @@
                 android:id="@+id/addEvtDiscard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/eventDiscard"
-
-
-                />
+                android:text="@string/eventDiscard" />
 
             <Button
                 android:id="@+id/addEvtSave"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/eventSave"
-
-                />
+                android:text="@string/eventSave" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

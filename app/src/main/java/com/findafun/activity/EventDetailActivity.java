@@ -147,7 +147,6 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
         overridePendingTransition(R.anim.slide_right, 0);
         setContentView(R.layout.activity_event_detail);
 
-
         if (Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
@@ -158,18 +157,14 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
         getSupportActionBar().setTitle("EVENT");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         curRate = getPreferCount();
-
         initializeViews();
         event = (Event) getIntent().getSerializableExtra("eventObj");
         populateData();
-
         if (curRate == 20) {
             fetchAppRate();
         }
-
         int nVersion = getAppVersion(getApplication());
         Log.d("test", String.valueOf(nVersion));
-
         getAppUpdate(nVersion);
         clickCountEvent();
 
@@ -182,22 +177,17 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
         final SharedPreferences.Editor editor = saving.edit();
         editor.putInt("update", versionCode);
         editor.commit();
-
-
         int version = saving.getInt("update", 0);
-
         if (version < nVersion) {
             version++;
             //   Toast.makeText(this, "Hello There " + test, Toast.LENGTH_SHORT).show();
             editor.putInt("update", version);
             editor.commit();
-
             UpdateChecker checker = new UpdateChecker(this);
             UpdateChecker.setStore(Store.GOOGLE_PLAY);
             checker.showDialog("test");
             //checker.setSuccessfulChecksRequired(5);
             UpdateChecker.start();
-
             Log.d("version code", String.valueOf(version));
         } else if (version == nVersion) {
             editor.putInt("update", version);
@@ -219,13 +209,10 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
         }
     }
 
-
     private void fetchAppRate() {
-
 
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this)
                 .setTitle("Rate " + getApplicationInfo().loadLabel(getPackageManager()).toString())
-
                 .setMessage("If You Enjoy Using Hobbistan, please take a moment to rate it. Thanks for Your Support!")
                 .setPositiveButton("Rate it! ", null)
                 .setNegativeButton("No Thanks", null)
@@ -239,7 +226,6 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
 
     private int getPreferCount() {
         int test = 0;
-
         final SharedPreferences saving = getSharedPreferences("AppRatePref", Activity.MODE_PRIVATE);
         final SharedPreferences.Editor editor = saving.edit();
 
@@ -257,7 +243,6 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
         }
         return test;
     }
-
 
     @Override
     protected void onStart() {
@@ -318,9 +303,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
                 shareIntent.setPackage("com.twitter.android");
                 SpannableString content = new SpannableString("http://www.hobbistan.com/");
                 content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
-
                 String text = event.getEventName();
-
                 shareIntent.putExtra(Intent.EXTRA_TITLE, "www.Hobbistan.com");
                 shareIntent.putExtra(Intent.EXTRA_TEXT, text);
                 // Start the specific social application
@@ -336,29 +319,20 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
 
     public void whatsapp(View v) {
 
-
         PackageManager pm = getPackageManager();
         try {
-
             Intent waIntent = new Intent(Intent.ACTION_SEND);
             waIntent.setType("text/plain");
-
-
             SpannableString content = new SpannableString("http://www.hobbistan.com/");
             content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
-
             String text = event.getEventName() + "\n" + event.getDescription() + "\n" + content;
-
-
             PackageInfo info = pm.getPackageInfo("com.whatsapp", PackageManager.GET_META_DATA);
             //Check if package exists or not. If not then code
             //in catch block will be called
             waIntent.setPackage("com.whatsapp");
-
             waIntent.putExtra(Intent.EXTRA_TEXT, text);
             startActivity(Intent.createChooser(waIntent, "Share with"));
             sendShareStatus();
-
         } catch (PackageManager.NameNotFoundException e) {
             Toast.makeText(this, "WhatsApp not Installed", Toast.LENGTH_SHORT)
                     .show();
@@ -370,14 +344,10 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
         // txtEventDesc.setText(event.getDescription());
         if (event.getDescription() != null) {
             txtEventCategory.setText(event.getDescription());
-
-
             txtViewMore.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-
                     txtViewMore.setVisibility(View.GONE);
                     txtViewLess.setVisibility(View.VISIBLE);
-
                     txtEventCategory.setMaxLines(Integer.MAX_VALUE);
 
                 }
@@ -385,7 +355,6 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
 
             txtViewLess.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-
                     txtViewLess.setVisibility(View.GONE);
                     txtViewMore.setVisibility(View.VISIBLE);
                     txtEventCategory.setMaxLines(2);
@@ -484,13 +453,10 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
         mShareResources.add(R.drawable.twitter);
         mShareResources.add(R.drawable.whatsapp);
         initializeViews();
-
-
     }
 
     private void showShareList() {
         AlertDialog.Builder builderSingle = new AlertDialog.Builder(this);
-
       //  builderSingle.setTitle("Share Event Using");
         builderSingle.setTitle("Share the world using");
         /*View view = getLayoutInflater().inflate(R.layout.gender_header_layout, null);
@@ -532,7 +498,6 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
         banner_image_five = (ImageView) findViewById(R.id.banner_image_five);*/
         count_layout = (LinearLayout) findViewById(R.id.image_count);
         txtViewMore = (TextView) findViewById(R.id.seemore);
-
         txtViewLess = (TextView) findViewById(R.id.seeless);
         txtEventName = (TextView) findViewById(R.id.txt_event_name);
         // txtEventDesc = (TextView) findViewById(R.id.txt_event_desc);
@@ -541,7 +506,6 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
         //txtEventTime = (TextView) findViewById(R.id.txt_calander);
         //txtEventDate = (TextView) findViewById(R.id.txt_time);
         txtEventEntry = (TextView) findViewById(R.id.txt_event_entry);
-
         txtEventEmail = (TextView) findViewById(R.id.txt_contact_mail);
         //txtWebSite = (TextView) findViewById(R.id.txt_website);
 
@@ -551,74 +515,27 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
         whishListBtn = (Button) findViewById(R.id.whishlist_btn);
         Button shareBtn = (Button) findViewById(R.id.share_btn);
         Button contactBtn = (Button) findViewById(R.id.contact_btn);
-
         Button engageBtn = (Button) findViewById(R.id.engage_btn);
         Button bookingBtn = (Button) findViewById(R.id.booking_btn);
         Switch checkinsBtn = (Switch) findViewById(R.id.checkins_btn);
 
-
-      /*  banner_zoom_image_one.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                zoomImageFromThumb(banner_zoom_image_one,1);
-            }
-
-
-
-        });
-
-
-        banner_zoom_image_two.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                zoomImageFromThumb(banner_zoom_image_two,2);
-            }
-
-
-
-        });
-
-
-
-        banner_zoom_image_three.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                zoomImageFromThumb(banner_zoom_image_three,3);
-            }
-
-
-
-        });
-*/
-
-
-
-
-
         // Retrieve and cache the system's default "short" animation time.
         mShortAnimationDuration = getResources().getInteger(
                 android.R.integer.config_shortAnimTime);
-
-
-
 
         whishListBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Bookmark Button selected" + event.getId());
                 //        getCalender();
-
-
-                if (mServiceHelper == null) {
+         if (mServiceHelper == null) {
                     mServiceHelper = new EventServiceHelper(EventDetailActivity.this);
                     mServiceHelper.setEventServiceListener(EventDetailActivity.this);
-
                 }
                 if (GamificationDataHolder.getInstance().isEventBookmarked(event.getId())) {
                     Toast.makeText(EventDetailActivity.this, "Event already bookmarked", Toast.LENGTH_SHORT).show();
                     int imgResource = R.drawable.ic_wishlist_selected;
                     whishListBtn.setCompoundDrawablesWithIntrinsicBounds(imgResource, 0, 0, 0);
-
                 } else {
                     try {
                         mServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.ADD_EVENT_BOOKMARK,
@@ -649,9 +566,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
                 AlertDialog.Builder builder = new AlertDialog.Builder(
                         EventDetailActivity.this);
                 builder.setTitle("Events");
-
                 builder.setMessage("Making your presense for the event?");
-
                 builder.setPositiveButton("May Be",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,
@@ -675,14 +590,9 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
         bookingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-
                // Toast.makeText(getApplicationContext(),"Booking is currently not available for this event"+event.getEventName().toString(),Toast.LENGTH_LONG).show();
-
                 Toast.makeText(getApplicationContext(),"Booking is currently not available for this event"+event.getEventName().toString()+"\nPlease try later.",Toast.LENGTH_LONG).show();
                // sendShareStatusUserActivity(4);
-
             }
         });
 
@@ -691,7 +601,6 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
             @Override
             public void onCheckedChanged(CompoundButton buttonView,
                                          boolean isChecked) {
-
                 if(isChecked){
                     Toast.makeText(getApplicationContext(),"You have successfully checkin for the event"+event.getEventName().toString()+"\nGet ready for the fun! ",Toast.LENGTH_LONG).show();
                 }else{
@@ -711,11 +620,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
             @Override
             public void onClick(View v) {
                 final String phoneNumber = event.getContact();
-
-
-
                 if ((phoneNumber != null) && !(phoneNumber.isEmpty())) {
-
                     final AlertDialog.Builder builder = new AlertDialog.Builder(
                             EventDetailActivity.this);
                     builder.setTitle("Any queries? Feel free to call us.");
@@ -734,9 +639,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
                                 public void onClick(DialogInterface dialog,
                                                     int which) {
 
-
                                     Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber));
-
                                     if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                                         // TODO: Consider calling
                                         //    ActivityCompat#requestPermissions
@@ -748,16 +651,10 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
                                         return;
                                     }
                                     startActivity(intent);
-
-
                                 }
                             });
 
                     builder.show();
-
-
-
-
 
                 }
 
@@ -770,30 +667,20 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
         txtEventEndTime = (TextView) findViewById(R.id.clock_to_val);
         imgEventBanner = (ViewFlipper) findViewById(R.id.banner_one);
         imgEventBanner.isAutoStart();
-
         /*used for flipping banner*/
-
-
         //  imgList.add(0, event.getEventLogo());
         ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(EventDetailActivity.this));
-
       //  BannerAdapter adapter = new BannerAdapter(this, imgList);
-
-
         //*used for banner Touch Event*//*
     /*    imgEventBanner.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(final View view, final MotionEvent event) {
               //  new BannerAdapter(getApplicationContext(), imgList);
-
-
                //  detector.onTouchEvent(event);
                 return true;
             }
         });*/
       //  imgEventBanner.setAdapter(adapter);
-
-
         count =5; //imgEventBanner.getAdapter().getCount();
         page_text = new TextView[count];
         for (int i = 0; i < count; i++) {
@@ -804,9 +691,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
             page_text[i].setTextColor(android.graphics.Color.GRAY);
             count_layout.addView(page_text[i]);
 
-
 /*            imgEventBanner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
                 public void onItemSelected(AdapterView<?> arg0, View arg1,
                                            int position, long arg3) {
                     // TODO Auto-generated method stub
@@ -839,13 +724,7 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
                 }
             });
 
-
-
-
-
             callbackManager = CallbackManager.Factory.create();
-
-
             mShareBagroundResources.add(R.drawable.social_network_statlist);
             mShareBagroundResources.add(R.drawable.twitter_share_bg);
             mShareBagroundResources.add(R.drawable.whatsapp_selector);
@@ -864,7 +743,6 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
                         img.setBackgroundDrawable(getResources().getDrawable(mShareBagroundResources.get(position)));
                         img.setImageDrawable(getResources().getDrawable(mShareResources.get(position)));
                     }
-
                     // ... Fill in other views ...
                     return view;
                 }
@@ -897,16 +775,12 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
 
     }
 
-
-
-
     private void zoomImageFromThumb(final View thumbView,int zoomVal) {
         // If there's an animation in progress, cancel it
         // immediately and proceed with this one.
         if (mCurrentAnimator != null) {
             mCurrentAnimator.cancel();
         }
-
         // Load the high-resolution "zoomed-in" image.
         final ImageView expandedImageView = (ImageView) findViewById(
                 R.id.expanded_image);
@@ -921,14 +795,11 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
         }else{
             uImageLoader.displayImage(event.getEventLogo_2(), expandedImageView);
         }
-
-
         // Calculate the starting and ending bounds for the zoomed-in image.
         // This step involves lots of math. Yay, math.
         final Rect startBounds = new Rect();
         final Rect finalBounds = new Rect();
         final Point globalOffset = new Point();
-
         // The start bounds are the global visible rectangle of the thumbnail,
         // and the final bounds are the global visible rectangle of the container
         // view. Also set the container view's offset as the origin for the
@@ -961,7 +832,6 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
             startBounds.top -= deltaHeight;
             startBounds.bottom += deltaHeight;
         }
-
         // Hide the thumbnail and show the zoomed-in view. When the animation
         // begins, it will position the zoomed-in view in the place of the
         // thumbnail.
@@ -1012,7 +882,6 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
                 if (mCurrentAnimator != null) {
                     mCurrentAnimator.cancel();
                 }
-
                 // Animate the four positioning/sizing properties in parallel,
                 // back to their original values.
                 AnimatorSet set = new AnimatorSet();
@@ -1051,14 +920,6 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
         });
     }
 
-
-
-
-
-
-
-
-
     private void getCalender() {
            String DEBUG_TAG = "EventDetailActivity";
            String[] INSTANCE_PROJECTION = new String[] {
@@ -1071,7 +932,6 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
          int PROJECTION_ID_INDEX = 0;
          int PROJECTION_BEGIN_INDEX = 1;
          int PROJECTION_TITLE_INDEX = 2;
-
 
 // Specify the date range you want to search for recurring
 // event instances
@@ -1124,12 +984,9 @@ try {
     e.printStackTrace();
 }
 }
-
     private void setCalender() {
         Calendar beginTime = Calendar.getInstance();
-
       //  beginTime.set(2016, 5, 4, 7, 30);
-
         Date fullstartdate = null;
         Date fullenddate = null;
         Long sTime,eTime;
@@ -1145,9 +1002,7 @@ try {
         beginTime.setTime(fullstartdate);
         Calendar endTime = Calendar.getInstance();
       //  endTime.set(2012, 0, 19, 8, 30);
-
         endTime.setTime(fullenddate);
-
         Intent intent = new Intent(Intent.ACTION_INSERT)
                 .setData(CalendarContract.Events.CONTENT_URI)
                 .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,sTime)
@@ -1158,7 +1013,6 @@ try {
                 .putExtra(ContactsContract.Intents.Insert.PHONE, event.getContact())
                 .putExtra(CalendarContract.ACTION_EVENT_REMINDER, true)
                 .putExtra(Intent.EXTRA_EMAIL, "manojmca15@gmail.com")
-
             .putExtra(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_BUSY)
                 .putExtra(Intent.EXTRA_EMAIL,event.getEventEmail());
         startActivity(intent);
@@ -1183,8 +1037,6 @@ try {
         ImageLoader.getInstance().clearMemoryCache();
         ImageLoader.getInstance().clearDiskCache();
     }
-
-
 
     private void sendShareStatustoServer(){
         ShareServiceHelper serviceHelper = new ShareServiceHelper(this);
@@ -1303,7 +1155,6 @@ try {
             PreferenceStorage.saveEventSharedtime(this, currentTime);
             PreferenceStorage.saveEventSharedcount(this, 1);
 
-
            //testing
             int ruleid = 1;
             int ticketcount = 0;
@@ -1313,7 +1164,6 @@ try {
             serviceHelper.postShareDetails(String.format(FindAFunConstants.SHARE_EVENT_URL,eventId, Integer.parseInt(PreferenceStorage.getUserId(this)),
                     ruleid,Uri.encode(activitydetail),event.getEventLogo(),ticketcount),this);
             //testing
-
 
             sendShareStatustoServer();
         }else{
@@ -1386,7 +1236,6 @@ try {
             Toast.makeText(this,"Please set Twitter Consumer key and Consumer secret", Toast.LENGTH_SHORT).show();
             return;
         }
-
 
         if(twitterLoggedIn()){
             Log.d(TAG, "Already Logged In to twitter");
@@ -1479,8 +1328,6 @@ try {
         }
     }
 
-
-
     @Override
     protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -1518,7 +1365,6 @@ try {
 
         return super.onOptionsItemSelected(item);
     }
-
 
     @Override
     public void onConnected(Bundle bundle) {
@@ -1612,7 +1458,6 @@ try {
             // permissions this app might request
         }
     }
-
 
     private class SwipeGestureDetector implements GestureDetector.OnGestureListener {
         @Override

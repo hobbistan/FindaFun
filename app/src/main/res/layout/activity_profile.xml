@@ -40,15 +40,7 @@
                 android:textColor="@color/title_red"
                 android:textSize="22dp" />
 
-
         </RelativeLayout>
-
-
-        <!--<include layout="@layout/tool_bar" android:id="@+id/toolbar"
-            android:theme="@style/ThemeOverlay.MyApp.ActionBar"
-            android:layout_width="match_parent"
-            android:layout_height="90dp"></include>-->
-
 
         <include
             android:id="@+id/profile_layout"

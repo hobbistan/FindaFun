@@ -42,7 +42,6 @@ public class PictureDetailsActivity extends AppCompatActivity {
 
         transitionExitHelper = ActivityTransitionExitHelper.with(getIntent())
                 .toView(mImageView).background(mBackgroudnView).start(savedInstanceState);
-
     }
 
     @Override
@@ -63,7 +62,6 @@ public class PictureDetailsActivity extends AppCompatActivity {
     }
 
 
-
     /**
      * The enter animation scales the picture in from its previous imageUrl
      * size/location, colorizing it in parallel. In parallel, the background of the
@@ -71,7 +69,7 @@ public class PictureDetailsActivity extends AppCompatActivity {
      * drops down.
      */
     public void runEnterAnimation() {
-        final long duration = (long) (ANIM_DURATION );
+        final long duration = (long) (ANIM_DURATION);
 
         // Set starting values for properties we're going to animate. These
         // values scale and position the full size version down to the imageUrl
@@ -129,7 +127,7 @@ public class PictureDetailsActivity extends AppCompatActivity {
      * the screen.
      *
      * @param endAction This action gets run after the animation completes (this is
-     * when we actually switch activities)
+     *                  when we actually switch activities)
      */
     public void runExitAnimation(final Runnable endAction) {
         final long duration = (long) (ANIM_DURATION);
