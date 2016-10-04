@@ -1,37 +1,26 @@
 package com.findafun.activity;
 
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
-import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.StrictMode;
-import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.costum.android.widget.LoadMoreListView;
 import com.findafun.R;
 import com.findafun.adapter.EventsListAdapter;
-import com.findafun.adapter.StaticEventListAdapter;
 import com.findafun.bean.events.Event;
 import com.findafun.bean.events.EventList;
 import com.findafun.helper.AlertDialogHelper;
@@ -40,34 +29,27 @@ import com.findafun.servicehelpers.EventServiceHelper;
 import com.findafun.serviceinterfaces.IEventServiceListener;
 import com.findafun.utils.CommonUtils;
 import com.findafun.utils.FindAFunConstants;
-import com.findafun.utils.PreferenceStorage;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 /**
- * Created by Cube Reach 06 on 30-09-2016.
+ * Created by Cube Reach 06 on 04-10-2016.
  */
 
-public class NearbyActivity extends AppCompatActivity implements LoadMoreListView.OnLoadMoreListener, IEventServiceListener,
+public class NearbyStaticActivity extends AppCompatActivity implements LoadMoreListView.OnLoadMoreListener, IEventServiceListener,
         AdapterView.OnItemClickListener, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
-    private static final String TAG = NearbyActivity.class.getName();
+
+    private static final String TAG = NearbyStaticActivity.class.getName();
 
     Spinner spinNearby;
     ListView loadMoreListView;
@@ -89,9 +71,8 @@ public class NearbyActivity extends AppCompatActivity implements LoadMoreListVie
     private double currentLongitude;
     private int nearByDistance = 5;
 
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         overridePendingTransition(R.anim.slide_right, 0);
         setContentView(R.layout.activity_nearby_event);
@@ -144,7 +125,7 @@ public class NearbyActivity extends AppCompatActivity implements LoadMoreListVie
         if (CommonUtils.isNetworkAvailable(this)) {
             progressDialogHelper.showProgressDialog(getString(R.string.progress_loading));
             //    eventServiceHelper.makeRawRequest(FindAFunConstants.GET_ADVANCE_SINGLE_SEARCH);
-            new HttpAsyncTask().execute("");
+            new NearbyStaticActivity.HttpAsyncTask().execute("");
         } else {
             AlertDialogHelper.showSimpleAlertDialog(this, getString(R.string.no_connectivity));
         }
@@ -182,7 +163,7 @@ public class NearbyActivity extends AppCompatActivity implements LoadMoreListVie
             currentLatitude = location.getLatitude();
             currentLongitude = location.getLongitude();
 
-          //  Toast.makeText(this, currentLatitude + " WORKS " + currentLongitude + "", Toast.LENGTH_LONG).show();
+            //  Toast.makeText(this, currentLatitude + " WORKS " + currentLongitude + "", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -227,14 +208,14 @@ public class NearbyActivity extends AppCompatActivity implements LoadMoreListVie
 
         Log.w("myApp", currentLatitude + " WORKS " + currentLongitude);
 
-       // Toast.makeText(this, currentLatitude + " WORKS " + currentLongitude + "", Toast.LENGTH_LONG).show();
+        // Toast.makeText(this, currentLatitude + " WORKS " + currentLongitude + "", Toast.LENGTH_LONG).show();
 
     }
 
     private class HttpAsyncTask extends AsyncTask<String, Void, Void> {
         @Override
         protected Void doInBackground(String... urls) {
-            eventServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.NEARBY_DISTANCE_RADIATION, currentLatitude, currentLongitude, nearByDistance, "Normal"));
+            eventServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.NEARBY_DISTANCE_RADIATION, currentLatitude, currentLongitude, nearByDistance, "Hotspot"));
 
             return null;
         }
@@ -314,7 +295,7 @@ public class NearbyActivity extends AppCompatActivity implements LoadMoreListVie
             @Override
             public void run() {
                 progressDialogHelper.hideProgressDialog();
-               // loadMoreListView.onLoadMoreComplete();
+                // loadMoreListView.onLoadMoreComplete();
 
                 Gson gson = new Gson();
                 EventList eventsList = gson.fromJson(response.toString(), EventList.class);
@@ -334,8 +315,8 @@ public class NearbyActivity extends AppCompatActivity implements LoadMoreListVie
             @Override
             public void run() {
                 progressDialogHelper.hideProgressDialog();
-               // loadMoreListView.onLoadMoreComplete();
-                AlertDialogHelper.showSimpleAlertDialog(NearbyActivity.this, error);
+                // loadMoreListView.onLoadMoreComplete();
+                AlertDialogHelper.showSimpleAlertDialog(NearbyStaticActivity.this, error);
             }
         });
     }
@@ -352,7 +333,7 @@ public class NearbyActivity extends AppCompatActivity implements LoadMoreListVie
         } else {
             event = eventsArrayList.get(position);
         }
-        Intent intent = new Intent(this, EventDetailActivity.class);
+        Intent intent = new Intent(this, StaticEventDetailActivity.class);
         intent.putExtra("eventObj", event);
         // intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);

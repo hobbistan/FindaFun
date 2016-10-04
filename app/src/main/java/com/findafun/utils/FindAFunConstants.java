@@ -30,6 +30,7 @@ public class FindAFunConstants {
     public static final String GET_EVENTS_BOOKMARK = BASE_URL + "api.php?func_name=fetch_event_bookmark&user_id=%d";
     public static final String ADD_EVENT_BOOKMARK = BASE_URL + "api.php?func_name=add_event_bookmark&user_id=%d&event_id=%d";
     public static final String SAVE_REVIEW = BASE_URL + "api.php?func_name=add_review&user_id=%d&event_id=%d&comments=%s&ratings=%d";
+    public static final String NEARBY_DISTANCE_RADIATION = BASE_URL + "api.php?func_name=nearby_gmap&event_latitude=%s&event_longitude=%s&distance=%s&event_type=%s";
 
     public static final String GET_REWARDS =  BASE_URL + "fetchActivity.php?getUserPointsDetail=true&id=%d";
     public static final String GET_LEADER_BOARD = BASE_URL + "fetchActivity.php?getLeaderBoard=true";
@@ -41,6 +42,7 @@ public class FindAFunConstants {
     public static final String GET_ALL_REWARDS_URL = BASE_URL + "fetchActivity.php?fetchAll=set&id=%d";
     public static final String DELETE_BOOKMARK_URL = BASE_URL + "api.php?func_name=remove_event_from_bookmark&user_id=%d&event_id=%d";
     public static final String CLICK_COUNT_EVENT_URL = BASE_URL + "api.php?func_name=event_popular&event_id=%d";
+
     public static final String SHARE_EVENT_URL = BASE_URL + "user_api.php?insertActivity=true&event=%d&user=%d&ruleid=%d&activity_detail=%s&image_url=%s&ticket_count=%d";
     public static final String SHARE_EVENT_LOGIN_COUNT_URL = BASE_URL + "user_api.php?insertActivity=true&event=%d&user=%d&ruleid=%d&activity_detail=%s&ticket_count=%d";
     public static final String FROMDATE = "fromdate";

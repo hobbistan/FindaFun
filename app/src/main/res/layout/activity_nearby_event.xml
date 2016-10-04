@@ -173,6 +173,7 @@
 
     </RelativeLayout> -->
 
+    <!--
     <com.costum.android.widget.LoadMoreListView
         android:id="@+id/listView_events"
         android:layout_below="@id/nearbyspinner"
@@ -180,6 +181,13 @@
         android:layout_height="match_parent"
         android:divider="@color/button_bg_gray"
         android:dividerHeight="4dp"></com.costum.android.widget.LoadMoreListView>
-
+-->
+    <ListView
+        android:id="@+id/listView_events"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@color/button_bg_gray"
+        android:layout_below="@id/nearbyspinner"
+        android:dividerHeight="4dp" />
 
 </RelativeLayout>

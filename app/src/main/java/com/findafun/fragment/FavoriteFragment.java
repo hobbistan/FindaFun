@@ -60,7 +60,8 @@ import java.util.List;
 /**
  * Created by Data Crawl 6 on 13-05-2016.
  */
-public class FavoriteFragment extends LandingPagerFragment implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class FavoriteFragment extends LandingPagerFragment implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener {
 
     private static final String TAG = FavoriteFragment.class.getName();
     private String listFlag = null;
@@ -337,9 +338,6 @@ public class FavoriteFragment extends LandingPagerFragment implements OnMapReady
 
                 mTotalEventCount.setText(Integer.toString(eventsArrayList.size()) + " Favorite Events");
 
-
-
-
                 final Dialog dialog = new Dialog(getContext(),android.R.style.Theme_Translucent);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.getWindow().setLayout(ViewPager.LayoutParams.MATCH_PARENT, ViewPager.LayoutParams.MATCH_PARENT);
@@ -367,10 +365,6 @@ public class FavoriteFragment extends LandingPagerFragment implements OnMapReady
                     dialog.dismiss();
 
                 }
-
-
-
-
 
                 /*loadMoreListView.setVisibility(View.VISIBLE);
                 if (eventsListAdapter != null) {

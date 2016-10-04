@@ -104,6 +104,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarEventDetails" />
         <activity
+            android:name=".activity.NearbyStaticActivity"
+            android:label="@string/title_activity_event_detail"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeNoActionBarEventDetails" />
+        <activity
             android:name=".activity.BookmarksActivity"
             android:label="@string/title_book_mark"
             android:screenOrientation="portrait"
