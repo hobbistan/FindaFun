@@ -81,7 +81,8 @@
     <!--End-->
 
     <!--live-->
-    <string name="google_maps_key">AIzaSyA0Vw2ff23kV4S_DzA73tSsgDYV5t94xGw</string>
+    <!--<string name="google_maps_key">AIzaSyA0Vw2ff23kV4S_DzA73tSsgDYV5t94xGw</string>-->
+    <string name="google_maps_key">AIzaSyDeVNpdnb3XuYK7QfFoQzMmk_AR0dV3YLI</string>
     <!--live-->
 
     <!--<string name="google_maps_key">AIzaSyAkOCf-Dk1RIAP7fmcfQdVzahmPHQJSpgk</string>-->
@@ -123,6 +124,7 @@
     </string-array>
 
     <string-array name="nearby_distance">
+        <item>Select Distance Range</item>
         <item>5 kms</item>
         <item>10 kms</item>
         <item>15 kms</item>

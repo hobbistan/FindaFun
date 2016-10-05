@@ -212,7 +212,7 @@ public class PopularFragment extends LandingPagerFragment implements OnMapReadyC
         mLocationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //loadMoreListView.setVisibility(View.GONE);
+                loadMoreListView.setVisibility(View.GONE);
                 LocationHelper.FindLocationManager(getContext());
 
                 mMapView.setVisibility(View.VISIBLE);
@@ -245,10 +245,10 @@ public class PopularFragment extends LandingPagerFragment implements OnMapReadyC
                 listAppearenceNearBy.setImageDrawable(munselectednearbyicon);
 
                 mTotalEventCount.setText(Integer.toString(eventsArrayList.size())+ " Popular Events");
-                /*loadMoreListView.setVisibility(View.VISIBLE);
+                loadMoreListView.setVisibility(View.VISIBLE);
                 if (eventsListAdapter != null) {
                     eventsListAdapter.notifyDataSetChanged();
-                }*/
+                }
             }
         });
         mLocationBtn.setBackgroundDrawable(mLocationUnselected);
@@ -487,7 +487,7 @@ public class PopularFragment extends LandingPagerFragment implements OnMapReadyC
         Log.d(TAG, "Received Nearby events");
         // super.onEventResponse(response);
         progressDialogHelper.hideProgressDialog();
-     //   loadMoreListView.onLoadMoreComplete();
+       loadMoreListView.onLoadMoreComplete();
         Gson gson = new Gson();
         EventList eventsList = gson.fromJson(response.toString(), EventList.class);
         if(eventsList != null){

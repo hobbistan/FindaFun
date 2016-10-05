@@ -33,6 +33,7 @@
         android:layout_marginLeft="12dp"
         android:layout_toRightOf="@id/back_res"
         android:minHeight="?attr/actionBarSize"
+        android:visibility="gone"
         android:src="@drawable/ab_hobbistan_logo" />
 
     <TextView
@@ -45,7 +46,7 @@
         android:padding="5dp"
         android:text="Nearby"
         android:textAllCaps="true"
-        android:textColor="@color/orange"
+        android:textColor="@color/city_text_color"
         android:textSize="@dimen/actionbarTextSize" />
 
     <TextView
@@ -69,6 +70,18 @@
         android:layout_below="@id/tveventtype"
         android:layout_marginBottom="@dimen/mainmargin"
         android:textSize="15sp"></Spinner>
+
+    <TextView
+        android:id="@+id/totalnearby"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/nearbyspinner"
+        android:layout_marginBottom="@dimen/mainmargin"
+        android:gravity="center"
+        android:text=" Nearby Events"
+        android:textColor="@color/black"
+        android:textSize="@dimen/actionbarTextSize" />
 
     <!--
     <RelativeLayout
@@ -176,7 +189,7 @@
     <!--
     <com.costum.android.widget.LoadMoreListView
         android:id="@+id/listView_events"
-        android:layout_below="@id/nearbyspinner"
+        android:layout_below="@id/totalnearby"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@color/button_bg_gray"
@@ -187,7 +200,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@color/button_bg_gray"
-        android:layout_below="@id/nearbyspinner"
+        android:layout_below="@id/totalnearby"
         android:dividerHeight="4dp" />
 
 </RelativeLayout>

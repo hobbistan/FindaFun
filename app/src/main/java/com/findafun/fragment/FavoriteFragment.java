@@ -24,6 +24,7 @@ import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.costum.android.widget.LoadMoreListView;
 import com.findafun.R;
 import com.findafun.activity.AddEventActivity;
 import com.findafun.activity.EventDetailActivity;
@@ -269,7 +270,7 @@ public class FavoriteFragment extends LandingPagerFragment implements OnMapReady
         mLocationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //loadMoreListView.setVisibility(View.GONE);
+                loadMoreListView.setVisibility(View.GONE);
                 LocationHelper.FindLocationManager(getContext());
 
                 mMapView.setVisibility(View.VISIBLE);
@@ -366,10 +367,10 @@ public class FavoriteFragment extends LandingPagerFragment implements OnMapReady
 
                 }
 
-                /*loadMoreListView.setVisibility(View.VISIBLE);
+                loadMoreListView.setVisibility(View.VISIBLE);
                 if (eventsListAdapter != null) {
                     eventsListAdapter.notifyDataSetChanged();
-                }*/
+                }
             }
         });
         mLocationBtn.setBackgroundDrawable(mLocationUnselected);
@@ -610,7 +611,7 @@ public class FavoriteFragment extends LandingPagerFragment implements OnMapReady
 
     private void LoadListView(JSONObject response){
         progressDialogHelper.hideProgressDialog();
-     //   loadMoreListView.onLoadMoreComplete();
+        loadMoreListView.onLoadMoreComplete();
         Gson gson = new Gson();
         EventList eventsList = gson.fromJson(response.toString(), EventList.class);
         if (eventsList != null) {
@@ -705,7 +706,7 @@ public class FavoriteFragment extends LandingPagerFragment implements OnMapReady
         mAddddLocations = true;
     }
 
-   /* @Override
+    @Override
     public void onLoadMore() {
 
         if (mTotalReceivedEvents < totalCount) {
@@ -719,7 +720,7 @@ public class FavoriteFragment extends LandingPagerFragment implements OnMapReady
             // }
         }
     }
-*/
+
     @Override
     public void callGetEventService(int position) {
         Log.d(TAG, "fetch event list" + position);

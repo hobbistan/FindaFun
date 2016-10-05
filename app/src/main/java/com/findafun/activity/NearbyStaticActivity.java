@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.costum.android.widget.LoadMoreListView;
 import com.findafun.R;
@@ -69,7 +70,9 @@ public class NearbyStaticActivity extends AppCompatActivity implements LoadMoreL
     private LocationRequest mLocationRequest;
     private double currentLatitude;
     private double currentLongitude;
-    private int nearByDistance = 5;
+    private int nearByDistance = 0;
+
+    private TextView mTotalEventCount = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -81,6 +84,7 @@ public class NearbyStaticActivity extends AppCompatActivity implements LoadMoreL
         loadMoreListView = (ListView) findViewById(R.id.listView_events);
         //loadMoreListView.setOnLoadMoreListener(this);
         loadMoreListView.setOnItemClickListener(this);
+        mTotalEventCount = (TextView)findViewById(R.id.totalnearby);
         eventsArrayList = new ArrayList<>();
         eventServiceHelper = new EventServiceHelper(this);
         eventServiceHelper.setEventServiceListener(this);
@@ -242,14 +246,19 @@ public class NearbyStaticActivity extends AppCompatActivity implements LoadMoreL
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String item = parent.getItemAtPosition(position).toString();
-                item = item.replace(" kms", "");
-                eventsArrayList.clear();
-                progressDialogHelper.showProgressDialog(getString(R.string.progress_loading));
-                //PreferenceStorage.saveFilterEventTypeSelection(getApplicationContext(), position);
-                //Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
-                nearByDistance = position;
-                callGetFilterService(position);
+                if (item.equalsIgnoreCase("Select Distance Range")) {
+                    nearByDistance = 0;
+                } else {
+                    item = item.replace(" kms", "");
+                    int distance = Integer.parseInt(item);
+                    eventsArrayList.clear();
+                    progressDialogHelper.showProgressDialog(getString(R.string.progress_loading));
+                    //PreferenceStorage.saveFilterEventTypeSelection(getApplicationContext(), position);
+                    //Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
 
+                    nearByDistance = distance;
+                    callGetFilterService(distance);
+                }
             }
 
             @Override
@@ -301,7 +310,7 @@ public class NearbyStaticActivity extends AppCompatActivity implements LoadMoreL
                 EventList eventsList = gson.fromJson(response.toString(), EventList.class);
                 if (eventsList.getEvents() != null && eventsList.getEvents().size() > 0) {
                     totalCount = eventsList.getCount();
-                    isLoadingForFirstTime = false;
+                   // isLoadingForFirstTime = false;
                     updateListAdapter(eventsList.getEvents());
                 }
 
@@ -311,12 +320,13 @@ public class NearbyStaticActivity extends AppCompatActivity implements LoadMoreL
 
     @Override
     public void onEventError(final String error) {
+        AlertDialogHelper.showSimpleAlertDialog(NearbyStaticActivity.this, getApplicationContext().getResources().getString(R.string.error_occured));
         mHandler.post(new Runnable() {
             @Override
             public void run() {
                 progressDialogHelper.hideProgressDialog();
                 // loadMoreListView.onLoadMoreComplete();
-                AlertDialogHelper.showSimpleAlertDialog(NearbyStaticActivity.this, error);
+                //AlertDialogHelper.showSimpleAlertDialog(NearbyStaticActivity.this, error);
             }
         });
     }
@@ -345,10 +355,12 @@ public class NearbyStaticActivity extends AppCompatActivity implements LoadMoreL
     }
 
     protected void updateListAdapter(ArrayList<Event> eventsArrayList) {
+        mTotalEventCount.setText(Integer.toString(eventsArrayList.size()) + " Nearby Events");
         this.eventsArrayList.addAll(eventsArrayList);
         if (eventsListAdapter == null) {
             eventsListAdapter = new EventsListAdapter(this, this.eventsArrayList);
             loadMoreListView.setAdapter(eventsListAdapter);
+
         } else {
             eventsListAdapter.notifyDataSetChanged();
         }

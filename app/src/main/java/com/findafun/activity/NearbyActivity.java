@@ -87,7 +87,8 @@ public class NearbyActivity extends AppCompatActivity implements LoadMoreListVie
     private LocationRequest mLocationRequest;
     private double currentLatitude;
     private double currentLongitude;
-    private int nearByDistance = 5;
+    private int nearByDistance = 0;
+    private TextView mTotalEventCount = null;
 
 
     @Override
@@ -100,6 +101,7 @@ public class NearbyActivity extends AppCompatActivity implements LoadMoreListVie
         loadMoreListView = (ListView) findViewById(R.id.listView_events);
         //loadMoreListView.setOnLoadMoreListener(this);
         loadMoreListView.setOnItemClickListener(this);
+        mTotalEventCount = (TextView)findViewById(R.id.totalnearby);
         eventsArrayList = new ArrayList<>();
         eventServiceHelper = new EventServiceHelper(this);
         eventServiceHelper.setEventServiceListener(this);
@@ -182,7 +184,7 @@ public class NearbyActivity extends AppCompatActivity implements LoadMoreListVie
             currentLatitude = location.getLatitude();
             currentLongitude = location.getLongitude();
 
-          //  Toast.makeText(this, currentLatitude + " WORKS " + currentLongitude + "", Toast.LENGTH_LONG).show();
+            //  Toast.makeText(this, currentLatitude + " WORKS " + currentLongitude + "", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -227,7 +229,7 @@ public class NearbyActivity extends AppCompatActivity implements LoadMoreListVie
 
         Log.w("myApp", currentLatitude + " WORKS " + currentLongitude);
 
-       // Toast.makeText(this, currentLatitude + " WORKS " + currentLongitude + "", Toast.LENGTH_LONG).show();
+        // Toast.makeText(this, currentLatitude + " WORKS " + currentLongitude + "", Toast.LENGTH_LONG).show();
 
     }
 
@@ -261,14 +263,21 @@ public class NearbyActivity extends AppCompatActivity implements LoadMoreListVie
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String item = parent.getItemAtPosition(position).toString();
-                item = item.replace(" kms", "");
-                eventsArrayList.clear();
-                progressDialogHelper.showProgressDialog(getString(R.string.progress_loading));
-                //PreferenceStorage.saveFilterEventTypeSelection(getApplicationContext(), position);
-                //Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
-                nearByDistance = position;
-                callGetFilterService(position);
 
+                if (item.equalsIgnoreCase("Select Distance Range")) {
+                    nearByDistance = 0;
+                } else {
+                    item = item.replace(" kms", "");
+                    int distance = Integer.parseInt(item);
+                    eventsArrayList.clear();
+                    progressDialogHelper.showProgressDialog(getString(R.string.progress_loading));
+                    //PreferenceStorage.saveFilterEventTypeSelection(getApplicationContext(), position);
+                    //Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
+
+                    nearByDistance = distance;
+                    callGetFilterService(distance);
+                   // mTotalEventCount.setText(Integer.toString(eventsArrayList.size()) + " Nearby Events");
+                }
             }
 
             @Override
@@ -314,13 +323,13 @@ public class NearbyActivity extends AppCompatActivity implements LoadMoreListVie
             @Override
             public void run() {
                 progressDialogHelper.hideProgressDialog();
-               // loadMoreListView.onLoadMoreComplete();
+                // loadMoreListView.onLoadMoreComplete();
 
                 Gson gson = new Gson();
                 EventList eventsList = gson.fromJson(response.toString(), EventList.class);
                 if (eventsList.getEvents() != null && eventsList.getEvents().size() > 0) {
                     totalCount = eventsList.getCount();
-                    isLoadingForFirstTime = false;
+                    //isLoadingForFirstTime = false;
                     updateListAdapter(eventsList.getEvents());
                 }
 
@@ -329,13 +338,14 @@ public class NearbyActivity extends AppCompatActivity implements LoadMoreListVie
     }
 
     @Override
-    public void onEventError(final String error) {
+    public void onEventError(String error) {
+        AlertDialogHelper.showSimpleAlertDialog(NearbyActivity.this, getApplicationContext().getResources().getString(R.string.error_occured));
         mHandler.post(new Runnable() {
             @Override
             public void run() {
                 progressDialogHelper.hideProgressDialog();
-               // loadMoreListView.onLoadMoreComplete();
-                AlertDialogHelper.showSimpleAlertDialog(NearbyActivity.this, error);
+                // loadMoreListView.onLoadMoreComplete();
+                AlertDialogHelper.showSimpleAlertDialog(NearbyActivity.this, getApplicationContext().getResources().getString(R.string.error_occured));
             }
         });
     }
@@ -364,6 +374,7 @@ public class NearbyActivity extends AppCompatActivity implements LoadMoreListVie
     }
 
     protected void updateListAdapter(ArrayList<Event> eventsArrayList) {
+        mTotalEventCount.setText(Integer.toString(eventsArrayList.size()) + " Nearby Events");
         this.eventsArrayList.addAll(eventsArrayList);
         if (eventsListAdapter == null) {
             eventsListAdapter = new EventsListAdapter(this, this.eventsArrayList);

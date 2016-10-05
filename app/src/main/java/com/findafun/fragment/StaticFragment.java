@@ -105,7 +105,7 @@ public class StaticFragment extends LandingPagerFragment implements OnMapReadyCa
     private boolean mNearbySelected_hp = false;
     private int mTotalReceivedEvents_hp = 0;
 
-    protected ListView loadMoreListView;
+    protected LoadMoreListView loadMoreListView;
     protected View view;
     protected StaticEventListAdapter eventsListAdapter;
     protected EventServiceHelper eventServiceHelper;
@@ -115,7 +115,7 @@ public class StaticFragment extends LandingPagerFragment implements OnMapReadyCa
     protected ProgressDialogHelper progressDialogHelperHot;
     protected boolean isLoadingForFirstTime = true;
     Handler mHandler = new Handler();
-    private TextView mNoEventsFound = null;
+   // private TextView mNoEventsFound = null;
 
     private int distanceFlag = 1;
 
@@ -140,11 +140,11 @@ public class StaticFragment extends LandingPagerFragment implements OnMapReadyCa
 
     protected void initializeHotspotViews() {
         Log.d(TAG, "initialize pull to refresh view");
-        loadMoreListView = (ListView) view.findViewById(R.id.listView_events);
-        mNoEventsFound = (TextView) view.findViewById(R.id.no_home_events);
-        if (mNoEventsFound != null)
-            mNoEventsFound.setVisibility(View.GONE);
-        // loadMoreListView.setOnLoadMoreListener(this);
+        loadMoreListView = (LoadMoreListView) view.findViewById(R.id.listView_events);
+      //  mNoEventsFound = (TextView) view.findViewById(R.id.no_home_events);
+      //  if (mNoEventsFound != null)
+      //      mNoEventsFound.setVisibility(View.GONE);
+       //  loadMoreListView.setOnLoadMoreListener(this);
         loadMoreListView.setOnItemClickListener(this);
         eventsArrayList = new ArrayList<>();
     }
@@ -244,7 +244,7 @@ public class StaticFragment extends LandingPagerFragment implements OnMapReadyCa
         mLocationBtn_hp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //loadMoreListView.setVisibility(View.GONE);
+                loadMoreListView.setVisibility(View.GONE);
                 LocationHelper.FindLocationManager(getContext());
 
                 mMapView_hp.setVisibility(View.VISIBLE);
@@ -277,10 +277,10 @@ public class StaticFragment extends LandingPagerFragment implements OnMapReadyCa
                 listAppearenceNearBy.setImageDrawable(munselectednearbyicon);
 
                 mTotalEventCount_hp.setText(Integer.toString(eventsArrayList.size()) + " Hotspot Events");
-                /*loadMoreListView.setVisibility(View.VISIBLE);
+                loadMoreListView.setVisibility(View.VISIBLE);
                 if (eventsListAdapter != null) {
                     eventsListAdapter.notifyDataSetChanged();
-                }*/
+                }
             }
         });
 
@@ -296,7 +296,7 @@ public class StaticFragment extends LandingPagerFragment implements OnMapReadyCa
         if (eventsListAdapter != null) {
             eventsListAdapter.startSearch(eventname);
             eventsListAdapter.notifyDataSetChanged();
-            //loadMoreListView.invalidateViews();
+            loadMoreListView.invalidateViews();
         }
     }
 
@@ -496,7 +496,7 @@ public class StaticFragment extends LandingPagerFragment implements OnMapReadyCa
         Log.d(TAG, "Received Nearby events");
         // super.onEventResponse(response);
         progressDialogHelperHot.hideProgressDialog();
-        // loadMoreListView.onLoadMoreComplete();
+         loadMoreListView.onLoadMoreComplete();
         Gson gson = new Gson();
         EventList eventsList = gson.fromJson(response.toString(), EventList.class);
         if (eventsList != null) {
@@ -576,14 +576,14 @@ public class StaticFragment extends LandingPagerFragment implements OnMapReadyCa
     public void onEventError(String error) {
         super.onEventError(error);
         progressDialogHelperHot.hideProgressDialog();
-        //  loadMoreListView.onLoadMoreComplete();
+          loadMoreListView.onLoadMoreComplete();
         if (totalCount > 0) {
             mLocationBtn_hp.setEnabled(true);
         }
         mAddddLocations_hp = true;
     }
 
-    /*@Override
+    @Override
     public void onLoadMore() {
 
         if (mTotalReceivedEvents_hp < totalCount) {
@@ -597,7 +597,7 @@ public class StaticFragment extends LandingPagerFragment implements OnMapReadyCa
             // }
             //eventServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.GET_STATIC_EVENTS, Integer.parseInt(PreferenceStorage.getUserId(getActivity())), pageNumber, PreferenceStorage.getUserCity(getActivity())));
         }
-    }*/
+    }
 
     public void makeEventListServiceCallHot(int pageNumber) {
         if ((pageNumber != -1) && (pageNumber >= 0 && pageNumber <= 6)) {
@@ -608,7 +608,7 @@ public class StaticFragment extends LandingPagerFragment implements OnMapReadyCa
 
         } else {
             Log.d(TAG, "ignoring this page");
-            //  loadMoreListView.onLoadMoreComplete();
+              loadMoreListView.onLoadMoreComplete();
             progressDialogHelperHot.hideProgressDialog();
         }
     }
@@ -645,8 +645,8 @@ public class StaticFragment extends LandingPagerFragment implements OnMapReadyCa
 
     protected void updateListAdapter(ArrayList<Event> eventsArrayList) {
         this.eventsArrayList.addAll(eventsArrayList);
-        if (mNoEventsFound != null)
-            mNoEventsFound.setVisibility(View.GONE);
+       // if (mNoEventsFound != null)
+      //      mNoEventsFound.setVisibility(View.GONE);
 
         if (eventsListAdapter == null) {
             eventsListAdapter = new StaticEventListAdapter(getActivity(), this.eventsArrayList);

@@ -1,7 +1,9 @@
 {
   "project_info": {
     "project_number": "488630230929",
-    "project_id": "findfun-140811"
+    "firebase_url": "https://findfun-140811.firebaseio.com",
+    "project_id": "findfun-140811",
+    "storage_bucket": "findfun-140811.appspot.com"
   },
   "client": [
     {
@@ -21,6 +23,10 @@
           }
         },
         {
+          "client_id": "488630230929-q9802n9bv7mmngqono83qj18pigl3jrn.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
           "client_id": "488630230929-aouk99asfe3td99fl5lg2a0jto62kp7m.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -35,11 +41,16 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "488630230929-q9802n9bv7mmngqono83qj18pigl3jrn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
-          "status": 1
+          "status": 2
         }
       }
     },
@@ -60,6 +71,10 @@
           }
         },
         {
+          "client_id": "488630230929-q9802n9bv7mmngqono83qj18pigl3jrn.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
           "client_id": "488630230929-aouk99asfe3td99fl5lg2a0jto62kp7m.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -74,11 +89,16 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "488630230929-q9802n9bv7mmngqono83qj18pigl3jrn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
-          "status": 1
+          "status": 2
         }
       }
     }

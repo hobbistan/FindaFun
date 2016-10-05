@@ -17,6 +17,8 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.costum.android.widget.LoadMoreListView;
 import com.findafun.R;
 import com.findafun.activity.EventDetailActivity;
 import com.findafun.adapter.EventsListAdapter;
@@ -37,13 +39,14 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LandingPagerFragment extends Fragment implements  IEventServiceListener, AdapterView.OnItemClickListener {
+public class LandingPagerFragment extends Fragment implements  IEventServiceListener, AdapterView.OnItemClickListener,
+        LoadMoreListView.OnLoadMoreListener {
     private static final String TAG = LandingPagerFragment.class.getName();
 
 
     private boolean isFirstRun = true;
     private SharedPreferences TransPrefs;
-    protected ListView loadMoreListView;
+    protected LoadMoreListView loadMoreListView;
     protected View view;
     protected EventsListAdapter eventsListAdapter;
     protected StaticEventListAdapter staticEventListAdapter;
@@ -81,11 +84,11 @@ public class LandingPagerFragment extends Fragment implements  IEventServiceList
 
     protected void initializeViews() {
         Log.d(TAG, "initialize pull to refresh view");
-        loadMoreListView = (ListView) view.findViewById(R.id.listView_events);
+        loadMoreListView = (LoadMoreListView) view.findViewById(R.id.listView_events);
         mNoEventsFound = (TextView) view.findViewById(R.id.no_home_events);
         if (mNoEventsFound != null)
             mNoEventsFound.setVisibility(View.GONE);
-       // loadMoreListView.setOnLoadMoreListener(this);
+        loadMoreListView.setOnLoadMoreListener(this);
         loadMoreListView.setOnItemClickListener(this);
         eventsArrayList = new ArrayList<>();
     }
@@ -187,7 +190,7 @@ public class LandingPagerFragment extends Fragment implements  IEventServiceList
 
     }
 
-   /* @Override
+   @Override
     public void onLoadMore() {
 
         int pageNumber = -1;
@@ -198,7 +201,7 @@ public class LandingPagerFragment extends Fragment implements  IEventServiceList
         }
         Log.d(TAG, "Page number" + pageNumber);
         makeEventListServiceCall(pageNumber);
-    }*/
+    }
 
     public void makeEventListServiceCall(int pageNumber) {
         if ((pageNumber != -1) && (pageNumber >= 0 && pageNumber <= 6)) {
@@ -587,7 +590,7 @@ public class LandingPagerFragment extends Fragment implements  IEventServiceList
             @Override
             public void run() {
                 progressDialogHelper.hideProgressDialog();
-              //  loadMoreListView.onLoadMoreComplete();
+                loadMoreListView.onLoadMoreComplete();
 
                 Gson gson = new Gson();
                 EventList eventsList = gson.fromJson(response.toString(), EventList.class);
@@ -611,7 +614,7 @@ public class LandingPagerFragment extends Fragment implements  IEventServiceList
             @Override
             public void run() {
                 progressDialogHelper.hideProgressDialog();
-               // loadMoreListView.onLoadMoreComplete();
+                loadMoreListView.onLoadMoreComplete();
                 AlertDialogHelper.showSimpleAlertDialog(getActivity(), error);
             }
         });
