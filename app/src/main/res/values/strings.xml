@@ -82,7 +82,8 @@
 
     <!--live-->
     <!--<string name="google_maps_key">AIzaSyA0Vw2ff23kV4S_DzA73tSsgDYV5t94xGw</string>-->
-    <string name="google_maps_key">AIzaSyDeVNpdnb3XuYK7QfFoQzMmk_AR0dV3YLI</string>
+    <!--<string name="google_maps_key">AIzaSyDeVNpdnb3XuYK7QfFoQzMmk_AR0dV3YLI</string>-->
+    <string name="google_maps_key">AIzaSyAr-fwAC4VlMY-oJufV0V6tyJnr__Ia2ag</string>
     <!--live-->
 
     <!--<string name="google_maps_key">AIzaSyAkOCf-Dk1RIAP7fmcfQdVzahmPHQJSpgk</string>-->
@@ -132,7 +133,7 @@
     </string-array>
 
     <string-array name="events_type">
-        <item>Normal</item>
+        <item>Popular</item>
         <item>Hotspot</item>
     </string-array>
 
