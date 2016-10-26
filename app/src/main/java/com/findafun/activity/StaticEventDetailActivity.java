@@ -661,7 +661,7 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
             public void onClick(View v) {
 
 
-                Toast.makeText(getApplicationContext(), "Booking is currently not available for the event " + event.getEventName().toString() + "\nPlease try later.", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Booking is currently not available for the event - " + event.getEventName().toString() + "\nPlease try later.", Toast.LENGTH_LONG).show();
 
                 // sendShareStatusUserActivity(4);
 
@@ -676,7 +676,7 @@ public class StaticEventDetailActivity extends AppCompatActivity implements Goog
                                          boolean isChecked) {
 
                 if (isChecked) {
-                    Toast.makeText(getApplicationContext(), "You have successfully checkin for the event" + event.getEventName().toString() + "\nGet ready for the fun! ", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "You have successfully checked-in for the event - " + event.getEventName().toString() + "\nGet ready for the fun! ", Toast.LENGTH_LONG).show();
                     sendShareStatusUserActivity(2);
                 } else {
 

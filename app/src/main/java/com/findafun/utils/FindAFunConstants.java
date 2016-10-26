@@ -52,6 +52,7 @@ public class FindAFunConstants {
     public static final String FILTERCAT = "filtercat";
     public static final String FILTERCITYINDEX = "filtercityindex";
     public static final String FILTEREVENTTYPEINDEX = "filtereventtypeindex";
+
     //Service Params
     public static String PARAM_MESSAGE = "msg";
     public static final String DEFAULT_PASSWORD = "hobbistan123";
@@ -110,9 +111,6 @@ public class FindAFunConstants {
     public static final String URL_TWITTER_OAUTH_VERIFIER = "oauth_verifier";
     public static String PREFERENCE_TWITTER_OAUTH_TOKEN="TWITTER_OAUTH_TOKEN";
     public static String PREFERENCE_TWITTER_OAUTH_TOKEN_SECRET="TWITTER_OAUTH_TOKEN_SECRET";
-
-
-
 
 }
 

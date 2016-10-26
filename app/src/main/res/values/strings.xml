@@ -143,7 +143,6 @@
     <string name="permision_available_All">All Permissions have been granted.</string>
     <string name="permissions_not_granted">Few Permissions were not granted.</string>
 
-
     //AddEvent Page
     <string name="evntName">Name</string>
     <string name="evntNameVal">Enter name</string>
