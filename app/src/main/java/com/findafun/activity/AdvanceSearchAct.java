@@ -1,8 +1,10 @@
 package com.findafun.activity;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -15,12 +17,14 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.findafun.R;
+import com.findafun.adapter.CitySpinnerAdapter;
 import com.findafun.bean.categories.Category;
 import com.findafun.servicehelpers.CategoryServiceHelper;
 import com.findafun.serviceinterfaces.ICategoryServiceListener;
@@ -33,7 +37,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Type;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashSet;
@@ -43,11 +55,15 @@ public class AdvanceSearchAct extends AppCompatActivity implements AdapterView.O
 
     String singleDate = "";
     boolean todayPressed = false, tomorrowPressed = false, datePressed = false;
-    Spinner spincity,spinEventType;
+    Spinner spinEventType; //spincity
     private ArrayList<String> selecteditemIndexList;
     private Button spincat;
     AlertDialog.Builder builder;
+    private ArrayList<String> cityList;
     StringBuilder sb;
+    private CitySpinnerAdapter citySpinnerAdapter;
+    private EditText txtCityDropDown;
+    private Activity activity;
     private boolean isdoneclick = false;
     String[] categoryarray = {"Sports & Fitness", "Spirituality", "Lifestyle", "Government", "Travel & Adventure", "Charity", "Health", "Entertainment", "Training / Workshop"
             , "Entertainment", "Training / Workshop", "Others"
@@ -82,14 +98,24 @@ public class AdvanceSearchAct extends AppCompatActivity implements AdapterView.O
         if( (storedCategory != null) && !(storedCategory.isEmpty())){
             spincat.setText(storedCategory);
         }
-
-        spincity = (Spinner) findViewById(R.id.cityspinner);
-        spincity.setOnItemSelectedListener(this);
-        ArrayAdapter<String> dataAdapter1 = new ArrayAdapter<String>(this, R.layout.spinner_item, getResources().getStringArray(R.array.india_top_places));
-        spincity.setAdapter(dataAdapter1);
-        int index = PreferenceStorage.getFilterCityIndex(this);
-        if((index >=0) && index < (getResources().getStringArray(R.array.india_top_places).length)){
-            spincity.setSelection(index);
+        cityList = new ArrayList<>();
+        //cityList.add("Coimbatore");
+        new FetchCity().execute();
+        activity = this;
+        txtCityDropDown = (EditText) findViewById(R.id.btn_city_drop_down);
+        txtCityDropDown.setOnClickListener(this);
+//        spincity = (Spinner) findViewById(R.id.cityspinner);
+        citySpinnerAdapter = new CitySpinnerAdapter(this, R.layout.city_dropdown_item, cityList);
+//        spincity.setOnItemSelectedListener(this);
+        //ArrayAdapter<String> dataAdapter1 = new ArrayAdapter<String>(this, R.layout.spinner_item, getResources().getStringArray(R.array.india_top_places));
+//        spincity.setAdapter(citySpinnerAdapter);
+//        int index = PreferenceStorage.getFilterCityIndex(this);
+//        if((index >=0) && index < (getResources().getStringArray(R.array.india_top_places).length)){
+//            spincity.setSelection(index);
+//        }
+        String cityName = PreferenceStorage.getUserCity(this);
+        if ((cityName != null) && !cityName.isEmpty()) {
+            txtCityDropDown.setText(cityName);
         }
         spinEventType = (Spinner)findViewById(R.id.eventtypespinner);
         ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<String>(this, R.layout.spinner_item, getResources().getStringArray(R.array.events_type));
@@ -478,7 +504,8 @@ public class AdvanceSearchAct extends AppCompatActivity implements AdapterView.O
                 break;
             case R.id.btnapply:
                 String eventType = spinEventType.getSelectedItem().toString();
-                String city = spincity.getSelectedItem().toString();
+                String city = txtCityDropDown.getText().toString();
+//                String city = spincity.getSelectedItem().toString();
                 String catgry = spincat.getText().toString();
                 String fromdate = ((Button) findViewById(R.id.btnfrom)).getText().toString();
                 String todate = ((Button) findViewById(R.id.btnto)).getText().toString();
@@ -644,6 +671,24 @@ public class AdvanceSearchAct extends AppCompatActivity implements AdapterView.O
                 // Display the alert dialog on interface
                 dialog.show();*/
                 break;
+            case R.id.btn_city_drop_down:
+                Log.d(TAG, "Available cities count" + citySpinnerAdapter.getCount());
+                AlertDialog.Builder builderSingle = new AlertDialog.Builder(this);
+                View view = getLayoutInflater().inflate(R.layout.gender_header_layout, null);
+                TextView header = (TextView) view.findViewById(R.id.gender_header);
+                header.setText("Select City");
+                builderSingle.setCustomTitle(view);
+
+                builderSingle.setAdapter(citySpinnerAdapter, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        txtCityDropDown.setText(citySpinnerAdapter.getItem(which).toString());
+                        txtCityDropDown.clearComposingText();
+                        dialog.dismiss();
+                    }
+                }).create().show();
+                break;
 
         }
 
@@ -678,5 +723,84 @@ public class AdvanceSearchAct extends AppCompatActivity implements AdapterView.O
     @Override
     public void onSetCategoryError(String error) {
 
+    }
+
+    private class FetchCity extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
+            final String url = FindAFunConstants.GET_CITY_URL;
+            Log.d(TAG, "fetch city list URL");
+
+            new Thread() {
+                public void run() {
+                    String in = null;
+                    try {
+                        in = openHttpConnection(url);
+                        JSONArray jsonArray = new JSONArray(in);
+
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject jsonObject = jsonArray.getJSONObject(i);
+                            cityList.add(jsonObject.getString("city_name"));
+                        }
+                        Log.d(TAG, "Received city list" + jsonArray.length());
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }
+
+                }
+            }.start();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            citySpinnerAdapter = new CitySpinnerAdapter(activity, android.R.layout.simple_spinner_dropdown_item, cityList);
+        }
+
+        @Override
+        protected void onPreExecute() {
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+        }
+    }
+
+    private String openHttpConnection(String urlStr) {
+        InputStream in = null;
+        StringBuilder sb = new StringBuilder();
+        int resCode = -1;
+
+        try {
+            URL url = new URL(urlStr);
+            URLConnection urlConn = url.openConnection();
+
+            if (!(urlConn instanceof HttpURLConnection)) {
+                throw new IOException("URL is not an Http URL");
+            }
+            HttpURLConnection httpConn = (HttpURLConnection) urlConn;
+            httpConn.setAllowUserInteraction(false);
+            httpConn.setInstanceFollowRedirects(true);
+            httpConn.setRequestMethod("GET");
+            httpConn.connect();
+            resCode = httpConn.getResponseCode();
+
+            if (resCode == HttpURLConnection.HTTP_OK) {
+                in = httpConn.getInputStream();
+
+                BufferedReader br = new BufferedReader(new InputStreamReader(in));
+                String read;
+
+                while ((read = br.readLine()) != null) {
+                    //System.out.println(read);
+                    sb.append(read);
+                }
+            }
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return sb.toString();
     }
 }
