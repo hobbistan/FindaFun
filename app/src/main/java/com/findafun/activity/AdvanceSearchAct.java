@@ -456,7 +456,7 @@ public class AdvanceSearchAct extends AppCompatActivity implements AdapterView.O
 
                     final Calendar c = Calendar.getInstance();
                     final int currentYear = c.get(Calendar.YEAR);
-                    final int currentMonth = c.get(Calendar.MONTH) ;
+                    final int currentMonth = c.get(Calendar.MONTH);
                     final int currentDay = (c.get(Calendar.DAY_OF_MONTH) );
                     singleDate = formatDateServer(currentYear, currentMonth, currentDay);
 
