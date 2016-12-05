@@ -75,7 +75,6 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppFullScreenTheme">
-
         </activity>
         <activity
             android:name=".activity.SignUpActivity"
