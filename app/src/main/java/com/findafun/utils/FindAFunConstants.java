@@ -35,6 +35,7 @@ public class FindAFunConstants {
     public static final String GET_REWARDS =  BASE_URL + "fetchActivity.php?getUserPointsDetail=true&id=%d";
     public static final String GET_LEADER_BOARD = BASE_URL + "fetchActivity.php?getLeaderBoard=true";
     public static final String GET_LOCAL_LEADER_BOARD = BASE_URL + "fetchActivity.php?getLeaderBoardcity=true&id=%s";
+    public static final String GET_INTERN_BOARD = BASE_URL + "fetchActivity.php?getInternboard=true&id=%s";
     public static final String GET_PHOTOS_URL = BASE_URL + "fetchActivity.php?getSharedPhotoList=true&id=%d";
     public static final String GET_ENGAGEMENTS_URL = BASE_URL + "fetchActivity.php?getEngagementsList=true&id=%d";
     public static final String GET_BOOKINGS_URL = BASE_URL + "fetchActivity.php?getBookingList=true&id=%d";

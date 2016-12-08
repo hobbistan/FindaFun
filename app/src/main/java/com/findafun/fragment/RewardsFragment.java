@@ -21,6 +21,7 @@ import com.findafun.activity.BookingsActivity;
 import com.findafun.activity.CheckinsActivity;
 import com.findafun.activity.EngagementActivity;
 import com.findafun.activity.EventDetailActivity;
+import com.findafun.activity.InternBoradActivity;
 import com.findafun.activity.LeaderBoardActivity;
 import com.findafun.activity.PhotosActivity;
 import com.findafun.bean.gamification.GamificationDataHolder;
@@ -159,9 +160,9 @@ public class RewardsFragment extends LandingPagerFragment implements IGamificati
         mReferralLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(getActivity(), BookingsActivity.class);
-//                startActivity(intent);
-                Toast.makeText(getActivity(), "Detailed information not available for this card", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), InternBoradActivity.class);
+                startActivity(intent);
+               // Toast.makeText(getActivity(), "Detailed information not available for this card", Toast.LENGTH_SHORT).show();
 
 
             }
