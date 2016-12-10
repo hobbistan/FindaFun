@@ -33,6 +33,7 @@ import java.util.HashMap;
  * Created by BXDC46 on 1/30/2016.
  */
 public class BookingsActivity extends AppCompatActivity implements IGamificationServiceListener , DialogClickListener {
+
     private static final String TAG = BookingsActivity.class.getName();
     private TextView mPointsView = null;
     private TextView mTotalPointsView = null;
@@ -84,6 +85,7 @@ public class BookingsActivity extends AppCompatActivity implements IGamification
     }
 
     private void initializeViews(){
+
         mPointsView = (TextView) findViewById(R.id.bookings_star_value);
         mTotalPointsView = (TextView) findViewById(R.id.bookings_total_val);
         ImageView backbtn = (ImageView) findViewById(R.id.bookings_back_btn);
