@@ -78,6 +78,11 @@ public class Event implements Serializable {
     @SerializedName("contact_email")
     @Expose
     private String eventEmail;
+    @SerializedName("event_booking")
+    @Expose
+    private String eventBookingStatus;
+
+
 
     public String getEventEmail() {
         return eventEmail;
@@ -85,6 +90,14 @@ public class Event implements Serializable {
 
     public void setEventEmail(String eventEmail) {
         this.eventEmail = eventEmail;
+    }
+
+    public String getEventBookingStatus() {
+        return eventBookingStatus;
+    }
+
+    public void setEventBookingStatus(String eventBookingStatus) {
+        this.eventBookingStatus = eventBookingStatus;
     }
 
     public String getIsAd() {
@@ -312,8 +325,6 @@ public class Event implements Serializable {
     public void setEventLogo_2(String eventLogo_2) {
         this.eventLogo_2 = eventLogo_2;
     }
-
-
 
     /**
      * @return The eventBanner

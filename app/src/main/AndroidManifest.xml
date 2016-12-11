@@ -154,6 +154,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppFullScreenTheme" />
         <activity
+            android:name=".activity.InternBoradActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppFullScreenTheme" />
+        <activity
             android:name=".activity.CheckinsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppFullScreenTheme" />
