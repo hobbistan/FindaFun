@@ -31,6 +31,7 @@ import java.util.Date;
  * Created by zahid.r on 10/30/2015.
  */
 public class EventsListAdapter extends BaseAdapter {
+
     private static final String TAG = EventsListAdapter.class.getName();
     private final Transformation transformation;
     private Context context;

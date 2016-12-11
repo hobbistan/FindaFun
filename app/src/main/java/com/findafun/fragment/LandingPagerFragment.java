@@ -1,4 +1,5 @@
 package com.findafun.fragment;
+
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -33,13 +34,15 @@ import com.findafun.utils.CommonUtils;
 import com.findafun.utils.FindAFunConstants;
 import com.findafun.utils.PreferenceStorage;
 import com.google.gson.Gson;
+
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LandingPagerFragment extends Fragment implements  IEventServiceListener, AdapterView.OnItemClickListener,
+public class LandingPagerFragment extends Fragment implements IEventServiceListener, AdapterView.OnItemClickListener,
         LoadMoreListView.OnLoadMoreListener {
     private static final String TAG = LandingPagerFragment.class.getName();
 
@@ -79,7 +82,6 @@ public class LandingPagerFragment extends Fragment implements  IEventServiceList
 
         return view;
     }
-
 
 
     protected void initializeViews() {
@@ -171,7 +173,7 @@ public class LandingPagerFragment extends Fragment implements  IEventServiceList
         if (eventsListAdapter != null) {
             eventsListAdapter.startSearch(eventname);
             eventsListAdapter.notifyDataSetChanged();
-                        //loadMoreListView.invalidateViews();
+            //loadMoreListView.invalidateViews();
         }
 
     }
@@ -183,14 +185,14 @@ public class LandingPagerFragment extends Fragment implements  IEventServiceList
             eventsListAdapter.notifyDataSetChanged();
         }
 
-        if(staticEventListAdapter!=null){
+        if (staticEventListAdapter != null) {
             staticEventListAdapter.exitSearch();
             staticEventListAdapter.notifyDataSetChanged();
         }
 
     }
 
-   @Override
+    @Override
     public void onLoadMore() {
 
         int pageNumber = -1;
@@ -225,7 +227,7 @@ public class LandingPagerFragment extends Fragment implements  IEventServiceList
                     break;
                 case 1:
                     Log.d(TAG, "fetch ALL events");
-                    eventServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.GET_EVENTS_FEATURED, pageNumber,PreferenceStorage.getUserCity(getActivity())));
+                    eventServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.GET_EVENTS_FEATURED, pageNumber, PreferenceStorage.getUserCity(getActivity())));
                     //eventServiceHelper.makeGetEventServiceCall(String.format(FindAFunConstants.GET_EVENTS_FEATURED, pageNumber, PreferenceStorage.getUserCity(getActivity())));
                     break;
                 case 2:
@@ -241,32 +243,96 @@ public class LandingPagerFragment extends Fragment implements  IEventServiceList
             }
         } else {
             Log.d(TAG, "ignoring this page");
-          //  loadMoreListView.onLoadMoreComplete();
+            //  loadMoreListView.onLoadMoreComplete();
             progressDialogHelper.hideProgressDialog();
         }
     }
 
+    @Override
+    public void onEventResponse(final JSONObject response) {
 
+        Log.d("ajazFilterresponse : ", response.toString());
+
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                progressDialogHelper.hideProgressDialog();
+                loadMoreListView.onLoadMoreComplete();
+
+                Gson gson = new Gson();
+                EventList eventsList = gson.fromJson(response.toString(), EventList.class);
+                if (eventsList.getEvents() != null && eventsList.getEvents().size() > 0) {
+                    if (mNoEventsFound != null)
+                        mNoEventsFound.setVisibility(View.GONE);
+                    totalCount = eventsList.getCount();
+                    isLoadingForFirstTime = false;
+                    updateListAdapter(eventsList.getEvents());
+                } else {
+                    if (mNoEventsFound != null)
+                        mNoEventsFound.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onEventError(final String error) {
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                progressDialogHelper.hideProgressDialog();
+                loadMoreListView.onLoadMoreComplete();
+                AlertDialogHelper.showSimpleAlertDialog(getActivity(), error);
+            }
+        });
+    }
+
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        Log.d(TAG, "onEvent list item clicked" + i);
+        Event event = null;
+        if ((eventsListAdapter != null) && (eventsListAdapter.ismSearching())) {
+            Log.d(TAG, "while searching");
+            int actualindex = eventsListAdapter.getActualEventPos(i);
+            Log.d(TAG, "actual index" + actualindex);
+            event = eventsArrayList.get(actualindex);
+        } else {
+            event = eventsArrayList.get(i);
+        }
+
+        Intent intent = new Intent(getActivity(), EventDetailActivity.class);
+        intent.putExtra("eventObj", event);
+        // intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(intent);
+//        // getActivity().overridePendingTransition(R.anim.slide_left, R.anim.slide_right);
+    }
+
+    public void onWindowFocusChanged() {
+
+    }
+
+/////////////////////////////////////////////////////////////////////
 
     private void getTransparentFavour() {
 
-        final Dialog dialog = new Dialog(getActivity(),android.R.style.Theme_Translucent);
+        final Dialog dialog = new Dialog(getActivity(), android.R.style.Theme_Translucent);
 
 
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().setLayout(ViewPager.LayoutParams.MATCH_PARENT, ViewPager.LayoutParams.MATCH_PARENT);
         dialog.setContentView(R.layout.transparent_favourite);
         dialog.show();
-        final ImageView navPointIcon = (ImageView)dialog.findViewById(R.id.navi_pnt_icon);
-        final ImageView srchPointIcon = (ImageView)dialog.findViewById(R.id.adv_screen_pt);
-        final ImageView gamiPointIcon = (ImageView)dialog.findViewById(R.id.gami_pt);
-        final ImageView addEvntPointIcon = (ImageView)dialog.findViewById(R.id.add_event_pt);
-        final ImageView favorPointIcon = (ImageView)dialog.findViewById(R.id.favorite_pnt_icon);
-        final ImageView popularPointIcon = (ImageView)dialog.findViewById(R.id.popular_pnt_icon);
-        final ImageView hotspotPointIcon = (ImageView)dialog.findViewById(R.id.hotspot_pnt_icon);
-        final ImageView listViewPointIcon = (ImageView)dialog.findViewById(R.id.eventlst_pnt_icon);
-        final ImageView mapViewPointIcon  = (ImageView)dialog.findViewById(R.id.map_pnt_icon);
-        final ImageView nearByPointIcon = (ImageView)dialog.findViewById(R.id.nearby_pnt_icon);
+        final ImageView navPointIcon = (ImageView) dialog.findViewById(R.id.navi_pnt_icon);
+        final ImageView srchPointIcon = (ImageView) dialog.findViewById(R.id.adv_screen_pt);
+        final ImageView gamiPointIcon = (ImageView) dialog.findViewById(R.id.gami_pt);
+        final ImageView addEvntPointIcon = (ImageView) dialog.findViewById(R.id.add_event_pt);
+        final ImageView favorPointIcon = (ImageView) dialog.findViewById(R.id.favorite_pnt_icon);
+        final ImageView popularPointIcon = (ImageView) dialog.findViewById(R.id.popular_pnt_icon);
+        final ImageView hotspotPointIcon = (ImageView) dialog.findViewById(R.id.hotspot_pnt_icon);
+        final ImageView listViewPointIcon = (ImageView) dialog.findViewById(R.id.eventlst_pnt_icon);
+        final ImageView mapViewPointIcon = (ImageView) dialog.findViewById(R.id.map_pnt_icon);
+        final ImageView nearByPointIcon = (ImageView) dialog.findViewById(R.id.nearby_pnt_icon);
 
 
         final TextView txtNavigate = (TextView) dialog.findViewById(R.id.trans_navigation_drawer);
@@ -281,9 +347,6 @@ public class LandingPagerFragment extends Fragment implements  IEventServiceList
         final TextView txtlistView = (TextView) dialog.findViewById(R.id.trans_evntlist);
         final TextView txtMap = (TextView) dialog.findViewById(R.id.trans_map);
         final TextView txtNearby = (TextView) dialog.findViewById(R.id.trans_nearby_events);
-
-
-
 
 
         txtNavigate.setOnClickListener(new View.OnClickListener() {
@@ -313,9 +376,6 @@ public class LandingPagerFragment extends Fragment implements  IEventServiceList
 
             }
         });
-
-
-
 
         txtFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -373,7 +433,6 @@ public class LandingPagerFragment extends Fragment implements  IEventServiceList
 
             }
         });
-
 
 
         txtHotspot.setOnClickListener(new View.OnClickListener() {
@@ -464,7 +523,6 @@ public class LandingPagerFragment extends Fragment implements  IEventServiceList
         });
 
 
-
         txtNearby.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -505,7 +563,7 @@ public class LandingPagerFragment extends Fragment implements  IEventServiceList
                 mapViewPointIcon.setVisibility(View.GONE);
                 srchPointIcon.setVisibility(View.GONE);
                 gamiPointIcon.setVisibility(View.GONE);
-               // addEvntPointIcon.setVisibility(View.VISIBLE);
+                // addEvntPointIcon.setVisibility(View.VISIBLE);
 
                 txtNavigate.setVisibility(View.GONE);
                 txtFavorite.setVisibility(View.GONE);
@@ -516,7 +574,7 @@ public class LandingPagerFragment extends Fragment implements  IEventServiceList
                 txtNearby.setVisibility(View.GONE);
                 txtSearch.setVisibility(View.GONE);
                 txtGami.setVisibility(View.GONE);
-              //  txtAddEvnt.setVisibility(View.VISIBLE);
+                //  txtAddEvnt.setVisibility(View.VISIBLE);
                 dialog.dismiss();
             }
         });
@@ -552,7 +610,6 @@ public class LandingPagerFragment extends Fragment implements  IEventServiceList
         });*/
 
 
-
         txtGami.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -581,68 +638,5 @@ public class LandingPagerFragment extends Fragment implements  IEventServiceList
         });
     }
 
-    @Override
-    public void onEventResponse(final JSONObject response) {
 
-        Log.d("ajazFilterresponse : ", response.toString());
-
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                progressDialogHelper.hideProgressDialog();
-                loadMoreListView.onLoadMoreComplete();
-
-                Gson gson = new Gson();
-                EventList eventsList = gson.fromJson(response.toString(), EventList.class);
-                if (eventsList.getEvents() != null && eventsList.getEvents().size() > 0) {
-                    if (mNoEventsFound != null)
-                        mNoEventsFound.setVisibility(View.GONE);
-                    totalCount = eventsList.getCount();
-                    isLoadingForFirstTime = false;
-                    updateListAdapter(eventsList.getEvents());
-                } else {
-                    if (mNoEventsFound != null)
-                        mNoEventsFound.setVisibility(View.VISIBLE);
-                }
-            }
-        });
-    }
-
-    @Override
-    public void onEventError(final String error) {
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                progressDialogHelper.hideProgressDialog();
-                loadMoreListView.onLoadMoreComplete();
-                AlertDialogHelper.showSimpleAlertDialog(getActivity(), error);
-            }
-        });
-    }
-
-
-
-    @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        Log.d(TAG, "onEvent list item clicked" + i);
-        Event event = null;
-        if ((eventsListAdapter != null) && (eventsListAdapter.ismSearching())) {
-            Log.d(TAG, "while searching");
-            int actualindex = eventsListAdapter.getActualEventPos(i);
-            Log.d(TAG, "actual index" + actualindex);
-            event = eventsArrayList.get(actualindex);
-        } else {
-            event = eventsArrayList.get(i);
-        }
-
-        Intent intent = new Intent(getActivity(), EventDetailActivity.class);
-        intent.putExtra("eventObj", event);
-        // intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        startActivity(intent);
-//        // getActivity().overridePendingTransition(R.anim.slide_left, R.anim.slide_right);
-    }
-
-    public void onWindowFocusChanged() {
-
-    }
 }

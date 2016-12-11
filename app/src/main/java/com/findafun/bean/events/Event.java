@@ -17,11 +17,9 @@ public class Event implements Serializable {
     @SerializedName("event_name")
     @Expose
     private String eventName;
-
     @SerializedName("event_venue")
     @Expose
     private String eventVenue;
-
     @SerializedName("event_address")
     @Expose
     private String eventAddress;
@@ -104,16 +102,16 @@ public class Event implements Serializable {
         return isAd;
     }
 
+    public void setIsAd(String isAd) {
+        this.isAd = isAd;
+    }
+
     public String getEvent_cost() {
         return event_cost;
     }
 
     public void setEvent_cost(String event_cost) {
         this.event_cost = event_cost;
-    }
-
-    public void setIsAd(String isAd) {
-        this.isAd = isAd;
     }
 
     public String getEventLatitude() {

@@ -596,7 +596,19 @@ public class EventDetailActivity extends AppCompatActivity implements GoogleApiC
                 String bookingStatus = event.getEventBookingStatus();
 
                 if (bookingStatus.equalsIgnoreCase("1")) {
-                    Toast.makeText(getApplicationContext(), "Book this event", Toast.LENGTH_LONG).show();
+
+                   // Toast.makeText(getApplicationContext(), "Book this event", Toast.LENGTH_LONG).show();
+
+                    Intent intent = new Intent(getApplicationContext(), BookingPlansActivity.class);
+                    intent.putExtra("eventId", event.getId());
+                    intent.putExtra("eventName",event.getEventName());
+                    intent.putExtra("eventVenue",event.getEventVenue());
+                    String start = FindAFunHelper.getDate(event.getStartDate());
+                    String end = FindAFunHelper.getDate(event.getEndDate());
+                    intent.putExtra("eventStartEndDate",start +" - "+end);
+
+                    // intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    startActivity(intent);
                 } else {
                     // Toast.makeText(getApplicationContext(),"Booking is currently not available for this event"+event.getEventName().toString(),Toast.LENGTH_LONG).show();
                     Toast.makeText(getApplicationContext(), "Booking is currently not available for this event - " + event.getEventName().toString() + "\nPlease try later.", Toast.LENGTH_LONG).show();

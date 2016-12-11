@@ -62,9 +62,18 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarWhite"
             android:windowSoftInputMode="adjustPan">
-
-
         </activity>
+        <activity
+            android:name=".activity.BookingPlansActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppFullScreenTheme" />
+        <activity
+            android:name=".activity.BookingPlanSeatSelectionActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppFullScreenTheme" />
+
         <activity
             android:name=".activity.SelectPreferenceActivity"
             android:label="@string/app_name"

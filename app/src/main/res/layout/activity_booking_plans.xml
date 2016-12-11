@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black"
+        android:minHeight="?attr/actionBarSize"></android.support.v7.widget.Toolbar>
+
+    <ImageView
+        android:id="@+id/back_res"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:minHeight="?attr/actionBarSize"
+        android:src="@drawable/ic_arrow_back_white_48dp" />
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_toRightOf="@id/back_res"
+        android:minHeight="?attr/actionBarSize"
+        android:src="@drawable/ab_hobbistan_logo"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tvtitletext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:minHeight="?attr/actionBarSize"
+        android:padding="5dp"
+        android:text="Booking Plans"
+        android:textAllCaps="true"
+        android:textColor="@color/orange"
+        android:textSize="@dimen/actionbarTextSize" />
+    <!--
+        <ListView
+            android:id="@+id/listView_plans"
+            android:layout_below="@id/toolbar_result"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/button_bg_gray"
+            android:dividerHeight="4dp" />-->
+
+    <LinearLayout
+        android:id="@+id/event_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar_result"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/event_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp"
+            android:text="No Plans Found"
+            android:textColor="@color/title_red"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/event_venue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginBottom="10dp"
+            android:text="No Plans Found"
+            android:textColor="@color/black"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/event_when"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginBottom="5dp"
+            android:text="When"
+            android:textColor="@color/black"
+            android:textSize="16dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/bg_gray" />
+
+    </LinearLayout>
+
+    <com.costum.android.widget.LoadMoreListView
+        android:id="@+id/listView_plans"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/event_detail"
+        android:divider="@color/button_bg_gray"
+        android:dividerHeight="4dp"></com.costum.android.widget.LoadMoreListView>
+
+
+    <TextView
+        android:id="@+id/no_home_plans"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="No Plans Found"
+        android:textColor="@color/title_red"
+        android:textSize="22dp"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+</RelativeLayout>
