@@ -1,5 +1,6 @@
 package com.findafun.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.findafun.R;
 import com.findafun.bean.events.BookPlan;
+import com.findafun.ccavactivity.InitialScreenActivity;
 
 /**
  * Created by Nandha on 11-12-2016.
@@ -103,7 +105,12 @@ public class BookingPlanSeatSelectionActivity extends AppCompatActivity {
         btnPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getApplicationContext(), InitialScreenActivity.class);
+                intent.putExtra("planObj", bookPlan);
+                intent.putExtra("eventName", eventName);
+                intent.putExtra("eventVenue", eventVenue);
+                // intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivity(intent);
             }
         });
 

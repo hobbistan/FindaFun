@@ -75,6 +75,19 @@
             android:theme="@style/AppFullScreenTheme" />
 
         <activity
+            android:name=".ccavactivity.InitialScreenActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".ccavactivity.WebViewActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".ccavactivity.StatusActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
             android:name=".activity.SelectPreferenceActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
