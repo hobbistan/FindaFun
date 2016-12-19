@@ -28,6 +28,8 @@ public class BookingPlanSeatSelectionActivity extends AppCompatActivity {
     String count;
     int _count = 0;
     double rate = 0.0;
+    int pay = 0;
+    double _pay=0.00;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,8 +71,9 @@ public class BookingPlanSeatSelectionActivity extends AppCompatActivity {
                 txtCountTicket.setText(""+_count);
 
                 int i = (int) rate;
-                int pay = 0;
+//                int pay = 0;
                 pay = (i * _count);
+                _pay = (double)pay;
 
                 if (_count >= 1) {
                     imgMinus.setEnabled(true);
@@ -90,8 +93,9 @@ public class BookingPlanSeatSelectionActivity extends AppCompatActivity {
                 txtCountTicket.setText(""+_count);
 
                 int i = (int) rate;
-                int pay = 0;
+//                int pay = 0;
                 pay = (i * _count);
+                _pay = (double)pay;
 
                 if (_count <= 0) {
                     imgMinus.setEnabled(false);
@@ -109,6 +113,8 @@ public class BookingPlanSeatSelectionActivity extends AppCompatActivity {
                 intent.putExtra("planObj", bookPlan);
                 intent.putExtra("eventName", eventName);
                 intent.putExtra("eventVenue", eventVenue);
+                Bundle b = new Bundle();
+                b.putDouble("eventRate", _pay);
                 // intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
             }

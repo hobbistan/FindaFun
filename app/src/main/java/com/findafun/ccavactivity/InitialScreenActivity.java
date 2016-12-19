@@ -8,12 +8,16 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.findafun.R;
+import com.findafun.bean.events.BookPlan;
 import com.findafun.ccavutility.AvenuesParams;
 import com.findafun.ccavutility.ServiceUtility;
 
 public class InitialScreenActivity extends Activity {
 	
 	private EditText accessCode, merchantId, currency, amount, orderId, rsaKeyUrl, redirectUrl, cancelUrl;
+	private String eventName, eventVenue;
+	private Double eventRate;
+	private BookPlan bookPlan;
 	
 	private void init(){
 		accessCode = (EditText) findViewById(R.id.accessCode);
@@ -24,6 +28,14 @@ public class InitialScreenActivity extends Activity {
 		rsaKeyUrl = (EditText) findViewById(R.id.rsaUrl);
 		redirectUrl = (EditText) findViewById(R.id.redirectUrl);
 		cancelUrl = (EditText) findViewById(R.id.cancelUrl);
+		bookPlan = (BookPlan) getIntent().getSerializableExtra("planObj");
+		eventName = getIntent().getStringExtra("eventName");
+		eventVenue = getIntent().getStringExtra("eventVenue");
+		Bundle b = getIntent().getExtras();
+		eventRate = b.getDouble("eventRate");
+		//eventRate = getIntent().getDoubleExtra("eventRate");
+		//amount.setText(""+eventRate);
+		int i=0;
 	}
 
 	@Override

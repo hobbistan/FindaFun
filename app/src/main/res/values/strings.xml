@@ -227,7 +227,7 @@
     <!--CCAvenue-->
 
     <string name="access_code">Access Code</string>
-    <string name="pay_button">Pay</string>
+    <string name="pay_button">Proceed</string>
     <string name="merchant_id">Merchant Id</string>
     <string name="currency">Currency</string>
     <string name="amount">Amount</string>
